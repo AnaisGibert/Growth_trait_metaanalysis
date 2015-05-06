@@ -252,7 +252,7 @@ figure_A5 <- function(GI) {
     WD <- table_trait("WD")
     Hmax <- table_trait("Hmax")
     Seedmass <- table_trait("Seedmass")
-    Aarea <- table_trait("SLA")
+    Aarea <- table_trait("Aarea")
 
     p1 <- my_plot_overall(SLA, title='a) SLA') + theme(plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
     p2 <- my_plot_overall(WD, title='b) WD') + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
