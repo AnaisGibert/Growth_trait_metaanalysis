@@ -8,6 +8,7 @@ library(nlme)
 library(ape)
 library(boot)
 library(Hmisc)
+library(plyr)
 
 library(metafor)
 library(ade4, quietly=TRUE)
