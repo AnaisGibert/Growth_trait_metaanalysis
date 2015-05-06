@@ -1,0 +1,204 @@
+
+# function for calculating effect size and intercept of the model with and
+# without the explanatory variable : stage
+
+fun_model <- function(x, y) {
+  # models for x ('ideal' dataset) and y ('complete' datatset)
+  null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE, 
+    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+      check.nobs.vs.nRE = "ignore"))  # modele null cad sans la variable que je veux analyser
+  m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = TRUE, 
+    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+      check.nobs.vs.nRE = "ignore"))  # model avec la variable
+  m1 <- lmer(corr.z ~ stage - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE, 
+    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+      check.nobs.vs.nRE = "ignore"))  # model avec les intercepts qui sont a 1
+  
+  null.s <- lmer(corr.z ~ 1 + (1 | id), data = y, weights = nb.sp, REML = TRUE, 
+    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+      check.nobs.vs.nRE = "ignore"))  # idem mais pour le jeux y
+  m.s <- lmer(corr.z ~ stage + (1 | id), data = y, weights = nb.sp, REML = TRUE, 
+    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+      check.nobs.vs.nRE = "ignore"))
+  m1.s <- lmer(corr.z ~ stage - 1 + (1 | id), data = y, weights = nb.sp, REML = TRUE, 
+    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+      check.nobs.vs.nRE = "ignore"))
+  summ.m <- summary(m)
+  
+  # extraction intercept of fixed parameters
+  FP <- as.data.frame(fixef(m1))
+  FP["stage"] <- "NA"
+  FP["stage"] <- names(fixef(m1))
+  
+  FixSEdiag <- vcov(m1, useScale = FALSE)
+  FixSE <- as.data.frame(sqrt(diag(FixSEdiag)))
+  FixSE["stage"] <- "NA"
+  FixSE["stage"] <- names(fixef(m1))
+  
+  FP.s <- as.data.frame(fixef(m1.s))
+  FP.s["stage"] <- "NA"
+  FP.s["stage"] <- names(fixef(m1.s))
+  
+  FixSEdiag.s <- vcov(m1.s, useScale = FALSE)
+  FixSE.s <- as.data.frame(sqrt(diag(FixSEdiag.s)))
+  FixSE.s["stage"] <- "NA"
+  FixSE.s["stage"] <- names(fixef(m1.s))
+  
+  # new table with extracted data from models
+  l <- (length(FP$stage) + length(FP.s$stage))
+  l1 <- (length(FP$stage))
+  l2 <- (length(FP.s$stage))
+  a <- (l1 + 1)
+  
+  name <- list(1:l, c("stage", "stress", "Inte", "SE", "CIupper", "CIlower"))
+  CoefModel <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]), 
+    dimnames = name))
+  CoefModel[1:l1, 1] <- c((FP$stage))
+  CoefModel[a:l, 1] <- c((FP.s$stage))
+  CoefModel[1:l1, 2] <- "ideal"
+  CoefModel[a:l, 2] <- "complete"
+  
+  for (i in 1:l1) {
+    CoefModel[i, 3] <- FP[i, 1]
+    CoefModel[i, 4] <- FixSE[i, 1]
+    CoefModel[i, 5] <- CoefModel[i, 4] * 1.96 + CoefModel[i, 3]
+    CoefModel[i, 6] <- CoefModel[i, 4] * 1.96 - CoefModel[i, 3]
+  }
+  
+  for (j in a:l) {
+    CoefModel[j, 3] <- FP.s[j - l1, 1]
+    CoefModel[j, 4] <- FixSE.s[j - l1, 1]
+    CoefModel[j, 5] <- CoefModel[j, 4] * 1.96 + CoefModel[j, 3]
+    CoefModel[j, 6] <- CoefModel[j, 4] * 1.96 - CoefModel[j, 3]
+  }
+  
+  CoefModel$stage[CoefModel$stage == "stagejuvenile"] <- "juvenile"
+  CoefModel$stage[CoefModel$stage == "stagesapling"] <- "sapling"
+  CoefModel$stage[CoefModel$stage == "stageadult"] <- "adult"
+  
+  
+  fun1 <- function(z) length(na.omit(z$corr.z))
+  fun2 <- function(z) length(na.omit(z$corr.z[z$stage == "juvenile"]))
+  fun5 <- function(z) length(na.omit(z$corr.z[z$stage == "sapling"]))
+  fun3 <- function(z) length(na.omit(z$corr.z[z$stage == "adult"]))
+  
+  
+  N <- data.frame(value = c(fun2(x), fun5(x), fun3(x), fun2(y), fun5(y), fun3(y)))
+  
+  CoefModel["N"] <- "NA"
+  # CoefModel['N'] <- N[!(apply(N, 1, function(s) any(s == 0))),]
+  CoefModel$N[CoefModel$stage == "juvenile" & CoefModel$stress == "ideal"] <- fun2(x)
+  CoefModel$N[CoefModel$stage == "juvenile" & CoefModel$stress == "complete"] <- fun2(y)
+  
+  CoefModel$N[CoefModel$stage == "sapling" & CoefModel$stress == "ideal"] <- fun5(x)
+  CoefModel$N[CoefModel$stage == "sapling" & CoefModel$stress == "complete"] <- fun5(y)
+  
+  CoefModel$N[CoefModel$stage == "adult" & CoefModel$stress == "ideal"] <- fun3(x)
+  CoefModel$N[CoefModel$stage == "adult" & CoefModel$stress == "complete"] <- fun3(y)
+  
+  CoefModel
+}
+
+# Weighted correlation
+table_overall.stage <- function(y) {
+  name <- list(1:3, c("stage", "corr.r", "SD", "CI"))
+  MeanTab <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]), 
+    dimnames = name))
+  y <- y[!is.na(y[, "corr.r"]), ]
+  MeanTab$stage <- c("juvenile", "sapling", "adult")
+  MeanTab$corr.r <- sapply(split(y, na.omit(y$stage)), function(x) wtd.mean(x$corr.r, 
+    x$nb.sp))
+  MeanTab$SD <- sapply(split(y, na.omit(y$stage)), function(x) wtd.var(x$corr.r, 
+    x$nb.sp))
+  MeanTab$CI <- sapply(split(y, na.omit(y$stage)), function(x) {
+    1.96 * (sqrt(wtd.var(x$corr.r, x$nb.sp))/sqrt(length(x)))
+  })
+  as.data.frame(MeanTab)
+}
+
+table_overall <- function(y) {
+  name <- list(1:1, c("stage", "corr.r", "CI", "SD"))
+  MeanTab <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]), 
+    dimnames = name))
+  MeanTab[, 1] <- "total"
+  MeanTab$corr.r <- wtd.mean(y$corr.r, y$nb.sp)
+  MeanTab$SD <- sqrt(wtd.var(y$corr.r, y$nb.sp))
+  MeanTab$CI <- 1.96 * (sqrt(wtd.var(y$corr.r, y$nb.sp))/sqrt(length(y)))
+  as.data.frame(MeanTab)
+}
+
+
+# Summarise results of the model
+
+fun_OneLR <- function(x) {
+  null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE, 
+    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+      check.nobs.vs.nRE = "ignore"))
+  m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = FALSE, 
+    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+      check.nobs.vs.nRE = "ignore"))
+  sum <- summary(m)
+  ## log likelihood ratio test, anova makes sure to use the ML criterion, even
+  ## though the models were fit with REML
+  return(anova(null, m)$Chisq[2])
+}
+
+fun_Onepvalue <- function(x) {
+  null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE, 
+    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+      check.nobs.vs.nRE = "ignore"))
+  m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = FALSE, 
+    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+      check.nobs.vs.nRE = "ignore"))
+  sum <- summary(m)
+  ## log likelihood ratio test, anova makes sure to use the ML criterion, even
+  ## though the models were fit with REML
+  return(anova(null, m)$Pr[2])
+}
+
+fun_model_multiple <- function(x) {
+  # x data en opt
+  null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE)  # modele null cad sans la variable que je veux analyser
+  m1 <- lmer(corr.z ~ stageRGR - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE)  # model avec les intercepts qui sont a 1
+  gr1 <- lmer(corr.z ~ RGR - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE)
+  veg1 <- lmer(corr.z ~ veg.type - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE)
+  exp1 <- lmer(corr.z ~ experiment - 1 + (1 | id), data = x, weights = nb.sp, 
+    REML = TRUE)
+  
+  a <- list(m1, gr1, veg1, exp1)
+  
+  ## extraction des valeurs du modeles
+  fun_FE <- function(z) {
+    fixef(z)
+  }  #fixef permet de extraire les intercepts des effet fixes des modeles
+  fun_name <- function(z) {
+    names(fun_FE(z))
+  }  #fixef permet de extraire les SE des modeles
+  fun_FixFE <- function(z) {
+    sqrt(diag(vcov(z, useScale = FALSE)))
+  }
+  l <- (length(unlist(lapply(a, fun_FE))))
+  
+  ## creation du tableau de donnes
+  name <- list(1:l, c("model", "params", "mean", "SE", "upper", "lower"))
+  dat <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]), 
+    dimnames = name))
+  
+  dat["mean"] <- data.frame(cbind(unlist(lapply(a, fun_FE))))
+  dat["params"] <- data.frame(cbind(unlist(lapply(a, fun_name))))
+  dat["SE"] <- as.data.frame(cbind(unlist(lapply(a, fun_FixFE))))
+  dat["upper"] <- dat$mean + (dat$SE * 1.96)
+  dat["lower"] <- dat$mean - (dat$SE * 1.96)
+  
+  s <- length(fun_FE(m1))
+  g <- length(fun_FE(gr1))
+  v <- length(fun_FE(veg1))
+  e <- length(fun_FE(exp1))
+  
+  dat[1:s, 1] <- "M1"
+  dat[(s):(s + g), 1] <- "G1"
+  dat[(s + g):(s + g + v), 1] <- "V1"
+  dat[(s + g + v):l, 1] <- "E1"
+  
+  dat
+} 

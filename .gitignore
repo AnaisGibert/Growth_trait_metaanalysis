@@ -1,0 +1,13 @@
+.Rproj.user
+.Rhistory
+.RData
+Graph
+figure*
+output
+downloads
+*.pdf
+*.png
+*.html
+*.docx
+*_cache*
+*_files*
