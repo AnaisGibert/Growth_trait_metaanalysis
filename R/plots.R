@@ -60,7 +60,7 @@ coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite 
     ylab = "Stages") {
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      scale_x_discrete("stage", limit = c("adult", "sapling", "juvenile")) +
+      scale_x_discrete("stage", limit = c("juvenile", "sapling", "adult")) +
       coord_flip() + mytheme + theme(legend.position = "none")
     p
   }
