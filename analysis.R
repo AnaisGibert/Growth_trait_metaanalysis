@@ -18,6 +18,9 @@ library(MAc,quietly=TRUE)
 library(maptools)
 library(downloader)
 
+library(bibtex)
+library(RefManageR)
+
 for( f in list.files("R", full.names=TRUE)) {
   source(f)
 }
@@ -116,3 +119,12 @@ dev.off()
 pdf("output/FigA9.pdf")
   figure_A9(GC)
 dev.off()
+
+# Reference list
+
+paper <- read.bib("references/paper.bib")
+meta <- read.bib("references/metaanalyses.bib")
+
+combined <- c(meta[setdiff(names(meta), names(paper))], paper)
+write.bib(combined[[sort(names(combined))]], file = "output/refs.bib")
+
