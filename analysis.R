@@ -125,6 +125,6 @@ dev.off()
 paper <- read.bib("references/paper.bib")
 meta <- read.bib("references/metaanalyses.bib")
 
-combined <- c(paper[setdiff(names(paper), names(meta))], meta)
+combined <- c(meta[setdiff(names(meta), names(paper))], paper)
 write.bib(combined[[sort(names(combined))]], file = "output/refs.bib")
 
