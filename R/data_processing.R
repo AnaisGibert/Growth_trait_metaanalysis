@@ -130,7 +130,6 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
     sign, coef, coef.type))
 }
 
-
 standardise_data <- function(CompileTable) {
   RawData <- subset(CompileTable, CompileTable$trait %in% c("SLA", "WD", "Amass",
     "Aarea", "Nmass", "Narea", "Hmax", "LA", "Pmass", "Seedmass", "LMR", "LAR",
@@ -212,9 +211,9 @@ standardise_data <- function(CompileTable) {
   RawData
 }
 
-
 build_complete_data <- function(RawData) {
   #### Complete data set: focus on 5 traits:
+  
   CompleteData <- subset(RawData,
       RawData$trait %in% c("SLA", "WD", "Aarea", "Hmax", "Seedmass"))
   CompleteData$trait <- factor(CompleteData$trait,
@@ -230,8 +229,26 @@ build_complete_data <- function(RawData) {
   CompleteData
 }
 
+Build_intersp_complete_data <- function(RawData) {
+  #### Complete data set: focus on 5 traits:
+  
+  CompleteData <- subset(RawData,
+                         RawData$trait %in% c("SLA", "WD", "Aarea", "Hmax", "Seedmass") & RawData$bio.scale=="intersp")
+  CompleteData$trait <- factor(CompleteData$trait,
+                               levels = c("SLA", "WD", "Aarea","Hmax", "Seedmass"))
+  
+  # select the column of interest
+  CompleteData <- subset(CompleteData, select = c(id, idcor, authors, year, ref,
+                                                  doi, experiment, stress, veg.type, bio.scale, nb.sp, RGR, RGR.min, RGR.max,
+                                                  RGR.unit, stageRGR, similarity, stageTrait, stage, trait, trait.min, trait.max,
+                                                  measure.size, size.min, size.max, size.mean.range, coef, sample.size, corr.r,
+                                                  corr.z, vr.z, wi.z))
+  CompleteData$id <- as.factor(CompleteData$id)
+  CompleteData
+}
+
 # Ideal data set: only the correlation coefficient measured at interspecific
-# level, under unstressed conditionm and for measurement of growth and trait
+# level, under unstressed conditions and for measurement of growth and trait
 # perfomed at the same plant stage
 build_ideal_data <- function(CompleteData) {
 

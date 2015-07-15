@@ -133,10 +133,14 @@ table_overall <- function(y) {
 fun_OneLR <- function(x) {
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE, 
     control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
-      check.nobs.vs.nRE = "ignore"))
+      check.nobs.vs.nRE = "ignore", optimizer="bobyqa",check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+      check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+      check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
   m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = FALSE, 
     control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
-      check.nobs.vs.nRE = "ignore"))
+      check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+      check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+      check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
   sum <- summary(m)
   ## log likelihood ratio test, anova makes sure to use the ML criterion, even
   ## though the models were fit with REML
@@ -146,10 +150,14 @@ fun_OneLR <- function(x) {
 fun_Onepvalue <- function(x) {
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE, 
     control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
-      check.nobs.vs.nRE = "ignore"))
+      check.nobs.vs.nRE = "ignore", optimizer="bobyqa",check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+      check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+      check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
   m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = FALSE, 
     control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
-      check.nobs.vs.nRE = "ignore"))
+      check.nobs.vs.nRE = "ignore", optimizer="bobyqa",check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+      check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+      check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
   sum <- summary(m)
   ## log likelihood ratio test, anova makes sure to use the ML criterion, even
   ## though the models were fit with REML
@@ -158,12 +166,31 @@ fun_Onepvalue <- function(x) {
 
 fun_model_multiple <- function(x) {
   # x data en opt
-  null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE)  # modele null cad sans la variable que je veux analyser
-  m1 <- lmer(corr.z ~ stageRGR - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE)  # model avec les intercepts qui sont a 1
-  gr1 <- lmer(corr.z ~ RGR - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE)
-  veg1 <- lmer(corr.z ~ veg.type - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE)
-  exp1 <- lmer(corr.z ~ experiment - 1 + (1 | id), data = x, weights = nb.sp, 
-    REML = TRUE)
+  null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE, 
+               control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+                                     check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+                                     check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+                                     check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))  # modele null cad sans la variable que je veux analyser
+  m1 <- lmer(corr.z ~ stage - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE, 
+             control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+                                   check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+                                   check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+                                   check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))  # model avec les intercepts qui sont a 1
+  gr1 <- lmer(corr.z ~ RGR - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE, 
+              control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+                                    check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+                                    check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+                                    check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
+  veg1 <- lmer(corr.z ~ veg.type - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE, 
+               control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+                                     check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+                                     check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+                                     check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
+  exp1 <- lmer(corr.z ~ experiment - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE, 
+               control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+                                     check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+                                     check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+                                     check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
   
   a <- list(m1, gr1, veg1, exp1)
   

@@ -50,6 +50,7 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
     label = paste("p.value =", round(PVAL, round.value), significativite),
     size = 2)
 }
+
 coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite = "",
   round.value, limit.x.min, limit.x.max, limit.x.text, limit.x.n, limit.y.text.l1,
   limit.y.text.l2, vjust.value, color1) {
@@ -77,6 +78,7 @@ coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite 
     label = paste("p.value =", round(PVAL, round.value), significativite),
     size = 2)
 }
+
 plot_stage <- function(title, xlab, ggobj, ylab = "ID") {
   p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_errorbarh(aes(xmin = size.min,
     xmax = size.max, y = id), size = 0.7, width = 0.05, height = 0.2) + mytheme +
@@ -87,7 +89,6 @@ plot_stage <- function(title, xlab, ggobj, ylab = "ID") {
     legend.position = "none")
   p
 }
-
 
 my_plot_corr.r <- function(data1, title = "", xlab = "Case studies ranked by coefficient of correlation r") {
 
@@ -134,11 +135,9 @@ coeff.plot.multiple <- function(data, params, labels = NA, xlab = "Effect size (
   # creation d une liste avec le nombre de valeurs dans chaque categories
   # (seedling, sapling etc.)
   fun_List_N <- function(data) {c(
-      length(na.omit(data$coef[data$stageRGR == "seedling"])),
-      length(na.omit(data$coef[data$stageRGR == "juvenile"])),
-      length(na.omit(data$coef[data$stageRGR == "sapling"])),
-      length(na.omit(data$coef[data$stageRGR == "adult"])),
-      length(na.omit(data$coef[data$stageRGR == "mix"])),
+      length(na.omit(data$coef[data$stage == "juvenile"])),
+      length(na.omit(data$coef[data$stage == "sapling"])),
+      length(na.omit(data$coef[data$stage == "adult"])),
       length(na.omit(data$coef[data$veg.type == "boreal and temperate deciduous forest"])),
       length(na.omit(data$coef[data$veg.type == "boreal forest"])),
       length(na.omit(data$coef[data$veg.type == "mediteranean"])),
@@ -163,12 +162,28 @@ coeff.plot.multiple <- function(data, params, labels = NA, xlab = "Effect size (
       )}
 
   fun_AICm <- function(data) {
-    m <- lmer(corr.z ~ stageRGR + (1 | id), data = data, weights = nb.sp, REML = FALSE)  # model avec les intercepts qui sont a 1
-    gr <- lmer(corr.z ~ RGR + (1 | id), data = data, weights = nb.sp, REML = FALSE)
+    m <- lmer(corr.z ~ stage + (1 | id), data = data, weights = nb.sp, REML = FALSE, 
+              control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+                                    check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+                                    check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+                                    check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))  # model avec les intercepts qui sont a 1
+    gr <- lmer(corr.z ~ RGR + (1 | id), data = data, weights = nb.sp, REML = FALSE, 
+               control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+                                     check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+                                     check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+                                     check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
     veg <- lmer(corr.z ~ veg.type + (1 | id), data = data, weights = nb.sp,
-      REML = FALSE)
+      REML = FALSE, 
+      control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+                            check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+                            check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+                            check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
     exp <- lmer(corr.z ~ experiment + (1 | id), data = data, weights = nb.sp,
-      REML = FALSE)
+      REML = FALSE, 
+      control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+                            check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+                            check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+                            check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
     c(AIC(exp), AIC(gr), AIC(veg), AIC(m))
   }
 
@@ -190,7 +205,7 @@ coeff.plot.multiple <- function(data, params, labels = NA, xlab = "Effect size (
     labels <- dat$params  #si labels=NULL dans ma fonction coefplot alors les labels sont ceux du tableau de donnee
 
   plot(0, xaxt = "n", yaxt = "n", bty = "n", pch = "", ylab = "", xlab = "",
-    xlim = c(-3, 3), ylim = c(1, 26))
+    xlim = c(-3, 3), ylim = c(1, 24))
   # plot(0seq_len(nrow(dat)), xlab='', ylab='',xlim=c(-2,3))
   rect(-4, 0, 5, 4.5, col = "grey", border = "transparent", density = 70, xpd = FALSE)
   rect(-4, 12.5, 5, 21.5, col = "grey", border = "transparent", density = 70,
@@ -218,6 +233,7 @@ my_funnelplot <- function(title, ggobj, xlab = "", ylab = "") {
     geom_hline(xintercept = 0, color = "grey")
   p
 }
+
 my_plot_3 <- function(title, ggobj, xlab = expression(paste("")), ylab = "growth measurements") {
   p <- ggobj + geom_bar() + coord_cartesian(ylim = ylim) + coord_flip() + labs(title = title) +
     xlab(xlab) + ylab(ylab) + scale_x_discrete("growth measurements", limits = c("GR(Di)",

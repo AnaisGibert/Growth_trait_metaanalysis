@@ -168,13 +168,18 @@ The number of species used to perform the correlation, the experimental conditio
 
 \subsection*{Plant size categories}\label{plant-size-categories}
 
-We adopted two approaches to address plant size/stage effect in this review.
 
-First, plants were categorized into stages according to the authors categorization (i.e.seedling, juvenile, sapling, adult, mix). When the stage information was not explicitly given, data were recorded as 'mix'. While this approach is based on the expertise and the appreciation of the authors, by compiling data across multiple studies there is a risk of assigning plants of similar size to different categories. 
+Across the 112 article used in our meta-analyses, plants were categorized into four stages according to the expertise and the apprciation of the authors (i.e.seedling, juvenile, sapling, adult). 
+While by compiling data across multiple studies there is a risk of assigning plants of similar size to different categories, the thershold size is standardized for a plant stage across the 112 studies ().
 
-Second, we re-assigned plants to three stage categories (`juvenile', `sapling' and `adult') according to size and age cutoffs established by looking at the range values observed across all studies (Fig. \ref{FigA1}). We preferred the term `juvenile' to `seedling', because for a portion of the scientific community `seedling' also refers to a particular experimental condition (a greenhouse experiment). Overall, the different studies were largely consistent in their classification of plants into `juvenile', `sapling' and `adult' groups  (Fig. \ref{FigA1}). In particular, there was a clear break between juveniles and saplings in both age (at 1 yr) and height (at 0.5m); there was also a clear break between saplings and adults in diameter (at 10cm). The distinctions between sapling-adult in age and height, and between seedling-sapling in diameter were less pronounced. To ensure consistency across studies we used simple allometric relationships from the Biomass And Allometry Database (BAAD) \citep{Falster:2015} to match between age, diameter and height ranges for each stage category (Fig. \ref{FigA2}). Thus, we established the following rules: i) `juveniles' are plants of {[}0,0.5) m in height , or {[}0,0.2{]} cm in diameter, or $\leq$ 1 yrs old; ii) `saplings' are plants of {[}0.5-5{]} m , or (0.2,10{]} cm in diameter, or (1-30{]} yrs, and iii) `adult' are plants \textgreater{}5 m in height, or \textgreater{}10 cm in diameter, or \textgreater{} 30 yrs and/or in the reproductive stage. We attributed the study to a new stage category when 95\% of the recorded range of sizes for that study lay within the new category. We attributed a study to the adult stage when the authors identified the plants as reproductive regardless the plant size or age. 
+When the stage information was not explicitly given, data were recorded as 'mix'. 
 
-In the main text we report the results using the second approach, i.e. standardized categories. Results using the first approach are similar and are available in Fig. \ref{FigA7}.
+
+Second, we re-assigned plants to three stage categories ("juvenile", "sapling" and "adult") according to size and age cutoffs established by looking at the range values observed across all the 112 studies (Fig. \ref{FigA1}). We preferred the term "juvenile" to "seedling", because for a portion of the scientific community "seedling" also refers to a particular experimental condition (a greenhouse experiment). Overall, the different studies were largely consistent in their classification of plants into "juvenile", "sapling" and "adult" groups  (Fig. \ref{FigA1}). In particular, there was a clear break between juveniles and saplings in both age (at 1 yr) and height (at 0.5m); there was also a clear break between saplings and adults in diameter (at 10cm). The distinctions between sapling-adult in age and height, and between seedling-sapling in diameter were less pronounced. To ensure consistency across studies we used simple allometric relationships from the Biomass And Allometry Database (BAAD) \citep{Falster:2015} to match between age, diameter and height ranges for each stage category (Fig. \ref{FigA2}). 
+
+Thus, we established the following rules: i) `juveniles' are plants of {[}0,0.5) m in height , or {[}0,0.2{]} cm in diameter, or $\leq$ 1 yrs old; ii) `saplings' are plants of {[}0.5-5{]} m , or (0.2,10{]} cm in diameter, or (1-30{]} yrs, and iii) `adult' are plants \textgreater{}5 m in height, or \textgreater{}10 cm in diameter, or \textgreater{} 30 yrs and/or in the reproductive stage. We attributed the study to a new stage category when 95\% of the recorded range of sizes for that study lay within the new category. We attributed a study to the adult stage when the authors identified the plants as reproductive regardless the plant size or age. 
+
+In the main text we report the results using the second approach, i.e. standardized categories. Results using the first approach are similar and are available in Fig. \ref{FigA8}.
 
 \subsection*{Effect size calculation}\label{effect-size-calculation}
 
@@ -190,7 +195,7 @@ n being the number of species.
 
 \subsection*{Statistical analyses}\label{statistical-analyses}
 
-We tested size/stage effect on traits for which \textgreater{}20 correlation coefficients across at least two stages were recorded. We used a mixed-effect model of meta-analysis, in which it is assumed that studies within a stage share a common mean effect but that there is also random variation among studies in a stage, in addition to sampling variation. This random effect allows us to account for the heterogeneity among studies (e.g.~experimental type, vegetation type, error, etc.). For each trait, we established if stage could explain variance in the coefficient correlation by comparing models with the stage variable to the null model using log-likelihood ratios \citep{Zuur:2009cfa}. If the log-likelihood test returned a significant p-value, the stage model fitted the data better than the null model. Effects of other variables (vegetation type, experiment type and growth measurement) were also tested individually (results shown in the Fig. \ref{FigA7}). Estimates of the effect size for each stage were considered significant if the 95\% confidence intervals did not overlap with zero. In the case of multiple comparisons within a study, we used the method proposed by \citet{Borenstein:2009um}: we calculated the mean correlation coefficient by trait and by study, and re-calculated the effect size. Finally, we checked the dataset for publication bias with funnel plots (\citealt{Koricheva:2013tz}, Fig. \ref{FigA8}). A publication bias toward significant results creates an asymmetric funnel with small studies with non-significant effects missing from the mouth of the funnel on the side opposite to the true effect. In addition, to avoid publication bias due to selective reporting of significant results within published articles (e.g.~particular case of a `failure to publish bias' see \citealt{Jennions:2013ta}), we asked the authors for additional information when they reported a non-significant correlation between growth and trait without reporting an r value.
+We tested size/stage effect on traits for which \textgreater{}20 correlation coefficients across at least two stages were recorded. We used a mixed-effect model of meta-analysis, in which it is assumed that studies within a stage share a common mean effect but that there is also random variation among studies in a stage, in addition to sampling variation. This random effect allows us to account for the heterogeneity among studies (e.g.~experimental type, vegetation type, error, etc.). For each trait, we established if stage could explain variance in the coefficient correlation by comparing models with the stage variable to the null model using log-likelihood ratios \citep{Zuur:2009cfa}. If the log-likelihood test returned a significant p-value, the stage model fitted the data better than the null model. Effects of other variables (vegetation type, experiment type and growth measurement) were also tested individually (results shown in the Fig. \ref{FigA8}). Estimates of the effect size for each stage were considered significant if the 95\% confidence intervals did not overlap with zero. In the case of multiple comparisons within a study, we used the method proposed by \citet{Borenstein:2009um}: we calculated the mean correlation coefficient by trait and by study, and re-calculated the effect size. Finally, we checked the dataset for publication bias with funnel plots (\citealt{Koricheva:2013tz}, Fig. \ref{FigA9}). A publication bias toward significant results creates an asymmetric funnel with small studies with non-significant effects missing from the mouth of the funnel on the side opposite to the true effect. In addition, to avoid publication bias due to selective reporting of significant results within published articles (e.g.~particular case of a `failure to publish bias' see \citealt{Jennions:2013ta}), we asked the authors for additional information when they reported a non-significant correlation between growth and trait without reporting an r value.
 
 \subsection*{Availability of code and data}\label{code}
 
@@ -206,13 +211,13 @@ For WD, Hmax and Aarea, correlations with growth were also reasonably consistent
 
 \subsection*{Coverage of dataset}
 
-Given our basic conclusion that reported correlations responded to plant size in a manner consistent with expectations from theory, we assess now the coverage of the available data, to determine if biased sampling could have erroneously generated the above results. The results reported were confined to correlations across species and under non-stressed conditions. A "complete" dataset (n=328 vs n=198) also included correlations measured at within-species level, and under stressed conditions, and spanning different plant stages. This "complete" dataset generated similar effect sizes to those reported above from the "ideal" dataset, and led to similar conclusions (Fig. \ref{Fig2} grey points). Differences concerned often the confidence intervals around particular mean effect sizes in Fig. 2. These differences in CI were not easily attributed to any single cause. For instance, the correlation between growth and WD at juvenile stage shifted from negative to non significant (i.e CI95\% included zero) due to 2 positive correlation coefficients from \citet{Augspurger:1984ct};  these correlations unlike others used wood density values from adult plants together with growth from juveniles. For Aarea, the comparison between complete and ideal data showed no signal of an effect of stress (here mainly low light) on the correlation with growth at seedling stage; the correlation was still positive between Aarea and growth even when 7 correlations measured under low light conditions were added. Finally, our results were unlikely to be biased by dominance of one or a few studies that measured a large number of responses, since when multiple responses were condensed into a single average within a trait and within a study, outcomes were very similar (Fig. \ref{FigA6}) . 
+Given our basic conclusion that reported correlations responded to plant size in a manner consistent with expectations from theory, we assess now the coverage of the available data, to determine if biased sampling could have erroneously generated the above results. The results reported were confined to correlations across species and under non-stressed conditions. A "complete" dataset (n=328 vs n=198) also included correlations measured at within-species level, and under stressed conditions, and spanning different plant stages. This "complete" dataset generated similar effect sizes to those reported above from the "ideal" dataset, and led to similar conclusions (Fig. \ref{Fig2} grey points). Differences concerned often the confidence intervals around particular mean effect sizes in Fig. 2. These differences in CI were not easily attributed to any single cause. For instance, the correlation between growth and WD at juvenile stage shifted from negative to non significant (i.e CI95\% included zero) due to 2 positive correlation coefficients from \citet{Augspurger:1984ct};  these correlations unlike others used wood density values from adult plants together with growth from juveniles. For Aarea, the comparison between complete and ideal data showed no signal of an effect of stress (here mainly low light) on the correlation with growth at seedling stage; the correlation was still positive between Aarea and growth even when 7 correlations measured under low light conditions were added. Finally, our results were unlikely to be biased by dominance of one or a few studies that measured a large number of responses, since when multiple responses were condensed into a single average within a trait and within a study, outcomes were very similar (Fig. \ref{FigA7}) . 
 
 
 We were pleasantly surprised to find that correlations had been reported for at least two different stages across 18 traits out of the 20 targeted (Fig. \ref{Fig1}). We had thought it likely that for some traits correlations would be reported only for one size class, or only mixed across different sizes. However these limitations applied only for LAR and NARmass, where studies appeared confined to juvenile stages.  
 
 
-We found 112 studies published between between 1983 and 2014 that met our requirements. Climate zones spanned from temperate regions to  tropics (map in Fig. \ref{FigA3}). Different experiment types (laboratory, field, plantation or greenhouse) and growth measurements were included (see Fig. \ref{FigA7} for analyses of how these factors affected  correlations between growth and traits). Given this variety, it was not surprising to find wide ranges of r reported for all traits. For instance,  r varied from -0.98 to 0.99 for SLA, and from -0.74 to 0.74 for WD (Fig. \ref{FigA4}). Number of species used for each correlation ranged from 1 to 300 species with average  31. As expected the correlation coefficient varied less widely as sample size increased (funnel plots Fig. \ref{FigA8}). In the analyses described in Figs 2, A5 and A6 coefficients were weighted according to sample size, making the small-sample extremes less influential. Funnel plots exhibited a typical funnel shape for all five functional traits analyzed, showing no evidence for publication bias (Fig. \ref{FigA8}).
+We found 112 studies published between between 1983 and 2014 that met our requirements. Climate zones spanned from temperate regions to  tropics (map in Fig. \ref{FigA3}). Different experiment types (laboratory, field, plantation or greenhouse) and growth measurements were included (see Fig. \ref{FigA8} for analyses of how these factors affected  correlations between growth and traits). Given this variety, it was not surprising to find wide ranges of r reported for all traits. For instance,  r varied from -0.98 to 0.99 for SLA, and from -0.74 to 0.74 for WD (Fig. \ref{FigA4}). Number of species used for each correlation ranged from 1 to 300 species with average  31. As expected the correlation coefficient varied less widely as sample size increased (funnel plots Fig. \ref{FigA9}). In the analyses described in Figs 2, A5 and A6 coefficients were weighted according to sample size, making the small-sample extremes less influential. Funnel plots exhibited a typical funnel shape for all five functional traits analyzed, showing no evidence for publication bias (Fig. \ref{FigA9}).
 
 
 \section*{Discussion}\label{discussion}
@@ -225,7 +230,7 @@ Further, for five prominent traits, the patterns observed are consistent with sp
 
 It has previously been noted that the correlation of SLA with growth disappears among saplings and larger trees (\citealt{Wright:2010tp} for Barro Colorado Island forest, Panama), and this meta-analysis generalises that result. Several authors have suggested that the disappearance of SLA's influence on growth is associated with increasing total leaf area \citep{Reich:1992wm,Poorter:2008iu,Wright:2010tp}. In the model described here, the mechanism is slightly different: high-SLA species incur faster leaf and other tissues turnovers, the cost of which outweighs the benefits of cheap leaf construction at larger sizes.
 
-For seedlings our meta-analyses showed as expected a negative relationship between seed mass and relative growth rate (in mass or height or volume) that disappeared across plant stage. This negative relationship arises because seedlings from larger seeds are larger to begin with, as extensively discussed in the literature \citep[reviewed by][]{Turnbull:2012ew}. It applies only to RGR not to absolute growth rate, but for seedlings growth is most often reported as RGR (Appendix FigA9 d).
+For seedlings our meta-analyses showed as expected a negative relationship between seed mass and relative growth rate (in mass or height or volume) that disappeared across plant stage. This negative relationship arises because seedlings from larger seeds are larger to begin with, as extensively discussed in the literature \citep[reviewed by][]{Turnbull:2012ew}. It applies only to RGR not to absolute growth rate, but for seedlings growth is most often reported as RGR (Appendix FigA10 d).
 
 For WD the meta-analysis showed negative correlation with growth across all plant stages, as previously reported from individual studies \citep{Wright:2010tp,Ruger:2012jv}. It should be noted however that there are few tests of this proposition at seedling stage. In our model (Text Box 1 \ref{sec:growth}) cheaper stem construction is responsible for the predicted negative correlation. Lower xylem conductance and associated lower photosynthetic potential have also been suggested \citep[reviewed by][]{Chave:2009iy}. 
 
@@ -263,7 +268,7 @@ We thank Andrea Stephens for helpful comments on the meta-analyses, and Sean Gle
 \begin{figure}[htbp]
 \centering
 \includegraphics{output/Fig1.pdf}
-\caption{\textbf{Number of correlations between trait and growth for each plant stage recorded in our dataset.} Shown here are 'complete dataset' (recorded at both interspecific and intraspecific level, under unstressed and stressed conditions). Bar colors: red for adult, orange for sapling, grey for juvenile. Aarea (or Amass) = rate of $CO_{2}$ assimilation per unit leaf area (or leaf mass) = maximum photosynthetic rate, Hmax= asymptotic maximum height,  Ks =stem hydraulic conductance, LA = leaf area, LMR = leaf mass ratio, NARarea (or NARmass) = net mass assimilation rate per unit of leaf area (or leaf mass), Nmass (or Narea) = nitrogen content per unit of leaf mass (or leaf area), Pmass = phosphorus content per unit of leaf mass, SA/LA = sapwood area per leaf area, SLA = specific leaf area, thickness = leaf thickness, Vessel size = stem conduit size, vessel density = stem conduit density, WD = wood density}
+\caption{\textbf{Number of correlations between trait and growth for each plant stage recorded in our dataset.} Shown here are \textcolor{red}{'raw} dataset' (recorded at both interspecific and intraspecific level, under unstressed and stressed conditions). Bar colors: red for adult, orange for sapling, grey for juvenile. Aarea (or Amass) = rate of $CO_{2}$ assimilation per unit leaf area (or leaf mass) = maximum photosynthetic rate, Hmax= asymptotic maximum height,  Ks =stem hydraulic conductance, LA = leaf area, LMR = leaf mass ratio, NARarea (or NARmass) = net mass assimilation rate per unit of leaf area (or leaf mass), Nmass (or Narea) = nitrogen content per unit of leaf mass (or leaf area), Pmass = phosphorus content per unit of leaf mass, SA/LA = sapwood area per leaf area, SLA = specific leaf area, thickness = leaf thickness, Vessel size = stem conduit size, vessel density = stem conduit density, WD = wood density}
 \label{Fig1}
 \end{figure}
 
@@ -271,7 +276,7 @@ We thank Andrea Stephens for helpful comments on the meta-analyses, and Sean Gle
 \begin{figure}[htbp]
 \centering
 \includegraphics{output/Fig2.pdf}
-\caption{\textbf{The relationship between growth rates and SLA or seed mass changes with plant stage.} Plots show the effect size (+ 95\%CI) of the correlation between growth rate and five functional traits for plant stage comparisons. \textbf{a)} Specific leaf area (SLA), \textbf{b)} Wood density (WD), \textbf{c)} Asymptotic height (Hmax) \textbf{d)} Seed mass and \textbf{e)} Assimilation rate of CO2 (Aarea). Effect size is a standardized measure of the deviation of correlation coefficient from zero (Fisher's z-transformed). Effects are significant if confidence intervals (95\%CI) for a given stage do not overlap with zero. Black point: ideal data (at interspecific level \& under unstressed conditions), grey points: all the data. 'n' indicates number of correlations contributing to each effect. Likelihood Ratio Tests (LRT, for ideal data only) compared maximum-likelihood fits between a pooled model and one separated by stage. A significant p-value means the stage model fitted the data better than the null model.
+\caption{\textbf{The relationship between growth rates and SLA or seed mass changes with plant stage.} Plots show the effect size (+ 95\%CI) of the correlation \textcolor{red}{across species} between growth rate and five functional traits for plant stage comparisons. \textbf{a)} Specific leaf area (SLA), \textbf{b)} Wood density (WD), \textbf{c)} Asymptotic height (Hmax) \textbf{d)} Seed mass and \textbf{e)} Assimilation rate of CO2 (Aarea). Effect size is a standardized measure of the deviation of correlation coefficient from zero (Fisher's z-transformed). Effects are significant if confidence intervals (95\%CI) for a given stage do not overlap with zero. Black point: ideal data (under unstressed conditions), grey points: all the data. 'n' indicates number of correlations contributing to each effect. Likelihood Ratio Tests (LRT, for ideal data only) compared maximum-likelihood fits between a pooled model and one separated by stage. A significant p-value means the stage model fitted the data better than the null model.
 }
 \label{Fig2}
 \end{figure}
@@ -440,7 +445,7 @@ Aarea & Photosynthetic rate per area & "photosynthetic rate per area" OR "rate o
 \begin{figure}[htbp]
 \centering
 \includegraphics{output/FigA1.pdf}
-\caption{\textbf{Range of plant size in \textbf{a)} age, \textbf{b)} height and \textbf{c)} diameter and their assigned plant stage} Each segment represents the plant size range addressed in our dataset. ID is the reference number of the article in our dataset. The colors represents the stage information given by the authors (green: seedling, blue:juvenile, orange: sapling, red: adult, grey: mix), and the vertical line the limit we choose to established our stage categories. Shown here are complete dataset (recorded at both interspecific and intraspecific level and under unstressed and stressed conditions). }
+\caption{\textbf{Range of plant size in \textbf{a)} age, \textbf{b)} height and \textbf{c)} diameter and their assigned plant stage} Each segment represents the plant size range addressed in our dataset. ID is the reference number of the article in our dataset. The colors represents the stage information given by the authors (green: seedling, blue:juvenile, orange: sapling, red: adult, grey: mix), and the vertical line the limit we choose to established our stage categories. Shown here are the \textcolor{red}{"raw} dataset" (recorded at both interspecific and intraspecific level and under unstressed and stressed conditions). }
 \label{FigA1}
 \end{figure}
 
@@ -456,7 +461,7 @@ Aarea & Photosynthetic rate per area & "photosynthetic rate per area" OR "rate o
 \begin{figure}[htbp]
 \centering
 \includegraphics{output/FigA3.pdf}
-\caption{\textbf{Geographical distribution of site locations from studies performed in the field used in the meta-analysis.} Shown here are complete dataset (recorded at both interspecific and intraspecific level and under unstressed and stressed conditions).}
+\caption{\textbf{Geographical distribution of site locations from studies performed in the field used in the meta-analysis.} Shown here are the \textcolor{red}{"raw} dataset" (recorded at both interspecific and intraspecific level and under unstressed and stressed conditions).}
 \label{FigA3}
 \end{figure}
 
@@ -465,16 +470,18 @@ Aarea & Photosynthetic rate per area & "photosynthetic rate per area" OR "rate o
 \centering
 \includegraphics{output/FigA4.pdf}
 \caption{\textbf{Range of the correlation of correlations (r) between
-growth and trait across the world} Coefficients of correlation (r)
+growth and trait \textcolor{red}{from 112 articles}.} Coefficients of correlation (r)
 between the plant growth and \textbf{a)} Specific leaf area (SLA, n=
 111), \textbf{b)} Wood density (WD, n=64), \textbf{c)} Asymptotic
 maximum height (Hmax, n=23), \textbf{d)} Seed mass (Seedmass, n=36 and
 \textbf{e)} Rate of CO2 assimilation (Aarea, n=24) reported from 112
-articles. Shown here are complete dataset (recorded at both interspecific and intraspecific level and under unstressed and stressed conditions). Each bubble represents a r value, the diameter of the bubble
+articles. \textcolor{red} {The x abcissa represents the articles sorted by the average coefficient value r reported}.
+Shown here are the \textcolor{red}{"raw} dataset" (recorded at both interspecific
+and intraspecific level and under unstressed and stressed conditions). Each bubble represents a r value, the diameter of the bubble
 is proportional to its weights in the meta-analysis. The colors
 correspond to the stage for which the r values have been recorded: red
 points corresponds adult stage, orange points to saplings, and grey
-points to juveniles.}
+points to juveniles. the \textcolor{red}{The x abciss represents the study ID} }
 \label{FigA4}
 \end{figure}
 
@@ -490,59 +497,70 @@ and for each stage. Each panel corresponds to a functional trait:
 \textbf{a)} Specific leaf area (SLA), \textbf{b)} Wood density (WD),
 \textbf{c)} Net assimilation rate (NARarea), \textbf{d)} Seed mass,
 \textbf{e)} Asymptotic height (Hmax) and \textbf{f)} Assimilation rate
-of CO2 (Aarea). Shown here are ideal dataset (recorded at interspecific level and under unstressed  conditions)}
+of CO2 (Aarea). Shown here are ideal dataset (recorded at interspecific level and under unstressed conditions)}
 \label{FigA5}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics{output/FigA6.pdf}
-\caption{\textbf{Effect size (+ 95\%CI)of plant stage on the
-correlations between growth rate and five functional traits, with a data set averaging multiple comparisons by trait and by study.} Effects size are calculated from a reduced dataset; in the case of multiple comparisons within a study, we calculated the mean correlation coefficient by trait and by study. a) Specific leaf area (SLA), b) Wood density (WD), c) Net assimilation rate (NARarea), d) Seed mass, e) Asymptotic height (Hmax) and f) Assimilation rate of CO2 (Aarea). Effect size is a standardized measure of the magnitude of the relationship between a particular stage and the correlation coefficient z (Fisher's z-transformed). Effects are significant if confidence intervals (+CI95\%) do not overlap with zero. LRT: likelihood Ratio Test compared the fit between null model and stage model, both models are fitted by Maximum Likelihood. Black point: ideal data (at interspecific level \& under unstressed conditions), grey points: all the data. `n' indicate the number of independent comparisons for each effect.}
+\caption{\textbf{Effect size (+ 95\%CI) of plant stage on the
+correlations between growth rate and five functional traits \textcolor{red}{across and between species}} Effects size are calculated for a) Specific leaf area (SLA), b) Wood density (WD), c) Net assimilation rate (NARarea), d) Seed mass, e) Asymptotic height (Hmax) and f) Assimilation rate of CO2 (Aarea). Effect size is a standardized measure of the magnitude of the relationship between a particular stage and the correlation coefficient z (Fisher's z-transformed). Effects are significant if confidence intervals (+CI95\%) do not overlap with zero. LRT: likelihood Ratio Test compared the fit between null model and stage model, both models are fitted by Maximum Likelihood. Black point: ideal data (at interspecific level and under unstressed conditions), grey points: raw data (at both intra and interspecific level and under both stress and unstressed conditions). 'n' indicate the number of independent comparisons for each effect.
+}
 \label{FigA6}
 \end{figure}
 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics{output/FigA7a.pdf}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics{output/FigA7b.pdf}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics{output/FigA7c.pdf}
-\end{figure}
-
-\begin{figure}[htbp]
-\includegraphics{output/FigA7d.pdf}
-\centering
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics{output/FigA7e.pdf}
-\caption{\textbf{Effects size on the correlation between growth and traits of plant stage (mod1, as recorded by the authors), vegetation type (mod2), growth measurement (mod3) and experiment type (mod4).} The effect size (z + 95\%CI) is reported for each class, and models are fitted by restricted max likelihood (REML). n= number of correlation r reported. Abbreviation: across veg= more than 2 vegetation types, boreal\&temp= boreal and temperate deciduous forest, med= Mediterranean,  temp\&med = temperate deciduous and Mediterranean forests, temp= temperate deciduous, temp rain= temperate rain, trop rain= tropical rain, trop seas= tropical seasonal forests, GR= growth rate and RGR= relative growth rate, measured in diameter (D), height (H), mass(M), cross section area (CSA). AIC: Akaike information criterion corresponds to the quality of each model, and allow a comparison between models. Smallest is the AIC better is the model. Shown here are complete dataset (recorded at both interspecific and intraspecific level and under unstressed and stressed conditions).}
+\includegraphics{output/FigA7.pdf}
+\caption{\textbf{Effect size (+ 95\%CI) of plant stage on the
+correlations between growth rate and five functional traits \textcolor{red}{across species}, with a data set averaging multiple comparisons by trait and by study.} Effects size are calculated from a reduced dataset; in the case of multiple comparisons within a study, we calculated the mean correlation coefficient by trait and by study. a) Specific leaf area (SLA), b) Wood density (WD), c) Net assimilation rate (NARarea), d) Seed mass, e) Asymptotic height (Hmax) and f) Assimilation rate of CO2 (Aarea). Effect size is a standardized measure of the magnitude of the relationship between a particular stage and the correlation coefficient z (Fisher's z-transformed). Effects are significant if confidence intervals (+CI95\%) do not overlap with zero. LRT: likelihood Ratio Test compared the fit between null model and stage model, both models are fitted by Maximum Likelihood. Black point: ideal data (under unstressed conditions), grey points: all the data. 'n' indicate the number of independent comparisons for each effect.}
 \label{FigA7}
 \end{figure}
 
+
+
 \begin{figure}[htbp]
 \centering
-\includegraphics{output/FigA8.pdf}
-\caption{\textbf{Funnel plots showing transformed correlation coefficient z between growth and the traits a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea)}. Shown here are complete dataset (recorded at both interspecific and intraspecific level and under unstressed and stressed conditions). Point colors: red for adult, orange for sapling, grey for juvenile. Note that in these plots the x axis is the number of species included in the correlation, not the replication for the correlation. The number of species is sometimes as low as 1, and these are within-species correlations. The number of replicates used for the correlation coefficient was often much greater than the number of species. Nevertheless, the characteristic shape of funnel plots is observed, with correlations involving few species showing much wider variation even though within-species replication was sometimes high.}
+\includegraphics{output/FigA8a.pdf}
+\end{figure}
 
+\begin{figure}[htbp]
+\centering
+\includegraphics{output/FigA8b.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{output/FigA8c.pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+\includegraphics{output/FigA8d.pdf}
+\centering
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{output/FigA8e.pdf}
+\caption{\textbf{Effects size on the correlation between growth and traits of plant stage (mod1), vegetation type (mod2), growth measurement (mod3) and experiment type (mod4).} The effect size (z + 95\%CI) is reported for each class, and models are fitted by restricted max likelihood (REML). n= number of correlation r reported. Abbreviation: across veg= more than 2 vegetation types, boreal\&temp= boreal and temperate deciduous forest, med= Mediterranean,  temp\&med = temperate deciduous and Mediterranean forests, temp= temperate deciduous, temp rain= temperate rain, trop rain= tropical rain, trop seas= tropical seasonal forests, GR= growth rate and RGR= relative growth rate, measured in diameter (D), height (H), mass(M), cross section area (CSA). AIC: Akaike information criterion corresponds to the quality of each model, and allow a comparison between models. Smallest is the AIC better is the model. Shown here are "ideal dataset" (recorded at interspecific and under unstressed condition) and "raw dataset" (recorded at both interspecific and intraspecific level and under unstressed and stressed conditions).}
 \label{FigA8}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics{output/FigA9.pdf}
-\caption{\textbf{Growth measurement used by traits and by size.} Shown here are complete dataset (recorded at both interspecific and intraspecific level and under unstressed and stressed conditions). The colors correspond to the stage for which the r values have been recorded: red bars corresponds adult stage, orange bars to saplings, and grey bars to juveniles.}
+\caption{\textbf{Funnel plots showing transformed correlation coefficient z between growth and the traits a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea)}. Shown here are complete dataset (recorded at both interspecific and intraspecific level and under unstressed and stressed conditions). Point colors: red for adult, orange for sapling, grey for juvenile. Note that in these plots the x axis is the number of species included in the correlation, not the replication for the correlation. The number of species is sometimes as low as 1, and these are within-species correlations. The number of replicates used for the correlation coefficient was often much greater than the number of species. Nevertheless, the characteristic shape of funnel plots is observed, with correlations involving few species showing much wider variation even though within-species replication was sometimes high.}
+
 \label{FigA9}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{output/FigA10.pdf}
+\caption{\textbf{Growth measurement used by traits and by size.} Shown here are complete dataset (recorded at both interspecific and intraspecific level and under unstressed and stressed conditions). The colors correspond to the stage for which the r values have been recorded: red bars corresponds adult stage, orange bars to saplings, and grey bars to juveniles.}
+\label{FigA10}
 \end{figure}
 
 \end{appendices}

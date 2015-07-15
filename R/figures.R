@@ -6,7 +6,6 @@ to.pdf <- function(expr, filename, ..., verbose=TRUE) {
   eval.parent(substitute(expr))
 }
 
-
 figure_1 <- function(RawData) {
   p2 <- my_plot_1("",
           ggplot(RawData, aes(x=reorder(factor(trait), factor(trait), function(x) length(x)*1), fill=stage, order=stage)))
@@ -87,8 +86,7 @@ figure_map <- function(CoordTable) {
   coordinate.map
 }
 
-
-  figure_2 <- function(GC, GI) {
+figure_2 <- function(GC, GI) {
   CoefModel.SLA<-fun_model(GI[["SLA"]],GC[["SLA"]])
     CoefModel.SLA["trait"] <- "SLA"
     CoefModel.SLA.s <- subset(CoefModel.SLA,stress=='complete')
@@ -173,7 +171,7 @@ figure_map <- function(CoordTable) {
                    limit.x.n=2.5, vjust.value=1,
                    color1="grey",color2="black") +
     scale_fill_discrete(name="",breaks=c("ideal", "complete"),
-                        labels=c("ideal dataset", "complete dataset"))+
+                        labels=c("ideal", "complete"))+
                   theme (legend.title=element_blank(),
                          legend.justification=c(0,0),
                          legend.position=c(1.2,0.5),
@@ -221,7 +219,6 @@ figure_A1 <- function(CompleteData) {
   print(p_diam ,vp=vpc_)
 }
 
-
 figure_A4 <- function(GC) {
   GC[["SLA"]]  <- GC[["SLA"]] [!is.na(GC[["SLA"]] [,"corr.r"]),]
   GC[["WD"]] <- GC[["WD"]] [!is.na(GC[["WD"]] [,"corr.r"]),]
@@ -263,7 +260,7 @@ figure_A5 <- function(GI) {
     grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
 }
 
-figure_A6 <- function(RI, RC) {
+figure_A7 <- function(RI, RC) {
   CoefModel.SLA<-fun_model(RI[["SLA"]],RC[["SLA"]])
   CoefModel.SLA.s <- subset(CoefModel.SLA,stress=='complete')
   CoefModel.SLA.opt <- subset(CoefModel.SLA,stress=='ideal')
@@ -366,16 +363,16 @@ figure_A6 <- function(RI, RC) {
  grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
 }
 
-figure_A7 <- function(GI, GC, trait, titles) {
+figure_A8 <- function(GI, GC, trait, titles) {
   par(mfcol=c(1,2))
   par(mar=c(2,5,2,0))
 
-  coeff.plot.multiple(GI[[trait]], params=rev(c("stageRGRseedling","stageRGRjuvenile","stageRGRsapling","stageRGRadult","stageRGRmix",
+  coeff.plot.multiple(GI[[trait]], params=rev(c("stagejuvenile","stagesapling","stageadult",
                                  "veg.typeboreal and temperate deciduous forest","veg.typeboreal forest","veg.typemediteranean","veg.typemix" ,
                                  "veg.typetemperate deciduous and mediteranean forest","veg.typetemperate deciduous forest" , "veg.typetemperate rain forest" ,
                                  "veg.typetropical rain forest"  , "veg.typetropical seasonal forest"   ,"RGRGR(Di)", "RGRGR(Hi)", "RGRGR(Mi)"   , "RGRRGR(CSAi)"  ,
                                  "RGRRGR(Di)" ,"RGRRGR(Hi)" ,  "RGRRGR(Mi)", "RGRRGR(Vi)" ,"experimentcontrol" , "experimentdatabase", "experimentfield" ,"experimentnature")),
-                    labels=rev(c('seedling','juvenile','sapling','adult','all stage','boreal&temp','boreal','med','across veg','temp&med','temp','temp rain','trop rain','trop seas',
+                    labels=rev(c('juvenile','sapling','adult','boreal&temp','boreal','med','across veg','temp&med','temp','temp rain','trop rain','trop seas',
                                  'GR(D)','GR(H)','GR(M)','RGR(CSA)','RGR(D)','RGR(H)','RGR(M)','RGR(V)','control','database','field exp','forest')),
                     title=paste0(titles[1], ") ", trait, "- ideal dataset"))
 
@@ -385,17 +382,17 @@ figure_A7 <- function(GI, GC, trait, titles) {
   mtext("mod1", side=2, line=4.2, cex=0.8, at=24)
 
   par(mar=c(2,1.5,2,3.5))
-  coeff.plot.multiple(GC[[trait]], params=rev(c("stageRGRseedling","stageRGRjuvenile","stageRGRsapling","stageRGRadult","stageRGRmix",
+  coeff.plot.multiple(GC[[trait]], params=rev(c("stagejuvenile","stagesapling","stageadult",
                                 "veg.typeboreal and temperate deciduous forest","veg.typeboreal forest","veg.typemediteranean","veg.typemix" ,
                                 "veg.typetemperate deciduous and mediteranean forest","veg.typetemperate deciduous forest" , "veg.typetemperate rain forest" ,
                                 "veg.typetropical rain forest"  , "veg.typetropical seasonal forest"   ,"RGRGR(Di)", "RGRGR(Hi)", "RGRGR(Mi)"   , "RGRRGR(CSAi)"  ,
                                 "RGRRGR(Di)" ,"RGRRGR(Hi)" ,  "RGRRGR(Mi)", "RGRRGR(Vi)" ,"experimentcontrol" , "experimentdatabase", "experimentfield" ,
                                 "experimentnature")),
-                    title=paste0(titles[2], ") ", trait, "- complete dataset"))
+                    title=paste0(titles[2], ") ", trait, "- raw dataset"))
 }
 
 
-figure_A8 <- function(GC) {
+figure_A9 <- function(GC) {
 
   funnel_SLA_nbsp <- my_funnelplot("a) SLA",
     ggplot(GC[["SLA"]],aes(x=nb.sp,y=corr.r, colour=factor(stage), size=2, alpha=0.6))) +
@@ -433,7 +430,7 @@ figure_A8 <- function(GC) {
 }
 
 
-figure_A9 <- function(GC) {
+figure_A10 <- function(GC) {
   p1 <- my_plot_3("a) SLA",
           ggplot(GC[["SLA"]],aes(x=reorder(factor(RGR),factor(stage),function(x) length(x)*1),fill=stage,order=stage)))
 

@@ -29,7 +29,8 @@ for( f in list.files("R", full.names=TRUE)) {
 CompileTable <- clean_raw_data()
 RawData <- standardise_data(CompileTable)
 CompleteData <- build_complete_data(RawData)
-IdealData  <- build_ideal_data(CompleteData)
+CompleteData_inter <- Build_intersp_complete_data (RawData)
+IdealData_inter  <- build_ideal_data(CompleteData)
 CoordTable <- build_map_data(RawData)
 
 ## split datasets by trait - makes a list with named elements
@@ -39,11 +40,14 @@ list_by_trait <- function(df) {
 }
 
 GC <- list_by_trait(CompleteData)
-GI <- list_by_trait(IdealData)
+GCi <- list_by_trait(CompleteData_inter)
+GIi <- list_by_trait(IdealData_inter)
+
 
 ## Create restricted Dataset: coefficient of correlation are averaged by study and by trait
 RC <- list_by_trait(EffectSizeSum(CompleteData))
-RI <- list_by_trait(EffectSizeSum(IdealData))
+RCi <- list_by_trait(EffectSizeSum(CompleteData_inter))
+RIi <- list_by_trait(EffectSizeSum(IdealData_inter))
 
 ## output directory
 
@@ -58,7 +62,7 @@ pdf("output/Fig1.pdf",height=3, width=4)
 dev.off()
 
 pdf("output/Fig2.pdf",height=6,width=5)
-  figure_2(GC, GI)
+  figure_2(GCi, GIi)
 dev.off()
 
 pdf("output/FigA1.pdf", height=6)
@@ -80,45 +84,50 @@ dev.off()
 
 
 pdf("output/FigA5.pdf",height=6,width=5)
-  figure_A5(GI)
+  figure_A5(GIi)
 dev.off()
 
 
-pdf("output/FigA6.pdf",  height=6, width=5)
-  figure_A6(RI, RC)
+pdf("output/FigA6.pdf",height=6,width=5)
+figure_2(GC, GIi)
 dev.off()
 
 
-pdf("output/FigA7a.pdf")
-  figure_A7(GI, GC, "SLA", c("a","b"))
+pdf("output/FigA7.pdf",  height=6, width=5)
+  figure_A7(RIi, RCi)
 dev.off()
 
 
-pdf("output/FigA7b.pdf")
-  figure_A7(GI, GC, "WD", c("c","d"))
+pdf("output/FigA8a.pdf")
+  figure_A8(GIi, GC, "SLA", c("a","b"))
 dev.off()
 
 
-pdf("output/FigA7c.pdf")
-  figure_A7(GI, GC, "Hmax",  c("e","f"))
-dev.off()
-
-pdf("output/FigA7d.pdf")
-  figure_A7(GI, GC, "Seedmass", c("g","h"))
-dev.off()
-
-pdf("output/FigA7e.pdf")
-  figure_A7(GI, GC, "Aarea", c("i","j"))
+pdf("output/FigA8b.pdf")
+  figure_A8(GIi, GC, "WD", c("c","d"))
 dev.off()
 
 
-pdf("output/FigA8.pdf")
-  figure_A8(GC)
+pdf("output/FigA8c.pdf")
+  figure_A8(GIi, GC, "Hmax",  c("e","f"))
+dev.off()
+
+pdf("output/FigA8d.pdf")
+  figure_A8(GIi, GC, "Seedmass", c("g","h"))
+dev.off()
+
+pdf("output/FigA8e.pdf")
+  figure_A8(GIi, GC, "Aarea", c("i","j"))
 dev.off()
 
 
 pdf("output/FigA9.pdf")
   figure_A9(GC)
+dev.off()
+
+
+pdf("output/FigA10.pdf")
+  figure_A10(GC)
 dev.off()
 
 # Reference list
