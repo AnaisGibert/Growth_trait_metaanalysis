@@ -3,7 +3,7 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
   Table <- read.csv(filename, sep = ";", dec = ",")
 
   for(f in c("id","ref","idcor","authors","stress","RGR","trait","coef.type","experiment.type",
-    "veg.type","measure.size","trait.stage","stage","RGR.stage","relation.sign","stage.simi")) {
+    "veg.type","measure.size","trait.stage","stage","RGR.stage","relation.sign","stage.simi","life.form")) {
    Table[[f]] <- as.factor(Table[[f]])
   }
 
@@ -32,6 +32,22 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
   Table$sign[Table$relation.sign == "P"] <- "S"
   Table$sign[Table$relation.sign == "N"] <- "S"
   Table$sign[Table$relation.sign == "O"] <- "NS"
+  
+  # Add variable for growth and growth measurmemnt
+  levels(Table$RGR)
+  
+  Table["growth"] <- "NA"
+  Table$growth[Table$RGR %in% c("RGR(?)","RGR(CSAi)","RGR(Di)","RGR(Hi)","RGR(Mi)","RGR(Vi)")] <- "RGR"
+  Table$growth[Table$RGR %in% c("GR(Di)","GR(Hi)","GR(Mi)","GR(Shoot)")] <- "AbGR"
+
+  
+  Table["measurement"] <- "NA"
+  Table$measurement[Table$RGR %in% c("RGR(Di)","GR(Di)")] <- "Diameter"
+  Table$measurement[Table$RGR %in% c("RGR(Hi)","GR(Hi)")] <- "Height"
+  Table$measurement[Table$RGR %in% c("RGR(Mi)","GR(Mi)","GR(Shoot)")] <- "Mass"
+  Table$measurement[Table$RGR %in% c("RGR(?)","RGR(Vi)","RGR(CSAi)")] <- "Other"
+  
+  
 
   # Nb of species used to performed the correlation
   names(Table)[names(Table) == "nb.sp.reported"] <- "nb.sp"
@@ -114,17 +130,19 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
   Table$experiment.coord[Table$experiment.type == "mix.field.database"] <- "nature"
   Table$experiment.coord[Table$experiment.type == "mix.glasshouse.database"] <- "control"
 
+  Table$life.form <- as.factor(str_trim(Table$life.form, side = "both"))
+  
   Table$experiment.coord <- as.factor(Table$experiment.coord)
 
   ## Rename colomne
   Table <- rename(Table, c(stage.simi = "similarity"))
 
   subset(Table, select = c(id, idcor, authors, year, ref, doi, experiment, experiment.coord,
-    stress, veg.type, bio.scale, nb.sp, location, nb.site, names.s1, names.s2,
+    stress, life.form, veg.type, bio.scale, nb.sp, location, nb.site, names.s1, names.s2,
     names.s3, names.s4, names.s5, trace, lat.dms.s1, lat.dir.s1, long.dms.s1,
     long.dir.s1, lat.dms.s2, lat.dir.s2, long.dms.s2, long.dir.s2, lat.dms.s3,
     lat.dir.s3, long.dms.s3, long.dir.s3, lat.dms.s4, lat.dir.s4, long.dms.s4,
-    long.dir.s4, lat.dms.s5, lat.dir.s5, long.dms.s5, long.dir.s5, RGR, RGR.min,
+    long.dir.s4, lat.dms.s5, lat.dir.s5, long.dms.s5, long.dir.s5, RGR, growth, measurement, RGR.min,
     RGR.max, RGR.unit, stageRGR, similarity, stageTrait, stage, measure.size,
     size.min, size.max, size.mean.range, trait, trait.min, trait.max, sample.size,
     sign, coef, coef.type))
@@ -221,7 +239,7 @@ build_complete_data <- function(RawData) {
 
   # select the column of interest
   CompleteData <- subset(CompleteData, select = c(id, idcor, authors, year, ref,
-    doi, experiment, stress, veg.type, bio.scale, nb.sp, RGR, RGR.min, RGR.max,
+    doi, experiment, stress, life.form, veg.type, bio.scale, nb.sp, RGR,growth, measurement, RGR.min, RGR.max,
     RGR.unit, stageRGR, similarity, stageTrait, stage, trait, trait.min, trait.max,
     measure.size, size.min, size.max, size.mean.range, coef, sample.size, corr.r,
     corr.z, vr.z, wi.z))
@@ -239,7 +257,7 @@ Build_intersp_complete_data <- function(RawData) {
   
   # select the column of interest
   CompleteData <- subset(CompleteData, select = c(id, idcor, authors, year, ref,
-                                                  doi, experiment, stress, veg.type, bio.scale, nb.sp, RGR, RGR.min, RGR.max,
+                                                  doi, experiment, stress, veg.type, bio.scale, nb.sp, RGR, growth, measurement, RGR.min, RGR.max,
                                                   RGR.unit, stageRGR, similarity, stageTrait, stage, trait, trait.min, trait.max,
                                                   measure.size, size.min, size.max, size.mean.range, coef, sample.size, corr.r,
                                                   corr.z, vr.z, wi.z))

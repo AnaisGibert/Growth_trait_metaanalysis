@@ -134,7 +134,7 @@ figure_2 <- function(GC, GI) {
 
   p1 <- coeff.plot(data=CoefModel.SLA, data.complete=CoefModel.SLA.s, data.ideal=CoefModel.SLA.opt,
                    LRT=LRT.sla, PVAL= PVAL.sla, title="a) SLA",
-                   significativite="***",round.value=7,
+                   significativite="***",round.value=4,
                    limit.x.min=-0.5,limit.x.max=1.5,
                    limit.x.n=1, vjust.value=1,
                    limit.x.text=-0.1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
@@ -157,7 +157,7 @@ figure_2 <- function(GC, GI) {
 
   p4 <- coeff.plot(data=CoefModel.Seedmass, data.complete=CoefModel.Seedmass.s, data.ideal=CoefModel.Seedmass.opt,
                    LRT=LRT.sm, PVAL= PVAL.sm, title="d) Seed mass",
-                   significativite="***",round.value=4,
+                   significativite="***",round.value=3,
                    limit.x.min=-1.5,limit.x.max=1,
                    limit.x.text=-1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
                    limit.x.n=0.7, vjust.value=1,
@@ -194,19 +194,19 @@ figure_A1 <- function(CompleteData) {
   sd <- subset(s,s$measure.size=="diameter")
 
   p_diam <-  plot_stage("c)", xlab= "basal diameter (cm)",ylab="",
-                        ggplot(sd,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR))))+
+                        ggplot(sd,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(life.form))))+
                         geom_vline(xintercept = 10, color = "grey", lty=5)
 
   p_height<- plot_stage("b)", xlab= "height (m)",
-                        ggplot(sh,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR)))) +
+                        ggplot(sh,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(life.form)))) +
                         geom_vline(xintercept = 0.5, color = "grey", lty=5)
 
   p_age <- plot_stage("a)", xlab= "age (yr)",
-                        ggplot(sa,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR)))) +
+                        ggplot(sa,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(life.form)))) +
                         geom_vline(xintercept = 1, color = "grey", lty=5)+
                         theme (legend.title=element_blank(),
                          legend.justification=c(0,0),
-                         legend.position=c(0.6,0.5),
+                         legend.position=c(0.6,0.3),
                          legend.key = element_blank())
 
   vpa_ <- viewport(width=0.45,height=0.7,x=0.25,y=0.67)
@@ -260,6 +260,88 @@ figure_A5 <- function(GI) {
     grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
 }
 
+figure_A6 <- function(GC) {
+  CoefModel.SLA<-fun_model2(GC[["SLA"]])
+  CoefModel.SLA["trait"] <- "SLA"
+  LRT.sla <- fun_OneLR(GC[["SLA"]])
+  PVAL.sla <- fun_Onepvalue(GC[["SLA"]])
+
+  CoefModel.WD<-fun_model2(GC[["WD"]])
+  CoefModel.WD["trait"] <- "WD"
+  LRT.wd <- fun_OneLR(GC[["WD"]])
+  PVAL.wd <- fun_Onepvalue(GC[["WD"]])
+
+  
+  CoefModel.Hmax<-fun_model2(GC[["Hmax"]])
+  CoefModel.Hmax["trait"] <- "Hmax"
+  LRT.h <- fun_OneLR(GC[["Hmax"]])
+  PVAL.h <- fun_Onepvalue(GC[["Hmax"]])
+
+  
+  CoefModel.Seedmass<-fun_model2(GC[["Seedmass"]])
+  CoefModel.Seedmass["trait"] <- "Seedmass"
+  LRT.sm <- fun_OneLR(GC[["Seedmass"]])
+  PVAL.sm <- fun_Onepvalue(GC[["Seedmass"]])
+
+  
+  CoefModel.Aarea<-fun_model2(GC[["Aarea"]])
+  CoefModel.Aarea["trait"] <- "Aarea"
+  LRT.a <- fun_OneLR(GC[["Aarea"]])
+  PVAL.a <- fun_Onepvalue(GC[["Aarea"]])
+  
+  p1 <- coeff.plot.ideal(data=CoefModel.SLA,
+                   LRT=LRT.sla, PVAL= PVAL.sla, title="a) SLA",
+                   significativite="***",round.value=4,
+                   limit.x.min=-0.5,limit.x.max=1.5,
+                   limit.x.text=-0.1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
+                   limit.x.n=1.2, vjust.value=0,color1="black")
+  
+
+  p2 <- coeff.plot.ideal(data=CoefModel.WD, 
+                   LRT=LRT.wd, PVAL= PVAL.wd, title="b) WD",
+                   significativite="ns",round.value=2,
+                   limit.x.min=-1,limit.x.max=0.5,
+                   limit.x.text=-0.75,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
+                   limit.x.n=0.3, vjust.value=0,color1="black")
+ 
+  p3 <- coeff.plot.ideal(data.ideal=CoefModel.Hmax,
+                         LRT=LRT.h, PVAL= PVAL.h, title="c) Hmax",
+                         significativite="ns",round.value=2,
+                         limit.x.min=-0.5,limit.x.max=1.5,
+                         limit.x.text=-0.1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
+                         limit.x.n=1.2, vjust.value=0,color1="black")
+  
+  p4 <- coeff.plot.ideal(data=CoefModel.Seedmass,
+                   LRT=LRT.sm, PVAL= PVAL.sm, title="d) Seed mass",
+                   significativite="***",round.value=4,
+                   limit.x.min=-1.5,limit.x.max=1,
+                   limit.x.text=-1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
+                   limit.x.n=0.7, vjust.value=0,color1="black")
+  
+  
+  p5 <- coeff.plot.ideal(data=CoefModel.Aarea,
+                   LRT=LRT.a, PVAL= PVAL.a, title="e) Aarea",
+                   significativite="ns",round.value=3,
+                   limit.x.min=-2,limit.x.max=3,
+                   limit.x.text=-1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
+                   limit.x.n=2.5, vjust.value=0,color1="black")+
+    scale_fill_discrete(name="",breaks=c("raw"),
+                        labels=c("raw"))+
+    theme (legend.title=element_blank(),
+           legend.justification=c(0,0),
+           legend.position=c(1.2,0.5),
+           legend.key = element_blank())
+    
+  
+  p1 <- p1 + theme(plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
+  p2 <- p2 + theme(axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
+  p3 <- p3 + theme(plot.margin=unit(c(0,0,1.5,0),"mm"),axis.title.x=element_blank())
+  p4 <- p4 + theme(axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"))
+  p5 <- p5 + theme(plot.margin=unit(c(0,0,0,0),"mm"))
+  
+  grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
+}
+
 figure_A7 <- function(RI, RC) {
   CoefModel.SLA<-fun_model(RI[["SLA"]],RC[["SLA"]])
   CoefModel.SLA.s <- subset(CoefModel.SLA,stress=='complete')
@@ -272,7 +354,7 @@ figure_A7 <- function(RI, RC) {
 
   p1 <- coeff.plot(data=CoefModel.SLA, data.complete=CoefModel.SLA.s,data.ideal=CoefModel.SLA.opt,
                    LRT=LRT.sla, PVAL= PVAL.sla, title="a) SLA",
-                   significativite="***", round.value=6,
+                   significativite="***", round.value=3,
                    limit.x.min=-0.5,limit.x.max=1.5,
                    limit.x.n=1.2, vjust.value=0.8,
                    limit.x.text=-0.15,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
@@ -391,7 +473,6 @@ figure_A8 <- function(GI, GC, trait, titles) {
                     title=paste0(titles[2], ") ", trait, "- raw dataset"))
 }
 
-
 figure_A9 <- function(GC) {
 
   funnel_SLA_nbsp <- my_funnelplot("a) SLA",
@@ -429,7 +510,6 @@ figure_A9 <- function(GC) {
   grid.arrange(funnel_SLA_nbsp,funnel_WD_nbsp,funnel_Hmax_nbsp, funnel_Seedmass_nbsp ,funnel_Aarea_nbsp, nrow=3, ncol=2)
 }
 
-
 figure_A10 <- function(GC) {
   p1 <- my_plot_3("a) SLA",
           ggplot(GC[["SLA"]],aes(x=reorder(factor(RGR),factor(stage),function(x) length(x)*1),fill=stage,order=stage)))
@@ -458,3 +538,25 @@ figure_A10 <- function(GC) {
 
   grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
 }
+
+figure_A11 <- function(GI, GC, trait, titles) {
+  par(mfcol=c(1,2))
+  par(mar=c(2,5,2,0))
+  
+  coeff.plot.multiple2(GI[[trait]], params=rev(c("stagejuvenile","stagesapling","stageadult",
+                                                "growthAbGR","growthRGR",
+                                                "measurementDiameter","measurementHeight" , "measurementMass" ,"measurementOther")),
+                      labels=rev(c('juvenile','sapling','adult','AbGR','RGR','diameter','height','mass','other')),
+                      title=paste0(titles[1], ") ", trait, "- ideal dataset"))
+  
+  mtext("mod3", side=2, line=4.2, cex=0.8, at=2.5)
+  mtext("mod2", side=2, line=4.2, cex=0.8, at=6.5)
+  mtext("mod1", side=2, line=4.2, cex=0.8, at=8)
+  
+  par(mar=c(2,1.5,2,3.5))
+  coeff.plot.multiple2(GC[[trait]], params=rev(c("stagejuvenile","stagesapling","stageadult",
+                                                 "growthAbGR","growthRGR",
+                                                 "measurementDiameter","measurementHeight" , "measurementMass" ,"measurementOther")),
+                      title=paste0(titles[2], ") ", trait, "- raw dataset"))
+}
+

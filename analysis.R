@@ -9,6 +9,7 @@ library(ape)
 library(boot)
 library(Hmisc)
 library(plyr)
+library(stringr) # Trim whitespace from start and end of string
 
 library(metafor)
 library(ade4, quietly=TRUE)
@@ -89,7 +90,7 @@ dev.off()
 
 
 pdf("output/FigA6.pdf",height=6,width=5)
-figure_2(GC, GIi)
+  figure_A6(GC)
 dev.off()
 
 
@@ -128,6 +129,27 @@ dev.off()
 
 pdf("output/FigA10.pdf")
   figure_A10(GC)
+dev.off()
+
+
+pdf("output/FigA11a.pdf")
+figure_A11(GIi, GC, "SLA", c("a","b"))
+dev.off()
+
+pdf("output/FigA11b.pdf")
+figure_A11(GIi, GC, "WD", c("c","d"))
+dev.off()
+
+pdf("output/FigA11c.pdf")
+figure_A11(GIi, GC, "Hmax",  c("e","f"))
+dev.off()
+
+pdf("output/FigA11d.pdf")
+figure_A11(GIi, GC, "Seedmass", c("g","h"))
+dev.off()
+
+pdf("output/FigA11e.pdf")
+figure_A11(GIi, GC, "Aarea", c("i","j"))
 dev.off()
 
 # Reference list
