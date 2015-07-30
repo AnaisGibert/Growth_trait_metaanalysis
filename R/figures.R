@@ -171,7 +171,7 @@ figure_2 <- function(GC, GI) {
                    limit.x.n=2.5, vjust.value=1,
                    color1="grey",color2="black") +
     scale_fill_discrete(name="",breaks=c("ideal", "complete"),
-                        labels=c("ideal", "complete"))+
+                        labels=c("ideal"="ideal", "complete"="complete"))+
                   theme (legend.title=element_blank(),
                          legend.justification=c(0,0),
                          legend.position=c(1.2,0.5),
@@ -194,15 +194,15 @@ figure_A1 <- function(CompleteData) {
   sd <- subset(s,s$measure.size=="diameter")
 
   p_diam <-  plot_stage("c)", xlab= "basal diameter (cm)",ylab="",
-                        ggplot(sd,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(life.form))))+
+                        ggplot(sd,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form))))+
                         geom_vline(xintercept = 10, color = "grey", lty=5)
 
   p_height<- plot_stage("b)", xlab= "height (m)",
-                        ggplot(sh,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(life.form)))) +
+                        ggplot(sh,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form)))) +
                         geom_vline(xintercept = 0.5, color = "grey", lty=5)
 
   p_age <- plot_stage("a)", xlab= "age (yr)",
-                        ggplot(sa,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(life.form)))) +
+                        ggplot(sa,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form)))) +
                         geom_vline(xintercept = 1, color = "grey", lty=5)+
                         theme (legend.title=element_blank(),
                          legend.justification=c(0,0),
@@ -258,6 +258,38 @@ figure_A5 <- function(GI) {
     p5 <- my_plot_overall(Aarea, title='e) Aarea') + theme (legend.title=element_blank(), legend.justification=c(0,0),legend.position=c(1.2,0.5), legend.key = element_blank(), plot.margin=unit(c(0,0,0,0),"mm"))
 
     grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
+}
+
+figure_A5b <- function(GIrgr, GIagr) {
+  
+  table_trait <- function(GIrgr, GIagr, trait) {
+      x <-  rbind(
+          table_overall(GIrgr[[trait]]),
+          table_overall.stage(GIrgr[[trait]]),
+          table_overall(GIagr[[trait]]),
+          table_overall.stage(GIagr[[trait]]))
+      x["growth"] <- NA
+      x$growth <- c("RGR","RGR","RGR","RGR","AbsGR","AbsGR", "AbsGR","AbsGR")
+      for(f in c("growth","stage")) {
+        x[[f]] <- as.factor(x[[f]])
+      }
+      x
+   }
+  
+  SLA <- table_trait(GIrgr, GIagr,"SLA")
+  WD <- table_trait(GIrgr, GIagr,"WD")
+  Hmax <- table_trait(GIrgr, GIagr,"Hmax")
+  Seedmass <- table_trait(GIrgr, GIagr,"Seedmass")
+  Aarea <- table_trait(GIrgr, GIagr,"Aarea")
+  
+  
+  p1 <- my_plot_overall.b(SLA, title='a) SLA') + theme(plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
+  p2 <- my_plot_overall.b(WD, title='b) WD') + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
+  p3 <- my_plot_overall.b(Hmax, title='c) Hmax') + theme(plot.margin=unit(c(0,0,1.5,0),"mm"),axis.title.x=element_blank())
+  p4 <- my_plot_overall.b(Seedmass, title='d) Seed mass') + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"))
+  p5 <- my_plot_overall.b(Aarea, title='e) Aarea') + theme (legend.title=element_blank(), legend.justification=c(0,0),legend.position=c(1.2,0.5), legend.key = element_blank(), plot.margin=unit(c(0,0,0,0),"mm"))
+  
+  grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
 }
 
 figure_A6 <- function(GC) {
@@ -342,15 +374,15 @@ figure_A6 <- function(GC) {
   grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
 }
 
-figure_A7 <- function(RI, RC) {
-  CoefModel.SLA<-fun_model(RI[["SLA"]],RC[["SLA"]])
+figure_A7 <- function(RIi, RCi) {
+  CoefModel.SLA<-fun_model(RIi[["SLA"]],RCi[["SLA"]])
   CoefModel.SLA.s <- subset(CoefModel.SLA,stress=='complete')
   CoefModel.SLA.opt <- subset(CoefModel.SLA,stress=='ideal')
 
-  LRT.sla <- fun_OneLR(RI[["SLA"]])
-  LRT.sla.2 <- fun_OneLR(RC[["SLA"]])
-  PVAL.sla <- fun_Onepvalue(RI[["SLA"]])
-  PVAL.sla.2 <- fun_Onepvalue(RC[["SLA"]])
+  LRT.sla <- fun_OneLR(RIi[["SLA"]])
+  LRT.sla.2 <- fun_OneLR(RCi[["SLA"]])
+  PVAL.sla <- fun_Onepvalue(RIi[["SLA"]])
+  PVAL.sla.2 <- fun_Onepvalue(RCi[["SLA"]])
 
   p1 <- coeff.plot(data=CoefModel.SLA, data.complete=CoefModel.SLA.s,data.ideal=CoefModel.SLA.opt,
                    LRT=LRT.sla, PVAL= PVAL.sla, title="a) SLA",
@@ -360,14 +392,14 @@ figure_A7 <- function(RI, RC) {
                    limit.x.text=-0.15,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
                    color1="grey",color2="black")
 
-  CoefModel.WD<-fun_model(RI[["WD"]],RC[["WD"]])
+  CoefModel.WD<-fun_model(RIi[["WD"]],RCi[["WD"]])
   CoefModel.WD.s <- subset(CoefModel.WD,stress=='complete')
   CoefModel.WD.opt <- subset(CoefModel.WD,stress=='ideal')
 
-  LRT.wd <- fun_OneLR(RI[["WD"]])
-  LRT.wd.2 <- fun_OneLR(RC[["WD"]])
-  PVAL.wd <- fun_Onepvalue(RI[["WD"]])
-  PVAL.wd.2 <- fun_Onepvalue(RC[["WD"]])
+  LRT.wd <- fun_OneLR(RIi[["WD"]])
+  LRT.wd.2 <- fun_OneLR(RCi[["WD"]])
+  PVAL.wd <- fun_Onepvalue(RIi[["WD"]])
+  PVAL.wd.2 <- fun_Onepvalue(RCi[["WD"]])
 
   p2 <- coeff.plot(data=CoefModel.WD, data.complete=CoefModel.WD.s, data.ideal=CoefModel.WD.opt,
                    LRT=LRT.wd, PVAL= PVAL.wd, title="b) WD",
@@ -378,14 +410,14 @@ figure_A7 <- function(RI, RC) {
                    color1="grey",color2="black")
 
 
-  CoefModel.Hmax<-fun_model(RI[["Hmax"]],RC[["Hmax"]])
+  CoefModel.Hmax<-fun_model(RIi[["Hmax"]],RCi[["Hmax"]])
   CoefModel.Hmax.s <- subset(CoefModel.Hmax,stress=='complete')
   CoefModel.Hmax.opt <- subset(CoefModel.Hmax,stress=='ideal')
 
-  LRT.h <- fun_OneLR(RI[["Hmax"]])
-  LRT.h.2 <- fun_OneLR(RC[["Hmax"]])
-  PVAL.h <- fun_Onepvalue(RI[["Hmax"]])
-  PVAL.h.2 <- fun_Onepvalue(RC[["Hmax"]])
+  LRT.h <- fun_OneLR(RIi[["Hmax"]])
+  LRT.h.2 <- fun_OneLR(RCi[["Hmax"]])
+  PVAL.h <- fun_Onepvalue(RIi[["Hmax"]])
+  PVAL.h.2 <- fun_Onepvalue(RCi[["Hmax"]])
 
   p3 <- coeff.plot.ideal(data.ideal=CoefModel.Hmax.opt,
                      LRT=0.0, PVAL= 0.98, title="c) Hmax",
@@ -394,14 +426,14 @@ figure_A7 <- function(RI, RC) {
                      limit.x.text=-0.25,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
                      limit.x.n=1.3, vjust.value=0,color1="black")
 
-  CoefModel.Seedmass<-fun_model(RI[["Seedmass"]],RC[["Seedmass"]])
+  CoefModel.Seedmass<-fun_model(RIi[["Seedmass"]],RCi[["Seedmass"]])
   CoefModel.Seedmass.s <- subset(CoefModel.Seedmass,stress=='complete')
   CoefModel.Seedmass.opt <- subset(CoefModel.Seedmass,stress=='ideal')
 
-  LRT.sm <- fun_OneLR(RI[["Seedmass"]])
-  LRT.sm.2 <- fun_OneLR(RC[["Seedmass"]])
-  PVAL.sm <- fun_Onepvalue(RI[["Seedmass"]])
-  PVAL.sm.2 <- fun_Onepvalue(RC[["Seedmass"]])
+  LRT.sm <- fun_OneLR(RIi[["Seedmass"]])
+  LRT.sm.2 <- fun_OneLR(RCi[["Seedmass"]])
+  PVAL.sm <- fun_Onepvalue(RIi[["Seedmass"]])
+  PVAL.sm.2 <- fun_Onepvalue(RCi[["Seedmass"]])
 
   p4 <- coeff.plot(data=CoefModel.Seedmass, data.complete=CoefModel.Seedmass.s, data.ideal=CoefModel.Seedmass.opt,
                    LRT=LRT.sm, PVAL= PVAL.sm, title="d) Seed mass",
@@ -412,14 +444,14 @@ figure_A7 <- function(RI, RC) {
                    color1="grey",color2="black")
 
 
-  CoefModel.Aarea<-fun_model(RI[["Aarea"]],RC[["Aarea"]])
+  CoefModel.Aarea<-fun_model(RIi[["Aarea"]],RCi[["Aarea"]])
   CoefModel.Aarea.s <- subset(CoefModel.Aarea,stress=='complete')
   CoefModel.Aarea.opt <- subset(CoefModel.Aarea,stress=='ideal')
 
-  LRT.a <- fun_OneLR(RI[["Aarea"]])
-  LRT.a.2 <- fun_OneLR(RC[["Aarea"]])
-  PVAL.a <- fun_Onepvalue(RI[["Aarea"]])
-  PVAL.a.2 <- fun_Onepvalue(RC[["Aarea"]])
+  LRT.a <- fun_OneLR(RIi[["Aarea"]])
+  LRT.a.2 <- fun_OneLR(RCi[["Aarea"]])
+  PVAL.a <- fun_Onepvalue(RIi[["Aarea"]])
+  PVAL.a.2 <- fun_Onepvalue(RCi[["Aarea"]])
 
   p5 <- coeff.plot(data=CoefModel.Aarea, data.complete=CoefModel.Aarea.s, data.ideal=CoefModel.Aarea.opt,
                    LRT=LRT.a, PVAL= PVAL.a, title="e) Aarea",
@@ -429,7 +461,7 @@ figure_A7 <- function(RI, RC) {
                    limit.x.n=2.5, vjust.value=1,
                    color1="grey",color2="black") +
                     scale_fill_discrete(name="",breaks=c("complete", "ideal"),
-                                        labels=c("complete", "ideal"))+
+                                        labels=c("complete"="complete", "ideal"="ideal"))+
                     theme (legend.title=element_blank(),
                            legend.justification=c(0,0),
                            legend.position=c(1.2,0.5),
@@ -449,14 +481,14 @@ figure_A8 <- function(GI, GC, trait, titles) {
   par(mfcol=c(1,2))
   par(mar=c(2,5,2,0))
 
-  coeff.plot.multiple(GI[[trait]], params=rev(c("stagejuvenile","stagesapling","stageadult",
-                                 "veg.typeboreal and temperate deciduous forest","veg.typeboreal forest","veg.typemediteranean","veg.typemix" ,
-                                 "veg.typetemperate deciduous and mediteranean forest","veg.typetemperate deciduous forest" , "veg.typetemperate rain forest" ,
-                                 "veg.typetropical rain forest"  , "veg.typetropical seasonal forest"   ,"RGRGR(Di)", "RGRGR(Hi)", "RGRGR(Mi)"   , "RGRRGR(CSAi)"  ,
-                                 "RGRRGR(Di)" ,"RGRRGR(Hi)" ,  "RGRRGR(Mi)", "RGRRGR(Vi)" ,"experimentcontrol" , "experimentdatabase", "experimentfield" ,"experimentnature")),
-                    labels=rev(c('juvenile','sapling','adult','boreal&temp','boreal','med','across veg','temp&med','temp','temp rain','trop rain','trop seas',
-                                 'GR(D)','GR(H)','GR(M)','RGR(CSA)','RGR(D)','RGR(H)','RGR(M)','RGR(V)','control','database','field exp','forest')),
-                    title=paste0(titles[1], ") ", trait, "- ideal dataset"))
+  coeff.plot.multiple(GI[[trait]], params=rev(c("stageRGRseedling","stageRGRjuvenile","stageRGRsapling","stageRGRadult","stageRGRmix",
+                                                "veg.typeboreal and temperate deciduous forest","veg.typeboreal forest","veg.typemediteranean","veg.typemix" ,
+                                                "veg.typetemperate deciduous and mediteranean forest","veg.typetemperate deciduous forest" , "veg.typetemperate rain forest" ,
+                                                "veg.typetropical rain forest"  , "veg.typetropical seasonal forest"   ,"RGRGR(Di)", "RGRGR(Hi)", "RGRGR(Mi)"   , "RGRRGR(CSAi)"  ,
+                                                "RGRRGR(Di)" ,"RGRRGR(Hi)" ,  "RGRRGR(Mi)", "RGRRGR(Vi)" ,"experimentcontrol" , "experimentdatabase", "experimentfield" ,"experimentnature")),
+                      labels=rev(c('seedling','juvenile','sapling','adult','all stage','boreal&temp','boreal','med','across veg','temp&med','temp','temp rain','trop rain','trop seas',
+                                   'GR(D)','GR(H)','GR(M)','RGR(CSA)','RGR(D)','RGR(H)','RGR(M)','RGR(V)','control','database','field exp','forest')),
+                      title=paste0(titles[1], ") ", trait, "- ideal dataset"))
 
   mtext("mod4", side=2, line=4.2, cex=0.8, at=2.2)
   mtext("mod3", side=2, line=4.2, cex=0.8, at=8.8)
@@ -464,13 +496,61 @@ figure_A8 <- function(GI, GC, trait, titles) {
   mtext("mod1", side=2, line=4.2, cex=0.8, at=24)
 
   par(mar=c(2,1.5,2,3.5))
-  coeff.plot.multiple(GC[[trait]], params=rev(c("stagejuvenile","stagesapling","stageadult",
-                                "veg.typeboreal and temperate deciduous forest","veg.typeboreal forest","veg.typemediteranean","veg.typemix" ,
-                                "veg.typetemperate deciduous and mediteranean forest","veg.typetemperate deciduous forest" , "veg.typetemperate rain forest" ,
-                                "veg.typetropical rain forest"  , "veg.typetropical seasonal forest"   ,"RGRGR(Di)", "RGRGR(Hi)", "RGRGR(Mi)"   , "RGRRGR(CSAi)"  ,
-                                "RGRRGR(Di)" ,"RGRRGR(Hi)" ,  "RGRRGR(Mi)", "RGRRGR(Vi)" ,"experimentcontrol" , "experimentdatabase", "experimentfield" ,
-                                "experimentnature")),
-                    title=paste0(titles[2], ") ", trait, "- raw dataset"))
+  coeff.plot.multiple(GC[[trait]], params=rev(c("stageRGRseedling","stageRGRjuvenile","stageRGRsapling","stageRGRadult","stageRGRmix",
+                                                "veg.typeboreal and temperate deciduous forest","veg.typeboreal forest","veg.typemediteranean","veg.typemix" ,
+                                                "veg.typetemperate deciduous and mediteranean forest","veg.typetemperate deciduous forest" , "veg.typetemperate rain forest" ,
+                                                "veg.typetropical rain forest"  , "veg.typetropical seasonal forest"   ,"RGRGR(Di)", "RGRGR(Hi)", "RGRGR(Mi)"   , "RGRRGR(CSAi)"  ,
+                                                "RGRRGR(Di)" ,"RGRRGR(Hi)" ,  "RGRRGR(Mi)", "RGRRGR(Vi)" ,"experimentcontrol" , "experimentdatabase", "experimentfield" ,
+                                                "experimentnature")),
+                      title=paste0(titles[2], ") ", trait, "- raw dataset"))
+}
+
+figure_A8b <- function(GC, trait1, trait2, titles) {
+  par(mfcol=c(1,2))
+  par(mar=c(2,5,2,0))
+  
+  coeff.plot.multiple(GC[[trait1]], params=rev(c("stageRGRseedling","stageRGRjuvenile","stageRGRsapling","stageRGRadult","stageRGRmix",
+                                                "veg.typeboreal and temperate deciduous forest","veg.typeboreal forest","veg.typemediteranean","veg.typemix" ,
+                                                "veg.typetemperate deciduous and mediteranean forest","veg.typetemperate deciduous forest" , "veg.typetemperate rain forest" ,
+                                                "veg.typetropical rain forest"  , "veg.typetropical seasonal forest"   ,"RGRGR(Di)", "RGRGR(Hi)", "RGRGR(Mi)"   , "RGRRGR(CSAi)"  ,
+                                                "RGRRGR(Di)" ,"RGRRGR(Hi)" ,  "RGRRGR(Mi)", "RGRRGR(Vi)" ,"experimentcontrol" , "experimentdatabase", "experimentfield" ,"experimentnature")),
+                      labels=rev(c('seedling','juvenile','sapling','adult','all stage','boreal&temp','boreal','med','across veg','temp&med','temp','temp rain','trop rain','trop seas',
+                                   'GR(D)','GR(H)','GR(M)','RGR(CSA)','RGR(D)','RGR(H)','RGR(M)','RGR(V)','control','database','field exp','forest')),
+                      title=paste0(titles[1], ") ", trait1))
+  
+  mtext("mod4", side=2, line=4.2, cex=0.8, at=2.2)
+  mtext("mod3", side=2, line=4.2, cex=0.8, at=8.8)
+  mtext("mod2", side=2, line=4.2, cex=0.8, at=17)
+  mtext("mod1", side=2, line=4.2, cex=0.8, at=24)
+  
+  par(mar=c(2,1.5,2,3.5))
+  coeff.plot.multiple(GC[[trait2]], params=rev(c("stageRGRseedling","stageRGRjuvenile","stageRGRsapling","stageRGRadult","stageRGRmix",
+                                                "veg.typeboreal and temperate deciduous forest","veg.typeboreal forest","veg.typemediteranean","veg.typemix" ,
+                                                "veg.typetemperate deciduous and mediteranean forest","veg.typetemperate deciduous forest" , "veg.typetemperate rain forest" ,
+                                                "veg.typetropical rain forest"  , "veg.typetropical seasonal forest"   ,"RGRGR(Di)", "RGRGR(Hi)", "RGRGR(Mi)"   , "RGRRGR(CSAi)"  ,
+                                                "RGRRGR(Di)" ,"RGRRGR(Hi)" ,  "RGRRGR(Mi)", "RGRRGR(Vi)" ,"experimentcontrol" , "experimentdatabase", "experimentfield" ,
+                                                "experimentnature")),
+                      title=paste0(titles[2], ") ", trait2))
+}
+
+figure_A8c <- function(GC, trait1, titles) {
+  par(mfcol=c(1,2))
+  par(mar=c(2,5,2,0))
+  
+  coeff.plot.multiple(GC[[trait1]], params=rev(c("stageRGRseedling","stageRGRjuvenile","stageRGRsapling","stageRGRadult","stageRGRmix",
+                                                 "veg.typeboreal and temperate deciduous forest","veg.typeboreal forest","veg.typemediteranean","veg.typemix" ,
+                                                 "veg.typetemperate deciduous and mediteranean forest","veg.typetemperate deciduous forest" , "veg.typetemperate rain forest" ,
+                                                 "veg.typetropical rain forest"  , "veg.typetropical seasonal forest"   ,"RGRGR(Di)", "RGRGR(Hi)", "RGRGR(Mi)"   , "RGRRGR(CSAi)"  ,
+                                                 "RGRRGR(Di)" ,"RGRRGR(Hi)" ,  "RGRRGR(Mi)", "RGRRGR(Vi)" ,"experimentcontrol" , "experimentdatabase", "experimentfield" ,"experimentnature")),
+                      labels=rev(c('seedling','juvenile','sapling','adult','all stage','boreal&temp','boreal','med','across veg','temp&med','temp','temp rain','trop rain','trop seas',
+                                   'GR(D)','GR(H)','GR(M)','RGR(CSA)','RGR(D)','RGR(H)','RGR(M)','RGR(V)','control','database','field exp','forest')),
+                      title=paste0(titles[1], ") ", trait1))
+  
+  mtext("mod4", side=2, line=4.2, cex=0.8, at=2.2)
+  mtext("mod3", side=2, line=4.2, cex=0.8, at=8.8)
+  mtext("mod2", side=2, line=4.2, cex=0.8, at=17)
+  mtext("mod1", side=2, line=4.2, cex=0.8, at=24)
+  
 }
 
 figure_A9 <- function(GC) {
@@ -510,7 +590,7 @@ figure_A9 <- function(GC) {
   grid.arrange(funnel_SLA_nbsp,funnel_WD_nbsp,funnel_Hmax_nbsp, funnel_Seedmass_nbsp ,funnel_Aarea_nbsp, nrow=3, ncol=2)
 }
 
-figure_A10 <- function(GC) {
+figure_A10a <- function(GC) {
   p1 <- my_plot_3("a) SLA",
           ggplot(GC[["SLA"]],aes(x=reorder(factor(RGR),factor(stage),function(x) length(x)*1),fill=stage,order=stage)))
 
@@ -536,6 +616,35 @@ figure_A10 <- function(GC) {
                     legend.position="none")
   p5 <- p5 + theme(plot.margin=unit(c(0,0,0,0),"mm"), legend.justification=c(0,0),legend.position=c(1.2,0.2), legend.key = element_blank())
 
+  grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
+}
+
+figure_A10b <- function(GC) {
+  p1 <- my_plot_3b("a) SLA",
+                  ggplot(GC[["SLA"]],aes(x=reorder(factor(stage),factor(growth),function(x) length(x)*1), fill=growth)))
+  
+  p2 <- my_plot_3b("b) WD",
+                  ggplot(GC[["WD"]],aes(x=reorder(factor(stage),factor(growth),function(x) length(x)*1),fill=growth, order=stage)))
+  
+  p3 <- my_plot_3b("c) Hmax",
+                  ggplot(GC[["Hmax"]],aes(x=reorder(factor(stage),factor(growth),function(x) length(x)*1),fill=growth, order=stage)))
+  
+  p4 <- my_plot_3b("d) Seed mass",
+                  ggplot(GC[["Seedmass"]],aes(x=reorder(factor(stage),factor(growth),function(x) length(x)*1),fill=growth, order=stage)))
+  
+  p5 <- my_plot_3b("e) Aarea",
+                  ggplot(GC[["Aarea"]],aes(x=reorder(factor(stage),factor(growth),function(x) length(x)*1),fill=growth, order=stage)))
+  
+  p1 <- p1 + theme(plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank(),
+                   legend.position="none")
+  p2 <- p2 + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank(),
+                    legend.position="none")
+  p3 <- p3 + theme(plot.margin=unit(c(0,0,1.5,0),"mm"),axis.title.x=element_blank(),
+                   legend.position="none")
+  p4 <- p4 + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"),
+                    legend.position="none")
+  p5 <- p5 + theme(plot.margin=unit(c(0,0,0,0),"mm"), legend.justification=c(0,0),legend.position=c(1.2,0.2), legend.key = element_blank())
+  
   grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
 }
 

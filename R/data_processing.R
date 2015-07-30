@@ -40,6 +40,8 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
   Table$growth[Table$RGR %in% c("RGR(?)","RGR(CSAi)","RGR(Di)","RGR(Hi)","RGR(Mi)","RGR(Vi)")] <- "RGR"
   Table$growth[Table$RGR %in% c("GR(Di)","GR(Hi)","GR(Mi)","GR(Shoot)")] <- "AbGR"
 
+  Table$growth <- factor(Table$growth, levels = c("RGR", "AbGR"))
+  Table$growth <- as.factor(Table$growth)
   
   Table["measurement"] <- "NA"
   Table$measurement[Table$RGR %in% c("RGR(Di)","GR(Di)")] <- "Diameter"
@@ -47,8 +49,12 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
   Table$measurement[Table$RGR %in% c("RGR(Mi)","GR(Mi)","GR(Shoot)")] <- "Mass"
   Table$measurement[Table$RGR %in% c("RGR(?)","RGR(Vi)","RGR(CSAi)")] <- "Other"
   
+  Table["growth.form"] <- "NA"
+  Table$growth.form[Table$life.form %in% c("tree", "tree ")] <- "tree"
+  Table$growth.form[Table$life.form %in% c("tree, shrub" , "woody" , "woody and semi-woody", "woody vines")] <- "woody"
+  Table$growth.form[Table$life.form %in% c("liana and tree" , "shrub and tree" , "tree and herbs" , "tree, herbs",  "tree, shrub, herbs" , "woody and herbs", "woody, forbs, herbs" ,"woody, shrub, perennial herbs")] <- "across growth form"
   
-
+  Table$growth.form <- as.factor(Table$growth.form)
   # Nb of species used to performed the correlation
   names(Table)[names(Table) == "nb.sp.reported"] <- "nb.sp"
 
@@ -138,7 +144,7 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
   Table <- rename(Table, c(stage.simi = "similarity"))
 
   subset(Table, select = c(id, idcor, authors, year, ref, doi, experiment, experiment.coord,
-    stress, life.form, veg.type, bio.scale, nb.sp, location, nb.site, names.s1, names.s2,
+    stress, growth.form, veg.type, bio.scale, nb.sp, location, nb.site, names.s1, names.s2,
     names.s3, names.s4, names.s5, trace, lat.dms.s1, lat.dir.s1, long.dms.s1,
     long.dir.s1, lat.dms.s2, lat.dir.s2, long.dms.s2, long.dir.s2, lat.dms.s3,
     lat.dir.s3, long.dms.s3, long.dir.s3, lat.dms.s4, lat.dir.s4, long.dms.s4,
@@ -239,7 +245,7 @@ build_complete_data <- function(RawData) {
 
   # select the column of interest
   CompleteData <- subset(CompleteData, select = c(id, idcor, authors, year, ref,
-    doi, experiment, stress, life.form, veg.type, bio.scale, nb.sp, RGR,growth, measurement, RGR.min, RGR.max,
+    doi, experiment, stress, growth.form, veg.type, bio.scale, nb.sp, RGR,growth, measurement, RGR.min, RGR.max,
     RGR.unit, stageRGR, similarity, stageTrait, stage, trait, trait.min, trait.max,
     measure.size, size.min, size.max, size.mean.range, coef, sample.size, corr.r,
     corr.z, vr.z, wi.z))
@@ -257,7 +263,7 @@ Build_intersp_complete_data <- function(RawData) {
   
   # select the column of interest
   CompleteData <- subset(CompleteData, select = c(id, idcor, authors, year, ref,
-                                                  doi, experiment, stress, veg.type, bio.scale, nb.sp, RGR, growth, measurement, RGR.min, RGR.max,
+                                                  doi, experiment, stress, growth.form, veg.type, bio.scale, nb.sp, RGR, growth, measurement, RGR.min, RGR.max,
                                                   RGR.unit, stageRGR, similarity, stageTrait, stage, trait, trait.min, trait.max,
                                                   measure.size, size.min, size.max, size.mean.range, coef, sample.size, corr.r,
                                                   corr.z, vr.z, wi.z))

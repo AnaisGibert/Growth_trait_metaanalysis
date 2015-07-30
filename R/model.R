@@ -175,7 +175,7 @@ fun_model_multiple <- function(x) {
                                      check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
                                      check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
                                      check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))  # modele null cad sans la variable que je veux analyser
-  m1 <- lmer(corr.z ~ stage - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE, 
+  m1 <- lmer(corr.z ~ stageRGR - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE, 
              control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
                                    check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
                                    check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
@@ -294,6 +294,7 @@ fun_model_multiple2 <- function(x) {
   
   dat
 } 
+
 
 # Weighted correlation
 table_overall.stage <- function(y) {

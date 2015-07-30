@@ -33,7 +33,8 @@ CompleteData <- build_complete_data(RawData)
 CompleteData_inter <- Build_intersp_complete_data (RawData)
 IdealData_inter  <- build_ideal_data(CompleteData)
 CoordTable <- build_map_data(RawData)
-
+IdealData_rgr <- subset(IdealData_inter,IdealData_inter$growth=="RGR")
+IdealData_agr <- subset(IdealData_inter,IdealData_inter$growth=="AbGR")
 ## split datasets by trait - makes a list with named elements
 ## given subset of data for each trait
 list_by_trait <- function(df) {
@@ -43,6 +44,9 @@ list_by_trait <- function(df) {
 GC <- list_by_trait(CompleteData)
 GCi <- list_by_trait(CompleteData_inter)
 GIi <- list_by_trait(IdealData_inter)
+GIrgr <- list_by_trait(IdealData_rgr)
+GIagr <- list_by_trait(IdealData_agr)
+
 
 
 ## Create restricted Dataset: coefficient of correlation are averaged by study and by trait
@@ -66,6 +70,7 @@ pdf("output/Fig2.pdf",height=6,width=5)
   figure_2(GCi, GIi)
 dev.off()
 
+
 pdf("output/FigA1.pdf", height=6)
   figure_A1(CompleteData)
 dev.off()
@@ -88,6 +93,10 @@ pdf("output/FigA5.pdf",height=6,width=5)
   figure_A5(GIi)
 dev.off()
 
+pdf("output/FigA5b.pdf",height=6,width=5)
+figure_A5b(GIrgr, GIagr)
+dev.off()
+
 
 pdf("output/FigA6.pdf",height=6,width=5)
   figure_A6(GC)
@@ -102,7 +111,6 @@ dev.off()
 pdf("output/FigA8a.pdf")
   figure_A8(GIi, GC, "SLA", c("a","b"))
 dev.off()
-
 
 pdf("output/FigA8b.pdf")
   figure_A8(GIi, GC, "WD", c("c","d"))
@@ -122,13 +130,33 @@ pdf("output/FigA8e.pdf")
 dev.off()
 
 
+
+pdf("output/FigA82.a.pdf")
+figure_A8b(GC, "SLA","WD", c("a","b"))
+dev.off()
+
+
+pdf("output/FigA82.b.pdf")
+figure_A8b(GC, "Hmax","Seedmass", c("c","d"))
+dev.off()
+
+pdf("output/FigA82.c.pdf")
+figure_A8c(GC, "Aarea", "e")
+dev.off()
+
+
+
 pdf("output/FigA9.pdf")
   figure_A9(GC)
 dev.off()
 
 
-pdf("output/FigA10.pdf")
-  figure_A10(GC)
+pdf("output/FigA10a.pdf")
+  figure_A10a(GC)
+dev.off()
+
+pdf("output/FigA10b.pdf")
+figure_A10b(GC)
 dev.off()
 
 
