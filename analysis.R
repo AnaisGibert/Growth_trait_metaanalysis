@@ -62,126 +62,126 @@ dir.create("output", showWarnings =FALSE)
 write.csv(RawData, "output/data.csv", row.names=FALSE)
 
 ## Make output
-pdf("output/Fig1.pdf",height=3, width=4)
+pdf("output/FigA1.pdf", height=6) # In the main text, need to be changed
+figure_A1(CompleteData_inter)
+dev.off()
+
+pdf("output/Fig1.pdf",height=3, width=4) # ok
   figure_1(RawData)
 dev.off()
 
-pdf("output/Fig2.pdf",height=6,width=5)
+
+pdf("output/Fig2.pdf",height=6,width=5) # ok
   figure_2(GCi, GIi)
 dev.off()
 
 
-pdf("output/FigA1.pdf", height=6)
-  figure_A1(CompleteData)
+pdf("output/FigA4.pdf",height=6,width=6) # maybe in the main text
+figure_A4(GCi)
 dev.off()
 
 
-pdf("output/FigA2.pdf", height=6, width=6)
+pdf("output/FigA2.pdf", height=6, width=6) # ok , maybe need to put only the line address in the text
   figure_allometry()
 dev.off()
 
-pdf("output/FigA3.pdf", height=3, width=6)
+pdf("output/FigA3.pdf", height=3, width=6)# ok
   figure_map(CoordTable)
 dev.off()
 
-pdf("output/FigA4.pdf",height=6,width=6)
-  figure_A4(GC)
-dev.off()
 
-
-pdf("output/FigA5.pdf",height=6,width=5)
-  figure_A5(GIi)
-dev.off()
-
-pdf("output/FigA5b.pdf",height=6,width=5)
+pdf("output/FigA5.pdf",height=6,width=5) # need to be change, both graph on the same page
+figure_A5(GIi)
 figure_A5b(GIrgr, GIagr)
 dev.off()
 
 
-pdf("output/FigA6.pdf",height=6,width=5)
-  figure_A6(GC)
-dev.off()
+# pdf("output/FigA6.pdf",height=6,width=5)
+#   figure_A6(GCi)
+# dev.off()
 
 
-pdf("output/FigA7.pdf",  height=6, width=5)
+pdf("output/FigA7.pdf",  height=6, width=5) # ok, heterogenity
   figure_A7(RIi, RCi)
 dev.off()
 
 
-pdf("output/FigA8a.pdf")
-  figure_A8(GIi, GC, "SLA", c("a","b"))
+pdf("output/FigA8.pdf")  # ok, test other class
+ figure_8(GCi, GIi)
 dev.off()
-
-pdf("output/FigA8b.pdf")
-  figure_A8(GIi, GC, "WD", c("c","d"))
+# 
+pdf("output/FigA8.b.pdf")
+figure_A8(GCi, "Aarea","Seedmass", c("c","d"))
 dev.off()
+# 
+# pdf("output/FigA8.c.pdf")
+# figure_A82(GCi, "Hmax", "e")
+# dev.off()
 
 
-pdf("output/FigA8c.pdf")
-  figure_A8(GIi, GC, "Hmax",  c("e","f"))
-dev.off()
-
-pdf("output/FigA8d.pdf")
-  figure_A8(GIi, GC, "Seedmass", c("g","h"))
-dev.off()
-
-pdf("output/FigA8e.pdf")
-  figure_A8(GIi, GC, "Aarea", c("i","j"))
-dev.off()
-
-
-
-pdf("output/FigA82.a.pdf")
-figure_A8b(GC, "SLA","WD", c("a","b"))
-dev.off()
-
-
-pdf("output/FigA82.b.pdf")
-figure_A8b(GC, "Hmax","Seedmass", c("c","d"))
-dev.off()
-
-pdf("output/FigA82.c.pdf")
-figure_A8c(GC, "Aarea", "e")
-dev.off()
-
-
-
-pdf("output/FigA9.pdf")
+pdf("output/FigA9.pdf") # ok funnel plot
   figure_A9(GC)
 dev.off()
 
 
-pdf("output/FigA10a.pdf")
+pdf("output/FigA10a.pdf") # a mixer 
   figure_A10a(GC)
+  figure_A10b(GC)
 dev.off()
 
-pdf("output/FigA10b.pdf")
-figure_A10b(GC)
+# pdf("output/FigA11.pdf")
+# figure_A12(GIi)
+# 
+# dev.off()
+
+pdf("output/FigA11.pdf")
+figure_A12(GIi)
 dev.off()
 
 
-pdf("output/FigA11a.pdf")
-figure_A11(GIi, GC, "SLA", c("a","b"))
-dev.off()
+# pdf("output/FigA11a.pdf")
+# figure_A11(GIi, GC, "SLA", c("a","b"))
+# dev.off()
+# 
+# pdf("output/FigA11b.pdf")
+# figure_A11(GIi, GC, "WD", c("c","d"))
+# dev.off()
+# 
+# pdf("output/FigA11c.pdf")
+# figure_A11(GIi, GC, "Hmax",  c("e","f"))
+# dev.off()
+# 
+# pdf("output/FigA11d.pdf")
+# figure_A11(GIi, GC, "Seedmass", c("g","h"))
+# dev.off()
+# 
+# pdf("output/FigA11e.pdf")
+# figure_A11(GIi, GC, "Aarea", c("i","j"))
+# dev.off()
 
-pdf("output/FigA11b.pdf")
-figure_A11(GIi, GC, "WD", c("c","d"))
-dev.off()
+# Heterogeneity
+fun_HeterogenityI2(GIi[["SLA"]], plant.stage="NA") 
+fun_HeterogenityI2(GIi[["SLA"]], plant.stage="juvenile") 
+fun_HeterogenityI2(GIi[["SLA"]], plant.stage="sapling") 
+fun_HeterogenityI2(GIi[["SLA"]], plant.stage="adult") 
 
-pdf("output/FigA11c.pdf")
-figure_A11(GIi, GC, "Hmax",  c("e","f"))
-dev.off()
+fun_HeterogenityI2(GIi[["WD"]], plant.stage="NA") 
+# fun_HeterogenityI2(GIi[["WD"]], plant.stage="juvenile") 
+# fun_HeterogenityI2(GIi[["WD"]], plant.stage="sapling") 
+fun_HeterogenityI2(GIi[["WD"]], plant.stage="adult")
 
-pdf("output/FigA11d.pdf")
-figure_A11(GIi, GC, "Seedmass", c("g","h"))
-dev.off()
-
-pdf("output/FigA11e.pdf")
-figure_A11(GIi, GC, "Aarea", c("i","j"))
-dev.off()
+fun_HeterogenityI2(GIi[["Hmax"]], plant.stage="NA") 
+# fun_HeterogenityI2(GIi[["Hmax"]], plant.stage="juvenile") 
+# fun_HeterogenityI2(GIi[["Hmax"]], plant.stage="sapling") 
+fun_HeterogenityI2(GIi[["Hmax"]], plant.stage="adult")
+# 
+fun_HeterogenityI2(GIi[["Seedmass"]], plant.stage="NA") 
+fun_HeterogenityI2(GIi[["Seedmass"]], plant.stage="juvenile") 
+# fun_HeterogenityI2(GIi[["Seedmass"]], plant.stage="sapling") 
+# fun_HeterogenityI2(GIi[["Seedmass"]], plant.stage="adult")
+fun_HeterogenityI2(GIi[["Aarea"]], plant.stage="NA") 
 
 # Reference list
-
 paper <- read.bib("references/paper.bib")
 meta <- read.bib("references/metaanalyses.bib")
 

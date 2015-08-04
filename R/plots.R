@@ -15,7 +15,7 @@ my_plot_1 <- function(title, ggobj, xlab = expression(paste("")), ylab = "Number
   p
 }
 
-coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
+coeff.plot.2 <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
   significativite = "", round.value, limit.x.min, limit.x.max, limit.x.text,
   limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1, color2) {
           data.complete["x.coord"] <- limit.x.n
@@ -26,7 +26,7 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
             ylab = "Stages") {
             p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,color = "white") + 
               geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-              scale_x_discrete("stage", limit = c("juvenile", "sapling", "adult")) +
+              scale_x_discrete("stage", limit = c("seedling", "juvenile", "sapling", "adult", "mix")) +
               coord_flip() + mytheme + theme(legend.position = "none")
             p }
 
@@ -47,6 +47,63 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
             label = paste("p.value =", round(PVAL, round.value), significativite),
             size = 2)
 }
+
+
+coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
+                       significativite = "", round.value, limit.x.min, limit.x.max, limit.x.text,
+                       limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1, color2) {
+  data.complete["x.coord"] <- limit.x.n
+  
+  data.ideal["x.coord"] <- limit.x.n
+  
+  my_size_effect_plot1 <- function(title, ggobj, xlab = "Effect size + CI (95%) ",
+                                   ylab = "Stages") {
+    p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,color = "white") + 
+      geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
+      scale_x_discrete("stage", limit = c("juvenile", "sapling", "adult")) +
+      coord_flip() + mytheme + theme(legend.position = "none")
+    p }
+  
+  dodge <- position_dodge(width = 0.4)
+  
+  my_size_effect_plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 *SE, ymax = Inte + 1.96 * SE, color = factor(stress)))) +
+    geom_point(aes(x = stage, y = Inte), position = dodge) + geom_errorbar(aes(x = stage, y = Inte),size = 0.4, width = 0.2, position = dodge) + 
+    scale_y_continuous("Effect size (z) + CI 95%",limits = c(limit.x.min, limit.x.max)) +
+    geom_text(aes(stage, x.coord, label = paste("(n=",N, ")"), color = factor(stress), group = "all"), size = 2, data = data.complete,parse = F, position = "identity", vjust = +vjust.value, hjust = 0) +
+    geom_text(aes(stage, x.coord, label = paste("(n=", N, ")"), color = factor(stress), group = "ideal"), size = 2, data = data.ideal, parse = F, position = "identity", vjust = -vjust.value,hjust = 0) +
+    scale_color_manual(values = c(color1, color2)) +
+    annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:", round(LRT,2)), size = 2) +
+    annotate("text", x = limit.y.text.l2, y = limit.x.text,label = paste("p.value =", round(PVAL, round.value), significativite), size = 2)
+}
+
+
+coeff.plot.ideal.2 <- function(data.ideal, LRT, PVAL, title = "", significativite = "",
+                              round.value, limit.x.min, limit.x.max, limit.x.text, limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1) {
+  
+  data.ideal["x.coord"] <- limit.x.n
+  
+  my_size_effect_plot2 <- function(title, ggobj, xlab = "Effect size + CI (95%) ",
+                                   ylab = "Stages") {
+    p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,
+                                                                            color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
+      scale_x_discrete("stage", limit = c("seedling","juvenile", "sapling", "adult","mix")) +
+      coord_flip() + mytheme + theme(legend.position = "none")
+    p
+  }
+  
+  my_size_effect_plot2(title, ggplot(data.ideal, aes(stage, Inte, ymin = Inte -
+                                                       1.96 * SE, ymax = Inte + 1.96 * SE, color = factor(stress)))) + geom_point(aes(x = stage,
+                                                                                                                                      y = Inte)) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4, width = 0.2) +
+    scale_y_continuous("Effect size (z) + CI 95%", limits = c(limit.x.min,
+                                                              limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("(n=",
+                                                                                                                          N, ")"), color = factor(stress), group = "ideal"), size = 2, data = data.ideal,
+                                                                                        parse = F, position = "identity", vjust = -vjust.value, hjust = 0) + scale_color_manual(values = c(color1)) +
+    annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:",
+                                                                          round(LRT, 2)), size = 2) + annotate("text", x = limit.y.text.l2, y = limit.x.text,
+                                                                                                               label = paste("p.value =", round(PVAL, round.value), significativite),
+                                                                                                               size = 2)
+}
+
 
 coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite = "",
   round.value, limit.x.min, limit.x.max, limit.x.text, limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1) {
@@ -155,174 +212,343 @@ my_plot_overall.b <- function(data1, data2, title = "") {
   p
 }
 
-coeff.plot.multiple <- function(data, params, labels = NA, xlab = "Effect size (z) +CI 95%", title = "") {
-  fun_List_N <- function(data) {c(
-      length(na.omit(data$coef[data$stageRGR == "seedling"])),
-      length(na.omit(data$coef[data$stageRGR == "juvenile"])),
-      length(na.omit(data$coef[data$stageRGR == "sapling"])),
-      length(na.omit(data$coef[data$stageRGR == "adult"])),
-      length(na.omit(data$coef[data$stageRGR == "mix"])),
-      length(na.omit(data$coef[data$veg.type == "boreal and temperate deciduous forest"])),
-      length(na.omit(data$coef[data$veg.type == "boreal forest"])),
-      length(na.omit(data$coef[data$veg.type == "mediteranean"])),
-      length(na.omit(data$coef[data$veg.type == "mix"])),
-      length(na.omit(data$coef[data$veg.type == "temperate deciduous and mediteranean forest"])),
-      length(na.omit(data$coef[data$veg.type == "temperate deciduous forest"])),
-      length(na.omit(data$coef[data$veg.type == "temperate rain forest"])),
-      length(na.omit(data$coef[data$veg.type == "tropical rain forest"])),
-      length(na.omit(data$coef[data$veg.type == "tropical seasonal forest"])),
-      length(na.omit(data$coef[data$RGR == "GR(Di)"])),
-      length(na.omit(data$coef[data$RGR == "GR(Hi)"])),
-      length(na.omit(data$coef[data$RGR == "GR(Mi)"])),
-      length(na.omit(data$coef[data$RGR == "RGR(CSAi)"])),
-      length(na.omit(data$coef[data$RGR == "RGR(Di)"])),
-      length(na.omit(data$coef[data$RGR == "RGR(Hi)"])),
-      length(na.omit(data$coef[data$RGR == "RGR(Mi)"])),
-      length(na.omit(data$coef[data$RGR == "RGR(Vi)"])),
-      length(na.omit(data$coef[data$experiment == "control"])),
-      length(na.omit(data$coef[data$experiment == "database"])),
-      length(na.omit(data$coef[data$experiment == "field"])),
-      length(na.omit(data$coef[data$experiment == "nature"]))
-      )}
-  fun_AICm <- function(data) {
-    m <- lmer(corr.z ~ stage + (1 | id), data = data, weights = nb.sp, REML = FALSE, 
-              control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
-                                    check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
-                                    check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
-                                    check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))  # model avec les intercepts qui sont a 1
-    gr <- lmer(corr.z ~ RGR + (1 | id), data = data, weights = nb.sp, REML = FALSE, 
-               control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
-                                     check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
-                                     check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
-                                     check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
-    veg <- lmer(corr.z ~ veg.type + (1 | id), data = data, weights = nb.sp,
-      REML = FALSE, 
-      control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
-                            check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
-                            check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
-                            check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
-    exp <- lmer(corr.z ~ experiment + (1 | id), data = data, weights = nb.sp,
-      REML = FALSE, 
-      control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
-                            check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
-                            check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
-                            check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
-    c(AIC(exp), AIC(gr), AIC(veg), AIC(m))
-  }
-  name <- list(1:4, c("value", "x", "y"))
-  aic <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]),
-                              dimnames = name))
-  aic["value"] <- data.frame(fun_AICm(data))
-  aic["x"] <- c(2.3, 2.3, 2.3, 2.3)
-  aic["y"] <- c(1, 6, 14, 23)
-  aic$value <- round(aic$value, digits = 0)
+# coeff.plot.multiple <- function(data, params, labels = NA, xlab = "Effect size (z) +CI 95%", title = "") {
+#   fun_List_N <- function(data) {c(
+#       length(na.omit(data$coef[data$stageRGR == "seedling"])),
+#       length(na.omit(data$coef[data$stageRGR == "juvenile"])),
+#       length(na.omit(data$coef[data$stageRGR == "sapling"])),
+#       length(na.omit(data$coef[data$stageRGR == "adult"])),
+#       length(na.omit(data$coef[data$stageRGR == "mix"])),
+#       length(na.omit(data$coef[data$veg.type == "boreal and temperate deciduous forest"])),
+#       length(na.omit(data$coef[data$veg.type == "boreal forest"])),
+#       length(na.omit(data$coef[data$veg.type == "mediteranean"])),
+#       length(na.omit(data$coef[data$veg.type == "mix"])),
+#       length(na.omit(data$coef[data$veg.type == "temperate deciduous and mediteranean forest"])),
+#       length(na.omit(data$coef[data$veg.type == "temperate deciduous forest"])),
+#       length(na.omit(data$coef[data$veg.type == "temperate rain forest"])),
+#       length(na.omit(data$coef[data$veg.type == "tropical rain forest"])),
+#       length(na.omit(data$coef[data$veg.type == "tropical seasonal forest"])),
+#       length(na.omit(data$coef[data$RGR == "GR(Di)"])),
+#       length(na.omit(data$coef[data$RGR == "GR(Hi)"])),
+#       length(na.omit(data$coef[data$RGR == "GR(Mi)"])),
+#       length(na.omit(data$coef[data$RGR == "RGR(CSAi)"])),
+#       length(na.omit(data$coef[data$RGR == "RGR(Di)"])),
+#       length(na.omit(data$coef[data$RGR == "RGR(Hi)"])),
+#       length(na.omit(data$coef[data$RGR == "RGR(Mi)"])),
+#       length(na.omit(data$coef[data$RGR == "RGR(Vi)"])),
+#       length(na.omit(data$coef[data$experiment == "control"])),
+#       length(na.omit(data$coef[data$experiment == "database"])),
+#       length(na.omit(data$coef[data$experiment == "field"])),
+#       length(na.omit(data$coef[data$experiment == "nature"]))
+#       )}
+#   fun_AICm <- function(data) {
+#     m <- lmer(corr.z ~ stage + (1 | id), data = data, weights = nb.sp, REML = FALSE, 
+#               control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                                     check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                                     check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                                     check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))  # model avec les intercepts qui sont a 1
+#     gr <- lmer(corr.z ~ RGR + (1 | id), data = data, weights = nb.sp, REML = FALSE, 
+#                control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                                      check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                                      check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                                      check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
+#     veg <- lmer(corr.z ~ veg.type + (1 | id), data = data, weights = nb.sp,
+#       REML = FALSE, 
+#       control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                             check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                             check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                             check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
+#     exp <- lmer(corr.z ~ experiment + (1 | id), data = data, weights = nb.sp,
+#       REML = FALSE, 
+#       control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                             check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                             check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                             check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
+#     c(AIC(exp), AIC(gr), AIC(veg), AIC(m))
+#   }
+#   name <- list(1:4, c("value", "x", "y"))
+#   aic <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]),
+#                               dimnames = name))
+#   aic["value"] <- data.frame(fun_AICm(data))
+#   aic["x"] <- c(2.3, 2.3, 2.3, 2.3)
+#   aic["y"] <- c(1, 6, 14, 23)
+#   aic$value <- round(aic$value, digits = 0)
+# 
+#   # nom de la liste
+#   List_N <- fun_List_N(data)
+#   
+#   # creation du plot
+#   dat <- fun_model_multiple(data)
+#   dat <- dat[match(params, dat$params), ]  # je mets dans dat la liste des parametres qui matche les parametres indique danq ma fonction coefplot
+#   if (is.null(labels))
+#     labels <- dat$params  #si labels=NULL dans ma fonction coefplot alors les labels sont ceux du tableau de donnee
+#   
+#   plot(0, xaxt = "n", yaxt = "n", bty = "n", pch = "", ylab = "", xlab = "",
+#        xlim = c(-3, 3), ylim = c(1, 26))
+#   # plot(0seq_len(nrow(dat)), xlab='', ylab='',xlim=c(-2,3))
+#   rect(-4, 0, 5, 4.5, col = "grey", border = "transparent", density = 70, xpd = FALSE)
+#   rect(-4, 12.5, 5, 21.5, col = "grey", border = "transparent", density = 70,
+#        xpd = FALSE)
+#   points(dat[, "mean"], seq_len(nrow(dat)), xlab = "", ylab = "", xlim = c(-3,
+#                                                                            3), yaxt = "n", pch = 21, bg = "black", cex.lab = 0.7, cex.axis = 0.7,
+#          panel.first = {
+#            abline(v = 0, lty = 3)
+#            segments(dat$lower, seq_len(nrow(dat)), dat$upper, seq_len(nrow(dat)),
+#                     lend = 1)
+#          })
+#   axis(2, at = seq_len(nrow(dat)), labels = labels, las = 1, cex.axis = 0.7)
+#   box()
+#   text(paste("n=", rev(List_N)), x = dat$lower - 0.5, y = seq_len(nrow(dat)),
+#        cex = 0.5)
+#   text(paste("AIC=", aic$value), x = aic$x, y = aic$y, cex = 0.7)
+#   mtext(xlab, side = 1, line = 0.5, cex = 0.8)
+#   mtext(title, side = 3, line = 0.5, cex = 0.9, at = 0.5)
+# }
+# 
+# coeff.plot.multiple2 <- function(data, params, labels = NA, xlab = "Effect size (z) +CI 95%",title = "") {
+#   # creation d une liste avec le nombre de valeurs dans chaque categories
+#   # (seedling, sapling etc.)
+#   fun_List_N <- function(data) {c(
+#     length(na.omit(data$coef[data$stage == "juvenile"])),
+#     length(na.omit(data$coef[data$stage == "sapling"])),
+#     length(na.omit(data$coef[data$stage == "adult"])),
+#     length(na.omit(data$coef[data$growth == "AbGR"])),
+#     length(na.omit(data$coef[data$growth == "RGR"])),
+#     length(na.omit(data$coef[data$measurement == "Height"])),
+#     length(na.omit(data$coef[data$measurement == "Mass"])),
+#     length(na.omit(data$coef[data$measurement == "Diameter"])),
+#     length(na.omit(data$coef[data$measurement == "Other"]))
+#   )}
+#   
+#   
+#   fun_AICm <- function(data) {
+#     # modele null cad sans la variable que je veux analyser
+#     m1 <- lmer(corr.z ~ stage - 1 + (1 | id), data = data, weights = nb.sp, REML = TRUE, 
+#                control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                                      check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                                      check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                                      check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))  # model avec les intercepts qui sont a 1
+#     gr1 <- lmer(corr.z ~ growth - 1 + (1 | id), data = data, weights = nb.sp, REML = TRUE, 
+#                 control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                                       check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                                       check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                                       check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
+#     meas1 <- lmer(corr.z ~ measurement - 1 + (1 | id), data = data, weights = nb.sp, REML = TRUE, 
+#                   control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                                         check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                                         check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                                         check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
+#     
+#     c(AIC(gr1), AIC(meas1), AIC(m1))
+#   }
+#   
+#   name <- list(1:3, c("value", "x", "y"))
+#   aic <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]),
+#                               dimnames = name))
+#   aic["value"] <- data.frame(fun_AICm(data))
+#   aic["x"] <- c(2.3, 2.3, 2.3)
+#   aic["y"] <- c(1, 5, 7)
+#   aic$value <- round(aic$value, digits = 0)
+#   
+#   # nom de la liste
+#   List_N <- fun_List_N(data)
+#   
+#   # creation du plot
+#   dat <- fun_model_multiple2(data)
+#   dat <- dat[match(params, dat$params), ]  # je mets dans dat la liste des parametres qui matche les parametres indique danq ma fonction coefplot
+#   if (is.null(labels))
+#     labels <- dat$params  #si labels=NULL dans ma fonction coefplot alors les labels sont ceux du tableau de donnee
+#   
+#   plot(0, xaxt = "n", yaxt = "n", bty = "n", pch = "", ylab = "", xlab = "",
+#        xlim = c(-3, 3), ylim = c(1, 9))
+#   # plot(0seq_len(nrow(dat)), xlab='', ylab='',xlim=c(-2,3))
+#   rect(-4, 0, 5, 4.5, col = "grey", border = "transparent", density = 70, xpd = FALSE)
+#   rect(-4, 6.5, 5, 10, col = "grey", border = "transparent", density = 70,
+#        xpd = FALSE)
+#   points(dat[, "mean"], seq_len(nrow(dat)), xlab = "", ylab = "", xlim = c(-3,
+#                                                                            3), yaxt = "n", pch = 21, bg = "black", cex.lab = 0.7, cex.axis = 0.7,
+#          panel.first = {
+#            abline(v = 0, lty = 3)
+#            segments(dat$lower, seq_len(nrow(dat)), dat$upper, seq_len(nrow(dat)),
+#                     lend = 1)
+#          })
+#   axis(2, at = seq_len(nrow(dat)), labels = labels, las = 1, cex.axis = 0.7)
+#   box()
+#   text(paste("n=", rev(List_N)), x = dat$lower - 0.5, y = seq_len(nrow(dat)),
+#        cex = 0.5)
+#   text(paste("AIC=", aic$value), x = aic$x, y = aic$y, cex = 0.7)
+#   mtext(xlab, side = 1, line = 0.5, cex = 0.8)
+#   mtext(title, side = 3, line = 0.5, cex = 0.9, at = 0.5)
+# }
 
-  # nom de la liste
-  List_N <- fun_List_N(data)
-  
-  # creation du plot
-  dat <- fun_model_multiple(data)
-  dat <- dat[match(params, dat$params), ]  # je mets dans dat la liste des parametres qui matche les parametres indique danq ma fonction coefplot
-  if (is.null(labels))
-    labels <- dat$params  #si labels=NULL dans ma fonction coefplot alors les labels sont ceux du tableau de donnee
-  
-  plot(0, xaxt = "n", yaxt = "n", bty = "n", pch = "", ylab = "", xlab = "",
-       xlim = c(-3, 3), ylim = c(1, 26))
-  # plot(0seq_len(nrow(dat)), xlab='', ylab='',xlim=c(-2,3))
-  rect(-4, 0, 5, 4.5, col = "grey", border = "transparent", density = 70, xpd = FALSE)
-  rect(-4, 12.5, 5, 21.5, col = "grey", border = "transparent", density = 70,
-       xpd = FALSE)
-  points(dat[, "mean"], seq_len(nrow(dat)), xlab = "", ylab = "", xlim = c(-3,
-                                                                           3), yaxt = "n", pch = 21, bg = "black", cex.lab = 0.7, cex.axis = 0.7,
-         panel.first = {
-           abline(v = 0, lty = 3)
-           segments(dat$lower, seq_len(nrow(dat)), dat$upper, seq_len(nrow(dat)),
-                    lend = 1)
-         })
-  axis(2, at = seq_len(nrow(dat)), labels = labels, las = 1, cex.axis = 0.7)
-  box()
-  text(paste("n=", rev(List_N)), x = dat$lower - 0.5, y = seq_len(nrow(dat)),
-       cex = 0.5)
-  text(paste("AIC=", aic$value), x = aic$x, y = aic$y, cex = 0.7)
-  mtext(xlab, side = 1, line = 0.5, cex = 0.8)
-  mtext(title, side = 3, line = 0.5, cex = 0.9, at = 0.5)
-}
-
-coeff.plot.multiple2 <- function(data, params, labels = NA, xlab = "Effect size (z) +CI 95%",title = "") {
-  # creation d une liste avec le nombre de valeurs dans chaque categories
-  # (seedling, sapling etc.)
-  fun_List_N <- function(data) {c(
-    length(na.omit(data$coef[data$stage == "juvenile"])),
-    length(na.omit(data$coef[data$stage == "sapling"])),
-    length(na.omit(data$coef[data$stage == "adult"])),
-    length(na.omit(data$coef[data$growth == "AbGR"])),
-    length(na.omit(data$coef[data$growth == "RGR"])),
-    length(na.omit(data$coef[data$measurement == "Height"])),
-    length(na.omit(data$coef[data$measurement == "Mass"])),
-    length(na.omit(data$coef[data$measurement == "Diameter"])),
-    length(na.omit(data$coef[data$measurement == "Other"]))
-  )}
-  
-  
-  fun_AICm <- function(data) {
-    # modele null cad sans la variable que je veux analyser
-    m1 <- lmer(corr.z ~ stage - 1 + (1 | id), data = data, weights = nb.sp, REML = TRUE, 
-               control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
-                                     check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
-                                     check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
-                                     check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))  # model avec les intercepts qui sont a 1
-    gr1 <- lmer(corr.z ~ growth - 1 + (1 | id), data = data, weights = nb.sp, REML = TRUE, 
-                control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
-                                      check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
-                                      check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
-                                      check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
-    meas1 <- lmer(corr.z ~ measurement - 1 + (1 | id), data = data, weights = nb.sp, REML = TRUE, 
-                  control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
-                                        check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
-                                        check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
-                                        check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
-    
-    c(AIC(gr1), AIC(meas1), AIC(m1))
-  }
-  
-  name <- list(1:3, c("value", "x", "y"))
-  aic <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]),
-                              dimnames = name))
-  aic["value"] <- data.frame(fun_AICm(data))
-  aic["x"] <- c(2.3, 2.3, 2.3)
-  aic["y"] <- c(1, 5, 7)
-  aic$value <- round(aic$value, digits = 0)
-  
-  # nom de la liste
-  List_N <- fun_List_N(data)
-  
-  # creation du plot
-  dat <- fun_model_multiple2(data)
-  dat <- dat[match(params, dat$params), ]  # je mets dans dat la liste des parametres qui matche les parametres indique danq ma fonction coefplot
-  if (is.null(labels))
-    labels <- dat$params  #si labels=NULL dans ma fonction coefplot alors les labels sont ceux du tableau de donnee
-  
-  plot(0, xaxt = "n", yaxt = "n", bty = "n", pch = "", ylab = "", xlab = "",
-       xlim = c(-3, 3), ylim = c(1, 9))
-  # plot(0seq_len(nrow(dat)), xlab='', ylab='',xlim=c(-2,3))
-  rect(-4, 0, 5, 4.5, col = "grey", border = "transparent", density = 70, xpd = FALSE)
-  rect(-4, 6.5, 5, 10, col = "grey", border = "transparent", density = 70,
-       xpd = FALSE)
-  points(dat[, "mean"], seq_len(nrow(dat)), xlab = "", ylab = "", xlim = c(-3,
-                                                                           3), yaxt = "n", pch = 21, bg = "black", cex.lab = 0.7, cex.axis = 0.7,
-         panel.first = {
-           abline(v = 0, lty = 3)
-           segments(dat$lower, seq_len(nrow(dat)), dat$upper, seq_len(nrow(dat)),
-                    lend = 1)
-         })
-  axis(2, at = seq_len(nrow(dat)), labels = labels, las = 1, cex.axis = 0.7)
-  box()
-  text(paste("n=", rev(List_N)), x = dat$lower - 0.5, y = seq_len(nrow(dat)),
-       cex = 0.5)
-  text(paste("AIC=", aic$value), x = aic$x, y = aic$y, cex = 0.7)
-  mtext(xlab, side = 1, line = 0.5, cex = 0.8)
-  mtext(title, side = 3, line = 0.5, cex = 0.9, at = 0.5)
-}
+# coeff.plot.multiple3 <- function(data, params, labels = NA, xlab = "Effect size (z) +CI 95%", title = "") {
+#   fun_List_N <- function(data) {c(
+#     length(na.omit(data$coef[data$stageRGR == "seedling"])),
+#     length(na.omit(data$coef[data$stageRGR == "juvenile"])),
+#     length(na.omit(data$coef[data$stageRGR == "sapling"])),
+#     length(na.omit(data$coef[data$stageRGR == "adult"])),
+#     length(na.omit(data$coef[data$stageRGR == "mix"])),
+#     length(na.omit(data$coef[data$RGR == "GR(Di)"])),
+#     length(na.omit(data$coef[data$RGR == "GR(Hi)"])),
+#     length(na.omit(data$coef[data$RGR == "GR(Mi)"])),
+#     length(na.omit(data$coef[data$RGR == "RGR(CSAi)"])),
+#     length(na.omit(data$coef[data$RGR == "RGR(Di)"])),
+#     length(na.omit(data$coef[data$RGR == "RGR(Hi)"])),
+#     length(na.omit(data$coef[data$RGR == "RGR(Mi)"])),
+#     length(na.omit(data$coef[data$RGR == "RGR(Vi)"])),
+#     length(na.omit(data$coef[data$growth.form == "tree"])),
+#     length(na.omit(data$coef[data$growth.form == "woody"])),
+#     length(na.omit(data$coef[data$growth.form == "across growth form"])),
+#     length(na.omit(data$coef[data$experiment == "control"])),
+#     length(na.omit(data$coef[data$experiment == "database"])),
+#     length(na.omit(data$coef[data$experiment == "field"])),
+#     length(na.omit(data$coef[data$experiment == "nature"]))
+#   )}
+#   
+#   fun_AICm <- function(data) {
+#     m <- lmer(corr.z ~ stage + (1 | id), data = data, weights = nb.sp, REML = FALSE, 
+#               control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                                     check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                                     check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                                     check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))  # model avec les intercepts qui sont a 1
+#     gr <- lmer(corr.z ~ RGR + (1 | id), data = data, weights = nb.sp, REML = FALSE, 
+#                control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                                      check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                                      check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                                      check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
+#     veg <- lmer(corr.z ~ growth.form + (1 | id), data = data, weights = nb.sp,
+#                 REML = FALSE, 
+#                 control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                                       check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                                       check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                                       check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
+#     exp <- lmer(corr.z ~ experiment + (1 | id), data = data, weights = nb.sp,
+#                 REML = FALSE, 
+#                 control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                                       check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                                       check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                                       check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
+#     c(AIC(exp), AIC(gr), AIC(veg), AIC(m))
+#   }
+#   
+#   name <- list(1:4, c("value", "x", "y"))
+#   aic <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]),
+#                               dimnames = name))
+#   aic["value"] <- data.frame(fun_AICm(data))
+#   aic["x"] <- c(2.3, 2.3, 2.3, 2.3)
+#   aic["y"] <- c(1, 5, 8, 16)
+#   aic$value <- round(aic$value, digits = 0)
+#   
+#   # nom de la liste
+#   List_N <- fun_List_N(data)
+#   
+#   # creation du plot
+#   dat <- fun_model_multiple3(data)
+#   dat <- dat[match(params, dat$params), ]  # je mets dans dat la liste des parametres qui matche les parametres indique danq ma fonction coefplot
+#   if (is.null(labels))
+#     labels <- dat$params  #si labels=NULL dans ma fonction coefplot alors les labels sont ceux du tableau de donnee
+#   
+#   plot(0, xaxt = "n", yaxt = "n", bty = "n", pch = "", ylab = "", xlab = "",
+#        xlim = c(-3, 3), ylim = c(1, 20))
+#   # plot(0seq_len(nrow(dat)), xlab='', ylab='',xlim=c(-2,3))
+#   rect(-4, 0, 5, 4.5, col = "grey", border = "transparent", density = 70, xpd = FALSE)
+#   rect(-4, 7.5, 5, 15.5, col = "grey", border = "transparent", density = 70,
+#        xpd = FALSE)
+#   points(dat[, "mean"], seq_len(nrow(dat)), xlab = "", ylab = "", xlim = c(-3,
+#                                                                            3), yaxt = "n", pch = 21, bg = "black", cex.lab = 0.7, cex.axis = 0.7,
+#          panel.first = {
+#            abline(v = 0, lty = 3)
+#            segments(dat$lower, seq_len(nrow(dat)), dat$upper, seq_len(nrow(dat)),
+#                     lend = 1)
+#          })
+#   axis(2, at = seq_len(nrow(dat)), labels = labels, las = 1, cex.axis = 0.7)
+#   box()
+#   text(paste("n=", rev(List_N)), x = dat$lower - 0.5, y = seq_len(nrow(dat)),
+#        cex = 0.5)
+#   text(paste("AIC=", aic$value), x = aic$x, y = aic$y, cex = 0.7)
+#   mtext(xlab, side = 1, line = 0.5, cex = 0.8)
+#   mtext(title, side = 3, line = 0.5, cex = 0.9, at = 0.5)
+# }
+# 
+# coeff.plot.multiple3.1 <- function(data, params, labels = NA, xlab = "Effect size (z) +CI 95%", title = "") {
+#   fun_List_N <- function(data) {c(
+#     length(na.omit(data$coef[data$stageRGR == "seedling"])),
+#     length(na.omit(data$coef[data$stageRGR == "juvenile"])),
+#     length(na.omit(data$coef[data$stageRGR == "sapling"])),
+#     length(na.omit(data$coef[data$stageRGR == "adult"])),
+#     length(na.omit(data$coef[data$stageRGR == "mix"])),
+#     length(na.omit(data$coef[data$RGR == "GR(Di)"])),
+#     length(na.omit(data$coef[data$RGR == "GR(Hi)"])),
+#     length(na.omit(data$coef[data$RGR == "GR(Mi)"])),
+#     length(na.omit(data$coef[data$RGR == "RGR(CSAi)"])),
+#     length(na.omit(data$coef[data$RGR == "RGR(Di)"])),
+#     length(na.omit(data$coef[data$RGR == "RGR(Hi)"])),
+#     length(na.omit(data$coef[data$RGR == "RGR(Mi)"])),
+#     length(na.omit(data$coef[data$RGR == "RGR(Vi)"])),
+#     length(na.omit(data$coef[data$experiment == "control"])),
+#     length(na.omit(data$coef[data$experiment == "database"])),
+#     length(na.omit(data$coef[data$experiment == "field"])),
+#     length(na.omit(data$coef[data$experiment == "nature"]))
+#   )}
+#   
+#   fun_AICm <- function(data) {
+#     m <- lmer(corr.z ~ stage + (1 | id), data = data, weights = nb.sp, REML = FALSE, 
+#               control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                                     check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                                     check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                                     check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))  # model avec les intercepts qui sont a 1
+#     gr <- lmer(corr.z ~ RGR + (1 | id), data = data, weights = nb.sp, REML = FALSE, 
+#                control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                                      check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                                      check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                                      check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
+#        exp <- lmer(corr.z ~ experiment + (1 | id), data = data, weights = nb.sp,
+#                 REML = FALSE, 
+#                 control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore", 
+#                                       check.nobs.vs.nRE = "ignore", optimizer="bobyqa", check.conv.grad = .makeCC("ignore", tol = 2e-3, relTol = NULL),
+#                                       check.conv.singular = .makeCC(action = "ignore",  tol = 1e-4),
+#                                       check.conv.hess = .makeCC(action = "ignore", tol = 1e-6)))
+#     c(AIC(exp), AIC(gr), AIC(m))
+#   }
+#   
+#   name <- list(1:3, c("value", "x", "y"))
+#   aic <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]),
+#                               dimnames = name))
+#   aic["value"] <- data.frame(fun_AICm(data))
+#   aic["x"] <- c(2.3, 2.3, 2.3)
+#   aic["y"] <- c(1, 5, 13)
+#   aic$value <- round(aic$value, digits = 0)
+#   
+#   # nom de la liste
+#   List_N <- fun_List_N(data)
+#   
+#   # creation du plot
+#   dat <- fun_model_multiple3.1(data)
+#   dat <- dat[match(params, dat$params), ]  # je mets dans dat la liste des parametres qui matche les parametres indique danq ma fonction coefplot
+#   if (is.null(labels))
+#     labels <- dat$params  #si labels=NULL dans ma fonction coefplot alors les labels sont ceux du tableau de donnee
+#   
+#   plot(0, xaxt = "n", yaxt = "n", bty = "n", pch = "", ylab = "", xlab = "",
+#        xlim = c(-3, 3), ylim = c(1, 17))
+#   # plot(0seq_len(nrow(dat)), xlab='', ylab='',xlim=c(-2,3))
+#   rect(-4, 0, 5, 4.5, col = "grey", border = "transparent", density = 70, xpd = FALSE)
+#   rect(-4, 12.5, 5, 19, col = "grey", border = "transparent", density = 70,
+#        xpd = FALSE)
+#   points(dat[, "mean"], seq_len(nrow(dat)), xlab = "", ylab = "", xlim = c(-3,
+#                                                                            3), yaxt = "n", pch = 21, bg = "black", cex.lab = 0.7, cex.axis = 0.7,
+#          panel.first = {
+#            abline(v = 0, lty = 3)
+#            segments(dat$lower, seq_len(nrow(dat)), dat$upper, seq_len(nrow(dat)),
+#                     lend = 1)
+#          })
+#   axis(2, at = seq_len(nrow(dat)), labels = labels, las = 1, cex.axis = 0.7)
+#   box()
+#   text(paste("n=", rev(List_N)), x = dat$lower - 0.5, y = seq_len(nrow(dat)),
+#        cex = 0.5)
+#   text(paste("AIC=", aic$value), x = aic$x, y = aic$y, cex = 0.7)
+#   mtext(xlab, side = 1, line = 0.5, cex = 0.8)
+#   mtext(title, side = 3, line = 0.5, cex = 0.9, at = 0.5)
+# }
 
 
 my_plot_3 <- function(title, ggobj, xlab = expression(paste("")), ylab = "growth measurements") {
@@ -350,10 +576,29 @@ my_plot_3b <- function(title, ggobj, xlab = expression(paste("")), ylab = "growt
                       p
 }
 
+# my_plot_3c <- function(title, ggobj, xlab = expression(paste("")), ylab = "nbr of correlations") {
+#   p <- ggobj + geom_bar() + coord_cartesian(ylim = ylim) + coord_flip() + labs(title = title) +
+#     xlab(xlab) + ylab(ylab) +
+#     theme(text = element_text(size = 9), axis.text.x = element_text(size = 9),
+#           axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme + 
+#     theme(axis.title = element_text(size = 10, hjust = 0.5)) + 
+#     scale_fill_manual("", values = c(juvenile = "grey", sapling = "orange",adult = "red"),
+#                       breaks = c("juvenile", "sapling", "adult"), labels = c("juvenile","sapling", "adult"))
+#   p
+# }
+
 my_funnelplot <- function(title, ggobj, xlab = "", ylab = "") {
-  p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + mytheme + scale_color_manual(name = "stage",
-                                                                                            limits = c("juvenile", "sapling", "adult"), breaks = c("juvenile", "sapling",
-                                                                                                                                                   "adult"), values = c(juvenile = "grey", sapling = "orange", adult = "red")) +
+  p <- ggobj +
+    labs(title = title) +
+    xlab(xlab) +
+    ylab(ylab) +
+    mytheme +
+    scale_color_manual(name = "stage",
+                       limits = c("juvenile", "sapling", "adult"),
+                       breaks = c("juvenile", "sapling","adult"), 
+                       values = c(juvenile = "grey", sapling = "orange", adult = "red")) +
     geom_hline(xintercept = 0, color = "grey")
   p
 }
+
+

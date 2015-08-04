@@ -7,7 +7,7 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
    Table[[f]] <- as.factor(Table[[f]])
   }
 
-  for(f in c("size.min","size.max","size.mean.range","sample.size","nb.sp.reported","coef",
+  for(f in c("year","size.min","size.max","size.mean.range","sample.size","nb.sp.reported","coef",
     "RGR.min","RGR.max","trait.min","trait.max")) {
    Table[[f]] <- as.numeric(Table[[f]])
   }
@@ -50,7 +50,7 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
   Table$measurement[Table$RGR %in% c("RGR(?)","RGR(Vi)","RGR(CSAi)")] <- "Other"
   
   Table["growth.form"] <- "NA"
-  Table$growth.form[Table$life.form %in% c("tree", "tree ")] <- "tree"
+  Table$growth.form[Table$life.form %in% c("tree", "tree ","NA")] <- "tree"
   Table$growth.form[Table$life.form %in% c("tree, shrub" , "woody" , "woody and semi-woody", "woody vines")] <- "woody"
   Table$growth.form[Table$life.form %in% c("liana and tree" , "shrub and tree" , "tree and herbs" , "tree, herbs",  "tree, shrub, herbs" , "woody and herbs", "woody, forbs, herbs" ,"woody, shrub, perennial herbs")] <- "across growth form"
   
@@ -214,7 +214,7 @@ standardise_data <- function(CompileTable) {
   RawData$zscore <- fn_z(RawData$corr.z, RawData$nb.sp)
 
   RawData["vr.z"] <- NA
-  fn_vz <- function(x) 1/(x + 3)
+  fn_vz <- function(x) 1/(x - 3)
   RawData$vr.z <- fn_vz(RawData$nb.sp)
 
   RawData["se.z"] <- NA
