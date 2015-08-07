@@ -603,6 +603,8 @@ fun_model_multiple3.1 <- function(x) {
   
   dat
 } 
+
+
 # Weighted correlation
 table_overall.stage <- function(y) {
   name <- list(1:3, c("stage", "corr.r", "SD", "CI"))
@@ -769,7 +771,7 @@ fun_Onepvalue_year <- function(x) {
 # }
 
 
-fun_HeterogenityI2 <- function(x, plant.stage){ 
+fun_HeterogenityH <- function(x, plant.stage){ 
   data1 <- x
   if (plant.stage=="NA") {data <- data1[!is.na(data1$corr.z) & !is.na(data1$wi.z),]
                         Q <- sum(data$wi.z * (data$corr.z - sum(data$wi.z * data$corr.z)/sum(data$wi.z))^2)
@@ -789,4 +791,29 @@ fun_HeterogenityI2 <- function(x, plant.stage){
                         }
   H 
 }
+
+
+fun_Heterogeneity.CI <- function(x){ 
+  res_null <- rma(corr.z, vr.z, data=x[!is.na(x$corr.z) & !is.na(x$nb.sp),])
+  confint(res_null)
+}
+
+fun_Heterogeneity.H <- function(x, mods){ 
+                      res_null <- rma(corr.z, vr.z, data=x[!is.na(x$corr.z) & !is.na(x$nb.sp),])
+                      res_stage <- rma(corr.z, vr.z, mods= mods, data=x[!is.na(x$corr.z) & !is.na(x$wi.z),])
+                      Hmodel <- (res_null$tau2-res_stage$tau2)/res_null$tau2*100 #% of the total amount of heterogenity can be accounted for by including the moderators of the model
+                      l <- list("Hexplained"=Hmodel,"pvalue"=res_stage$QEp,"Qdf"=res_stage$QE,"effectsize_moderator"=res_stage$zval,"pvalueeffectsize"=res_stage$pval)
+                      l
+}
+
+
+fun_trim.and.fill_number  <- function(x){ 
+                      res <-  rma(corr.z, vr.z, data=x[!is.na(x$corr.z) & !is.na(x$wi.z),])
+                      ### carry out trim-and-fill analysis
+                      taf <- trimfill(res)
+                      taf$k0
+                     
+                  
+}
+
 

@@ -19,6 +19,7 @@ library(MAc,quietly=TRUE)
 library(maptools)
 library(maps)
 library(downloader)
+library(metafor)
 
 library(bibtex)
 library(RefManageR)
@@ -101,26 +102,31 @@ dev.off()
 # dev.off()
 
 
-pdf("output/FigA7.pdf",  height=6, width=5) # ok, heterogenity
+pdf("output/FigA7.pdf",  height=6, width=5) # ok, independance of the data (restricted dataset)
   figure_A7(RIi, RCi)
 dev.off()
 
 
-pdf("output/FigA8.pdf")  # ok, test other class
- figure_8(GCi, GIi)
+# pdf("output/FigA8.pdf")  # coefficient plot with only the stage from the authors
+#  figure_8(GCi, GIi)
+# dev.off()
+# # 
+
+pdf("output/FigA8.a.pdf")
+figure_A8(GCi, "SLA","WD", c("a","b"))
 dev.off()
-# 
+
 pdf("output/FigA8.b.pdf")
 figure_A8(GCi, "Aarea","Seedmass", c("c","d"))
 dev.off()
-# 
-# pdf("output/FigA8.c.pdf")
-# figure_A82(GCi, "Hmax", "e")
-# dev.off()
+
+pdf("output/FigA8.c.pdf")
+figure_A82(GCi, "Hmax", "e")
+dev.off()
 
 
 pdf("output/FigA9.pdf") # ok funnel plot
-  figure_A9(GC)
+  # figure_A9(GC)
 dev.off()
 
 
@@ -160,27 +166,40 @@ dev.off()
 # dev.off()
 
 # Heterogeneity
-fun_HeterogenityI2(GIi[["SLA"]], plant.stage="NA") 
-fun_HeterogenityI2(GIi[["SLA"]], plant.stage="juvenile") 
-fun_HeterogenityI2(GIi[["SLA"]], plant.stage="sapling") 
-fun_HeterogenityI2(GIi[["SLA"]], plant.stage="adult") 
+# fun_HeterogenityH(GIi[["SLA"]], plant.stage="NA") 
+# fun_HeterogenityH(GIi[["WD"]], plant.stage="NA") 
+# fun_HeterogenityH(GIi[["Hmax"]], plant.stage="NA") 
+# fun_HeterogenityH(GIi[["Hmax"]], plant.stage="adult")
+# fun_HeterogenityH(GIi[["Seedmass"]], plant.stage="NA") 
+# fun_HeterogenityH(GIi[["Aarea"]], plant.stage="NA") 
 
-fun_HeterogenityI2(GIi[["WD"]], plant.stage="NA") 
-# fun_HeterogenityI2(GIi[["WD"]], plant.stage="juvenile") 
-# fun_HeterogenityI2(GIi[["WD"]], plant.stage="sapling") 
-fun_HeterogenityI2(GIi[["WD"]], plant.stage="adult")
+fun_Heterogeneity.CI(GIi[["SLA"]])
+fun_Heterogeneity.H(GIi[["SLA"]], mods=~stage +year)
+fun_Heterogeneity.H(GIi[["SLA"]], mods=~stage )
+fun_trim.and.fill_number(GIi[["SLA"]])
 
-fun_HeterogenityI2(GIi[["Hmax"]], plant.stage="NA") 
-# fun_HeterogenityI2(GIi[["Hmax"]], plant.stage="juvenile") 
-# fun_HeterogenityI2(GIi[["Hmax"]], plant.stage="sapling") 
-fun_HeterogenityI2(GIi[["Hmax"]], plant.stage="adult")
-# 
-fun_HeterogenityI2(GIi[["Seedmass"]], plant.stage="NA") 
-fun_HeterogenityI2(GIi[["Seedmass"]], plant.stage="juvenile") 
-# fun_HeterogenityI2(GIi[["Seedmass"]], plant.stage="sapling") 
-# fun_HeterogenityI2(GIi[["Seedmass"]], plant.stage="adult")
-fun_HeterogenityI2(GIi[["Aarea"]], plant.stage="NA") 
+fun_Heterogeneity.CI(GIi[["WD"]])
+fun_Heterogeneity.H(GIi[["WD"]], mods=~stage +year)
+fun_Heterogeneity.H(GIi[["WD"]], mods=~stage )
+fun_trim.and.fill_number(GIi[["WD"]])
 
+fun_Heterogeneity.CI(GIi[["Hmax"]])
+fun_Heterogeneity.H(GIi[["Hmax"]], mods=~stage +year)
+fun_Heterogeneity.H(GIi[["Hmax"]], mods=~stage )
+fun_trim.and.fill_number(GIi[["Hmax"]])
+
+
+
+
+fun_Heterogeneity.CI(GIi[["Seedmass"]])
+fun_Heterogeneity.H(GIi[["Seedmass"]], mods=~stage +year)
+fun_Heterogeneity.H(GIi[["Seedmass"]], mods=~stage )
+fun_trim.and.fill_number(GIi[["Seedmass"]])
+
+fun_Heterogeneity.CI(GIi[["Aarea"]])
+fun_Heterogeneity.H(GIi[["Aarea"]], mods=~stage +year)
+fun_Heterogeneity.H(GIi[["Aarea"]], mods=~stage )
+fun_trim.and.fill_number(GIi[["Aarea"]])
 # Reference list
 paper <- read.bib("references/paper.bib")
 meta <- read.bib("references/metaanalyses.bib")

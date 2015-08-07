@@ -959,3 +959,11 @@ figure_A12 <- function(GIi) {
   grid.arrange(funnel_SLA_year,funnel_WD_year,funnel_Hmax_year, funnel_Seedmass_year ,funnel_Aarea_year, nrow=3, ncol=2)
 }
 
+
+figure_9 <- function(GCi){
+  par(mfcol=c(1,2))
+  par(mar=c(5,4,1,2))
+  
+  p1 <- figure_trim.and.fill(GCi) 
+
+}
