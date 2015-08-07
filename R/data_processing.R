@@ -248,7 +248,7 @@ build_complete_data <- function(RawData) {
     doi, experiment, stress, growth.form, veg.type, bio.scale, nb.sp, RGR,growth, measurement, RGR.min, RGR.max,
     RGR.unit, stageRGR, similarity, stageTrait, stage, trait, trait.min, trait.max,
     measure.size, size.min, size.max, size.mean.range, coef, sample.size, corr.r,
-    corr.z, vr.z, wi.z))
+    corr.z, vr.z, wi.z, se.z))
   CompleteData$id <- as.factor(CompleteData$id)
   CompleteData
 }
@@ -266,7 +266,7 @@ Build_intersp_complete_data <- function(RawData) {
                                                   doi, experiment, stress, growth.form, veg.type, bio.scale, nb.sp, RGR, growth, measurement, RGR.min, RGR.max,
                                                   RGR.unit, stageRGR, similarity, stageTrait, stage, trait, trait.min, trait.max,
                                                   measure.size, size.min, size.max, size.mean.range, coef, sample.size, corr.r,
-                                                  corr.z, vr.z, wi.z))
+                                                  corr.z, vr.z, wi.z, se.z))
   CompleteData$id <- as.factor(CompleteData$id)
   CompleteData
 }

@@ -694,6 +694,19 @@ figure_A82 <- function(GC, trait1, titles) {
   mtext("mod1", side=2, line=4.2, cex=0.8, at=15.2)
 }
 
+
+figure_A9 <- function(GCi){
+  par(mfrow=c(3,2))
+  par(mar=c(5,4,1,2))
+  
+  p1 <- figure_trim.and.fill(GIi[["SLA"]], title= 'a) SLA') 
+  p2 <- figure_trim.and.fill(GIi[["WD"]], title= 'b) WD')
+  p3 <- figure_trim.and.fill(GIi[["Hmax"]],title= 'c) Hmax') 
+  p4 <- figure_trim.and.fill(GIi[["Seedmass"]],title= 'd) Seedmass') 
+  p5 <- figure_trim.and.fill(GIi[["Aarea"]],title= 'e) Aarea') 
+}
+
+
 # figure_A8b <- function(GC, trait1, trait2, titles) {
 #   par(mfcol=c(1,2))
 #   par(mar=c(2,5,2,0))
@@ -742,42 +755,42 @@ figure_A82 <- function(GC, trait1, titles) {
 #   
 # }
 
-figure_A9 <- function(GC) {
-
-  funnel_SLA_nbsp <- my_funnelplot("a) SLA",
-    ggplot(GC[["SLA"]],aes(x=nb.sp,y=corr.r, colour=factor(stage), size=2, alpha=0.6))) +
-    geom_point() + scale_y_continuous("Correlation coefficient  r",limits=c(-1,1)) +theme( legend.position="none")
-
-
-  funnel_WD_nbsp <- my_funnelplot("b) WD",
-    ggplot(GC[["WD"]],aes(x=nb.sp,y=corr.r,colour=factor(stage), size=2, alpha=0.6))) +
-    geom_point()+
-    scale_y_continuous("",limits=c(-1,1)) +
-    scale_x_continuous("",limits=c(0,150)) +
-    theme( legend.position="none")
-
-  funnel_Hmax_nbsp <- my_funnelplot("c) Hmax",
-    ggplot(GC[["Hmax"]],aes(x=nb.sp,y=corr.r,colour=factor(stage), size=2, alpha=0.6))) +
-    geom_point() + scale_y_continuous("Correlation coefficient r",limits=c(-1,1))+
-    scale_x_continuous("",limits=c(0,150)) +
-    theme( legend.position="none")
-
-
-  funnel_Seedmass_nbsp <- my_funnelplot("d) Seed mass",
-    ggplot(GC[["Seedmass"]],aes(x=nb.sp,y=corr.r,colour=factor(stage), size=2, alpha=0.6))) +
-    geom_point() + scale_x_continuous("Number of species",limits=c(0,150))+
-    scale_y_continuous("",limits=c(-1,1)) +
-    theme( legend.position="none")
-
-
-  funnel_Aarea_nbsp <- my_funnelplot("e) Aarea",
-    ggplot(GC[["Aarea"]],aes(x=nb.sp,y=corr.r,colour=factor(stage),size=2, alpha=0.6))) +
-    geom_point() + scale_alpha(guide = 'none')+ scale_size(guide = 'none') + scale_y_continuous("Correlation coefficient  r",limits=c(-1,1)) + scale_x_continuous("Number of species",limits=c(0,150))+
-    theme (legend.title=element_blank(), legend.justification=c(0,0),legend.position=c(1.2,0.5), legend.key = element_blank(), plot.margin=unit(c(0,0,0,0),"mm"))
-
-
-  grid.arrange(funnel_SLA_nbsp,funnel_WD_nbsp,funnel_Hmax_nbsp, funnel_Seedmass_nbsp ,funnel_Aarea_nbsp, nrow=3, ncol=2)
-}
+# figure_A9 <- function(GC) {
+# 
+#   funnel_SLA_nbsp <- my_funnelplot("a) SLA",
+#     ggplot(GC[["SLA"]],aes(x=nb.sp,y=corr.r, colour=factor(stage), size=2, alpha=0.6))) +
+#     geom_point() + scale_y_continuous("Correlation coefficient  r",limits=c(-1,1)) +theme( legend.position="none")
+# 
+# 
+#   funnel_WD_nbsp <- my_funnelplot("b) WD",
+#     ggplot(GC[["WD"]],aes(x=nb.sp,y=corr.r,colour=factor(stage), size=2, alpha=0.6))) +
+#     geom_point()+
+#     scale_y_continuous("",limits=c(-1,1)) +
+#     scale_x_continuous("",limits=c(0,150)) +
+#     theme( legend.position="none")
+# 
+#   funnel_Hmax_nbsp <- my_funnelplot("c) Hmax",
+#     ggplot(GC[["Hmax"]],aes(x=nb.sp,y=corr.r,colour=factor(stage), size=2, alpha=0.6))) +
+#     geom_point() + scale_y_continuous("Correlation coefficient r",limits=c(-1,1))+
+#     scale_x_continuous("",limits=c(0,150)) +
+#     theme( legend.position="none")
+# 
+# 
+#   funnel_Seedmass_nbsp <- my_funnelplot("d) Seed mass",
+#     ggplot(GC[["Seedmass"]],aes(x=nb.sp,y=corr.r,colour=factor(stage), size=2, alpha=0.6))) +
+#     geom_point() + scale_x_continuous("Number of species",limits=c(0,150))+
+#     scale_y_continuous("",limits=c(-1,1)) +
+#     theme( legend.position="none")
+# 
+# 
+#   funnel_Aarea_nbsp <- my_funnelplot("e) Aarea",
+#     ggplot(GC[["Aarea"]],aes(x=nb.sp,y=corr.r,colour=factor(stage),size=2, alpha=0.6))) +
+#     geom_point() + scale_alpha(guide = 'none')+ scale_size(guide = 'none') + scale_y_continuous("Correlation coefficient  r",limits=c(-1,1)) + scale_x_continuous("Number of species",limits=c(0,150))+
+#     theme (legend.title=element_blank(), legend.justification=c(0,0),legend.position=c(1.2,0.5), legend.key = element_blank(), plot.margin=unit(c(0,0,0,0),"mm"))
+# 
+# 
+#   grid.arrange(funnel_SLA_nbsp,funnel_WD_nbsp,funnel_Hmax_nbsp, funnel_Seedmass_nbsp ,funnel_Aarea_nbsp, nrow=3, ncol=2)
+# }
 
 figure_A10a <- function(GC) {
   p1 <- my_plot_3("a) SLA",
@@ -960,10 +973,4 @@ figure_A12 <- function(GIi) {
 }
 
 
-figure_9 <- function(GCi){
-  par(mfcol=c(1,2))
-  par(mar=c(5,4,1,2))
-  
-  p1 <- figure_trim.and.fill(GCi) 
 
-}

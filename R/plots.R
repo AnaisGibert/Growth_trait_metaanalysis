@@ -601,10 +601,11 @@ my_funnelplot <- function(title, ggobj, xlab = "", ylab = "") {
 }
 
 
-figure_trim.and.fill <- function(x){
-  res <- rma(corr.z, vr.z,  data=x[!is.na(x$corr.z) & !is.na(x$wi.z),])
+figure_trim.and.fill <- function(x, title){
+  res <- rma(corr.z, vr.z,  data=x[!is.na(x$corr.z) & !is.na(x$vr.z),])
   ### carry out trim-and-fill analysis
   taf <- trimfill(res)
-  funnel(taf) ### draw funnel plot with missing studies filled in
+  funnel(taf,axis="corr.z", main= title)
 }
+
 
