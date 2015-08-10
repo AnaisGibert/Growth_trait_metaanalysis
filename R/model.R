@@ -785,6 +785,7 @@ fun_Heterogeneity.H <- function(x, mods){
 }
 
 
+
 fun_trim.and.fill_number  <- function(x){ 
                       res <-  rma(corr.z, vr.z, data=x[!is.na(x$corr.z) & !is.na(x$vr.z),])
                       ### carry out trim-and-fill analysis
@@ -793,4 +794,26 @@ fun_trim.and.fill_number  <- function(x){
                      
 }
 
-x=GIi[["SLA"]]
+
+fun_year <- function(data){
+            table <-  data
+            
+            res <- rma(corr.z, vr.z, mod= ~year ,data=table[!is.na(table$corr.z) & !is.na(table$nb.sp),])
+           
+            x<- subset(table, table$stage=="juvenile")
+            res_juv <- rma(corr.z, vr.z, mod= ~year ,data=x[!is.na(x$corr.z) & !is.na(x$nb.sp),])
+          
+            y <-subset(table, table$stage=="sapling")
+            res_sap <- rma(corr.z, vr.z, mod= ~year ,data=y[!is.na(y$corr.z) & !is.na(y$nb.sp),])
+            
+            z <-subset(table, table$stage=="adult")
+            res_adu <- rma(corr.z, vr.z, mod= ~year ,data=z[!is.na(z$corr.z) & !is.na(z$nb.sp),])
+            
+            l <- list("all"=res, "juvenile"=res_juv, "sapling"=res_sap, "adult"= res_adu)
+            
+            l
+           
+}
+
+# x <- subset(x, x$stage=="juvenile")
+# res_null <- rma(corr.z, vr.z, mod= ~year ,data=x[!is.na(x$corr.z) & !is.na(x$nb.sp),])

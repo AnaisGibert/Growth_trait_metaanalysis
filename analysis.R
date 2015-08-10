@@ -63,46 +63,50 @@ dir.create("output", showWarnings =FALSE)
 write.csv(RawData, "output/data.csv", row.names=FALSE)
 
 ## Make output
-pdf("output/FigA1.pdf", height=6) # In the main text, need to be changed
-figure_A1(CompleteData_inter)
-dev.off()
-
 pdf("output/Fig1.pdf",height=3, width=4) # ok
   figure_1(RawData)
 dev.off()
 
+pdf("output/Fig2.pdf", height=6) # In the main text, need to be changed
+figure_A1(CompleteData_inter)
+dev.off()
 
-pdf("output/Fig2.pdf",height=6,width=5) # ok
+
+pdf("output/Fig3.pdf",height=6,width=5) # ok
   figure_2(GCi, GIi)
 dev.off()
 
 
-pdf("output/FigA4.pdf",height=6,width=6) # maybe in the main text
+
+pdf("output/FigA1.pdf", height=6, width=6) # ok , maybe need to put only the line address in the text
+figure_allometry()
+dev.off()
+
+
+pdf("output/FigA2.pdf", height=3, width=6)# ok
+figure_map(CoordTable)
+dev.off()
+
+
+pdf("output/FigA3.pdf",height=6,width=6) # maybe in the main text
 figure_A4(GCi)
 dev.off()
 
 
-pdf("output/FigA2.pdf", height=6, width=6) # ok , maybe need to put only the line address in the text
-  figure_allometry()
-dev.off()
 
-pdf("output/FigA3.pdf", height=3, width=6)# ok
-  figure_map(CoordTable)
-dev.off()
-
-
-pdf("output/FigA5.pdf",height=6,width=5) # need to be change, both graph on the same page
+pdf("output/FigA4.pdf",height=6,width=5) # need to be change, both graph on the same page
 figure_A5(GIi)
+dev.off()
+
+pdf("output/FigA4b.pdf",height=6,width=5) 
 figure_A5b(GIrgr, GIagr)
 dev.off()
-
-
 # pdf("output/FigA6.pdf",height=6,width=5)
 #   figure_A6(GCi)
 # dev.off()
 
 
-pdf("output/FigA7.pdf",  height=6, width=5) # ok, independance of the data (restricted dataset)
+pdf("output/FigA5.pdf",  height=6, width=5) # ok, independance of the data (restricted dataset)
   figure_A7(RIi, RCi)
 dev.off()
 
@@ -112,25 +116,25 @@ dev.off()
 # dev.off()
 # # 
 
-pdf("output/FigA8.a.pdf")
+pdf("output/FigA6a.pdf")
 figure_A8(GCi, "SLA","WD", c("a","b"))
 dev.off()
 
-pdf("output/FigA8.b.pdf")
+pdf("output/FigA6b.pdf")
 figure_A8(GCi, "Aarea","Seedmass", c("c","d"))
 dev.off()
 
-pdf("output/FigA8.c.pdf")
+pdf("output/FigA6c.pdf")
 figure_A82(GCi, "Hmax", "e")
 dev.off()
 
 
-pdf("output/FigA9.pdf") # ok funnel plot
+pdf("output/FigA7.pdf") # ok funnel plot
   figure_A9(GIi)
 dev.off()
 
 
-pdf("output/FigA10a.pdf") # a mixer 
+pdf("output/FigA8.pdf") # a mixer 
   figure_A10a(GC)
   figure_A10b(GC)
 dev.off()
@@ -140,7 +144,7 @@ dev.off()
 # 
 # dev.off()
 
-pdf("output/FigA11.pdf")
+pdf("output/FigA9.pdf")
 figure_A12(GIi)
 dev.off()
 
@@ -165,53 +169,50 @@ dev.off()
 # figure_A11(GIi, GC, "Aarea", c("i","j"))
 # dev.off()
 
-# Heterogeneity
-# fun_HeterogenityH(GIi[["SLA"]], plant.stage="NA") 
-# fun_HeterogenityH(GIi[["WD"]], plant.stage="NA") 
-# fun_HeterogenityH(GIi[["Hmax"]], plant.stage="NA") 
-# fun_HeterogenityH(GIi[["Hmax"]], plant.stage="adult")
-# fun_HeterogenityH(GIi[["Seedmass"]], plant.stage="NA") 
-# fun_HeterogenityH(GIi[["Aarea"]], plant.stage="NA") 
 
-fun_Heterogeneity.CI(GIi[["SLA"]])
-fun_Heterogeneity.H(GIi[["SLA"]], mods=~stage +year)
-fun_Heterogeneity.H(GIi[["SLA"]], mods=~stage )
-
-
-fun_Heterogeneity.CI(GIi[["WD"]])
-fun_Heterogeneity.H(GIi[["WD"]], mods=~stage +year)
-fun_Heterogeneity.H(GIi[["WD"]], mods=~stage )
-
-
-fun_Heterogeneity.CI(GIi[["Hmax"]])
-fun_Heterogeneity.H(GIi[["Hmax"]], mods=~stage +year)
-fun_Heterogeneity.H(GIi[["Hmax"]], mods=~stage )
-
-
-fun_Heterogeneity.CI(GIi[["Seedmass"]])
-fun_Heterogeneity.H(GIi[["Seedmass"]], mods=~stage +year)
-fun_Heterogeneity.H(GIi[["Seedmass"]], mods=~stage )
-
-
-fun_Heterogeneity.CI(GIi[["Aarea"]])
-fun_Heterogeneity.H(GIi[["Aarea"]], mods=~stage +year)
-fun_Heterogeneity.H(GIi[["Aarea"]], mods=~stage )
-
-
-fun_trim.and.fill_number(GIi[["SLA"]])
-fun_trim.and.fill_number(GIi[["WD"]])
-fun_trim.and.fill_number(GIi[["Hmax"]])
-fun_trim.and.fill_number(GIi[["Seedmass"]])
-fun_trim.and.fill_number(GIi[["Aarea"]])
-
-
-fsn(data=GIi[["SLA"]], corr.z, vi=vr.z, sei= se.z, type="Rosenberg") 
-fsn(data=GIi[["WD"]], corr.z, vi=vr.z, sei= se.z, type="Rosenberg") 
-fsn(data=GIi[["Hmax"]], corr.z,vi=vr.z, sei= se.z, type="Rosenberg") 
-fsn(data=GIi[["Seedmass"]], corr.z, vi=vr.z, sei= se.z, type="Rosenberg") 
-fsn(data=GIi[["Aarea"]], corr.z, vi=vr.z, sei= se.z, type="Rosenberg") 
-
-
+# fun_Heterogeneity.CI(GIi[["SLA"]])
+# fun_Heterogeneity.H(GIi[["SLA"]], mods=~stage +year)
+# fun_Heterogeneity.H(GIi[["SLA"]], mods=~stage )
+# 
+# 
+# fun_Heterogeneity.CI(GIi[["WD"]])
+# fun_Heterogeneity.H(GIi[["WD"]], mods=~stage +year)
+# fun_Heterogeneity.H(GIi[["WD"]], mods=~stage )
+# 
+# 
+# fun_Heterogeneity.CI(GIi[["Hmax"]])
+# fun_Heterogeneity.H(GIi[["Hmax"]], mods=~stage +year)
+# fun_Heterogeneity.H(GIi[["Hmax"]], mods=~stage )
+# 
+# 
+# fun_Heterogeneity.CI(GIi[["Seedmass"]])
+# fun_Heterogeneity.H(GIi[["Seedmass"]], mods=~stage +year)
+# fun_Heterogeneity.H(GIi[["Seedmass"]], mods=~stage )
+# 
+# 
+# fun_Heterogeneity.CI(GIi[["Aarea"]])
+# fun_Heterogeneity.H(GIi[["Aarea"]], mods=~stage +year)
+# fun_Heterogeneity.H(GIi[["Aarea"]], mods=~stage )
+# 
+# 
+# fun_trim.and.fill_number(GIi[["SLA"]])
+# fun_trim.and.fill_number(GIi[["WD"]])
+# fun_trim.and.fill_number(GIi[["Hmax"]])
+# fun_trim.and.fill_number(GIi[["Seedmass"]])
+# fun_trim.and.fill_number(GIi[["Aarea"]])
+# 
+# 
+# fsn(data=GIi[["SLA"]], corr.z, vi=vr.z, sei= se.z, type="Rosenberg") 
+# fsn(data=GIi[["WD"]], corr.z, vi=vr.z, sei= se.z, type="Rosenberg") 
+# fsn(data=GIi[["Hmax"]], corr.z,vi=vr.z, sei= se.z, type="Rosenberg") 
+# fsn(data=GIi[["Seedmass"]], corr.z, vi=vr.z, sei= se.z, type="Rosenberg") 
+# fsn(data=GIi[["Aarea"]], corr.z, vi=vr.z, sei= se.z, type="Rosenberg") 
+# 
+# fun_year(GIi[["SLA"]])
+# fun_year(GIi[["WD"]])
+# fun_year(GIi[["Seedmass"]])
+# fun_year(GIi[["Hmax"]])
+# fun_year(GIi[["Aarea"]])
 
 # Reference list
 paper <- read.bib("references/paper.bib")
