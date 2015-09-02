@@ -1,77 +1,49 @@
-\documentclass[a4paper]{article}\usepackage[]{graphicx}\usepackage[]{color}
-\usepackage{alltt}
-\usepackage{amssymb,amsmath}
-\usepackage{palatino}
-\usepackage{framed}
-\usepackage{parskip}
-\usepackage{graphicx}
-\usepackage{fixltx2e}
-\usepackage[default,osfigures,scale=0.95]{opensans}
-\usepackage{geometry}
-\usepackage{longtable}
-\usepackage{authblk}
-\usepackage[colorinlistoftodos]{todonotes}
-\geometry{verbose,tmargin=2cm,bmargin=2cm,lmargin=2cm,rmargin=2.5cm}
-\linespread{2}
-\usepackage{color}
 
+\documentclass[a4paper,11pt]{article}
+\usepackage[osf]{mathpazo}
+\usepackage{ms}
+\usepackage[]{natbib}
+\raggedright
+
+\newcommand{\smurl}[1]{{\footnotesize\url{#1}}}
+\usepackage{graphicx}
 \usepackage[title,titletoc,toc]{appendix}
 
 
-\usepackage{etoolbox}
-\newbool{MyRefNumbers}
-\booltrue{MyRefNumbers}
+\title{On the link between functional traits and growth rate: meta-analysis shows effects change with plant size, as predicted}
+\author{Anais Gibert\textasteriskcentered, Emma F. Gray, Mark Westoby, Ian J. Wright, Daniel S. Falster}
+\affiliation{Biological Sciences, Macquarie University NSW 2109, Australia\\
+\textasteriskcentered Email for correspondence: \texttt{ anais.gibert@gmail.com}\\
+Word count: ~XXXX words}
+\date{}
 
-\usepackage{natbib}
-
-\bibliographystyle{ecol_let}
-\setcitestyle{authoryear,open={(},close={)}}
+\bibliographystyle{mee}
 \newcommand{\bibstar}{* }
 
+\mstype{Research Article}
+\runninghead{Influence of traits on growth changes with size}
+\keywords{maximum height, photosynthetic rate, ontogenetic stage, functional trait, growth strategy, seed mass, specific leaf area, wood density}
+
 \begin{document}
-
-
-\clearpage
-
-\title{On the link between functional traits and growth rate: meta-analysis shows effects change with plant size, as predicted}
-
-\author[1]{Anais Gibert*}
-\author[1]{Emma F. Gray}
-\author[1]{Mark Westoby}
-\author[1]{Ian J. Wright}
-\author[1]{Daniel S. Falster}
-\affil[1]{Biological Sciences, Macquarie University NSW 2109, Australia}
-
-\maketitle
-
-\textit{Running title (36/45 characters)}Influence of traits on growth changes with size
-
-\textit{Corresponding author} Anais Gibert, anais.gibert@gmail.com, Biological Sciences, Macquarie University NSW 2109, Australia, tel: +61 2 9850 8194
-
-
-\clearpage
-
-\section*{Abstract (195/350 words)}\label{abstract}
-
-
+\mstitlepage
+\noindent
+\parindent=1.5em
+\addtolength{\parskip}{.3em}
+\doublespacing
+\linenumbers
+\section{Summary}\label{abstract}
 \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item Growth rates (GR) have often been seen as central elements of plant ecological strategies, and as linked to species traits. Yet, the literature is inconsistent about empirical correlations between functional traits and plant growth rate, casting doubt on the capacity of traits to predict growth.
 
-\item
-Growth rates (GR) have often been seen as central elements of plant ecological strategies, and as linked to species traits. Yet, the literature is inconsistent about empirical correlations between functional traits and plant growth rate, casting doubt on the capacity of traits to predict growth.
+\item Traits should influence growth in a way that depend on individual plants size. We outline mechanisms and hypotheses based on new theory, and test these predictions in tree species for five traits using a meta-analysis of 112 studies ($>$ 500 correlations). As a first approximation of plants size, we analysed the shift in the correlations between growth and traits across three plant stages (i.e. juvenile, sapling and adult).
 
-\item
-Traits should influence growth in a way that depend on individual plants size. We outline mechanisms and hypotheses based on new theory, and test these predictions in tree species for five traits using a meta-analysis of 112 studies ($>$ 500 correlations). As a first approximation of plants size, we analysed the shift in the correlations between growth and traits across three plant stages (i.e. juvenile, sapling and adult).
+\item Results were consistent with predictions. Specific leaf area was correlated with GR in juvenile but not in adult plants. Correlations of GR with wood density and assimilation rate were not affected by stage. Maximum height and seed mass were correlated with GR only in one plant stage category.
 
-\item
-Results were consistent with predictions. Specific leaf area was correlated with GR in juvenile but not in adult plants. Correlations of GR with wood density and assimilation rate were not affected by stage. Maximum height and seed mass were correlated with GR only in one plant stage category.
-
-\item
-Synthesis: We show that traits-GR correlations change in a predictable way as a function of plant size. Our understanding of plant strategies should shift away from attributing slow vs fast growth to species throughout life, in favour of attributing growth trajectories.
+\item Synthesis: We show that traits-GR correlations change in a predictable way as a function of plant size. Our understanding of plant strategies should shift away from attributing slow vs fast growth to species throughout life, in favour of attributing growth trajectories.
 
 \end{enumerate}
-
-\textit{Keywords (8/10)} asymptotic maximum height, maximum photosynthetic rate, plant ontogenetic stage, plant functional traits, plant growth strategy, seed mass, specific leaf area, wood density
-
 
 \clearpage
 
@@ -170,7 +142,7 @@ We also tested the sensitivity of our results to inclusion of the few studies th
 
 \subsection*{Availability of code and data}\label{code}
 
-All analyses were conducted with R software \citep{Ralanguageanden:2014wf}. The code and data for producing all figures and results in this paper is available at github.com/AnaisGibert/Growth\_trait\_metaanalysis.
+All analyses were conducted with R software \citep{Ralanguageanden:2014wf}. The code and data for producing all figures and results in this paper is available at \smurl{github.com/AnaisGibert/Growth\_trait\_metaanalysis}.
 
 \section*{Results}\label{results}
 
@@ -237,14 +209,14 @@ We thank Andrea Stephens for helpful comments on the meta-analyses, and Sean Gle
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/Fig1.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/Fig1.pdf}
 \caption{Number of recorded correlations between trait and growth rate in our dataset, byt size and trait. Results shown here are for the ``complete'' dataset (recorded both across and within species, under unstressed and stressed conditions). Traits are: Aarea (or Amass) = rate of CO$_{2}$ assimilation per unit leaf area (or leaf mass) = maximum photosynthetic rate, Hmax = asymptotic maximum height,  Ks = stem hydraulic conductance, LA = leaf area, LMR = leaf mass ratio, NARarea (or NARmass) = net mass assimilation rate per unit of leaf area (or leaf mass), Nmass (or Narea) = nitrogen content per unit of leaf mass (or leaf area), Pmass = phosphorus content per unit of leaf mass, SA/LA = sapwood area per leaf area, SLA = specific leaf area, thickness = leaf thickness, Vessel size = stem conduit size, vessel density = stem conduit density, WD = wood density.}
 \label{fig:fig1}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/Fig2.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/Fig2.pdf}
 \caption{The range of plant sizes and stage recoded in original publications, compared to standardised thresholds used in the analysis. Panels are for
 \textbf{a)} age, \textbf{b)} height and \textbf{c)} diameter. Line segments indicate the size range (max., min.) for the plants used to measure growth. Article IDs correspond to the reference number in our dataset. Colours denote stage information given by the authors, while line styles denote growth form. The vertical lines indicate the thresholds used in our analysis. Results shown here are the ``complete'' dataset (see methods for details).}
 \label{fig:fig2}
@@ -252,7 +224,7 @@ We thank Andrea Stephens for helpful comments on the meta-analyses, and Sean Gle
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/Fig3.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/Fig3.pdf}
 \caption{The relationship between growth rates and traits changes with plant stage and trait. Plots show the effect size (+ 95\%CI) for the average correlation across species, by plant stage. Effect size is a standardized measure of the deviation of correlation coefficient from zero (Fisher's z-transformed). Effects are significant if confidence intervals (95\%CI) for a given stage do not overlap with zero. Results shown are from both the ``complete'' (black)  and ``ideal'' (grey) datasets. Trait names as in Fig. \ref{fig:fig1}. $n$ indicates number of correlations contributing to each effect. Likelihood Ratio Tests (LRT, for ``ideal'' dataset only) compared maximum-likelihood fits between a pooled model and one separated by stage. A significant p-value means the model including stage effect fitted the data better than the null model.
 }
 \label{fig:fig3}
@@ -264,6 +236,7 @@ We thank Andrea Stephens for helpful comments on the meta-analyses, and Sean Gle
 \begin{table}[h!]
 \centering
 \caption{\textbf{Hypothesised effects of traits on key elements of plant function determining growth rate.} Arrows indicate the effect an increase in trait value would have on the main elements of growth eqs. \ref{eq:eq0}-\ref{eq:eq4} in Appendix \ref{sec:growth}. Traits are SLA: Specific leaf area, WD: Wood density, Hmax: Asymptotic maximum height, SM: seed mass, Aarea: Maximum photosynthetic rate. For further details, see  Appendix \ref{sec:growth}.}
+{\footnotesize
 \vspace{1cm}
   \begin{tabular}{cccc}
    & Leaf deployment per mass & Allocation to vegetative growth & Net live biomass production \\
@@ -278,6 +251,7 @@ We thank Andrea Stephens for helpful comments on the meta-analyses, and Sean Gle
   Aarea &$\_$ &$\_$ & $\nearrow$ \\
 \hline
   \end{tabular}
+  }
 \label{tab:trade-offs}
   \end{table}
 
@@ -287,6 +261,7 @@ We thank Andrea Stephens for helpful comments on the meta-analyses, and Sean Gle
 \begin{table}[h!]
 \centering
 \caption{\textbf{Check-list of quality criteria for meta-analysis in ecology} developed by Koricheva and Gurevitch (2014) }
+{\footnotesize
 \vspace{0.5cm}
 \begin{tabular}{p{3cm} p{1cm} p{10cm} p{3cm}}
   \hline
@@ -308,11 +283,13 @@ We thank Andrea Stephens for helpful comments on the meta-analyses, and Sean Gle
   14. Providing the data set used for meta-analysis  &	yes &	A copy of the complete data set is available on Github.	& ``Availability of code and data'' \\
    \hline
 \end{tabular}
+}
 \label{tab:meta}
 \end{table}
 
 
 \clearpage
+\setcounter{secnumdepth}{1}
 \begin{appendices}\label{sec:appendices}
 \renewcommand{\thefigure}{S\arabic{figure}}
 \renewcommand{\thetable}{S\arabic{table}}
@@ -405,6 +382,7 @@ The code and data for producing all figures and results in this paper is availab
 definition and search term used in the meta-analysis}
 \label{tab:lit_search}
 \vspace{0.5cm}
+{\footnotesize
 \begin{tabular}{p{3cm}p{3cm}p{8cm}}
   \hline
 Trait & Definition & Search terms \\
@@ -431,6 +409,7 @@ Aarea & Photosynthetic rate per area & ``photosynthetic rate per area'' OR ``rat
   WD & Wood density & ``wood density'' OR``WD'' OR ``wood specific gravity'' OR ``stem density'' OR ``stem specific density'' OR ``SSD'' \\
    \hline
 \end{tabular}
+}
 \end{table}
 
 
@@ -440,7 +419,7 @@ Aarea & Photosynthetic rate per area & ``photosynthetic rate per area'' OR ``rat
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/FigA1.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA1.pdf}
 \caption{Allometric relationships between a) age and diameter (m), b) age and height (m), and c) diameter and height in trees according to the BAAD database. Green and red lines are the cutoffs between stage categories used in the literature. Green lines corresponds to limits between juveniles and saplings, red lines to limits between saplings and adults.}
 \label{fig:figA1}
 \end{figure}
@@ -448,7 +427,7 @@ Aarea & Photosynthetic rate per area & ``photosynthetic rate per area'' OR ``rat
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/FigA2.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA2.pdf}
 \caption{Geographical distribution of site locations from studies performed in the field used in the meta-analysis. Results shown here are from the ``complete'' dataset (see methods for details).}
 \label{fig:figA2}
 \end{figure}
@@ -456,7 +435,7 @@ Aarea & Photosynthetic rate per area & ``photosynthetic rate per area'' OR ``rat
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/FigA3.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA3.pdf}
 \caption{Range of correlations (r) between
 growth and trait reported in the literature (112 articles). Plots shown the coefficients of correlation (r)
 between the plant growth and \textbf{a)} Specific leaf area (SLA, n =
@@ -475,19 +454,19 @@ points to juveniles.}
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/FigA4.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA4.pdf}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/FigA4b.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA4b.pdf}
 \caption{\textbf{Mean coefficient correlation r (+SD) between growth rate and traits, established from 112 articles.} The mean coefficients are weighted by sample size (i.e number of species used to perform the correlation), and calculated both across all plant stages and for each stage. Each panel corresponds to a functional trait: \textbf{a)} Specific leaf area (SLA), \textbf{b)} Wood density (WD), \textbf{c)} Net assimilation rate (NARarea), \textbf{d)} Seed mass, \textbf{e)} Asymptotic height (Hmax) and \textbf{f)} Assimilation rate of CO2 (Aarea). Results shown here are from the ``unstressed dataset'' (recorded across species and under unstressed conditions).}
 \label{fig:figA4}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/FigA5.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA5.pdf}
 \caption{\textbf{Effect size (+ 95\%CI) of plant stage on the correlations between growth rate and five functional traits across species, with a data set averaging multiple comparisons by trait and by study.} Effects size are calculated from a reduced dataset; in the case of multiple comparisons within a study, we calculated the mean correlation coefficient by trait and by study. a) Specific leaf area (SLA), b) Wood density (WD), c) Net assimilation rate (NARarea), d) Seed mass, e) Asymptotic height (Hmax) and f) Assimilation rate of CO2 (Aarea). Effect size is a standardized measure of the magnitude of the relationship between a particular stage and the correlation coefficient z (Fisher's z-transformed). Effects are significant if confidence intervals (+CI95\%) do not overlap with zero. LRT: likelihood Ratio Test compared the fit between null model and stage model, both models are fitted by Maximum Likelihood. Black point: ideal data (under unstressed conditions), grey points: all the data. ``n'' indicate the number of independent comparisons for each effect.}
 \label{fig:figA5}
 \end{figure}
@@ -495,38 +474,38 @@ points to juveniles.}
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/FigA6a.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6a.pdf}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/FigA6b.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6b.pdf}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/FigA6c.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6c.pdf}
 \caption{\textbf{Effects size on the correlation between growth and traits of plant stage (mod1), vegetation type (mod2), growth measurement (mod3) and experiment type (mod4).} The effect size (z + 95\%CI) is reported for each class, and models are fitted by restricted max likelihood (REML). n = number of correlation r reported. Abbreviation: across veg = more than 2 vegetation types, boreal\&temp = boreal and temperate deciduous forest, med = Mediterranean,  temp\&med = temperate deciduous and Mediterranean forests, temp = temperate deciduous, temp rain = temperate rain, trop rain = tropical rain, trop seas = tropical seasonal forests, GR = growth rate and RGR = relative growth rate, measured in diameter (D), height (H), mass(M), cross section area (CSA). AIC: Akaike information criterion corresponds to the quality of each model, and allow a comparison between models. Smallest is the AIC better is the model. Results shown here are from ``ideal'' dataset (recorded at interspecific and under unstressed condition) and ``complete'' dataset (recorded at both interspecific and intraspecific level and under unstressed and stressed conditions).}
 \label{fig:figA6}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/FigA7.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA7.pdf}
 \caption{\textbf{Funnel plots with filled in data based on the trim and fill method, showing transformed correlation coefficient z between growth and the traits a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic height (Hmax), d) Seed mass (SM) and e) Assimilation rate of CO2 (Aarea)}. Results shown here are from the ``ideal'' dataset (recorded across species and under unstressed conditions).  Note that in these plots the y axis is the 1/number of species included in the correlation, not the replication for the correlation. The number of species is sometimes as low as 1, and these are within-species correlations. The number of replicates used for the correlation coefficient was often much greater than the number of species. Nevertheless, the characteristic shape of funnel plots is observed, with correlations involving few species showing much wider variation even though within-species replication was sometimes high. The open points correspond to the estimated missing studies. The number of missing values is 9 for SLA,1 for WD, 0 for Hmax, 6 for SM and 0 for Aarea}
 \label{fig:figA7}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/FigA8.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA8.pdf}
 \caption{\textbf{Growth measurement used by traits and by size.} Results shown here are from the ``complete'' dataset (recorded across species and under both unstressed and stressed conditions). The colours correspond to the stage for which the r values have been recorded: red bars corresponds adult stage, orange bars to saplings, and grey bars to juveniles.}
 \label{fig:figA8}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics{output/FigA9.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA9.pdf}
 \caption{\textbf{Temporal changes in coefficient of correlation between traits and growth. a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic height (Hmax), d) Seed mass (SM) and e) Assimilation rate of CO2 (Aarea)} Results shown here are from the ``ideal'' dataset (recorded across species and under  unstressed conditions). The colours correspond to the stage for which the r values have been recorded: red points corresponds adult stage, orange points to saplings, and grey points to juveniles.}
 \label{fig:figA9}
 \end{figure}
