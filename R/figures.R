@@ -286,38 +286,93 @@ figure_8 <- function(GCi, GIi) {
   grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
 }
 
-figure_A1 <- function(CompleteData) {
-  s <- CompleteData[order(CompleteData$stage, CompleteData$trait,CompleteData$size.mean.range),] # sort by trait et stage
+figure_A1 <- function(CompleteData_inter) {
+    s <- unique(CompleteData_inter[c("ref","id", "stageRGR","measure.size","size.mean.range","size.min","size.max","growth.form")])
+    s <- s[order(s$measure.size,s$size.max,s$size.min,s$stageRGR),] 
+    s <- na.omit(s)
+  
+  # sort by trait et stage
   s$stageRGR <- factor(s$stageRGR, levels=c("seedling","juvenile","sapling","adult","mix"))
+  s$id <- as.factor(s$id)
   sh <- subset(s,s$measure.size=="height")
   sa <- subset(s,s$measure.size=="age")
   sd <- subset(s,s$measure.size=="diameter")
+  sd <- sd[order(sd$size.min,sd$size.max),] 
+  
+  # p_diam <- 
+  # par(mfcol=c(3,1))
+  layout(matrix(c(1,2,3),3,1,byrow=TRUE), widths=c(3,3,3),heights=c(4.8,2,4.3))
+  # layout.show(3)
+  
+  par(mar=c(4,4,1,1)+0.1)
+  plotCI(x=sort(sa$size.mean.rang), y= 1:length(sa$size.mean.rang), 
+         xlim=c(0,45),ylim=rev(range(1:length(sa$size.mean.rang))),yaxt="n",
+         err="x" ,li=sa$size.min, ui=sa$size.max, 
+         xlab="age (yrs)",ylab="",
+         col=c("green", "blue", "orange",
+               "red", "grey")[sa$stageRGR], pch=".", 
+         cex.axis=0.75, bty="n", gap=0, sfrac=0)
+  axis(2, at=1:length(sa$size.mean.rang), labels=sa$id, las=1, cex.axis=0.4)
+  abline(v = 1, col = "green", lty=2, lwd=2)
+  abline(v = 5, col = "grey", lty=2, lwd=1)
+  # text(x=0, y =(length(sa$size.mean.rang), labels ="(a)")
+  # abline(v = 5, col = "orange", lty=3)
 
-  p_diam <-  plot_stage("c)", xlab= "basal diameter (cm)",ylab="",
-                        ggplot(sd,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form))))+
-                        geom_vline(xintercept = 10, color = "grey", lty=5)
+  par(mar=c(4,4,0,1)+0.1)
+  plotCI(x=sort(sh$size.mean.rang), y= 1:length(sh$size.mean.rang), 
+         xlim=c(0,16),ylim=rev(range(1:length(sh$size.mean.rang))),yaxt="n",
+         err="x" ,li=sh$size.min, ui=sh$size.max, 
+         xlab="height (m)",ylab="study ID",
+         col=c("green", "blue", "orange",
+               "red", "grey")[sh$stageRGR], pch=".", 
+         cex.axis=0.75, bty="n", gap=0, sfrac=0)
+  axis(2, at=1:length(sh$size.mean.rang), labels=sh$id, las=1, cex.axis=0.4)
+  abline(v = 0.5, col = "green", lty=2, lwd=2)
+  abline(v = 2.2, col = "grey", lty=2, lwd=1)
 
-  p_height<- plot_stage("b)", xlab= "height (m)",
-                        ggplot(sh,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form)))) +
-                        geom_vline(xintercept = 0.5, color = "grey", lty=5)
-
-  p_age <- plot_stage("a)", xlab= "age (yr)",
-                        ggplot(sa,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form)))) +
-                        geom_vline(xintercept = 1, color = "grey", lty=5)+
-                        theme (legend.title=element_blank(),
-                         legend.justification=c(0,0),
-                         legend.position=c(0.6,0.3),
-                         legend.key = element_blank())
-
-  vpa_ <- viewport(width=0.45,height=0.7,x=0.25,y=0.67)
-  vpb_ <- viewport(width=0.45,height=0.35,x=0.25,y=0.15)
-  vpc_ <- viewport(width=0.45,height=1.05,x=0.75,y=0.5)#the larger grap
-
-
-  print(p_height,vp=vpb_)
-  print(p_age,vp=vpa_)
-  print(p_diam ,vp=vpc_)
+  par(mar=c(4,4,0,1)+0.1)
+  plotCI(x=sort(sd$size.mean.rang), y= 1:length(sd$size.mean.rang), 
+         xlim=c(0,80),ylim=rev(range(1:length(sd$size.mean.rang))),yaxt="n",
+         err="x" ,li=sd$size.min, ui=sd$size.max, 
+         xlab="diameter (cm)",ylab="",
+         col=c("green", "blue", "orange",
+              "red", "grey")[sd$stageRGR], pch=".", 
+         cex.axis=0.75, bty="n", gap=0, sfrac=0)
+  axis(2, at=1:length(sd$size.mean.rang), labels=sd$id, las=1, cex.axis=0.4)
+  # abline(v = 1, col = "green", lty=3)
+  abline(v = 10, col = "red", lty=2, lwd=2)
+  abline(v = 1, col = "grey", lty=2, lwd=1)
 }
+
+
+  # rect(-4, 0, 5, 4.5, col = "orange", border = "transparent", density = 70, xpd = FALSE)
+  
+
+  #   p_diam <-  plot_stage("c)", xlab= "basal diameter (cm)",ylab="",
+#                         ggplot(sd,aes(x= size.mean.range, y=order(size.max,id), xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form))))+
+#                         geom_vline(xintercept = 10, color = "grey", lty=5)
+# 
+#   p_height<- plot_stage("b)", xlab= "height (m)",
+#                         ggplot(sh,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form)))) +
+#                         geom_vline(xintercept = 0.5, color = "grey", lty=5)
+# 
+#   p_age <- plot_stage("a)", xlab= "age (yr)",
+#                         ggplot(sa,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form)))) +
+#                         geom_vline(xintercept = 1, color = "grey", lty=5)+
+#                         theme (legend.title=element_blank(),
+#                          legend.justification=c(0,0),
+#                          legend.position=c(0.6,0.3),
+#                          legend.key = element_blank())
+# 
+#   vpa_ <- viewport(width=0.45,height=0.7,x=0.25,y=0.67)
+#   vpb_ <- viewport(width=0.45,height=0.35,x=0.25,y=0.15)
+#   vpc_ <- viewport(width=0.45,height=1.05,x=0.75,y=0.5)#the larger grap
+# 
+# 
+#   print(p_height,vp=vpb_)
+#   print(p_age,vp=vpa_)
+#   print(p_diam ,vp=vpc_)
+
 
 
 # figure_A1 <- function(CompleteData) {

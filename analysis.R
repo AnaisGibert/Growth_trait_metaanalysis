@@ -20,6 +20,7 @@ library(maptools)
 library(maps)
 library(downloader)
 library(metafor)
+library(gplots)
 
 library(bibtex)
 library(RefManageR)
