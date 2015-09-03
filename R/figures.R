@@ -287,142 +287,74 @@ figure_8 <- function(GCi, GIi) {
 }
 
 figure_A1 <- function(CompleteData_inter) {
+
     s <- unique(CompleteData_inter[c("ref","id", "stageRGR","measure.size","size.mean.range","size.min","size.max","growth.form")])
-    s <- s[order(s$measure.size,s$size.max,s$size.min,s$stageRGR),] 
+    s <- s[order(s$measure.size,s$size.max,s$size.min,s$stageRGR),]
     s <- na.omit(s)
-  
+
   # sort by trait et stage
   s$stageRGR <- factor(s$stageRGR, levels=c("seedling","juvenile","sapling","adult","mix"))
   s$id <- as.factor(s$id)
   sh <- subset(s,s$measure.size=="height")
   sa <- subset(s,s$measure.size=="age")
   sd <- subset(s,s$measure.size=="diameter")
-  sd <- sd[order(sd$size.min,sd$size.max),] 
-  
-  # p_diam <- 
-  # par(mfcol=c(3,1))
-  layout(matrix(c(1,2,3),3,1,byrow=TRUE), widths=c(3,3,3),heights=c(4.8,2,4.3))
+  sd <- sd[order(sd$size.min,sd$size.max),]
+
+  heights <- c(nrow(sa), nrow(sh), nrow(sd))
+  heights <- heights/sum(heights) +0.1
+
+ layout(matrix(c(1,2,3),3,1,byrow=TRUE), widths=c(3,3,3),heights= heights)
   # layout.show(3)
-  
-  par(mar=c(4,4,1,1)+0.1)
-  plotCI(x=sort(sa$size.mean.rang), y= 1:length(sa$size.mean.rang), 
-         xlim=c(0,45),ylim=rev(range(1:length(sa$size.mean.rang))),yaxt="n",
-         err="x" ,li=sa$size.min, ui=sa$size.max, 
-         xlab="age (yrs)",ylab="",
-         col=c("green", "blue", "orange",
-               "red", "grey")[sa$stageRGR], pch=".", 
-         cex.axis=0.75, bty="n", gap=0, sfrac=0)
-  axis(2, at=1:length(sa$size.mean.rang), labels=sa$id, las=1, cex.axis=0.4)
-  abline(v = 1, col = "green", lty=2, lwd=2)
-  abline(v = 5, col = "grey", lty=2, lwd=1)
-  # text(x=0, y =(length(sa$size.mean.rang), labels ="(a)")
-  # abline(v = 5, col = "orange", lty=3)
+  par(mar=c(4,4,0,0.5), oma = c(1,2,1,1))
 
-  par(mar=c(4,4,0,1)+0.1)
-  plotCI(x=sort(sh$size.mean.rang), y= 1:length(sh$size.mean.rang), 
-         xlim=c(0,16),ylim=rev(range(1:length(sh$size.mean.rang))),yaxt="n",
-         err="x" ,li=sh$size.min, ui=sh$size.max, 
-         xlab="height (m)",ylab="study ID",
-         col=c("green", "blue", "orange",
-               "red", "grey")[sh$stageRGR], pch=".", 
-         cex.axis=0.75, bty="n", gap=0, sfrac=0)
-  axis(2, at=1:length(sh$size.mean.rang), labels=sh$id, las=1, cex.axis=0.4)
-  abline(v = 0.5, col = "green", lty=2, lwd=2)
-  abline(v = 2.2, col = "grey", lty=2, lwd=1)
+  plotCI2 <- function(data,  cuts, xlab) {
 
-  par(mar=c(4,4,0,1)+0.1)
-  plotCI(x=sort(sd$size.mean.rang), y= 1:length(sd$size.mean.rang), 
-         xlim=c(0,80),ylim=rev(range(1:length(sd$size.mean.rang))),yaxt="n",
-         err="x" ,li=sd$size.min, ui=sd$size.max, 
-         xlab="diameter (cm)",ylab="",
-         col=c("green", "blue", "orange",
-              "red", "grey")[sd$stageRGR], pch=".", 
-         cex.axis=0.75, bty="n", gap=0, sfrac=0)
-  axis(2, at=1:length(sd$size.mean.rang), labels=sd$id, las=1, cex.axis=0.4)
-  # abline(v = 1, col = "green", lty=3)
-  abline(v = 10, col = "red", lty=2, lwd=2)
-  abline(v = 1, col = "grey", lty=2, lwd=1)
+    rescale <- function(x, cuts) {
+      x[x > max(cuts)] <- max(cuts)
+      x2 <- x
+      for( i in seq_along(cuts)[-1]) {
+        low <- cuts[i-1]
+        high <- cuts[i]
+        ii <- (low < x & x <= high)
+        x2[ii] <- i-2 + (x[ii] - low)/(high-low)
+      }
+      x2
+    }
+    
+    data$size.min <- rescale( data$size.min, cuts)
+    data$size.max <- rescale( data$size.max, cuts)
+
+    data <- data[order(data$size.max, data$size.min),]
+
+    n <- nrow(data)
+    y <- rev(seq_len(n))
+    cols <- c("green", "blue", "orange",
+               "red", "grey")[data$stageRGR]
+
+    plot(NA, xlim=c(0,3), ylim= c(0,n), yaxt="n",xaxt="n",
+         xlab="",ylab="")
+    mtext(xlab, 1, line=2, cex=0.75)
+    segments(data$size.min, y, data$size.max, col=cols)
+    i <- data$size.max == data$size.min
+    points(data$size.min[i], y[i], col=cols[i], pch='-')
+    axis(1, at=0:3, labels = cuts, las=1)
+    axis(2, at=y, labels = data$id, las=1, cex.axis=0.5)
+    abline(v=1, col="grey")
+    abline(v=2, col="grey")
+  }
+
+  plotCI2(sa, c(0,1,5,10), "age (yrs)")
+  abline(v = 1, col = "green")
+
+  plotCI2(sh, c(0,0.5,2,20), "height (m)")
+  abline(v = 1, col = "green")
+
+  plotCI2(sd, c(0,1,10,80), "diameter (cm)")
+  abline(v = 2, col = "red")
+
+  mtext("Study ID", 2, line=0, outer=TRUE,  cex=0.75)
 }
 
-
-  # rect(-4, 0, 5, 4.5, col = "orange", border = "transparent", density = 70, xpd = FALSE)
-  
-
-  #   p_diam <-  plot_stage("c)", xlab= "basal diameter (cm)",ylab="",
-#                         ggplot(sd,aes(x= size.mean.range, y=order(size.max,id), xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form))))+
-#                         geom_vline(xintercept = 10, color = "grey", lty=5)
-# 
-#   p_height<- plot_stage("b)", xlab= "height (m)",
-#                         ggplot(sh,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form)))) +
-#                         geom_vline(xintercept = 0.5, color = "grey", lty=5)
-# 
-#   p_age <- plot_stage("a)", xlab= "age (yr)",
-#                         ggplot(sa,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form)))) +
-#                         geom_vline(xintercept = 1, color = "grey", lty=5)+
-#                         theme (legend.title=element_blank(),
-#                          legend.justification=c(0,0),
-#                          legend.position=c(0.6,0.3),
-#                          legend.key = element_blank())
-# 
-#   vpa_ <- viewport(width=0.45,height=0.7,x=0.25,y=0.67)
-#   vpb_ <- viewport(width=0.45,height=0.35,x=0.25,y=0.15)
-#   vpc_ <- viewport(width=0.45,height=1.05,x=0.75,y=0.5)#the larger grap
-# 
-# 
-#   print(p_height,vp=vpb_)
-#   print(p_age,vp=vpa_)
-#   print(p_diam ,vp=vpc_)
-
-
-
-# figure_A1 <- function(CompleteData) {
-#   CompleteData$stageRGR<- factor(CompleteData$stageRGR, levels=c("seedling","juvenile","sapling","adult","mix"))
-#   s <- CompleteData[order(CompleteData$stageRGR),] # sort by trait et stage
-#    sh <- subset(s,s$measure.size=="height")
-#   sa <- subset(s,s$measure.size=="age")
-#   sd <- subset(s,s$measure.size=="diameter")
-#   
-#   
-#   plot(x= CompleteData$size.mean.range, y=CompleteData$id)
-#   
-#   ggplot(CompleteData,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form)))+
-# + geom_errorbarh(aes(xmin = CompleteData$size.min, xmax = CompleteData$size.max, y = CompleteData$id), size = 0.7, width = 0.05, height = 0.2) + mytheme +
-#     scale_colour_manual(limits = c("seedling", "juvenile", "sapling", "adult",
-#                                    "mix"), values = c(seedling = "green", juvenile = "blue", sapling = "orange",
-#                                                       adult = "red", mix = "grey"), name = "stage", breaks = c("seedling", "juvenile", "sapling", "adult", "mix"))
-#   
-#   +
-#     scale_linetype_manual(limits=c("tree","woody","across growth form"), values=c("solid","dashed","dotted"), name="growth.form",breaks=c("tree","woody","across growth form"))+
-#     theme(axis.text = element_text(size = 6),
-#           legend.position = "none")
-#   
-#   facet_wrap(~CompleteData$measure.size)+
-#   
-#   p_diam <-  plot_stage("c)", xlab= "basal diameter (cm)",ylab="",
-#                         ggplot(sd,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form))))+
-#     geom_vline(xintercept = 10, color = "grey", lty=5)
-#   
-#   p_height<- plot_stage("b)", xlab= "height (m)",
-#                         ggplot(sh,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form)))) +
-#     geom_vline(xintercept = 0.5, color = "grey", lty=5)
-#   
-#   p_age <- plot_stage("a)", xlab= "age (yr)",
-#                       ggplot(sa,aes(x= size.mean.range, y=id, xmin = size.min, xmax= size.max, color=factor(stageRGR), lty=factor(growth.form)))) +
-#     geom_vline(xintercept = 1, color = "grey", lty=5)+
-#     theme (legend.title=element_blank(),
-#            legend.justification=c(0,0),
-#            legend.position=c(0.6,0.3),
-#            legend.key = element_blank())
-#   
-#   vpa_ <- viewport(width=0.45,height=0.7,x=0.25,y=0.67)
-#   vpb_ <- viewport(width=0.45,height=0.35,x=0.25,y=0.15)
-#   vpc_ <- viewport(width=0.45,height=1.05,x=0.75,y=0.5)#the larger grap
-#   
-#   
-#   print(p_height,vp=vpb_)
-#   print(p_age,vp=vpa_)
-#   print(p_diam ,vp=vpc_)
-# }
 
 figure_A4 <- function(GC) {
   GC[["SLA"]]  <- GC[["SLA"]] [!is.na(GC[["SLA"]] [,"corr.r"]),]

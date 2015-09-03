@@ -68,7 +68,7 @@ pdf("output/Fig1.pdf",height=3, width=4) # ok
   figure_1(RawData)
 dev.off()
 
-pdf("output/Fig2.pdf", height=6) # In the main text, need to be changed
+pdf("output/Fig2.pdf", height=8, width=4) # In the main text, need to be changed
 figure_A1(CompleteData_inter)
 dev.off()
 
