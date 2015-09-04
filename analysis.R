@@ -30,11 +30,16 @@ for( f in list.files("R", full.names=TRUE)) {
 }
 
 CompileTable <- clean_raw_data()
+
 RawData <- standardise_data(CompileTable)
+
 CompleteData <- build_complete_data(RawData)
 CompleteData_inter <- Build_intersp_complete_data (RawData)
+
 IdealData_inter  <- build_ideal_data(CompleteData)
+
 CoordTable <- build_map_data(RawData)
+
 IdealData_rgr <- subset(IdealData_inter,IdealData_inter$growth=="RGR")
 IdealData_agr <- subset(IdealData_inter,IdealData_inter$growth=="AbGR")
 ## split datasets by trait - makes a list with named elements

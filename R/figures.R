@@ -25,10 +25,10 @@ figure_allometry <- function() {
     plot(data[[px$var]], data[[py$var]], log="xy",
       xlim = px$lim, ylim = py$lim,
       xlab = px$lab, ylab = py$lab, col=adjustcolor("#00000033", alpha=0.5))
-    abline(v=px$sap, col="green", lty=5)
-    abline(h=py$sap, col="green", lty=5)
-    abline(v=px$adult, col="red", lty=5)
-    abline(h=py$adult, col="red", lty=5)
+    abline(v=px$sap, col="#93EA6D", lty=5)
+    abline(h=py$sap, col="#93EA6D", lty=5)
+    abline(v=px$adult, col="#E6224C", lty=5)
+    abline(h=py$adult, col="#E6224C", lty=5)
   }
 
   filename <- "downloads/baad.rds"
@@ -288,12 +288,15 @@ figure_8 <- function(GCi, GIi) {
 
 figure_A1 <- function(CompleteData_inter) {
 
-    s <- unique(CompleteData_inter[c("ref","id", "stageRGR","measure.size","size.mean.range","size.min","size.max","growth.form")])
-    s <- s[order(s$measure.size,s$size.max,s$size.min,s$stageRGR),]
+    s <- unique(CompleteData_inter[c("ref","id", "stageRGR","measure.size","size.min","size.max","growth.form","stage")])
+    s <- s[order(s$size.max,s$size.min,s$stageRGR),]
     s <- na.omit(s)
 
   # sort by trait et stage
   s$stageRGR <- factor(s$stageRGR, levels=c("seedling","juvenile","sapling","adult","mix"))
+  s$stage <- factor(s$stage, levels=c("seedling","juvenile","sapling","adult","mix"))
+  s$stage <- replace(s$stage, s$stage=="juvenile", "seedling")
+  
   s$id <- as.factor(s$id)
   sh <- subset(s,s$measure.size=="height")
   sa <- subset(s,s$measure.size=="age")
@@ -325,36 +328,50 @@ figure_A1 <- function(CompleteData_inter) {
     data$size.max <- rescale( data$size.max, cuts)
 
     data <- data[order(data$size.max, data$size.min),]
+    data["growthf"] <- -0.02
 
     n <- nrow(data)
     y <- rev(seq_len(n))
-    cols <- c("green", "blue", "orange",
-               "red", "grey")[data$stageRGR]
-
+    cols <- c("#93EA6D", "#73005C", "#F57C34","#E6224C",
+               "grey")[data$stageRGR]
+    # 98F98C
     plot(NA, xlim=c(0,3), ylim= c(0,n), yaxt="n",xaxt="n",
          xlab="",ylab="")
     mtext(xlab, 1, line=2, cex=0.75)
     segments(data$size.min, y, data$size.max, col=cols)
     i <- data$size.max == data$size.min
     points(data$size.min[i], y[i], col=cols[i], pch='-')
+    
+    j <- data$stageRGR != data$stage
+    points(data$size.max[j]+0.05, y[j], col="black", pch="*")
+    
+    t <- (data$growth.form == "across growth form")
+    points(data$growthf[t], y[t], pch='.')
+    
     axis(1, at=0:3, labels = cuts, las=1)
     axis(2, at=y, labels = data$id, las=1, cex.axis=0.5)
-    abline(v=1, col="grey")
-    abline(v=2, col="grey")
+    abline(v=1, col="grey", lty=2,lwd=0.5)
+    abline(v=2, col="grey", lty=2,lwd=0.5)
   }
 
   plotCI2(sa, c(0,1,5,10), "age (yrs)")
-  abline(v = 1, col = "green")
+  abline(v = 1, col = "#93EA6D")
+  legend(2.008,40, c("seedling","juvenile","sapling","adult","mix","across growth form","reassignment"), 
+         lwd=c(1,1,1,1,1, NA, NA),
+         col=c("#93EA6D", "#73005C", "#F57C34","#E6224C",
+               "grey", "black","black"),pch = c(NA, NA,NA,NA,NA,".","*"), 
+         bty = "n", x.intersp = 0.3, y.intersp = 1,seg.len = 0.5, cex=0.8)
 
   plotCI2(sh, c(0,0.5,2,20), "height (m)")
-  abline(v = 1, col = "green")
+  abline(v = 1, col = "#93EA6D")
 
   plotCI2(sd, c(0,1,10,80), "diameter (cm)")
-  abline(v = 2, col = "red")
+  abline(v = 2, col = "#E6224C")
 
   mtext("Study ID", 2, line=0, outer=TRUE,  cex=0.75)
-}
 
+  
+}
 
 figure_A4 <- function(GC) {
   GC[["SLA"]]  <- GC[["SLA"]] [!is.na(GC[["SLA"]] [,"corr.r"]),]
@@ -779,6 +796,87 @@ figure_A9 <- function(GCi){
 #   grid.arrange(funnel_SLA_nbsp,funnel_WD_nbsp,funnel_Hmax_nbsp, funnel_Seedmass_nbsp ,funnel_Aarea_nbsp, nrow=3, ncol=2)
 # }
 
+    data <- GC[["SLA"]]
+
+   plotgrowth <- function(data, title){
+     
+         data <- data[,c("growth","stage","measurement")]
+         rgr <- subset(data,data$growth=="RGR")
+         abs <- subset(data,data$growth!="RGR") 
+         
+         counts <- table(rgr$measurement, rgr$stage)
+         counts1 <- table(abs$measurement, abs$stage)
+         
+         a <- table(rgr$stage)
+         a1 <- table(abs$stage)
+         
+         n <- max(a, a1)
+      
+         layout(matrix(c(1,2),1,2,byrow=TRUE), widths=c(3,3),heights= c(3,3))
+        
+         par(mar=c(4,4,0,0))
+         barplot(counts1,xlim=rev(c(0,n)),
+                 xlab="",col=c("#70DDB7","#538879","#B4D1BC","#5CD4D1"), 
+                 horiz = TRUE,border = NA,yaxt="n")
+         axis(2, at=1:3, labels = c("juvenile","sapling","adult"), las=0, cex.axis=1)
+         mtext("AbsGR", side=3, line=-1)      
+         mtext(title, side=3, line=-1, at=max(n)) 
+         
+         par(mar=c(4,0,0,4))
+         barplot(counts, xlim=c(0,n),
+                 xlab="",col=c("#70DDB7","#538879","#B4D1BC","#5CD4D1"), 
+                 horiz = TRUE,border = NA, yaxt="n")
+         abline(v = 0, col = "black")
+         mtext("RGR", side=3, line=-1)   
+         mtext("Number of correlation extracted", side=1, line=2, at = 0)   
+         
+         }
+   
+   layout(matrix(c(1,2,3,4,5,6),2,3,byrow=TRUE), widths=c(3,3,3,3,3,3),heights= c(3,3,3,3,3,3,3))
+   plotgrowth(GC[["SLA"]],"a) SLA")
+   plotgrowth(GC[["WD"]],"b) WD")
+   plotgrowth(GC[["Hmax"]],"c) Hmax")
+   plotgrowth(GC[["Seedmass"]],"d) Seed mass")
+   plotgrowth(GC[["Aarea"]],"e) Aarea")
+   legend("topright", c("Diameter","Height","Mass","Other"),
+                 fill= c("#70DDB7","#538879","#B4D1BC","#5CD4D1"),
+                 col=c("#70DDB7","#538879","#B4D1BC","#5CD4D1"), bty = "n")
+   
+
+
+
+    
+  
+#     
+#     library("epade")
+#     
+#     bar.plot.ade(x=data$growth, y=data$stage, z=data$measurement, data=data)
+#     
+#     ,
+#                  vnames.x=NULL, vnames.y=NULL, vnames.z=NULL,
+#                  btext=NULL, b=NULL, b2=0.5, v=NULL, h=NULL, gradient=FALSE,
+#                  xlab="", ylab="", main="", ylim=NULL,
+#                  yticks=NULL, col=NULL, tcol=NULL, bgcol=NULL, lcol=NULL,
+#                  alpha=NULL, beside=TRUE, legendon="topright", wall=0,
+#                  lhoriz=NULL, prozent=FALSE, ploc=0, form="r", border=TRUE,
+#                  density=NULL, angle=NULL, density2=NULL, angle2=NULL, fill=NULL,
+#                  lwd=1, lty=1, blwd=1, blty=1)
+#     
+
+ggplot(data,aes(x=stage,group=growth, fill=growth, alpha=measurement))+
+  geom_bar() +
+  theme(text = element_text(size = 9), axis.text.x = element_text(size = 9),
+        axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme + 
+  theme(axis.title = element_text(size = 10, hjust = 0.5)) +
+  coord_flip()+ scale_x_discrete("stage", limit = c("juvenile", "sapling", "adult"))+
+  theme(text = element_text(size = 9), axis.text.x = element_text(size = 9),
+        axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme + 
+  theme(axis.title = element_text(size = 10, hjust = 0.5)) +
+  scale_fill_manual("growth", limits = c("AbGR","RGR"), values = c("AbGR" = "grey", "RGR" = "blue"))+
+  scale_alpha_manual(values=c(0.1, 0.25, 0.75, 1))
+ 
+
+
 figure_A10a <- function(GC) {
   p1 <- my_plot_3("a) SLA",
           ggplot(GC[["SLA"]],aes(x=reorder(factor(RGR),factor(stage),function(x) length(x)*1),fill=stage,order=stage)))
@@ -837,26 +935,26 @@ figure_A10b <- function(GC) {
   grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
 }
 
-figure_A11 <- function(GI, GC, trait, titles) {
-  par(mfcol=c(1,2))
-  par(mar=c(2,5,2,0))
-  
-  coeff.plot.multiple2(GI[[trait]], params=rev(c("stagejuvenile","stagesapling","stageadult",
-                                                "growthAbGR","growthRGR",
-                                                "measurementDiameter","measurementHeight" , "measurementMass" ,"measurementOther")),
-                      labels=rev(c('juvenile','sapling','adult','AbGR','RGR','diameter','height','mass','other')),
-                      title=paste0(titles[1], ") ", trait, "- ideal dataset"))
-  
-  mtext("mod3", side=2, line=4.2, cex=0.8, at=2.5)
-  mtext("mod2", side=2, line=4.2, cex=0.8, at=6.5)
-  mtext("mod1", side=2, line=4.2, cex=0.8, at=8)
-  
-  par(mar=c(2,1.5,2,3.5))
-  coeff.plot.multiple2(GC[[trait]], params=rev(c("stagejuvenile","stagesapling","stageadult",
-                                                 "growthAbGR","growthRGR",
-                                                 "measurementDiameter","measurementHeight" , "measurementMass" ,"measurementOther")),
-                      title=paste0(titles[2], ") ", trait, "- raw dataset"))
-}
+# figure_A11 <- function(GI, GC, trait, titles) {
+#   par(mfcol=c(1,2))
+#   par(mar=c(2,5,2,0))
+#   
+#   coeff.plot.multiple2(GI[[trait]], params=rev(c("stagejuvenile","stagesapling","stageadult",
+#                                                 "growthAbGR","growthRGR",
+#                                                 "measurementDiameter","measurementHeight" , "measurementMass" ,"measurementOther")),
+#                       labels=rev(c('juvenile','sapling','adult','AbGR','RGR','diameter','height','mass','other')),
+#                       title=paste0(titles[1], ") ", trait, "- ideal dataset"))
+#   
+#   mtext("mod3", side=2, line=4.2, cex=0.8, at=2.5)
+#   mtext("mod2", side=2, line=4.2, cex=0.8, at=6.5)
+#   mtext("mod1", side=2, line=4.2, cex=0.8, at=8)
+#   
+#   par(mar=c(2,1.5,2,3.5))
+#   coeff.plot.multiple2(GC[[trait]], params=rev(c("stagejuvenile","stagesapling","stageadult",
+#                                                  "growthAbGR","growthRGR",
+#                                                  "measurementDiameter","measurementHeight" , "measurementMass" ,"measurementOther")),
+#                       title=paste0(titles[2], ") ", trait, "- raw dataset"))
+# }
 
 
 # figure_A12 <- function(GC) {
