@@ -70,82 +70,61 @@ write.csv(RawData, "output/data.csv", row.names=FALSE)
 
 ## Make output
 pdf("output/Fig1.pdf",height=3, width=4) 
-  figure1(RawData)
+  figure_1(RawData)
 dev.off()
 
 pdf("output/Fig2.pdf", height=8, width=4) 
-  figure2(CompleteData_inter)
+  figure_2(CompleteData_inter)
 dev.off()
 
-
 pdf("output/Fig3.pdf",height=6,width=5) 
-  figure3(GCi, GIi)
+  figure_3(GCi, GIi)
 dev.off()
 
 
 ## Figure appendix
 pdf("output/FigA1.pdf", height=6, width=6) # allometry
-figureA1()
+  figure_A1()
 dev.off()
-
 
 pdf("output/FigA2.pdf", height=3, width=6) #map
-figureA2(CoordTable)
+  figure_A2(CoordTable)
 dev.off()
-
 
 pdf("output/FigA3.pdf",height=6,width=6) 
-figureA3(GCi)
+  figure_A3(GCi)
 dev.off()
 
-pdf("output/FigA4.pdf",height=7,width=5) # need to be change, both graph on the same page
-figureA4(GIi, GIrgr,GIagr)
+pdf("output/FigA4.pdf",height=7,width=5) 
+  figure_A4(GIi, GIrgr,GIagr)
 dev.off()
 
-# pdf("output/FigA4b.pdf",height=6,width=5) 
-# figure_A5b(GIrgr, GIagr)
-# dev.off()
-
-
-# pdf("output/FigA6.pdf",height=6,width=5)
-#   figure_A6(GCi)
-# dev.off()
-
-
-pdf("output/FigA5.pdf",  height=6, width=5) # ok, independance of the data (restricted dataset)
-  figure_A7(RIi, RCi)
+pdf("output/FigA5.pdf",  height=6, width=5) 
+  figure_A5(RIi, RCi)
 dev.off()
-
-
-# pdf("output/FigA8.pdf")  # coefficient plot with only the stage from the authors
-#  figure_8(GCi, GIi)
-# dev.off()
-# # 
 
 pdf("output/FigA6a.pdf")
-figure_A8(GCi, "SLA","WD", c("a","b"))
+  figure_A6(GCi, "SLA","WD", c("a","b"))
 dev.off()
 
 pdf("output/FigA6b.pdf")
-figure_A8(GCi, "Aarea","Seedmass", c("c","d"))
+  figure_A6(GCi, "Aarea","Seedmass", c("c","d"))
 dev.off()
 
 pdf("output/FigA6c.pdf")
-figure_A82(GCi, "Hmax", "e")
+  figure_A6.2(GCi, "Hmax", "e")
 dev.off()
 
-
-pdf("output/FigA7.pdf") # ok funnel plot
-  figure_A9(GIi)
+pdf("output/FigA7.pdf") 
+  figure_A7(GIi)
 dev.off()
 
-
-pdf("output/FigA8.pdf") # a mixer 
-  figureA8(GC)
+pdf("output/FigA8.pdf")
+  figure_A8(GC)
 dev.off()
 
 pdf("output/FigA9.pdf")
-figureA9(GIi)
+  figure_A9(GIi)
 dev.off()
 
 
