@@ -6,13 +6,202 @@ to.pdf <- function(expr, filename, ..., verbose=TRUE) {
   eval.parent(substitute(expr))
 }
 
-figure_1 <- function(RawData) {
+figure1 <- function(RawData) {
   p2 <- my_plot_1("",
           ggplot(RawData, aes(x=reorder(factor(trait), factor(trait), function(x) length(x)*1), fill=stage, order=stage)))
   p2
 }
 
-figure_allometry <- function() {
+figure2 <- function(CompleteData_inter) {
+  
+  s <- unique(CompleteData_inter[c("ref","id", "stageRGR","measure.size","size.min","size.max","growth.form","stage")])
+  s <- s[order(s$size.max,s$size.min,s$stageRGR),]
+  s <- na.omit(s)
+  
+  # sort by trait et stage
+  s$stageRGR <- factor(s$stageRGR, levels=c("seedling","juvenile","sapling","adult","mix"))
+  s$stage <- factor(s$stage, levels=c("seedling","juvenile","sapling","adult","mix"))
+  s$stage <- replace(s$stage, s$stage=="juvenile", "seedling")
+  
+  s$id <- as.factor(s$id)
+  sh <- subset(s,s$measure.size=="height")
+  sa <- subset(s,s$measure.size=="age")
+  sd <- subset(s,s$measure.size=="diameter")
+  sd <- sd[order(sd$size.min,sd$size.max),]
+  
+  heights <- c(nrow(sa), nrow(sh), nrow(sd))
+  heights <- heights/sum(heights) +0.1
+  
+  layout(matrix(c(1,2,3),3,1,byrow=TRUE), widths=c(3,3,3),heights= heights)
+  # layout.show(3)
+  par(mar=c(4,4,0,0.5), oma = c(1,2,1,1))
+  
+  plotCI2 <- function(data,  cuts, xlab) {
+    
+    rescale <- function(x, cuts) {
+      x[x > max(cuts)] <- max(cuts)
+      x2 <- x
+      for( i in seq_along(cuts)[-1]) {
+        low <- cuts[i-1]
+        high <- cuts[i]
+        ii <- (low < x & x <= high)
+        x2[ii] <- i-2 + (x[ii] - low)/(high-low)
+      }
+      x2
+    }
+    
+    data$size.min <- rescale( data$size.min, cuts)
+    data$size.max <- rescale( data$size.max, cuts)
+    
+    data <- data[order(data$size.max, data$size.min),]
+    data["growthf"] <- -0.02
+    
+    n <- nrow(data)
+    y <- rev(seq_len(n))
+    cols <- c("#93EA6D", "#73005C", "#F57C34","#E6224C",
+              "grey")[data$stageRGR]
+    # 98F98C
+    plot(NA, xlim=c(0,3), ylim= c(0,n), yaxt="n",xaxt="n",
+         xlab="",ylab="")
+    mtext(xlab, 1, line=2, cex=0.75)
+    segments(data$size.min, y, data$size.max, col=cols)
+    i <- data$size.max == data$size.min
+    points(data$size.min[i], y[i], col=cols[i], pch='-')
+    
+    j <- data$stageRGR != data$stage
+    points(data$size.max[j]+0.05, y[j], col="black", pch="*")
+    
+    t <- (data$growth.form == "across growth form")
+    points(data$growthf[t], y[t], pch='.')
+    
+    axis(1, at=0:3, labels = cuts, las=1)
+    axis(2, at=y, labels = data$id, las=1, cex.axis=0.5)
+    abline(v=1, col="grey", lty=2,lwd=0.5)
+    abline(v=2, col="grey", lty=2,lwd=0.5)
+  }
+  
+  plotCI2(sa, c(0,1,5,10), "age (yrs)")
+  abline(v = 1, col = "#93EA6D")
+  legend(2.008,40, c("seedling","juvenile","sapling","adult","mix","across growth form","reassignment"), 
+         lwd=c(1,1,1,1,1, NA, NA),
+         col=c("#93EA6D", "#73005C", "#F57C34","#E6224C",
+               "grey", "black","black"),pch = c(NA, NA,NA,NA,NA,".","*"), 
+         bty = "n", x.intersp = 0.3, y.intersp = 1,seg.len = 0.5, cex=0.8)
+  
+  plotCI2(sh, c(0,0.5,2,20), "height (m)")
+  abline(v = 1, col = "#93EA6D")
+  
+  plotCI2(sd, c(0,1,10,80), "diameter (cm)")
+  abline(v = 2, col = "#E6224C")
+  
+  mtext("Study ID", 2, line=0, outer=TRUE,  cex=0.75)
+  
+  
+}
+
+figure3 <- function(GC, GI) {
+  CoefModel.SLA<-fun_model(GI[["SLA"]],GC[["SLA"]])
+  CoefModel.SLA["trait"] <- "SLA"
+  CoefModel.SLA.s <- subset(CoefModel.SLA,stress=='complete')
+  CoefModel.SLA.opt <- subset(CoefModel.SLA,stress=='ideal')
+  LRT.sla <- fun_OneLR(GI[["SLA"]])
+  LRT.sla.2 <- fun_OneLR(GC[["SLA"]])
+  PVAL.sla <- fun_Onepvalue(GI[["SLA"]])
+  PVAL.sla.2 <- fun_Onepvalue(GC[["SLA"]])
+  
+  CoefModel.WD<-fun_model(GI[["WD"]],GC[["WD"]])
+  CoefModel.WD["trait"] <- "WD"
+  CoefModel.WD.s <- subset(CoefModel.WD,stress=='complete')
+  CoefModel.WD.opt <- subset(CoefModel.WD,stress=='ideal')
+  LRT.wd <- fun_OneLR(GI[["WD"]])
+  LRT.wd.2 <- fun_OneLR(GC[["WD"]])
+  PVAL.wd <- fun_Onepvalue(GI[["WD"]])
+  PVAL.wd.2 <- fun_Onepvalue(GC[["WD"]])
+  
+  CoefModel.Hmax<-fun_model(GI[["Hmax"]],GC[["Hmax"]])
+  CoefModel.Hmax["trait"] <- "Hmax"
+  CoefModel.Hmax.s <- subset(CoefModel.Hmax,stress=='complete')
+  CoefModel.Hmax.opt <- subset(CoefModel.Hmax,stress=='ideal')
+  LRT.h <- fun_OneLR(GI[["Hmax"]])
+  LRT.h.2 <- fun_OneLR(GC[["Hmax"]])
+  PVAL.h <- fun_Onepvalue(GI[["Hmax"]])
+  PVAL.h.2 <- fun_Onepvalue(GC[["Hmax"]])
+  
+  CoefModel.Seedmass<-fun_model(GI[["Seedmass"]],GC[["Seedmass"]])
+  CoefModel.Seedmass["trait"] <- "Seedmass"
+  CoefModel.Seedmass.s <- subset(CoefModel.Seedmass,stress=='complete')
+  CoefModel.Seedmass.opt <- subset(CoefModel.Seedmass,stress=='ideal')
+  LRT.sm <- fun_OneLR(GI[["Seedmass"]])
+  LRT.sm.2 <- fun_OneLR(GC[["Seedmass"]])
+  PVAL.sm <- fun_Onepvalue(GI[["Seedmass"]])
+  PVAL.sm.2 <- fun_Onepvalue(GC[["Seedmass"]])
+  
+  CoefModel.Aarea<-fun_model(GI[["Aarea"]],GC[["Aarea"]])
+  CoefModel.Aarea["trait"] <- "Aarea"
+  CoefModel.Aarea.s <- subset(CoefModel.Aarea,stress=='complete')
+  CoefModel.Aarea.opt <- subset(CoefModel.Aarea,stress=='ideal')
+  LRT.a <- fun_OneLR(GI[["Aarea"]])
+  LRT.a.2 <- fun_OneLR(GC[["Aarea"]])
+  PVAL.a <- fun_Onepvalue(GI[["Aarea"]])
+  PVAL.a.2 <- fun_Onepvalue(GC[["Aarea"]])
+  
+  p1 <- coeff.plot(data=CoefModel.SLA, data.complete=CoefModel.SLA.s, data.ideal=CoefModel.SLA.opt,
+                   LRT=LRT.sla, PVAL= PVAL.sla, title="a) SLA",
+                   significativite="***",round.value=4,
+                   limit.x.min=-0.5,limit.x.max=1.5,
+                   limit.x.n=1, vjust.value=1,
+                   limit.x.text=-0.1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
+                   color1="grey",color2="black")
+  
+  p2 <- coeff.plot(data=CoefModel.WD, data.complete=CoefModel.WD.s, data.ideal=CoefModel.WD.opt,
+                   LRT=LRT.wd, PVAL= PVAL.wd, title="b) WD",
+                   significativite="ns",round.value=2,
+                   limit.x.min=-1,limit.x.max=0.5,
+                   limit.x.n=0.3, vjust.value=1,
+                   limit.x.text=-0.75,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
+                   color1="grey",color2="black")
+  
+  p3 <- coeff.plot.ideal(data.ideal=CoefModel.Hmax.opt,
+                         LRT=LRT.h, PVAL= PVAL.h, title="c) Hmax",
+                         significativite="ns",round.value=2,
+                         limit.x.min=-0.5,limit.x.max=1.5,
+                         limit.x.text=-0.1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
+                         limit.x.n=1.2, vjust.value=0,color1="black")
+  
+  p4 <- coeff.plot(data=CoefModel.Seedmass, data.complete=CoefModel.Seedmass.s, data.ideal=CoefModel.Seedmass.opt,
+                   LRT=LRT.sm, PVAL= PVAL.sm, title="d) Seed mass",
+                   significativite="***",round.value=3,
+                   limit.x.min=-1.5,limit.x.max=1,
+                   limit.x.text=-1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
+                   limit.x.n=0.7, vjust.value=1,
+                   color1="grey",color2="black")
+  
+  p5 <- coeff.plot(data=CoefModel.Aarea, data.complete=CoefModel.Aarea.s, data.ideal=CoefModel.Aarea.opt,
+                   LRT=LRT.a, PVAL= PVAL.a, title="e) Aarea",
+                   significativite="ns",round.value=3,
+                   limit.x.min=-2,limit.x.max=3,
+                   limit.x.text=-1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
+                   limit.x.n=2.5, vjust.value=1,
+                   color1="grey",color2="black") +
+    scale_fill_discrete(name="",breaks=c("ideal", "complete"),
+                        labels=c("ideal"="ideal", "complete"="complete"))+
+    theme (legend.title=element_blank(),
+           legend.justification=c(0,0),
+           legend.position=c(1.2,0.5),
+           legend.key = element_blank())
+  
+  p1 <- p1 + theme(plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
+  p2 <- p2 + theme(axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
+  p3 <- p3 + theme(plot.margin=unit(c(0,0,1.5,0),"mm"),axis.title.x=element_blank())
+  p4 <- p4 + theme(axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"))
+  p5 <- p5 + theme(plot.margin=unit(c(0,0,0,0),"mm"))
+  
+  grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
+}
+
+##Figure appendix
+
+figureA1 <- function() {
 
   download_baad <- function(destination_filename) {
     url <-
@@ -68,12 +257,7 @@ figure_allometry <- function() {
   single_plot(pars[["dia"]], pars[["ht"]], data)
 }
 
-####################################################################
-#### Geographical distribution of site locations from studies  #####
-###  performed in the filed used in the meta-analysis. (Fig A3)  ###
-####################################################################
-
-figure_map <- function(CoordTable) {
+figureA2 <- function(CoordTable) {
   mapWorld <- borders("world", colour="#FFCC33", fill="#FFCC33",lty=0) # create a layer of borders
   mp <- ggplot() + mapWorld + theme(text=element_text(size = 9, colour = "black"),
                                       title=element_text(size=9),
@@ -86,105 +270,86 @@ figure_map <- function(CoordTable) {
   coordinate.map
 }
 
-figure_2 <- function(GC, GI) {
-  CoefModel.SLA<-fun_model(GI[["SLA"]],GC[["SLA"]])
-    CoefModel.SLA["trait"] <- "SLA"
-    CoefModel.SLA.s <- subset(CoefModel.SLA,stress=='complete')
-    CoefModel.SLA.opt <- subset(CoefModel.SLA,stress=='ideal')
-    LRT.sla <- fun_OneLR(GI[["SLA"]])
-    LRT.sla.2 <- fun_OneLR(GC[["SLA"]])
-    PVAL.sla <- fun_Onepvalue(GI[["SLA"]])
-    PVAL.sla.2 <- fun_Onepvalue(GC[["SLA"]])
-
-  CoefModel.WD<-fun_model(GI[["WD"]],GC[["WD"]])
-    CoefModel.WD["trait"] <- "WD"
-    CoefModel.WD.s <- subset(CoefModel.WD,stress=='complete')
-    CoefModel.WD.opt <- subset(CoefModel.WD,stress=='ideal')
-    LRT.wd <- fun_OneLR(GI[["WD"]])
-    LRT.wd.2 <- fun_OneLR(GC[["WD"]])
-    PVAL.wd <- fun_Onepvalue(GI[["WD"]])
-    PVAL.wd.2 <- fun_Onepvalue(GC[["WD"]])
-
-  CoefModel.Hmax<-fun_model(GI[["Hmax"]],GC[["Hmax"]])
-    CoefModel.Hmax["trait"] <- "Hmax"
-    CoefModel.Hmax.s <- subset(CoefModel.Hmax,stress=='complete')
-    CoefModel.Hmax.opt <- subset(CoefModel.Hmax,stress=='ideal')
-    LRT.h <- fun_OneLR(GI[["Hmax"]])
-    LRT.h.2 <- fun_OneLR(GC[["Hmax"]])
-    PVAL.h <- fun_Onepvalue(GI[["Hmax"]])
-    PVAL.h.2 <- fun_Onepvalue(GC[["Hmax"]])
-
-  CoefModel.Seedmass<-fun_model(GI[["Seedmass"]],GC[["Seedmass"]])
-    CoefModel.Seedmass["trait"] <- "Seedmass"
-    CoefModel.Seedmass.s <- subset(CoefModel.Seedmass,stress=='complete')
-    CoefModel.Seedmass.opt <- subset(CoefModel.Seedmass,stress=='ideal')
-    LRT.sm <- fun_OneLR(GI[["Seedmass"]])
-    LRT.sm.2 <- fun_OneLR(GC[["Seedmass"]])
-    PVAL.sm <- fun_Onepvalue(GI[["Seedmass"]])
-    PVAL.sm.2 <- fun_Onepvalue(GC[["Seedmass"]])
-
-  CoefModel.Aarea<-fun_model(GI[["Aarea"]],GC[["Aarea"]])
-    CoefModel.Aarea["trait"] <- "Aarea"
-    CoefModel.Aarea.s <- subset(CoefModel.Aarea,stress=='complete')
-    CoefModel.Aarea.opt <- subset(CoefModel.Aarea,stress=='ideal')
-    LRT.a <- fun_OneLR(GI[["Aarea"]])
-    LRT.a.2 <- fun_OneLR(GC[["Aarea"]])
-    PVAL.a <- fun_Onepvalue(GI[["Aarea"]])
-    PVAL.a.2 <- fun_Onepvalue(GC[["Aarea"]])
-
-  p1 <- coeff.plot(data=CoefModel.SLA, data.complete=CoefModel.SLA.s, data.ideal=CoefModel.SLA.opt,
-                   LRT=LRT.sla, PVAL= PVAL.sla, title="a) SLA",
-                   significativite="***",round.value=4,
-                   limit.x.min=-0.5,limit.x.max=1.5,
-                   limit.x.n=1, vjust.value=1,
-                   limit.x.text=-0.1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
-                   color1="grey",color2="black")
-
-  p2 <- coeff.plot(data=CoefModel.WD, data.complete=CoefModel.WD.s, data.ideal=CoefModel.WD.opt,
-                   LRT=LRT.wd, PVAL= PVAL.wd, title="b) WD",
-                   significativite="ns",round.value=2,
-                   limit.x.min=-1,limit.x.max=0.5,
-                   limit.x.n=0.3, vjust.value=1,
-                   limit.x.text=-0.75,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
-                   color1="grey",color2="black")
-
-  p3 <- coeff.plot.ideal(data.ideal=CoefModel.Hmax.opt,
-                   LRT=LRT.h, PVAL= PVAL.h, title="c) Hmax",
-                   significativite="ns",round.value=2,
-                   limit.x.min=-0.5,limit.x.max=1.5,
-                   limit.x.text=-0.1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
-                   limit.x.n=1.2, vjust.value=0,color1="black")
-
-  p4 <- coeff.plot(data=CoefModel.Seedmass, data.complete=CoefModel.Seedmass.s, data.ideal=CoefModel.Seedmass.opt,
-                   LRT=LRT.sm, PVAL= PVAL.sm, title="d) Seed mass",
-                   significativite="***",round.value=3,
-                   limit.x.min=-1.5,limit.x.max=1,
-                   limit.x.text=-1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
-                   limit.x.n=0.7, vjust.value=1,
-                   color1="grey",color2="black")
-
-  p5 <- coeff.plot(data=CoefModel.Aarea, data.complete=CoefModel.Aarea.s, data.ideal=CoefModel.Aarea.opt,
-                   LRT=LRT.a, PVAL= PVAL.a, title="e) Aarea",
-                   significativite="ns",round.value=3,
-                   limit.x.min=-2,limit.x.max=3,
-                   limit.x.text=-1,limit.y.text.l1=0.5, limit.y.text.l2=0.25,
-                   limit.x.n=2.5, vjust.value=1,
-                   color1="grey",color2="black") +
-    scale_fill_discrete(name="",breaks=c("ideal", "complete"),
-                        labels=c("ideal"="ideal", "complete"="complete"))+
-                  theme (legend.title=element_blank(),
-                         legend.justification=c(0,0),
-                         legend.position=c(1.2,0.5),
-                         legend.key = element_blank())
-
-  p1 <- p1 + theme(plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
-  p2 <- p2 + theme(axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
-  p3 <- p3 + theme(plot.margin=unit(c(0,0,1.5,0),"mm"),axis.title.x=element_blank())
-  p4 <- p4 + theme(axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"))
-  p5 <- p5 + theme(plot.margin=unit(c(0,0,0,0),"mm"))
-
-  grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
+figureA3 <- function(GC) {
+  GC[["SLA"]]  <- GC[["SLA"]] [!is.na(GC[["SLA"]] [,"corr.r"]),]
+  GC[["WD"]] <- GC[["WD"]] [!is.na(GC[["WD"]] [,"corr.r"]),]
+  GC[["Hmax"]] <- GC[["Hmax"]][!is.na(GC[["Hmax"]][,"corr.r"]),]
+  GC[["Seedmass"]] <- GC[["Seedmass"]][!is.na(GC[["Seedmass"]][,"corr.r"]),]
+  GC[["Aarea"]] <- GC[["Aarea"]][!is.na(GC[["Aarea"]][,"corr.r"]),]
+  
+  p1 <- my_plot_corr.r(GC[["SLA"]],title="a) SLA")+ theme(plot.margin=unit(c(0,0,0,0),"mm"), legend.position="none")
+  p2 <- my_plot_corr.r(GC[["WD"]], title="b)WD")+ theme(axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"), legend.position="none")
+  p3 <- my_plot_corr.r(GC[["Hmax"]],title="c) Hmax")+ theme(plot.margin=unit(c(0,0,0,0),"mm"), legend.position="none")
+  p4 <- my_plot_corr.r(GC[["Seedmass"]], title="d) Seed mass",xlab='Case studies ranked by coefficient of correlation r')+ theme(axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"), legend.position="none")
+  p5 <- my_plot_corr.r(GC[["Aarea"]], title="e) Aarea",xlab='Case studies ranked by coefficient of correlation r') + theme(legend.title=element_blank(),
+                                                                                                                           legend.justification=c(0,0),
+                                                                                                                           legend.position=c(1.2,0.5),
+                                                                                                                           legend.key = element_blank(),
+                                                                                                                           plot.margin=unit(c(0,0,0,0),"mm"))
+  grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.1,1))
 }
+
+figureA4 <- function(GIi,GIrgr, GIagr) {
+  
+  table_trait <- function(trait) {
+    rbind(
+      table_overall(GIi[[trait]]),
+      table_overall.stage(GIi[[trait]]))
+  }
+  
+  
+  table_trait_gr <- function(GIrgr, GIagr, trait) {
+    a <-  table_overall(GIrgr[[trait]])
+    a["growth"] <- "RGR"
+    b <-  table_overall.stage(GIrgr[[trait]])
+    b["growth"] <- "RGR"
+    c <- table_overall(GIagr[[trait]])
+    c["growth"] <- "AbsGR"
+    d <- table_overall.stage(GIagr[[trait]])
+    d["growth"] <- "AbsGR"
+    
+    x <-  rbind(a,b,c,d)
+    for(f in c("growth","stage")) {
+      x[[f]] <- as.factor(x[[f]])
+    }
+    x
+  }
+  
+  
+  SLA <- table_trait("SLA")
+  WD <- table_trait("WD")
+  Hmax <- table_trait("Hmax")
+  Seedmass <- table_trait("Seedmass")
+  Aarea <- table_trait("Aarea")
+  
+  SLA_gr <- table_trait_gr(GIrgr, GIagr,"SLA")
+  WD_gr <- table_trait_gr(GIrgr, GIagr,"WD")
+  Hmax_gr <- table_trait_gr(GIrgr, GIagr,"Hmax")
+  Seedmass_gr <- table_trait_gr(GIrgr, GIagr,"Seedmass")
+  Aarea_gr <- table_trait_gr(GIrgr, GIagr,"Aarea")
+  
+  grobA <- grobTree(textGrob("A",x=0.1,  y=0.95, hjust=0,just = "left",gp = gpar(fontsize = 10, col = "black")))
+  grobB<- grobTree(textGrob("B",x=0.1,  y=0.95, hjust=0,just = "left",gp = gpar(fontsize = 10, col = "black")))
+  
+  p1 <- my_plot_overall(SLA, title='a) SLA') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())+ annotation_custom(grobA)
+  p2 <- my_plot_overall(WD, title='b) WD') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())+ annotation_custom(grobA)
+  p3 <- my_plot_overall(Hmax, title='c) Hmax') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())+ annotation_custom(grobA)
+  p4 <- my_plot_overall(Seedmass, title='d) Seed mass') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())+ annotation_custom(grobA)
+  p5 <- my_plot_overall(Aarea, title='e) Aarea') + theme (plot.margin=unit(c(0,0,1,0),"mm"))+ annotation_custom(grobA)
+  
+  p1_gr <- my_plot_overall_gr(SLA_gr, title='') +
+    theme(axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank(),
+          legend.title=element_blank(), legend.justification=c(0,0),legend.position=c(0.05,-0.1), legend.key = element_blank(),legend.key.height=unit(0.5,"line"))+annotation_custom(grobB)
+  p2_gr <- my_plot_overall_gr(WD_gr, title='')+ theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank()) + annotation_custom(grobB)
+  p3_gr <- my_plot_overall_gr(Hmax_gr, title='') + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank()) + annotation_custom(grobB)
+  p4_gr <- my_plot_overall_gr(Seedmass_gr, title='') + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())+ annotation_custom(grobB)
+  p5_gr <- my_plot_overall_gr(Aarea_gr, title='') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.text.y = element_blank(), axis.title.y=element_blank())+ annotation_custom(grobB)
+  
+  grid.arrange(p1,p1_gr,p2,p2_gr,p3,p3_gr,p4,p4_gr,p5,p5_gr,ncol=2, nrow=5,widths=c(1.2,1), heights=c(1,1,1,1,1.1))
+  
+}
+
+
 
 figure_8 <- function(GCi, GIi) {
   CoefModel.SLA<-fun_model3(GIi[["SLA"]],GCi[["SLA"]])
@@ -286,165 +451,8 @@ figure_8 <- function(GCi, GIi) {
   grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
 }
 
-figure_A1 <- function(CompleteData_inter) {
 
-    s <- unique(CompleteData_inter[c("ref","id", "stageRGR","measure.size","size.min","size.max","growth.form","stage")])
-    s <- s[order(s$size.max,s$size.min,s$stageRGR),]
-    s <- na.omit(s)
 
-  # sort by trait et stage
-  s$stageRGR <- factor(s$stageRGR, levels=c("seedling","juvenile","sapling","adult","mix"))
-  s$stage <- factor(s$stage, levels=c("seedling","juvenile","sapling","adult","mix"))
-  s$stage <- replace(s$stage, s$stage=="juvenile", "seedling")
-  
-  s$id <- as.factor(s$id)
-  sh <- subset(s,s$measure.size=="height")
-  sa <- subset(s,s$measure.size=="age")
-  sd <- subset(s,s$measure.size=="diameter")
-  sd <- sd[order(sd$size.min,sd$size.max),]
-
-  heights <- c(nrow(sa), nrow(sh), nrow(sd))
-  heights <- heights/sum(heights) +0.1
-
- layout(matrix(c(1,2,3),3,1,byrow=TRUE), widths=c(3,3,3),heights= heights)
-  # layout.show(3)
-  par(mar=c(4,4,0,0.5), oma = c(1,2,1,1))
-
-  plotCI2 <- function(data,  cuts, xlab) {
-
-    rescale <- function(x, cuts) {
-      x[x > max(cuts)] <- max(cuts)
-      x2 <- x
-      for( i in seq_along(cuts)[-1]) {
-        low <- cuts[i-1]
-        high <- cuts[i]
-        ii <- (low < x & x <= high)
-        x2[ii] <- i-2 + (x[ii] - low)/(high-low)
-      }
-      x2
-    }
-    
-    data$size.min <- rescale( data$size.min, cuts)
-    data$size.max <- rescale( data$size.max, cuts)
-
-    data <- data[order(data$size.max, data$size.min),]
-    data["growthf"] <- -0.02
-
-    n <- nrow(data)
-    y <- rev(seq_len(n))
-    cols <- c("#93EA6D", "#73005C", "#F57C34","#E6224C",
-               "grey")[data$stageRGR]
-    # 98F98C
-    plot(NA, xlim=c(0,3), ylim= c(0,n), yaxt="n",xaxt="n",
-         xlab="",ylab="")
-    mtext(xlab, 1, line=2, cex=0.75)
-    segments(data$size.min, y, data$size.max, col=cols)
-    i <- data$size.max == data$size.min
-    points(data$size.min[i], y[i], col=cols[i], pch='-')
-    
-    j <- data$stageRGR != data$stage
-    points(data$size.max[j]+0.05, y[j], col="black", pch="*")
-    
-    t <- (data$growth.form == "across growth form")
-    points(data$growthf[t], y[t], pch='.')
-    
-    axis(1, at=0:3, labels = cuts, las=1)
-    axis(2, at=y, labels = data$id, las=1, cex.axis=0.5)
-    abline(v=1, col="grey", lty=2,lwd=0.5)
-    abline(v=2, col="grey", lty=2,lwd=0.5)
-  }
-
-  plotCI2(sa, c(0,1,5,10), "age (yrs)")
-  abline(v = 1, col = "#93EA6D")
-  legend(2.008,40, c("seedling","juvenile","sapling","adult","mix","across growth form","reassignment"), 
-         lwd=c(1,1,1,1,1, NA, NA),
-         col=c("#93EA6D", "#73005C", "#F57C34","#E6224C",
-               "grey", "black","black"),pch = c(NA, NA,NA,NA,NA,".","*"), 
-         bty = "n", x.intersp = 0.3, y.intersp = 1,seg.len = 0.5, cex=0.8)
-
-  plotCI2(sh, c(0,0.5,2,20), "height (m)")
-  abline(v = 1, col = "#93EA6D")
-
-  plotCI2(sd, c(0,1,10,80), "diameter (cm)")
-  abline(v = 2, col = "#E6224C")
-
-  mtext("Study ID", 2, line=0, outer=TRUE,  cex=0.75)
-
-  
-}
-
-figure_A4 <- function(GC) {
-  GC[["SLA"]]  <- GC[["SLA"]] [!is.na(GC[["SLA"]] [,"corr.r"]),]
-  GC[["WD"]] <- GC[["WD"]] [!is.na(GC[["WD"]] [,"corr.r"]),]
-  GC[["Hmax"]] <- GC[["Hmax"]][!is.na(GC[["Hmax"]][,"corr.r"]),]
-  GC[["Seedmass"]] <- GC[["Seedmass"]][!is.na(GC[["Seedmass"]][,"corr.r"]),]
-  GC[["Aarea"]] <- GC[["Aarea"]][!is.na(GC[["Aarea"]][,"corr.r"]),]
-
-  p1 <- my_plot_corr.r(GC[["SLA"]],title="a) SLA")+ theme(plot.margin=unit(c(0,0,0,0),"mm"), legend.position="none")
-  p2 <- my_plot_corr.r(GC[["WD"]], title="b)WD")+ theme(axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"), legend.position="none")
-  p3 <- my_plot_corr.r(GC[["Hmax"]],title="c) Hmax")+ theme(plot.margin=unit(c(0,0,0,0),"mm"), legend.position="none")
-  p4 <- my_plot_corr.r(GC[["Seedmass"]], title="d) Seed mass",xlab='Case studies ranked by coefficient of correlation r')+ theme(axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"), legend.position="none")
-  p5 <- my_plot_corr.r(GC[["Aarea"]], title="e) Aarea",xlab='Case studies ranked by coefficient of correlation r') + theme(legend.title=element_blank(),
-                               legend.justification=c(0,0),
-                               legend.position=c(1.2,0.5),
-                               legend.key = element_blank(),
-                               plot.margin=unit(c(0,0,0,0),"mm"))
-  grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.1,1))
-}
-
-figure_A5 <- function(GI) {
-
-    table_trait <- function(trait) {
-       rbind(
-        table_overall(GI[[trait]]),
-        table_overall.stage(GI[[trait]]))
-    }
-    SLA <- table_trait("SLA")
-    WD <- table_trait("WD")
-    Hmax <- table_trait("Hmax")
-    Seedmass <- table_trait("Seedmass")
-    Aarea <- table_trait("Aarea")
-
-    p1 <- my_plot_overall(SLA, title='a) SLA') + theme(plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
-    p2 <- my_plot_overall(WD, title='b) WD') + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
-    p3 <- my_plot_overall(Hmax, title='c) Hmax') + theme(plot.margin=unit(c(0,0,1.5,0),"mm"),axis.title.x=element_blank())
-    p4 <- my_plot_overall(Seedmass, title='d) Seed mass') + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"))
-    p5 <- my_plot_overall(Aarea, title='e) Aarea') + theme (legend.title=element_blank(), legend.justification=c(0,0),legend.position=c(1.2,0.5), legend.key = element_blank(), plot.margin=unit(c(0,0,0,0),"mm"))
-
-    grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
-}
-
-figure_A5b <- function(GIrgr, GIagr) {
-  
-  table_trait <- function(GIrgr, GIagr, trait) {
-      x <-  rbind(
-          table_overall(GIrgr[[trait]]),
-          table_overall.stage(GIrgr[[trait]]),
-          table_overall(GIagr[[trait]]),
-          table_overall.stage(GIagr[[trait]]))
-      x["growth"] <- NA
-      x$growth <- c("RGR","RGR","RGR","RGR","AbsGR","AbsGR", "AbsGR","AbsGR")
-      for(f in c("growth","stage")) {
-        x[[f]] <- as.factor(x[[f]])
-      }
-      x
-   }
-  
-  SLA <- table_trait(GIrgr, GIagr,"SLA")
-  WD <- table_trait(GIrgr, GIagr,"WD")
-  Hmax <- table_trait(GIrgr, GIagr,"Hmax")
-  Seedmass <- table_trait(GIrgr, GIagr,"Seedmass")
-  Aarea <- table_trait(GIrgr, GIagr,"Aarea")
-  
-  
-  p1 <- my_plot_overall.b(SLA, title='a) SLA') + theme(plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
-  p2 <- my_plot_overall.b(WD, title='b) WD') + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank())
-  p3 <- my_plot_overall.b(Hmax, title='c) Hmax') + theme(plot.margin=unit(c(0,0,1.5,0),"mm"),axis.title.x=element_blank())
-  p4 <- my_plot_overall.b(Seedmass, title='d) Seed mass') + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"))
-  p5 <- my_plot_overall.b(Aarea, title='e) Aarea') + theme (legend.title=element_blank(), legend.justification=c(0,0),legend.position=c(1.2,0.5), legend.key = element_blank(), plot.margin=unit(c(0,0,0,0),"mm"))
-  
-  grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
-}
 
 figure_A6 <- function(GC) {
   CoefModel.SLA<-fun_model2(GC[["SLA"]])
@@ -796,8 +804,9 @@ figure_A9 <- function(GCi){
 #   grid.arrange(funnel_SLA_nbsp,funnel_WD_nbsp,funnel_Hmax_nbsp, funnel_Seedmass_nbsp ,funnel_Aarea_nbsp, nrow=3, ncol=2)
 # }
 
-    data <- GC[["SLA"]]
 
+figureA8 <- function(data){
+    
    plotgrowth <- function(data, title){
      
          data <- data[,c("growth","stage","measurement")]
@@ -812,128 +821,40 @@ figure_A9 <- function(GCi){
          
          n <- max(a, a1)
       
-         layout(matrix(c(1,2),1,2,byrow=TRUE), widths=c(3,3),heights= c(3,3))
+         # layout(matrix(c(1,2),1,2,byrow=TRUE), widths=c(3,3),heights= c(3,3))
         
-         par(mar=c(4,4,0,0))
-         barplot(counts1,xlim=rev(c(0,n)),
-                 xlab="",col=c("#70DDB7","#538879","#B4D1BC","#5CD4D1"), 
+         par(mar=c(4,4,2.5,0))
+         barplot(counts1,xlim=rev(c(0,n+5)),
+                 xlab="",col=c("#9E5F3A","#E5B38F","#F4395B","#FA8C3D"), 
                  horiz = TRUE,border = NA,yaxt="n")
-         axis(2, at=1:3, labels = c("juvenile","sapling","adult"), las=0, cex.axis=1)
-         mtext("AbsGR", side=3, line=-1)      
-         mtext(title, side=3, line=-1, at=max(n)) 
+         axis(2, at=1:3, labels = c("juvenile","sapling","adult"), las=1, cex.axis=1)
+         mtext("AbsGR", side=3, line=0, cex=0.8)      
+         mtext(title, side=3, line=1, at=max(n+5)) 
          
-         par(mar=c(4,0,0,4))
-         barplot(counts, xlim=c(0,n),
-                 xlab="",col=c("#70DDB7","#538879","#B4D1BC","#5CD4D1"), 
+         par(mar=c(4,0,2.5,4))
+         barplot(counts, xlim=c(0,n+5),
+                 xlab="",col=c("#9E5F3A","#E5B38F","#F4395B","#FA8C3D"), 
                  horiz = TRUE,border = NA, yaxt="n")
          abline(v = 0, col = "black")
-         mtext("RGR", side=3, line=-1)   
-         mtext("Number of correlation extracted", side=1, line=2, at = 0)   
+         mtext("RGR", side=3, line=0, cex=0.8)   
+         mtext("Number of correlation extracted", side=1, line=2.5, at = 0, cex=0.8)   
          
          }
    
-   layout(matrix(c(1,2,3,4,5,6),2,3,byrow=TRUE), widths=c(3,3,3,3,3,3),heights= c(3,3,3,3,3,3,3))
+   layout(matrix(c(1,2,3,4,5,6,7,8,9,10,11,12),3,4,byrow=TRUE))
    plotgrowth(GC[["SLA"]],"a) SLA")
    plotgrowth(GC[["WD"]],"b) WD")
    plotgrowth(GC[["Hmax"]],"c) Hmax")
    plotgrowth(GC[["Seedmass"]],"d) Seed mass")
    plotgrowth(GC[["Aarea"]],"e) Aarea")
-   legend("topright", c("Diameter","Height","Mass","Other"),
-                 fill= c("#70DDB7","#538879","#B4D1BC","#5CD4D1"),
-                 col=c("#70DDB7","#538879","#B4D1BC","#5CD4D1"), bty = "n")
    
-
-
-
-    
-  
-#     
-#     library("epade")
-#     
-#     bar.plot.ade(x=data$growth, y=data$stage, z=data$measurement, data=data)
-#     
-#     ,
-#                  vnames.x=NULL, vnames.y=NULL, vnames.z=NULL,
-#                  btext=NULL, b=NULL, b2=0.5, v=NULL, h=NULL, gradient=FALSE,
-#                  xlab="", ylab="", main="", ylim=NULL,
-#                  yticks=NULL, col=NULL, tcol=NULL, bgcol=NULL, lcol=NULL,
-#                  alpha=NULL, beside=TRUE, legendon="topright", wall=0,
-#                  lhoriz=NULL, prozent=FALSE, ploc=0, form="r", border=TRUE,
-#                  density=NULL, angle=NULL, density2=NULL, angle2=NULL, fill=NULL,
-#                  lwd=1, lty=1, blwd=1, blty=1)
-#     
-
-ggplot(data,aes(x=stage,group=growth, fill=growth, alpha=measurement))+
-  geom_bar() +
-  theme(text = element_text(size = 9), axis.text.x = element_text(size = 9),
-        axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme + 
-  theme(axis.title = element_text(size = 10, hjust = 0.5)) +
-  coord_flip()+ scale_x_discrete("stage", limit = c("juvenile", "sapling", "adult"))+
-  theme(text = element_text(size = 9), axis.text.x = element_text(size = 9),
-        axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme + 
-  theme(axis.title = element_text(size = 10, hjust = 0.5)) +
-  scale_fill_manual("growth", limits = c("AbGR","RGR"), values = c("AbGR" = "grey", "RGR" = "blue"))+
-  scale_alpha_manual(values=c(0.1, 0.25, 0.75, 1))
- 
-
-
-figure_A10a <- function(GC) {
-  p1 <- my_plot_3("a) SLA",
-          ggplot(GC[["SLA"]],aes(x=reorder(factor(RGR),factor(stage),function(x) length(x)*1),fill=stage,order=stage)))
-
-  p2 <- my_plot_3("b) WD",
-          ggplot(GC[["WD"]],aes(x=reorder(factor(RGR),factor(stage),function(x) length(x)*1),fill=stage,order=stage)))
-
-  p3 <- my_plot_3("c) Hmax",
-          ggplot(GC[["Hmax"]],aes(x=reorder(factor(RGR),factor(stage),function(x) length(x)*1),fill=stage,order=stage)))
-
-  p4 <- my_plot_3("d) Seed mass",
-          ggplot(GC[["Seedmass"]],aes(x=reorder(factor(RGR),factor(stage),function(x) length(x)*1),fill=stage,order=stage)))
-
-  p5 <- my_plot_3("e) Aarea",
-          ggplot(GC[["Aarea"]],aes(x=reorder(factor(RGR),factor(stage),function(x) length(x)*1),fill=stage,order=stage)))
-
-  p1 <- p1 + theme(plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank(),
-                   legend.position="none")
-  p2 <- p2 + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank(),
-                    legend.position="none")
-  p3 <- p3 + theme(plot.margin=unit(c(0,0,1.5,0),"mm"),axis.title.x=element_blank(),
-                   legend.position="none")
-  p4 <- p4 + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"),
-                    legend.position="none")
-  p5 <- p5 + theme(plot.margin=unit(c(0,0,0,0),"mm"), legend.justification=c(0,0),legend.position=c(1.2,0.2), legend.key = element_blank())
-
-  grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
+   plot(1, type="n", axes=F, xlab="", ylab="", bty='n', xaxt='n', yaxt='n')
+     legend("topright", c("mass","diameter","height","other (volume, etc.)"),
+            fill= c("#9E5F3A","#E5B38F","#F4395B","#FA8C3D"),
+            border=c("#9E5F3A","#E5B38F","#F4395B","#FA8C3D"),
+            col=c("#9E5F3A","#E5B38F","#F4395B","#FA8C3D"), bty = "n")
 }
-
-figure_A10b <- function(GC) {
-  p1 <- my_plot_3b("a) SLA",
-                  ggplot(GC[["SLA"]],aes(x=reorder(factor(stage),factor(growth),function(x) length(x)*1), fill=growth)))
-  
-  p2 <- my_plot_3b("b) WD",
-                  ggplot(GC[["WD"]],aes(x=reorder(factor(stage),factor(growth),function(x) length(x)*1),fill=growth, order=stage)))
-  
-  p3 <- my_plot_3b("c) Hmax",
-                  ggplot(GC[["Hmax"]],aes(x=reorder(factor(stage),factor(growth),function(x) length(x)*1),fill=growth, order=stage)))
-  
-  p4 <- my_plot_3b("d) Seed mass",
-                  ggplot(GC[["Seedmass"]],aes(x=reorder(factor(stage),factor(growth),function(x) length(x)*1),fill=growth, order=stage)))
-  
-  p5 <- my_plot_3b("e) Aarea",
-                  ggplot(GC[["Aarea"]],aes(x=reorder(factor(stage),factor(growth),function(x) length(x)*1),fill=growth, order=stage)))
-  
-  p1 <- p1 + theme(plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank(),
-                   legend.position="none")
-  p2 <- p2 + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"),axis.title.x=element_blank(),
-                    legend.position="none")
-  p3 <- p3 + theme(plot.margin=unit(c(0,0,1.5,0),"mm"),axis.title.x=element_blank(),
-                   legend.position="none")
-  p4 <- p4 + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,0,0),"mm"),
-                    legend.position="none")
-  p5 <- p5 + theme(plot.margin=unit(c(0,0,0,0),"mm"), legend.justification=c(0,0),legend.position=c(1.2,0.2), legend.key = element_blank())
-  
-  grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
-}
+   
 
 # figure_A11 <- function(GI, GC, trait, titles) {
 #   par(mfcol=c(1,2))
@@ -986,7 +907,7 @@ figure_A10b <- function(GC) {
 #   grid.arrange(p1,p2,p3,p4,p5,ncol=2, nrow=3,widths=c(1.2,1))
 # }
 
-figure_A12 <- function(GIi) {
+figureA9 <- function(GIi) {
   
   LRT_SLA <- fun_OneLR_year(GIi[["SLA"]]) 
   PVAL_SLA <- fun_Onepvalue_year(GIi[["SLA"]]) 

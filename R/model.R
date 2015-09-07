@@ -605,7 +605,7 @@ fun_model_multiple3.1 <- function(x) {
 } 
 
 
-# Weighted correlation
+# Weighted correlation for FigA4
 table_overall.stage <- function(y) {
   name <- list(1:3, c("stage", "corr.r", "SD", "CI"))
   MeanTab <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]), 
@@ -619,19 +619,31 @@ table_overall.stage <- function(y) {
   MeanTab$CI <- sapply(split(y, na.omit(y$stage)), function(x) {
     1.96 * (sqrt(wtd.var(x$corr.r, x$nb.sp))/sqrt(length(x)))
   })
+  
+  n <- count(y,"stage")
+
+  MeanTab <-  merge(MeanTab, n, by = "stage")
+  MeanTab$freq <- as.character(MeanTab$freq)
+  
   as.data.frame(MeanTab)
+
 }
 
 table_overall <- function(y) {
-  name <- list(1:1, c("stage", "corr.r", "CI", "SD"))
+  name <- list(1:1, c("stage", "corr.r", "CI", "SD","freq"))
+  y <- y[!is.na(y[, "corr.r"]), ]
   MeanTab <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]), 
     dimnames = name))
   MeanTab[, 1] <- "total"
   MeanTab$corr.r <- wtd.mean(y$corr.r, y$nb.sp)
   MeanTab$SD <- sqrt(wtd.var(y$corr.r, y$nb.sp))
   MeanTab$CI <- 1.96 * (sqrt(wtd.var(y$corr.r, y$nb.sp))/sqrt(length(y)))
+  n <- count(y,"stage")
+  MeanTab$freq <- sum(n$freq)
+  MeanTab$freq <- as.character(MeanTab$freq)
   as.data.frame(MeanTab)
-}
+
+  }
 
 
 # Summarise results of the model

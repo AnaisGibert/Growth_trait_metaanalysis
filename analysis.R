@@ -69,44 +69,44 @@ dir.create("output", showWarnings =FALSE)
 write.csv(RawData, "output/data.csv", row.names=FALSE)
 
 ## Make output
-pdf("output/Fig1.pdf",height=3, width=4) # ok
-  figure_1(RawData)
+pdf("output/Fig1.pdf",height=3, width=4) 
+  figure1(RawData)
 dev.off()
 
-pdf("output/Fig2.pdf", height=8, width=4) # In the main text, need to be changed
-figure_A1(CompleteData_inter)
-dev.off()
-
-
-pdf("output/Fig3.pdf",height=6,width=5) # ok
-  figure_2(GCi, GIi)
+pdf("output/Fig2.pdf", height=8, width=4) 
+  figure2(CompleteData_inter)
 dev.off()
 
 
-
-pdf("output/FigA1.pdf", height=6, width=6) # ok , maybe need to put only the line address in the text
-figure_allometry()
+pdf("output/Fig3.pdf",height=6,width=5) 
+  figure3(GCi, GIi)
 dev.off()
 
 
-pdf("output/FigA2.pdf", height=3, width=6)# ok
-figure_map(CoordTable)
+## Figure appendix
+pdf("output/FigA1.pdf", height=6, width=6) # allometry
+figureA1()
 dev.off()
 
 
-pdf("output/FigA3.pdf",height=6,width=6) # maybe in the main text
-figure_A4(GCi)
+pdf("output/FigA2.pdf", height=3, width=6) #map
+figureA2(CoordTable)
 dev.off()
 
 
-
-pdf("output/FigA4.pdf",height=6,width=5) # need to be change, both graph on the same page
-figure_A5(GIi)
+pdf("output/FigA3.pdf",height=6,width=6) 
+figureA3(GCi)
 dev.off()
 
-pdf("output/FigA4b.pdf",height=6,width=5) 
-figure_A5b(GIrgr, GIagr)
+pdf("output/FigA4.pdf",height=7,width=5) # need to be change, both graph on the same page
+figureA4(GIi, GIrgr,GIagr)
 dev.off()
+
+# pdf("output/FigA4b.pdf",height=6,width=5) 
+# figure_A5b(GIrgr, GIagr)
+# dev.off()
+
+
 # pdf("output/FigA6.pdf",height=6,width=5)
 #   figure_A6(GCi)
 # dev.off()
@@ -141,84 +141,13 @@ dev.off()
 
 
 pdf("output/FigA8.pdf") # a mixer 
-  figure_A10a(GC)
-  figure_A10b(GC)
+  figureA8(GC)
 dev.off()
-
-# pdf("output/FigA11.pdf")
-# figure_A12(GIi)
-# 
-# dev.off()
 
 pdf("output/FigA9.pdf")
-figure_A12(GIi)
+figureA9(GIi)
 dev.off()
 
-
-# pdf("output/FigA11a.pdf")
-# figure_A11(GIi, GC, "SLA", c("a","b"))
-# dev.off()
-# 
-# pdf("output/FigA11b.pdf")
-# figure_A11(GIi, GC, "WD", c("c","d"))
-# dev.off()
-# 
-# pdf("output/FigA11c.pdf")
-# figure_A11(GIi, GC, "Hmax",  c("e","f"))
-# dev.off()
-# 
-# pdf("output/FigA11d.pdf")
-# figure_A11(GIi, GC, "Seedmass", c("g","h"))
-# dev.off()
-# 
-# pdf("output/FigA11e.pdf")
-# figure_A11(GIi, GC, "Aarea", c("i","j"))
-# dev.off()
-
-
-# fun_Heterogeneity.CI(GIi[["SLA"]])
-# fun_Heterogeneity.H(GIi[["SLA"]], mods=~stage +year)
-# fun_Heterogeneity.H(GIi[["SLA"]], mods=~stage )
-# 
-# 
-# fun_Heterogeneity.CI(GIi[["WD"]])
-# fun_Heterogeneity.H(GIi[["WD"]], mods=~stage +year)
-# fun_Heterogeneity.H(GIi[["WD"]], mods=~stage )
-# 
-# 
-# fun_Heterogeneity.CI(GIi[["Hmax"]])
-# fun_Heterogeneity.H(GIi[["Hmax"]], mods=~stage +year)
-# fun_Heterogeneity.H(GIi[["Hmax"]], mods=~stage )
-# 
-# 
-# fun_Heterogeneity.CI(GIi[["Seedmass"]])
-# fun_Heterogeneity.H(GIi[["Seedmass"]], mods=~stage +year)
-# fun_Heterogeneity.H(GIi[["Seedmass"]], mods=~stage )
-# 
-# 
-# fun_Heterogeneity.CI(GIi[["Aarea"]])
-# fun_Heterogeneity.H(GIi[["Aarea"]], mods=~stage +year)
-# fun_Heterogeneity.H(GIi[["Aarea"]], mods=~stage )
-# 
-# 
-# fun_trim.and.fill_number(GIi[["SLA"]])
-# fun_trim.and.fill_number(GIi[["WD"]])
-# fun_trim.and.fill_number(GIi[["Hmax"]])
-# fun_trim.and.fill_number(GIi[["Seedmass"]])
-# fun_trim.and.fill_number(GIi[["Aarea"]])
-# 
-# 
-# fsn(data=GIi[["SLA"]], corr.z, vi=vr.z, sei= se.z, type="Rosenberg") 
-# fsn(data=GIi[["WD"]], corr.z, vi=vr.z, sei= se.z, type="Rosenberg") 
-# fsn(data=GIi[["Hmax"]], corr.z,vi=vr.z, sei= se.z, type="Rosenberg") 
-# fsn(data=GIi[["Seedmass"]], corr.z, vi=vr.z, sei= se.z, type="Rosenberg") 
-# fsn(data=GIi[["Aarea"]], corr.z, vi=vr.z, sei= se.z, type="Rosenberg") 
-# 
-# fun_year(GIi[["SLA"]])
-# fun_year(GIi[["WD"]])
-# fun_year(GIi[["Seedmass"]])
-# fun_year(GIi[["Hmax"]])
-# fun_year(GIi[["Aarea"]])
 
 # Reference list
 paper <- read.bib("references/paper.bib")
