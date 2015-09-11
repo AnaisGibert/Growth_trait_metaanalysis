@@ -223,8 +223,8 @@ my_plot_overall_gr <- function(data, title = "") {
                                 geom_errorbar(aes(x = stage, y = corr.r), position = dodge, size = 0.4, width = 0.2) +
                                 scale_y_continuous("Coefficient of correlation r (+SD) ", limits = c(-1, 1)) +
                                 coord_flip()+
-                                geom_text(aes(stage, 0.8, label = paste("(n=",freq, ")"), color = factor(growth), group = "RGR"), size = 2, data = data1,parse = F, position = "identity", vjust = -0.48, hjust = 0) +
-                                geom_text(aes(stage, 0.8, label = paste("(n=", freq, ")"), color = factor(growth), group = "AbsGR"), size = 2, data = data2, parse = F, position = "identity", vjust = +0.48,hjust = 0) +      
+                                geom_text(aes(stage, 0.8, label = paste("(n=",freq, ")"), color = factor(growth), group = "RGR"), size = 2, data = data1,parse = F, position = "identity", vjust = -0.5, hjust = 0) +
+                                geom_text(aes(stage, 0.8, label = paste("(n=", freq, ")"), color = factor(growth), group = "AbsGR"), size = 2, data = data2, parse = F, position = "identity", vjust = +0.5,hjust = 0) +      
                                 scale_colour_manual(values=c("RGR" = "#9E5F3A", "AbsGR"="#F4395B"), breaks=c("RGR", "AbsGR"))+
                                 theme(legend.position = "none")
                               

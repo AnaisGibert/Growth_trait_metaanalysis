@@ -329,22 +329,23 @@ figure_A4 <- function(GIi,GIrgr, GIagr) {
   Seedmass_gr <- table_trait_gr(GIrgr, GIagr,"Seedmass")
   Aarea_gr <- table_trait_gr(GIrgr, GIagr,"Aarea")
   
-  grobA <- grobTree(textGrob("A",x=0.1,  y=0.95, hjust=0,just = "left",gp = gpar(fontsize = 10, col = "black")))
-  grobB<- grobTree(textGrob("B",x=0.1,  y=0.95, hjust=0,just = "left",gp = gpar(fontsize = 10, col = "black")))
+#   grobA <- grobTree(textGrob("A",x=0.1,  y=0.95, hjust=0,just = "left",gp = gpar(fontsize = 10, col = "black")))
+#   grobB<- grobTree(textGrob("B",x=0.1,  y=0.95, hjust=0,just = "left",gp = gpar(fontsize = 10, col = "black")))
+  # + annotation_custom(grobA)
   
-  p1 <- my_plot_overall(SLA, title='a) SLA') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())+ annotation_custom(grobA)
-  p2 <- my_plot_overall(WD, title='b) WD') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())+ annotation_custom(grobA)
-  p3 <- my_plot_overall(Hmax, title='c) Hmax') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())+ annotation_custom(grobA)
-  p4 <- my_plot_overall(Seedmass, title='d) Seed mass') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())+ annotation_custom(grobA)
-  p5 <- my_plot_overall(Aarea, title='e) Aarea') + theme (plot.margin=unit(c(0,0,1,0),"mm"))+ annotation_custom(grobA)
+  p1 <- my_plot_overall(SLA, title='a) SLA') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())
+  p2 <- my_plot_overall(WD, title='b) WD') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())
+  p3 <- my_plot_overall(Hmax, title='c) Hmax') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())
+  p4 <- my_plot_overall(Seedmass, title='d) Seed mass') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())
+  p5 <- my_plot_overall(Aarea, title='e) Aarea') + theme (plot.margin=unit(c(0,0,1,0),"mm"))
   
-  p1_gr <- my_plot_overall_gr(SLA_gr, title='') +
+  p1_gr <- my_plot_overall_gr(SLA_gr, title='f) SLA by growth type') +
     theme(axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank(),
-          legend.title=element_blank(), legend.justification=c(0,0),legend.position=c(0.05,-0.1), legend.key = element_blank(),legend.key.height=unit(0.5,"line"))+annotation_custom(grobB)
-  p2_gr <- my_plot_overall_gr(WD_gr, title='')+ theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank()) + annotation_custom(grobB)
-  p3_gr <- my_plot_overall_gr(Hmax_gr, title='') + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank()) + annotation_custom(grobB)
-  p4_gr <- my_plot_overall_gr(Seedmass_gr, title='') + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())+ annotation_custom(grobB)
-  p5_gr <- my_plot_overall_gr(Aarea_gr, title='') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.text.y = element_blank(), axis.title.y=element_blank())+ annotation_custom(grobB)
+          legend.title=element_blank(), legend.justification=c(0,0),legend.position=c(0.05,0), legend.key = element_blank(),legend.key.height=unit(0.5,"line"))
+  p2_gr <- my_plot_overall_gr(WD_gr, title='g) WD by growth type')+ theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank()) 
+  p3_gr <- my_plot_overall_gr(Hmax_gr, title='h) Hmax by growth type') + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank()) 
+  p4_gr <- my_plot_overall_gr(Seedmass_gr, title='i) Seed mass by growth type') + theme( axis.text.y = element_blank(), axis.title.y=element_blank(), plot.margin=unit(c(0,0,1,0),"mm"),axis.title.x=element_blank())
+  p5_gr <- my_plot_overall_gr(Aarea_gr, title='j) Aarea by growth type') + theme(plot.margin=unit(c(0,0,1,0),"mm"),axis.text.y = element_blank(), axis.title.y=element_blank())
   
   grid.arrange(p1,p1_gr,p2,p2_gr,p3,p3_gr,p4,p4_gr,p5,p5_gr,ncol=2, nrow=5,widths=c(1.2,1), heights=c(1,1,1,1,1.1))
   
@@ -462,7 +463,7 @@ figure_A6 <- function(GC, trait1, trait2, titles) {
                                                   "RGRRGR(Di)" ,"RGRRGR(Hi)" ,  "RGRRGR(Mi)", "RGRRGR(Vi)" ,"growth.formtree","growth.formwoody","growth.formacross growth form","experimentcontrol" , "experimentdatabase", "experimentfield" ,"experimentnature")),
                        labels=rev(c('seedling','juvenile','sapling','adult','all stage',
                                     'GR(D)','GR(H)','GR(M)','RGR(CSA)','RGR(D)','RGR(H)','RGR(M)','RGR(V)',"tree","woody","across GF",'greenhouse','database','field exp','forest')),
-                       title=paste0(titles[1], ") ", trait1, "- ideal dataset"))
+                       title=paste0(titles[1], ") ", trait1))
   
   mtext("mod4", side=2, line=4.2, cex=0.8, at=2.2)
   mtext("mod3", side=2, line=4.2, cex=0.8, at=6)
@@ -473,7 +474,7 @@ figure_A6 <- function(GC, trait1, trait2, titles) {
   coeff.plot.multiple3(GC[[trait2]], params=rev(c("stageRGRseedling","stageRGRjuvenile","stageRGRsapling","stageRGRadult","stageRGRmix",
                                                   "RGRGR(Di)", "RGRGR(Hi)", "RGRGR(Mi)"   , "RGRRGR(CSAi)"  ,
                                                   "RGRRGR(Di)" ,"RGRRGR(Hi)" ,  "RGRRGR(Mi)", "RGRRGR(Vi)" ,"growth.formtree","growth.formwoody","growth.formacross growth form","experimentcontrol" , "experimentdatabase", "experimentfield" ,"experimentnature")),
-                       title=paste0(titles[2], ") ", trait2, "- ideal dataset"))
+                       title=paste0(titles[2], ") ", trait2))
 }
 
 figure_A6.2 <- function(GC, trait1, titles) {
@@ -485,14 +486,14 @@ figure_A6.2 <- function(GC, trait1, titles) {
                                                     "RGRRGR(Di)" ,"RGRRGR(Hi)" ,  "RGRRGR(Mi)", "RGRRGR(Vi)" ,"experimentcontrol" , "experimentdatabase", "experimentfield" ,"experimentnature")),
                          labels=rev(c('seedling','juvenile','sapling','adult','all stage',
                                       'GR(D)','GR(H)','GR(M)','RGR(CSA)','RGR(D)','RGR(H)','RGR(M)','RGR(V)','greenhouse','database','field exp','forest')),
-                         title=paste0(titles[1], ") ", trait1, "- ideal dataset"))
+                         title=paste0(titles[1], ") ", trait1))
   
   mtext("mod4", side=2, line=4.2, cex=0.8, at=2.2)
   mtext("mod2", side=2, line=4.2, cex=0.8, at=8.5)
   mtext("mod1", side=2, line=4.2, cex=0.8, at=15.2)
 }
 
-figure_A7 <- function(GCi){
+figure_A7 <- function(GIi){
   par(mfrow=c(3,2))
   par(mar=c(5,4,1,2))
   
@@ -508,6 +509,8 @@ figure_A8 <- function(data){
   plotgrowth <- function(data, title){
     
     data <- data[,c("growth","stage","measurement")]
+    data$measurement <- factor(data$measurement, levels=c("Mass","Diameter","Height","Other"))
+    
     rgr <- subset(data,data$growth=="RGR")
     abs <- subset(data,data$growth!="RGR") 
     
@@ -522,17 +525,17 @@ figure_A8 <- function(data){
     # layout(matrix(c(1,2),1,2,byrow=TRUE), widths=c(3,3),heights= c(3,3))
     
     par(mar=c(4,4,2.5,0))
-    barplot(counts1,xlim=rev(c(0,n+5)),
+    barplot(counts1,xlim=c(0,n+5),
             xlab="",col=c("#9E5F3A","#E5B38F","#F4395B","#FA8C3D"), 
-            horiz = TRUE,border = NA,yaxt="n")
+            horiz = TRUE,border = NA,yaxt="n", cex.axis=0.8)
     axis(2, at=1:3, labels = c("juvenile","sapling","adult"), las=1, cex.axis=1)
-    mtext("AbsGR", side=3, line=0, cex=0.8)      
+    mtext("AGR", side=3, line=0, cex=0.8)      
     mtext(title, side=3, line=1, at=max(n+5)) 
     
-    par(mar=c(4,0,2.5,4))
+    par(mar=c(4,0.5,2.5,3.5))
     barplot(counts, xlim=c(0,n+5),
             xlab="",col=c("#9E5F3A","#E5B38F","#F4395B","#FA8C3D"), 
-            horiz = TRUE,border = NA, yaxt="n")
+            horiz = TRUE,border = NA, yaxt="n", cex.axis=0.8)
     abline(v = 0, col = "black")
     mtext("RGR", side=3, line=0, cex=0.8)   
     mtext("Number of correlation extracted", side=1, line=2.5, at = 0, cex=0.8)   

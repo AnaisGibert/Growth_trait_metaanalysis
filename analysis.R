@@ -95,11 +95,11 @@ pdf("output/FigA3.pdf",height=6,width=6)
   figure_A3(GCi)
 dev.off()
 
-pdf("output/FigA4.pdf",height=7,width=5) 
+pdf("output/FigA4.pdf", height=7,width=5) 
   figure_A4(GIi, GIrgr,GIagr)
 dev.off()
 
-pdf("output/FigA5.pdf",  height=6, width=5) 
+pdf("output/FigA5.pdf", height=6, width=5) 
   figure_A5(RIi, RCi)
 dev.off()
 
@@ -120,7 +120,7 @@ pdf("output/FigA7.pdf")
 dev.off()
 
 pdf("output/FigA8.pdf")
-  figure_A8(GC)
+  figure_A8(GCi)
 dev.off()
 
 pdf("output/FigA9.pdf")
