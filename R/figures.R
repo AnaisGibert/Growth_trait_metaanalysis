@@ -59,7 +59,7 @@ figure_2 <- function(CompleteData_inter) {
     
     n <- nrow(data)
     y <- rev(seq_len(n))
-    cols <- c("#93EA6D", "#73005C", "#F57C34","#E6224C",
+    cols <- c("#538936", "#73005C", "#F57C34","#E6224C",
               "grey")[data$stageRGR]
     # 98F98C
     plot(NA, xlim=c(0,3), ylim= c(0,n), yaxt="n",xaxt="n",
@@ -82,15 +82,15 @@ figure_2 <- function(CompleteData_inter) {
   }
   
   plotCI2(sa, c(0,1,5,10), "age (yrs)")
-  abline(v = 1, col = "#93EA6D")
+  abline(v = 1, col = "#538936")
   legend(2.008,40, c("seedling","juvenile","sapling","adult","mix","across growth form","reassignment"), 
          lwd=c(1,1,1,1,1, NA, NA),
-         col=c("#93EA6D", "#73005C", "#F57C34","#E6224C",
+         col=c("#538936", "#73005C", "#F57C34","#E6224C",
                "grey", "black","black"),pch = c(NA, NA,NA,NA,NA,".","*"), 
          bty = "n", x.intersp = 0.3, y.intersp = 1,seg.len = 0.5, cex=0.8)
   
   plotCI2(sh, c(0,0.5,2,20), "height (m)")
-  abline(v = 1, col = "#93EA6D")
+  abline(v = 1, col = "#538936")
   
   plotCI2(sd, c(0,1,10,80), "diameter (cm)")
   abline(v = 2, col = "#E6224C")
@@ -214,9 +214,15 @@ figure_A1 <- function() {
 
     plot(data[[px$var]], data[[py$var]], log="xy",
       xlim = px$lim, ylim = py$lim,
+<<<<<<< Updated upstream
       xlab = px$lab, ylab = py$lab, col=adjustcolor("#00000033", alpha=0.5), pch=16)
     abline(v=px$sap, col="#93EA6D", lty=5)
     abline(h=py$sap, col="#93EA6D", lty=5)
+=======
+      xlab = px$lab, ylab = py$lab, col=adjustcolor("#00000033", alpha=0.5))
+    abline(v=px$sap, col="#538936", lty=5)
+    abline(h=py$sap, col="#538936", lty=5)
+>>>>>>> Stashed changes
     abline(v=px$adult, col="#E6224C", lty=5)
     abline(h=py$adult, col="#E6224C", lty=5)
   }

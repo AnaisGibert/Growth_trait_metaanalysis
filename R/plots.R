@@ -6,17 +6,17 @@ mytheme <- theme_bw() + theme(text = element_text(size = 9, colour = "black"),
   panel.background = element_blank(), legend.justification = c(1, 0), legend.position = c(1,0))
 
 my_plot_1 <- function(title, ggobj, xlab = expression(paste("")), ylab = "Number of correlations extracted") {
-  p <- ggobj + geom_bar(alpha = 0.9) + coord_cartesian(ylim = ylim) + coord_flip() + labs(title = title) +
+  p <- ggobj + geom_bar(alpha = 0.95) + coord_cartesian(ylim = ylim) + coord_flip() + labs(title = title) +
     xlab(xlab) + ylab(ylab) + scale_x_discrete() + theme(text = element_text(size = 9),
     axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme +
-    theme(axis.title = element_text(size = 10, hjust = 0.5)) + scale_fill_manual(values = c(juvenile = "#93EA6D",
+    theme(axis.title = element_text(size = 10, hjust = 0.5)) + scale_fill_manual(values = c(juvenile = "#538936",
     sapling = "#F57C34", adult = "#E6224C"), breaks = c("juvenile", "sapling", "adult"),
     labels = c("juvenile", "sapling", "adult"))
   p
  
 }
       
-      
+# "#93EA6D" "#538936"    
       
       coeff.plot.2 <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
         significativite = "", round.value, limit.x.min, limit.x.max, limit.x.text,
@@ -155,7 +155,7 @@ my_plot_corr.r <- function(data1, title = "", xlab = "Case studies ranked by coe
                   p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + guides(fill = guide_legend(reverse = TRUE)) +
                     mytheme + scale_y_continuous("Correlation coefficient r", limits = c(-1,
                     1)) + scale_colour_manual(limits = c("juvenile", "sapling", "adult"),
-                    values = c(juvenile = "#93EA6D", sapling = "#F57C34", adult = "#E6224C"), breaks = c("juvenile",
+                    values = c(juvenile = "#538936", sapling = "#F57C34", adult = "#E6224C"), breaks = c("juvenile",
                       "sapling", "adult")) + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
                     theme(text = element_text(size = 9, colour = "black"), title = element_text(size = 9,
                       hjust = 0), axis.title = element_text(size = 9, hjust = 0.5), axis.text.x = element_blank(),
@@ -579,7 +579,7 @@ my_plot_3 <- function(title, ggobj, xlab = expression(paste("")), ylab = "growth
                                      "GR(Hi)"="GR(H)", "GR(Mi)"= "GR(M)", "GR(Shoot)"="GR(Shoot)", "RGR(?)"= "RGR", "RGR(CSAi)"="RGR(CSA)", "RGR(Di)"="RGR(D)", "RGR(Hi)"="RGR(H)",
                                      "RGR(Mi)"="RGR(M)", "RGR(Vi)"= "RGR(V)")) + theme(text = element_text(size = 9), axis.text.x = element_text(size = 9,
     angle = 0, vjust = 1)) + mytheme + theme(axis.title = element_text(size = 10,
-    hjust = 0.5)) + scale_fill_manual("", values = c(juvenile = "#93EA6D", sapling = "#F57C34",
+    hjust = 0.5)) + scale_fill_manual("", values = c(juvenile = "#538936", sapling = "#F57C34",
     adult = "#E6224C"), breaks = c("juvenile", "sapling", "adult"), labels = c("juvenile",
     "sapling", "adult"))
 
@@ -620,7 +620,7 @@ my_funnelplot <- function(title, ggobj, xlab = "", ylab = "") {
     scale_color_manual(name = "stage",
                        limits = c("juvenile", "sapling", "adult"),
                        breaks = c("juvenile", "sapling","adult"), 
-                       values = c(juvenile = "#93EA6D", sapling = "#F57C34", adult = "#E6224C")) +
+                       values = c(juvenile = "#538936", sapling = "#F57C34", adult = "#E6224C")) +
     geom_hline(xintercept = 0, color = "grey")
   p
 }
