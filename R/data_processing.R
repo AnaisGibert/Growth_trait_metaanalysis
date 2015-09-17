@@ -140,7 +140,7 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
   
   Table$experiment.coord <- as.factor(Table$experiment.coord)
 
-  ## Rename colomne
+  ## Rename colomns
   Table <- rename(Table, c(stage.simi = "similarity"))
 
   subset(Table, select = c(id, idcor, authors, year, ref, doi, experiment, experiment.coord,

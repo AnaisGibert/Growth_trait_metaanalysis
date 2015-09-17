@@ -1,27 +1,10 @@
 
-# OPEN LIBRARY
-library(MASS, quietly=TRUE)
-library(car, quietly=TRUE)
-library(lsr, quietly=TRUE)
-library(lme4, quietly=TRUE)
-library(nlme)
-library(ape)
-library(boot)
-library(Hmisc)
-library(plyr)
-library(metafor)
-library(ade4, quietly=TRUE)
-library(ggplot2, quietly=TRUE)
-library(gridExtra, quietly=TRUE)
-library(MAc,quietly=TRUE)
-library(maptools)
-library(maps)
-library(downloader)
-library(metafor)
-library(gplots)
-
 library(bibtex)
-library(RefManageR)
+library(metafor) #rma in figure_A7
+library(grid)
+library(gridExtra) #unit, grid.arrange
+library(lme4)
+library(ggplot2) 
 
 for( f in list.files("R", full.names=TRUE)) {
   source(f)
@@ -67,15 +50,15 @@ dir.create("output", showWarnings =FALSE)
 write.csv(RawData, "output/data.csv", row.names=FALSE)
 
 ## Make output
-pdf("output/Fig1.pdf",height=3, width=4) 
+pdf("output/Fig1.pdf",height=3, width=4)
   figure_1(RawData)
 dev.off()
 
-pdf("output/Fig2.pdf", height=8, width=4) 
+pdf("output/Fig2.pdf", height=8, width=4)
   figure_2(CompleteData_inter)
 dev.off()
 
-pdf("output/Fig3.pdf",height=6,width=5) 
+pdf("output/Fig3.pdf",height=6,width=5)
   figure_3(GCi, GIi)
 dev.off()
 
@@ -89,15 +72,15 @@ pdf("output/FigA2.pdf", height=3, width=6) #map
   figure_A2(CoordTable)
 dev.off()
 
-pdf("output/FigA3.pdf",height=6,width=6) 
+pdf("output/FigA3.pdf",height=6,width=6)
   figure_A3(GCi)
 dev.off()
 
-pdf("output/FigA4.pdf", height=7,width=5) 
+pdf("output/FigA4.pdf", height=7,width=5)
   figure_A4(GIi, GIrgr,GIagr)
 dev.off()
 
-pdf("output/FigA5.pdf", height=6, width=5) 
+pdf("output/FigA5.pdf", height=6, width=5)
   figure_A5(RIi, RCi)
 dev.off()
 
@@ -113,7 +96,7 @@ pdf("output/FigA6c.pdf")
   figure_A6.2(GCi, "Hmax", "e")
 dev.off()
 
-pdf("output/FigA7.pdf") 
+pdf("output/FigA7.pdf")
   figure_A7(GIi)
 dev.off()
 
