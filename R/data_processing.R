@@ -2,14 +2,15 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
 
   Table <- read.csv(filename, sep = ";", dec = ",")
 
-  for(f in c("id","ref","idcor","authors","stress","RGR","trait","coef.type","experiment.type",
-    "veg.type","measure.size","trait.stage","stage","RGR.stage","relation.sign","stage.simi","life.form")) {
-   Table[[f]] <- as.factor(Table[[f]])
+  for (f in c("id", "ref", "idcor", "authors", "stress", "RGR", "trait", "coef.type",
+    "experiment.type", "veg.type", "measure.size", "trait.stage", "stage",
+    "RGR.stage", "relation.sign", "stage.simi", "life.form")) {
+    Table[[f]] <- as.factor(Table[[f]])
   }
 
-  for(f in c("year","size.min","size.max","size.mean.range","sample.size","nb.sp.reported","coef",
-    "RGR.min","RGR.max","trait.min","trait.max")) {
-   Table[[f]] <- as.numeric(Table[[f]])
+  for (f in c("year", "size.min", "size.max", "size.mean.range", "sample.size",
+    "nb.sp.reported", "coef", "RGR.min", "RGR.max", "trait.min", "trait.max")) {
+    Table[[f]] <- as.numeric(Table[[f]])
   }
 
   ### Transformation of raw data ####
@@ -32,28 +33,32 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
   Table$sign[Table$relation.sign == "P"] <- "S"
   Table$sign[Table$relation.sign == "N"] <- "S"
   Table$sign[Table$relation.sign == "O"] <- "NS"
-  
+
   # Add variable for growth and growth measurmemnt
   levels(Table$RGR)
-  
+
   Table["growth"] <- "NA"
-  Table$growth[Table$RGR %in% c("RGR(?)","RGR(CSAi)","RGR(Di)","RGR(Hi)","RGR(Mi)","RGR(Vi)")] <- "RGR"
-  Table$growth[Table$RGR %in% c("GR(Di)","GR(Hi)","GR(Mi)","GR(Shoot)")] <- "AbGR"
+  Table$growth[Table$RGR %in% c("RGR(?)", "RGR(CSAi)", "RGR(Di)", "RGR(Hi)",
+    "RGR(Mi)", "RGR(Vi)")] <- "RGR"
+  Table$growth[Table$RGR %in% c("GR(Di)", "GR(Hi)", "GR(Mi)", "GR(Shoot)")] <- "AbGR"
 
   Table$growth <- factor(Table$growth, levels = c("RGR", "AbGR"))
   Table$growth <- as.factor(Table$growth)
-  
+
   Table["measurement"] <- "NA"
-  Table$measurement[Table$RGR %in% c("RGR(Di)","GR(Di)")] <- "Diameter"
-  Table$measurement[Table$RGR %in% c("RGR(Hi)","GR(Hi)")] <- "Height"
-  Table$measurement[Table$RGR %in% c("RGR(Mi)","GR(Mi)","GR(Shoot)")] <- "Mass"
-  Table$measurement[Table$RGR %in% c("RGR(?)","RGR(Vi)","RGR(CSAi)")] <- "Other"
-  
+  Table$measurement[Table$RGR %in% c("RGR(Di)", "GR(Di)")] <- "Diameter"
+  Table$measurement[Table$RGR %in% c("RGR(Hi)", "GR(Hi)")] <- "Height"
+  Table$measurement[Table$RGR %in% c("RGR(Mi)", "GR(Mi)", "GR(Shoot)")] <- "Mass"
+  Table$measurement[Table$RGR %in% c("RGR(?)", "RGR(Vi)", "RGR(CSAi)")] <- "Other"
+
   Table["growth.form"] <- "NA"
-  Table$growth.form[Table$life.form %in% c("tree", "tree ","NA")] <- "tree"
-  Table$growth.form[Table$life.form %in% c("tree, shrub" , "woody" , "woody and semi-woody", "woody vines")] <- "woody"
-  Table$growth.form[Table$life.form %in% c("liana and tree" , "shrub and tree" , "tree and herbs" , "tree, herbs",  "tree, shrub, herbs" , "woody and herbs", "woody, forbs, herbs" ,"woody, shrub, perennial herbs")] <- "across growth form"
-  
+  Table$growth.form[Table$life.form %in% c("tree", "tree ", "NA")] <- "tree"
+  Table$growth.form[Table$life.form %in% c("tree, shrub", "woody", "woody and semi-woody",
+    "woody vines")] <- "woody"
+  Table$growth.form[Table$life.form %in% c("liana and tree", "shrub and tree",
+    "tree and herbs", "tree, herbs", "tree, shrub, herbs", "woody and herbs",
+    "woody, forbs, herbs", "woody, shrub, perennial herbs")] <- "across growth form"
+
   Table$growth.form <- as.factor(Table$growth.form)
   # Nb of species used to performed the correlation
   names(Table)[names(Table) == "nb.sp.reported"] <- "nb.sp"
@@ -137,21 +142,21 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
   Table$experiment.coord[Table$experiment.type == "mix.glasshouse.database"] <- "control"
 
   Table$life.form <- as.factor(Table$life.form)
-  
+
   Table$experiment.coord <- as.factor(Table$experiment.coord)
 
   ## Rename colomns
   Table <- rename(Table, c(stage.simi = "similarity"))
 
   subset(Table, select = c(id, idcor, authors, year, ref, doi, experiment, experiment.coord,
-    stress, growth.form, veg.type, bio.scale, nb.sp, location, nb.site, names.s1, names.s2,
-    names.s3, names.s4, names.s5, trace, lat.dms.s1, lat.dir.s1, long.dms.s1,
-    long.dir.s1, lat.dms.s2, lat.dir.s2, long.dms.s2, long.dir.s2, lat.dms.s3,
-    lat.dir.s3, long.dms.s3, long.dir.s3, lat.dms.s4, lat.dir.s4, long.dms.s4,
-    long.dir.s4, lat.dms.s5, lat.dir.s5, long.dms.s5, long.dir.s5, RGR, growth, measurement, RGR.min,
-    RGR.max, RGR.unit, stageRGR, similarity, stageTrait, stage, measure.size,
-    size.min, size.max, size.mean.range, trait, trait.min, trait.max, sample.size,
-    sign, coef, coef.type))
+    stress, growth.form, veg.type, bio.scale, nb.sp, location, nb.site, names.s1,
+    names.s2, names.s3, names.s4, names.s5, trace, lat.dms.s1, lat.dir.s1,
+    long.dms.s1, long.dir.s1, lat.dms.s2, lat.dir.s2, long.dms.s2, long.dir.s2,
+    lat.dms.s3, lat.dir.s3, long.dms.s3, long.dir.s3, lat.dms.s4, lat.dir.s4,
+    long.dms.s4, long.dir.s4, lat.dms.s5, lat.dir.s5, long.dms.s5, long.dir.s5,
+    RGR, growth, measurement, RGR.min, RGR.max, RGR.unit, stageRGR, similarity,
+    stageTrait, stage, measure.size, size.min, size.max, size.mean.range, trait,
+    trait.min, trait.max, sample.size, sign, coef, coef.type))
 }
 
 standardise_data <- function(CompileTable) {
@@ -237,36 +242,38 @@ standardise_data <- function(CompileTable) {
 
 build_complete_data <- function(RawData) {
   #### Complete data set: focus on 5 traits:
-  
-  CompleteData <- subset(RawData,
-      RawData$trait %in% c("SLA", "WD", "Aarea", "Hmax", "Seedmass"))
-  CompleteData$trait <- factor(CompleteData$trait,
-    levels = c("SLA", "WD", "Aarea","Hmax", "Seedmass"))
+
+  CompleteData <- subset(RawData, RawData$trait %in% c("SLA", "WD", "Aarea",
+    "Hmax", "Seedmass"))
+  CompleteData$trait <- factor(CompleteData$trait, levels = c("SLA", "WD", "Aarea",
+    "Hmax", "Seedmass"))
 
   # select the column of interest
   CompleteData <- subset(CompleteData, select = c(id, idcor, authors, year, ref,
-    doi, experiment, stress, growth.form, veg.type, bio.scale, nb.sp, RGR,growth, measurement, RGR.min, RGR.max,
-    RGR.unit, stageRGR, similarity, stageTrait, stage, trait, trait.min, trait.max,
-    measure.size, size.min, size.max, size.mean.range, coef, sample.size, corr.r,
-    corr.z, vr.z, wi.z, se.z))
+    doi, experiment, stress, growth.form, veg.type, bio.scale, nb.sp, RGR,
+    growth, measurement, RGR.min, RGR.max, RGR.unit, stageRGR, similarity,
+    stageTrait, stage, trait, trait.min, trait.max, measure.size, size.min,
+    size.max, size.mean.range, coef, sample.size, corr.r, corr.z, vr.z, wi.z,
+    se.z))
   CompleteData$id <- as.factor(CompleteData$id)
   CompleteData
 }
 
 Build_intersp_complete_data <- function(RawData) {
   #### Complete data set: focus on 5 traits:
-  
-  CompleteData <- subset(RawData,
-                         RawData$trait %in% c("SLA", "WD", "Aarea", "Hmax", "Seedmass") & RawData$bio.scale=="intersp")
-  CompleteData$trait <- factor(CompleteData$trait,
-                               levels = c("SLA", "WD", "Aarea","Hmax", "Seedmass"))
-  
+
+  CompleteData <- subset(RawData, RawData$trait %in% c("SLA", "WD", "Aarea",
+    "Hmax", "Seedmass") & RawData$bio.scale == "intersp")
+  CompleteData$trait <- factor(CompleteData$trait, levels = c("SLA", "WD", "Aarea",
+    "Hmax", "Seedmass"))
+
   # select the column of interest
   CompleteData <- subset(CompleteData, select = c(id, idcor, authors, year, ref,
-                                                  doi, experiment, stress, growth.form, veg.type, bio.scale, nb.sp, RGR, growth, measurement, RGR.min, RGR.max,
-                                                  RGR.unit, stageRGR, similarity, stageTrait, stage, trait, trait.min, trait.max,
-                                                  measure.size, size.min, size.max, size.mean.range, coef, sample.size, corr.r,
-                                                  corr.z, vr.z, wi.z, se.z))
+    doi, experiment, stress, growth.form, veg.type, bio.scale, nb.sp, RGR,
+    growth, measurement, RGR.min, RGR.max, RGR.unit, stageRGR, similarity,
+    stageTrait, stage, trait, trait.min, trait.max, measure.size, size.min,
+    size.max, size.mean.range, coef, sample.size, corr.r, corr.z, vr.z, wi.z,
+    se.z))
   CompleteData$id <- as.factor(CompleteData$id)
   CompleteData
 }
@@ -276,17 +283,17 @@ Build_intersp_complete_data <- function(RawData) {
 # perfomed at the same plant stage
 build_ideal_data <- function(CompleteData) {
 
-  IdealData <- subset(CompleteData, CompleteData$stress == "unstressed" &
-    CompleteData$bio.scale == "intersp" & CompleteData$similarity == "Sim")
-  IdealData$stage <- factor(IdealData$stage,
-    levels = c("juvenile", "sapling", "adult"))
-  IdealData$stageTrait <- factor(IdealData$stageTrait,
-    levels = c("seedling", "juvenile", "sapling", "adult", "mix"))
-  IdealData$stageRGR <- factor(IdealData$stageRGR,
-    levels = c("seedling", "juvenile", "sapling", "adult", "mix"))
-  levels(IdealData$RGR) <- factor(IdealData$RGR,
-    levels = c("GR(Di)", "GR(Hi)", "GR(Mi)", "GR(Shoot)", "RGR(?)", "RGR(CSAi)",
-     "RGR(Di)", "RGR(Hi)", "RGR(Mi)", "RGR(Vi)"))
+  IdealData <- subset(CompleteData, CompleteData$stress == "unstressed" & CompleteData$bio.scale ==
+    "intersp" & CompleteData$similarity == "Sim")
+  IdealData$stage <- factor(IdealData$stage, levels = c("juvenile", "sapling",
+    "adult"))
+  IdealData$stageTrait <- factor(IdealData$stageTrait, levels = c("seedling",
+    "juvenile", "sapling", "adult", "mix"))
+  IdealData$stageRGR <- factor(IdealData$stageRGR, levels = c("seedling", "juvenile",
+    "sapling", "adult", "mix"))
+  levels(IdealData$RGR) <- factor(IdealData$RGR, levels = c("GR(Di)", "GR(Hi)",
+    "GR(Mi)", "GR(Shoot)", "RGR(?)", "RGR(CSAi)", "RGR(Di)", "RGR(Hi)", "RGR(Mi)",
+    "RGR(Vi)"))
   IdealData
 }
 

@@ -1,12 +1,12 @@
 
 library(bibtex)
-library(metafor) #rma in figure_A7
+library(metafor)  #rma in figure_A7
 library(grid)
-library(gridExtra) #unit, grid.arrange
+library(gridExtra)  #unit, grid.arrange
 library(lme4)
-library(ggplot2) 
+library(ggplot2)
 
-for( f in list.files("R", full.names=TRUE)) {
+for (f in list.files("R", full.names = TRUE)) {
   source(f)
 }
 
@@ -15,16 +15,17 @@ CompileTable <- clean_raw_data()
 RawData <- standardise_data(CompileTable)
 
 CompleteData <- build_complete_data(RawData)
-CompleteData_inter <- Build_intersp_complete_data (RawData)
+CompleteData_inter <- Build_intersp_complete_data(RawData)
 
-IdealData_inter  <- build_ideal_data(CompleteData)
+IdealData_inter <- build_ideal_data(CompleteData)
 
 CoordTable <- build_map_data(RawData)
 
-IdealData_rgr <- subset(IdealData_inter,IdealData_inter$growth=="RGR")
-IdealData_agr <- subset(IdealData_inter,IdealData_inter$growth=="AbGR")
-## split datasets by trait - makes a list with named elements
-## given subset of data for each trait
+IdealData_rgr <- subset(IdealData_inter, IdealData_inter$growth == "RGR")
+IdealData_agr <- subset(IdealData_inter, IdealData_inter$growth == "AbGR")
+
+## split datasets by trait - makes a list with named elements given subset of
+## data for each trait
 list_by_trait <- function(df) {
   split(df, df$trait)
 }
@@ -36,76 +37,76 @@ GIrgr <- list_by_trait(IdealData_rgr)
 GIagr <- list_by_trait(IdealData_agr)
 
 
-
-## Create restricted Dataset: coefficient of correlation are averaged by study and by trait
+## Create restricted Dataset: coefficient of correlation are averaged by study
+## and by trait
 RC <- list_by_trait(EffectSizeSum(CompleteData))
 RCi <- list_by_trait(EffectSizeSum(CompleteData_inter))
 RIi <- list_by_trait(EffectSizeSum(IdealData_inter))
 
 ## output directory
 
-dir.create("output", showWarnings =FALSE)
+dir.create("output", showWarnings = FALSE)
 
 ## Export compiled dataset
-write.csv(RawData, "output/data.csv", row.names=FALSE)
+write.csv(RawData, "output/data.csv", row.names = FALSE)
 
 ## Make output
-pdf("output/Fig1.pdf",height=3, width=4)
-  figure_1(RawData)
+pdf("output/Fig1.pdf", height = 3, width = 4)
+figure_1(RawData)
 dev.off()
 
-pdf("output/Fig2.pdf", height=8, width=4)
-  figure_2(CompleteData_inter)
+pdf("output/Fig2.pdf", height = 8, width = 4)
+figure_2(CompleteData_inter)
 dev.off()
 
-pdf("output/Fig3.pdf",height=6,width=5)
-  figure_3(GCi, GIi)
+pdf("output/Fig3.pdf", height = 6, width = 5)
+figure_3(GCi, GIi)
 dev.off()
 
 
 ## Figure appendix
-pdf("output/FigA1.pdf", height=6, width=6) # allometry
-  figure_A1()
+pdf("output/FigA1.pdf", height = 6, width = 6)  # allometry
+figure_A1()
 dev.off()
 
-pdf("output/FigA2.pdf", height=3, width=6) #map
-  figure_A2(CoordTable)
+pdf("output/FigA2.pdf", height = 3, width = 6)  #map
+figure_A2(CoordTable)
 dev.off()
 
-pdf("output/FigA3.pdf",height=6,width=6)
-  figure_A3(GCi)
+pdf("output/FigA3.pdf", height = 6, width = 6)
+figure_A3(GCi)
 dev.off()
 
-pdf("output/FigA4.pdf", height=7,width=5)
-  figure_A4(GIi, GIrgr,GIagr)
+pdf("output/FigA4.pdf", height = 7, width = 5)
+figure_A4(GIi, GIrgr, GIagr)
 dev.off()
 
-pdf("output/FigA5.pdf", height=6, width=5)
-  figure_A5(RIi, RCi)
+pdf("output/FigA5.pdf", height = 6, width = 5)
+figure_A5(RIi, RCi)
 dev.off()
 
 pdf("output/FigA6a.pdf")
-  figure_A6(GCi, "SLA","WD", c("a","b"))
+figure_A6(GCi, "SLA", "WD", c("a", "b"))
 dev.off()
 
 pdf("output/FigA6b.pdf")
-  figure_A6(GCi, "Aarea","Seedmass", c("c","d"))
+figure_A6(GCi, "Aarea", "Seedmass", c("c", "d"))
 dev.off()
 
 pdf("output/FigA6c.pdf")
-  figure_A6.2(GCi, "Hmax", "e")
+figure_A6.2(GCi, "Hmax", "e")
 dev.off()
 
 pdf("output/FigA7.pdf")
-  figure_A7(GIi)
+figure_A7(GIi)
 dev.off()
 
 pdf("output/FigA8.pdf")
-  figure_A8(GCi)
+figure_A8(GCi)
 dev.off()
 
 pdf("output/FigA9.pdf")
-  figure_A9(GIi)
+figure_A9(GIi)
 dev.off()
 
 
@@ -115,4 +116,3 @@ meta <- read.bib("references/metaanalyses.bib")
 
 combined <- c(meta[setdiff(names(meta), names(paper))], paper)
 write.bib(combined[[sort(names(combined))]], file = "output/refs.bib")
-
