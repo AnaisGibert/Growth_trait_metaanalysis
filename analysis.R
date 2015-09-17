@@ -9,8 +9,6 @@ library(ape)
 library(boot)
 library(Hmisc)
 library(plyr)
-library(stringr) # Trim whitespace from start and end of string
-
 library(metafor)
 library(ade4, quietly=TRUE)
 library(ggplot2, quietly=TRUE)

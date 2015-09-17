@@ -136,7 +136,7 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
   Table$experiment.coord[Table$experiment.type == "mix.field.database"] <- "nature"
   Table$experiment.coord[Table$experiment.type == "mix.glasshouse.database"] <- "control"
 
-  Table$life.form <- as.factor(str_trim(Table$life.form, side = "both"))
+  Table$life.form <- as.factor(Table$life.form)
   
   Table$experiment.coord <- as.factor(Table$experiment.coord)
 
