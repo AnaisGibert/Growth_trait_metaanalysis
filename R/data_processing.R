@@ -208,34 +208,23 @@ standardise_data <- function(CompileTable) {
 
   #### Z-transformation: to normalise corr.r ####
 
-  RawData["corr.z"] <- NA
   fn_z <- function(x) 0.5 * (log((1 + x)/(1 - x)))
   RawData$corr.z <- fn_z(RawData$corr.r)
 
-  RawData["zscore"] <- NA
-  fn_z <- function(x, y) {
-    x/sqrt(y)
-  }
-  RawData$zscore <- fn_z(RawData$corr.z, RawData$nb.sp)
-
-  RawData["vr.z"] <- NA
-  fn_vz <- function(x) 1/(x - 3)
+  fn_vz <- function(x) (1/(x - 3))
   RawData$vr.z <- fn_vz(RawData$nb.sp)
 
-  RawData["se.z"] <- NA
-  fn_sez <- function(x) sqrt(x)
-  RawData$se.z <- fn_sez(RawData$vr.z)
+  se.z <- NA
+  fn_sez <- function(x) {
+    ret <- rep(NA_real_, length(x))
+    ii <- x >=0
+    ret[ii] <- sqrt(x[ii])
+    ret
+  }
+  se.z <- fn_sez(RawData$vr.z)
 
-  RawData["wi.z"] <- NA
   fn_wiz <- function(x) 1/x
-  RawData$wi.z <- fn_wiz(RawData$se.z)
-
-
-  RawData$corr.z <- as.numeric(RawData$corr.z)
-  RawData$vr.z <- as.numeric(RawData$vr.z)
-  RawData$se.z <- as.numeric(RawData$se.z)
-  RawData$wi.z <- as.numeric(RawData$wi.z)
-  RawData$zscore <- as.numeric(RawData$zscore)
+  RawData$wi.z <- fn_wiz(se.z)
 
   RawData
 }
@@ -253,8 +242,7 @@ build_complete_data <- function(RawData) {
     doi, experiment, stress, growth.form, veg.type, bio.scale, nb.sp, RGR,
     growth, measurement, RGR.min, RGR.max, RGR.unit, stageRGR, similarity,
     stageTrait, stage, trait, trait.min, trait.max, measure.size, size.min,
-    size.max, size.mean.range, coef, sample.size, corr.r, corr.z, vr.z, wi.z,
-    se.z))
+    size.max, size.mean.range, coef, sample.size, corr.r, corr.z, vr.z, wi.z))
   CompleteData$id <- as.factor(CompleteData$id)
   CompleteData
 }
@@ -272,8 +260,7 @@ Build_intersp_complete_data <- function(RawData) {
     doi, experiment, stress, growth.form, veg.type, bio.scale, nb.sp, RGR,
     growth, measurement, RGR.min, RGR.max, RGR.unit, stageRGR, similarity,
     stageTrait, stage, trait, trait.min, trait.max, measure.size, size.min,
-    size.max, size.mean.range, coef, sample.size, corr.r, corr.z, vr.z, wi.z,
-    se.z))
+    size.max, size.mean.range, coef, sample.size, corr.r, corr.z, vr.z, wi.z))
   CompleteData$id <- as.factor(CompleteData$id)
   CompleteData
 }

@@ -1,8 +1,8 @@
 
 library(bibtex)
-library(metafor)  #rma in figure_A7
+library(metafor)
 library(grid)
-library(gridExtra)  #unit, grid.arrange
+library(gridExtra)
 library(lme4)
 library(ggplot2)
 
@@ -11,7 +11,6 @@ for (f in list.files("R", full.names = TRUE)) {
 }
 
 CompileTable <- clean_raw_data()
-
 RawData <- standardise_data(CompileTable)
 
 CompleteData <- build_complete_data(RawData)
@@ -30,7 +29,6 @@ list_by_trait <- function(df) {
   split(df, df$trait)
 }
 
-GC <- list_by_trait(CompleteData)
 GCi <- list_by_trait(CompleteData_inter)
 GIi <- list_by_trait(IdealData_inter)
 GIrgr <- list_by_trait(IdealData_rgr)
@@ -39,7 +37,6 @@ GIagr <- list_by_trait(IdealData_agr)
 
 ## Create restricted Dataset: coefficient of correlation are averaged by study
 ## and by trait
-RC <- list_by_trait(EffectSizeSum(CompleteData))
 RCi <- list_by_trait(EffectSizeSum(CompleteData_inter))
 RIi <- list_by_trait(EffectSizeSum(IdealData_inter))
 

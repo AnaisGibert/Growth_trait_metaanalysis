@@ -218,9 +218,6 @@ my_plot_overall_gr <- function(data, title = "") {
 
   data["v.coord"] <- NA
 
-
-
-
   data1 <- subset(data, data$growth == "RGR")
   data2 <- subset(data, data$growth == "AbsGR")
 
@@ -442,5 +439,5 @@ figure_trim.and.fill <- function(x, title) {
   res <- rma(corr.z, vr.z, data = x[!is.na(x$corr.z) & !is.na(x$vr.z), ])
   ### carry out trim-and-fill analysis
   taf <- trimfill(res)
-  funnel(taf, axis = "corr.z", main = title)
+  funnel(taf, xlab = "corr.z", main = title)
 }

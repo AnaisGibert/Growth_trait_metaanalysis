@@ -342,9 +342,11 @@ figure_A4 <- function(GIi, GIrgr, GIagr) {
     theme(plot.margin = unit(c(0, 0, 1, 0), "mm"), axis.text.y = element_blank(),
       axis.title.y = element_blank())
 
-  grid.arrange(p1, p1_gr, p2, p2_gr, p3, p3_gr, p4, p4_gr, p5, p5_gr, ncol = 2,
-    nrow = 5, widths = c(1.2, 1), heights = c(1, 1, 1, 1, 1.1))
-
+  # Missing data for some stages, that's fine but causes a warning message
+  suppressWarnings({
+    grid.arrange(p1, p1_gr, p2, p2_gr, p3, p3_gr, p4, p4_gr, p5, p5_gr, ncol = 2,
+      nrow = 5, widths = c(1.2, 1), heights = c(1, 1, 1, 1, 1.1))
+  })
 }
 
 figure_A5 <- function(RIi, RCi) {
@@ -413,14 +415,15 @@ figure_A5 <- function(RIi, RCi) {
   CoefModel.Aarea.s <- subset(CoefModel.Aarea, stress == "complete")
   CoefModel.Aarea.opt <- subset(CoefModel.Aarea, stress == "ideal")
 
-  LRT.a <- fun_OneLR(RIi[["Aarea"]])
-  LRT.a.2 <- fun_OneLR(RCi[["Aarea"]])
-  PVAL.a <- fun_Onepvalue(RIi[["Aarea"]])
-  PVAL.a.2 <- fun_Onepvalue(RCi[["Aarea"]])
+  # Don't run because insufficient data
+  # LRT.a <- fun_OneLR(RIi[["Aarea"]])
+  # LRT.a.2 <- fun_OneLR(RCi[["Aarea"]])
+  # PVAL.a <- fun_Onepvalue(RIi[["Aarea"]])
+  # PVAL.a.2 <- fun_Onepvalue(RCi[["Aarea"]])
 
   p5 <- coeff.plot(data = CoefModel.Aarea, data.complete = CoefModel.Aarea.s,
-    data.ideal = CoefModel.Aarea.opt, LRT = LRT.a, PVAL = PVAL.a, title = "e) Aarea",
-    significativite = "ns", round.value = 3, limit.x.min = -2, limit.x.max = 3,
+    data.ideal = CoefModel.Aarea.opt, LRT = NA, PVAL = NA, title = "e) Aarea",
+    significativite = "", round.value = 3, limit.x.min = -2, limit.x.max = 3,
     limit.x.text = -1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, limit.x.n = 2.5,
     vjust.value = 1, color1 = "grey", color2 = "black") + scale_fill_discrete(name = "",
     breaks = c("complete", "ideal"), labels = c(complete = "complete", ideal = "ideal")) +
@@ -496,7 +499,7 @@ figure_A7 <- function(GIi) {
   p5 <- figure_trim.and.fill(GIi[["Aarea"]], title = "e) Aarea")
 }
 
-figure_A8 <- function(data) {
+figure_A8 <- function(GCi) {
 
   plotgrowth <- function(data, title) {
 
@@ -536,11 +539,11 @@ figure_A8 <- function(data) {
   }
 
   layout(matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), 3, 4, byrow = TRUE))
-  plotgrowth(GC[["SLA"]], "a) SLA")
-  plotgrowth(GC[["WD"]], "b) WD")
-  plotgrowth(GC[["Hmax"]], "c) Hmax")
-  plotgrowth(GC[["Seedmass"]], "d) Seed mass")
-  plotgrowth(GC[["Aarea"]], "e) Aarea")
+  plotgrowth(GCi[["SLA"]], "a) SLA")
+  plotgrowth(GCi[["WD"]], "b) WD")
+  plotgrowth(GCi[["Hmax"]], "c) Hmax")
+  plotgrowth(GCi[["Seedmass"]], "d) Seed mass")
+  plotgrowth(GCi[["Aarea"]], "e) Aarea")
 
   plot(1, type = "n", axes = F, xlab = "", ylab = "", bty = "n", xaxt = "n",
     yaxt = "n")
@@ -612,7 +615,9 @@ figure_A9 <- function(GIi) {
     round(LRT_Aarea, 0)), size = 2) + annotate("text", x = 1995, y = -1, label = paste("p.value =",
     round(PVAL_Aarea, 3), "**"), size = 2)
 
-
-  grid.arrange(funnel_SLA_year, funnel_WD_year, funnel_Hmax_year, funnel_Seedmass_year,
-    funnel_Aarea_year, nrow = 3, ncol = 2)
+  # Missing data for some stages, that's fine but causes a warning message
+  suppressWarnings({
+    grid.arrange(funnel_SLA_year, funnel_WD_year, funnel_Hmax_year, funnel_Seedmass_year,
+      funnel_Aarea_year, nrow = 3, ncol = 2)
+  })
 }

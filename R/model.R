@@ -446,6 +446,7 @@ table_overall <- function(y) {
 # Summarise results of the model
 
 fun_OneLR <- function(x) {
+
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
     control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
       check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
@@ -547,17 +548,17 @@ fun_Onepvalue_year <- function(x) {
 
 
 fun_Heterogeneity.CI <- function(x) {
-  res_null <- rma(corr.z, vr.z, data = x[!is.na(x$corr.z) & !is.na(x$nb.sp),
-    ])
+  res_null <- rma(corr.z, vr.z, 
+                  data = x[!is.na(x$corr.z) & !is.na(x$nb.sp),])
   confint(res_null)
 }
 
 fun_Heterogeneity.H <- function(x, mods) {
-  res_null <- rma(corr.z, vr.z, data = x[!is.na(x$corr.z) & !is.na(x$nb.sp),
-    ])
-  res_stage <- rma(corr.z, vr.z, mods = mods, data = x[!is.na(x$corr.z) & !is.na(x$vr.z),
-    ])
-  Hmodel <- (res_null$tau2 - res_stage$tau2)/res_null$tau2 * 100  #% of the total amount of heterogenity can be accounted for by including the moderators of the model
+  res_null <- rma(corr.z, vr.z, 
+                  data = x[!is.na(x$corr.z) & !is.na(x$nb.sp),])
+  res_stage <- rma(corr.z, vr.z, mods = mods, 
+                  data = x[!is.na(x$corr.z) & !is.na(x$vr.z),])
+  Hmodel <- (res_null$tau2 - res_stage$tau2)/res_null$tau2 * 100  #% of the total amount of heterogeneity can be accounted for by including the moderators of the model
   l <- list(Hexplained = Hmodel, pvalue = res_stage$QEp, Qdf = res_stage$QE,
     effectsize_moderator = res_stage$zval, pvalueeffectsize = res_stage$pval)
   l
@@ -577,23 +578,20 @@ fun_trim.and.fill_number <- function(x) {
 fun_year <- function(data) {
   table <- data
 
-  res <- rma(corr.z, vr.z, mod = ~year, data = table[!is.na(table$corr.z) & !is.na(table$nb.sp),
-    ])
+  res <- rma(corr.z, vr.z, mod = ~year, 
+                  data = table[!is.na(table$corr.z) & !is.na(table$nb.sp),])
 
   x <- subset(table, table$stage == "juvenile")
-  res_juv <- rma(corr.z, vr.z, mod = ~year, data = x[!is.na(x$corr.z) & !is.na(x$nb.sp),
-    ])
+  res_juv <- rma(corr.z, vr.z, mod = ~year, 
+                  data = x[!is.na(x$corr.z) & !is.na(x$nb.sp),])
 
   y <- subset(table, table$stage == "sapling")
-  res_sap <- rma(corr.z, vr.z, mod = ~year, data = y[!is.na(y$corr.z) & !is.na(y$nb.sp),
-    ])
+  res_sap <- rma(corr.z, vr.z, mod = ~year, 
+                  data = y[!is.na(y$corr.z) & !is.na(y$nb.sp),])
 
   z <- subset(table, table$stage == "adult")
-  res_adu <- rma(corr.z, vr.z, mod = ~year, data = z[!is.na(z$corr.z) & !is.na(z$nb.sp),
-    ])
+  res_adu <- rma(corr.z, vr.z, mod = ~year, 
+                  data = z[!is.na(z$corr.z) & !is.na(z$nb.sp),])
 
-  l <- list(all = res, juvenile = res_juv, sapling = res_sap, adult = res_adu)
-
-  l
-
+  list(all = res, juvenile = res_juv, sapling = res_sap, adult = res_adu)
 }
