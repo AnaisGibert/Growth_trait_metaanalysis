@@ -214,7 +214,7 @@ figure_A1 <- function() {
 
     plot(data[[px$var]], data[[py$var]], log="xy",
       xlim = px$lim, ylim = py$lim,
-      xlab = px$lab, ylab = py$lab, col=adjustcolor("#00000033", alpha=0.5))
+      xlab = px$lab, ylab = py$lab, col=adjustcolor("#00000033", alpha=0.5), pch=16)
     abline(v=px$sap, col="#93EA6D", lty=5)
     abline(h=py$sap, col="#93EA6D", lty=5)
     abline(v=px$adult, col="#E6224C", lty=5)
