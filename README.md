@@ -37,7 +37,7 @@ List of files available and explanation
 - `references/complete.bib`: bibtex file with all references used in the meta-analyses and in the manuscript
 - `references/meta-analyses.bib`: bibtex file with all references used in the meta-analyses
 - `references/read.bib`: bibtex file with all references red to do the meta-analyses (all the studies used + studies red but discard from our meta-analyses)
-- `ecol_let.bst`: latex style file used for formatting paper
+- `mee.bst, ms.sty`: latex style file used for formatting paper
 
 Contributors
 ------------------------
