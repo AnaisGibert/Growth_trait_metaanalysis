@@ -38,7 +38,7 @@ figure_2 <- function(CompleteData_inter) {
 
   layout(matrix(c(1, 2, 3), 3, 1, byrow = TRUE), widths = c(3, 3, 3), heights = heights)
   # layout.show(3)
-  par(mar = c(4, 4, 0, 0.5), oma = c(1, 2, 1, 1))
+  par(mar = c(4, 4, 0.1, 0.5), oma = c(1, 2, 1, 1))
 
   plotCI2 <- function(data, cuts, xlab) {
 
@@ -71,24 +71,24 @@ figure_2 <- function(CompleteData_inter) {
     points(data$size.min[i], y[i], col = cols[i], pch = "-")
 
     j <- data$stageRGR != data$stage
-    points(data$size.max[j] + 0.05, y[j], col = "black", pch = "*")
+    points(data$size.max[j] + 0.05, y[j], col = "black", pch = "*", cex=2)
 
     t <- (data$growth.form == "across growth form")
-    points(data$growthf[t], y[t], pch = ".")
+    points(data$growthf[t], y[t], pch = "+", cex=1, col="grey")
 
     axis(1, at = 0:3, labels = cuts, las = 1)
-    axis(2, at = y, labels = data$id, las = 1, cex.axis = 0.5)
+    axis(2, at = y, labels = data$id, las = 1, cex.axis = 0.55)
     abline(v = 1, col = "grey", lty = 2, lwd = 0.5)
     abline(v = 2, col = "grey", lty = 2, lwd = 0.5)
   }
 
   plotCI2(sa, c(0, 1, 5, 10), "age (yrs)")
   abline(v = 1, col = "#538936")
-  legend(2.008, 40, c("seedling", "juvenile", "sapling", "adult", "mix", "across growth form",
+  legend(2.38, 40, c("seedling", "juvenile", "sapling", "adult", "mix", "across growth form",
     "reassignment"), lwd = c(1, 1, 1, 1, 1, NA, NA), col = c("#538936", "#73005C",
-    "#F57C34", "#E6224C", "grey", "black", "black"), pch = c(NA, NA, NA, NA,
-    NA, ".", "*"), bty = "n", x.intersp = 0.3, y.intersp = 1, seg.len = 0.5,
-    cex = 0.8)
+    "#F57C34", "#E6224C", "grey", "grey", "black"), pch = c(NA, NA, NA, NA,
+    NA,"+", "*"), bty = "n", x.intersp = 0.3, y.intersp = 1, seg.len = 0.5,
+    cex = 1)
 
   plotCI2(sh, c(0, 0.5, 2, 20), "height (m)")
   abline(v = 1, col = "#538936")
@@ -97,8 +97,9 @@ figure_2 <- function(CompleteData_inter) {
   abline(v = 2, col = "#E6224C")
 
   mtext("Study ID", 2, line = 0, outer = TRUE, cex = 0.75)
-
-
+  mtext("a)", 3, line = 0.1, outer = TRUE, cex = 0.75, at= 0.1)
+  mtext("b)", 3, line = -26.3, outer = TRUE, cex = 0.75, at= 0.1)
+  mtext("c)", 3, line = -35.6, outer = TRUE, cex = 0.75, at= 0.1)
 }
 
 figure_3 <- function(GC, GI) {

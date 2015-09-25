@@ -52,7 +52,7 @@ pdf("output/Fig1.pdf", height = 3, width = 4)
 figure_1(RawData)
 dev.off()
 
-pdf("output/Fig2.pdf", height = 8, width = 4)
+pdf("output/Fig2.pdf", height = 8, width = 6)
 figure_2(CompleteData_inter)
 dev.off()
 
