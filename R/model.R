@@ -72,13 +72,13 @@ fun_model <- function(x, y) {
     CoefModel[j, 6] <- CoefModel[j, 4] * 1.96 - CoefModel[j, 3]
   }
 
-  CoefModel$stage[CoefModel$stage == "stagejuvenile"] <- "juvenile"
+  CoefModel$stage[CoefModel$stage == "stageseedling"] <- "seedling"
   CoefModel$stage[CoefModel$stage == "stagesapling"] <- "sapling"
   CoefModel$stage[CoefModel$stage == "stageadult"] <- "adult"
 
 
   fun1 <- function(z) length(na.omit(z$corr.z))
-  fun2 <- function(z) length(na.omit(z$corr.z[z$stage == "juvenile"]))
+  fun2 <- function(z) length(na.omit(z$corr.z[z$stage == "seedling"]))
   fun5 <- function(z) length(na.omit(z$corr.z[z$stage == "sapling"]))
   fun3 <- function(z) length(na.omit(z$corr.z[z$stage == "adult"]))
 
@@ -87,8 +87,8 @@ fun_model <- function(x, y) {
 
   CoefModel["N"] <- "NA"
   # CoefModel['N'] <- N[!(apply(N, 1, function(s) any(s == 0))),]
-  CoefModel$N[CoefModel$stage == "juvenile" & CoefModel$stress == "ideal"] <- fun2(x)
-  CoefModel$N[CoefModel$stage == "juvenile" & CoefModel$stress == "complete"] <- fun2(y)
+  CoefModel$N[CoefModel$stage == "seedling" & CoefModel$stress == "ideal"] <- fun2(x)
+  CoefModel$N[CoefModel$stage == "seedling" & CoefModel$stress == "complete"] <- fun2(y)
 
   CoefModel$N[CoefModel$stage == "sapling" & CoefModel$stress == "ideal"] <- fun5(x)
   CoefModel$N[CoefModel$stage == "sapling" & CoefModel$stress == "complete"] <- fun5(y)
@@ -144,13 +144,13 @@ fun_model2 <- function(x) {
     CoefModel[i, 6] <- CoefModel[i, 4] * 1.96 - CoefModel[i, 3]
   }
 
-  CoefModel$stage[CoefModel$stage == "stagejuvenile"] <- "juvenile"
+  CoefModel$stage[CoefModel$stage == "stageseedling"] <- "seedling"
   CoefModel$stage[CoefModel$stage == "stagesapling"] <- "sapling"
   CoefModel$stage[CoefModel$stage == "stageadult"] <- "adult"
 
 
   fun1 <- function(z) length(na.omit(z$corr.z))
-  fun2 <- function(z) length(na.omit(z$corr.z[z$stage == "juvenile"]))
+  fun2 <- function(z) length(na.omit(z$corr.z[z$stage == "seedling"]))
   fun5 <- function(z) length(na.omit(z$corr.z[z$stage == "sapling"]))
   fun3 <- function(z) length(na.omit(z$corr.z[z$stage == "adult"]))
 
@@ -159,7 +159,7 @@ fun_model2 <- function(x) {
 
   CoefModel["N"] <- "NA"
   # CoefModel['N'] <- N[!(apply(N, 1, function(s) any(s == 0))),]
-  CoefModel$N[CoefModel$stage == "juvenile" & CoefModel$stress == "raw"] <- fun2(x)
+  CoefModel$N[CoefModel$stage == "seedling" & CoefModel$stress == "raw"] <- fun2(x)
 
   CoefModel$N[CoefModel$stage == "sapling" & CoefModel$stress == "raw"] <- fun5(x)
 
@@ -408,7 +408,7 @@ table_overall.stage <- function(y) {
   MeanTab <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]),
     dimnames = name))
   y <- y[!is.na(y[, "corr.r"]), ]
-  MeanTab$stage <- c("juvenile", "sapling", "adult")
+  MeanTab$stage <- c("seedling", "sapling", "adult")
   MeanTab$corr.r <- sapply(split(y, na.omit(y$stage)), function(x) wtd.mean(x$corr.r,
     x$nb.sp))
   MeanTab$SD <- sapply(split(y, na.omit(y$stage)), function(x) wtd.var(x$corr.r,
@@ -581,7 +581,7 @@ fun_year <- function(data) {
   res <- rma(corr.z, vr.z, mod = ~year, 
                   data = table[!is.na(table$corr.z) & !is.na(table$nb.sp),])
 
-  x <- subset(table, table$stage == "juvenile")
+  x <- subset(table, table$stage == "seedling")
   res_juv <- rma(corr.z, vr.z, mod = ~year, 
                   data = x[!is.na(x$corr.z) & !is.na(x$nb.sp),])
 
@@ -593,5 +593,5 @@ fun_year <- function(data) {
   res_adu <- rma(corr.z, vr.z, mod = ~year, 
                   data = z[!is.na(z$corr.z) & !is.na(z$nb.sp),])
 
-  list(all = res, juvenile = res_juv, sapling = res_sap, adult = res_adu)
+  list(all = res, seedling = res_juv, sapling = res_sap, adult = res_adu)
 }

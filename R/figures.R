@@ -62,7 +62,7 @@ figure_2 <- function(CompleteData_inter) {
 
     n <- nrow(data)
     y <- rev(seq_len(n))
-    cols <- c("#538936", "#73005C", "#F57C34", "#E6224C", "grey")[data$stageRGR]
+    cols <- c("#13519E", "#73005C", "#F57C34", "#E6224C", "grey")[data$stageRGR]
     plot(NA, xlim = c(0, 3), ylim = c(0, n), yaxt = "n", xaxt = "n", xlab = "",
       ylab = "")
     mtext(xlab, 1, line = 2, cex = 0.75)
@@ -83,15 +83,15 @@ figure_2 <- function(CompleteData_inter) {
   }
 
   plotCI2(sa, c(0, 1, 5, 10), "age (yrs)")
-  abline(v = 1, col = "#538936")
+  abline(v = 1, col = "#13519E")
   legend(2.38, 40, c("seedling", "juvenile", "sapling", "adult", "mix", "across growth form",
-    "reassignment"), lwd = c(1, 1, 1, 1, 1, NA, NA), col = c("#538936", "#73005C",
+    "reassignment"), lwd = c(1, 1, 1, 1, 1, NA, NA), col = c("#13519E", "#73005C",
     "#F57C34", "#E6224C", "grey", "grey", "black"), pch = c(NA, NA, NA, NA,
     NA,"+", "*"), bty = "n", x.intersp = 0.3, y.intersp = 1, seg.len = 0.5,
     cex = 1)
 
   plotCI2(sh, c(0, 0.5, 2, 20), "height (m)")
-  abline(v = 1, col = "#538936")
+  abline(v = 1, col = "#13519E")
 
   plotCI2(sd, c(0, 1, 10, 80), "diameter (cm)")
   abline(v = 2, col = "#E6224C")
@@ -205,8 +205,8 @@ figure_A1 <- function() {
     plot(data[[px$var]], data[[py$var]], log = "xy", xlim = px$lim, ylim = py$lim,
       xlab = px$lab, ylab = py$lab, col = adjustcolor("#00000033", alpha = 0.5),
       pch = 16)
-    abline(v = px$sap, col = "#93EA6D", lty = 5)
-    abline(h = py$sap, col = "#93EA6D", lty = 5)
+    abline(v = px$sap, col = "#13519E", lty = 5)
+    abline(h = py$sap, col = "#13519E", lty = 5)
     abline(v = px$adult, col = "#E6224C", lty = 5)
     abline(h = py$adult, col = "#E6224C", lty = 5)
   }
@@ -524,7 +524,7 @@ figure_A8 <- function(GCi) {
     par(mar = c(4, 4, 2.5, 0))
     barplot(counts1, xlim = c(0, n + 5), xlab = "", col = c("#9E5F3A", "#E5B38F",
       "#F4395B", "#FA8C3D"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8)
-    axis(2, at = 1:3, labels = c("juvenile", "sapling", "adult"), las = 1,
+    axis(2, at = 1:3, labels = c("seedling", "sapling", "adult"), las = 1,
       cex.axis = 1)
     mtext("AGR", side = 3, line = 0, cex = 0.8)
     mtext(title, side = 3, line = 1, at = max(n + 5))
@@ -534,8 +534,7 @@ figure_A8 <- function(GCi) {
       "#F4395B", "#FA8C3D"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8)
     abline(v = 0, col = "black")
     mtext("RGR", side = 3, line = 0, cex = 0.8)
-    mtext("Number of correlation extracted", side = 1, line = 2.5, at = 0,
-      cex = 0.8)
+   
 
   }
 
@@ -544,7 +543,11 @@ figure_A8 <- function(GCi) {
   plotgrowth(GCi[["WD"]], "b) WD")
   plotgrowth(GCi[["Hmax"]], "c) Hmax")
   plotgrowth(GCi[["Seedmass"]], "d) Seed mass")
+  mtext("Number of correlation extracted", side = 1, line = 2.5, at = 0,
+        cex = 0.8)
   plotgrowth(GCi[["Aarea"]], "e) Aarea")
+  mtext("Number of correlation extracted", side = 1, line = 2.5, at = 0,
+        cex = 0.8)
 
   plot(1, type = "n", axes = F, xlab = "", ylab = "", bty = "n", xaxt = "n",
     yaxt = "n")
@@ -574,7 +577,7 @@ figure_A9 <- function(GIi) {
   funnel_SLA_year <- my_funnelplot("a) SLA", ggplot(GIi[["SLA"]], aes(x = year,
     y = corr.r, colour = factor(stage), size = 2, alpha = 0.6))) + geom_point() +
     scale_y_continuous("Correlation coefficient  r", limits = c(-1, 1)) + theme(legend.position = "none") +
-    scale_x_continuous("Years of publication", limits = c(1990, 2015)) + annotate("text",
+    scale_x_continuous("", limits = c(1990, 2015)) + annotate("text",
     x = 1995, y = -0.9, label = paste("LRT:", round(LRT_SLA, 0)), size = 2) +
     annotate("text", x = 1995, y = -1, label = paste("p.value =", round(PVAL_SLA,
       3), "***"), size = 2)
@@ -599,7 +602,7 @@ figure_A9 <- function(GIi) {
 
   funnel_Seedmass_year <- my_funnelplot("d) Seed mass", ggplot(GIi[["Seedmass"]],
     aes(x = year, y = corr.r, colour = factor(stage), size = 2, alpha = 0.6))) +
-    geom_point() + scale_x_continuous("Years of publication", limits = c(1990,
+    geom_point() + scale_x_continuous("Year of publication", limits = c(1990,
     2015)) + scale_y_continuous("", limits = c(-1, 1)) + theme(legend.position = "none") +
     annotate("text", x = 1995, y = -0.9, label = paste("LRT:", round(LRT_Seedmass,
       0)), size = 2) + annotate("text", x = 1995, y = -1, label = paste("p.value =",
@@ -609,7 +612,7 @@ figure_A9 <- function(GIi) {
   funnel_Aarea_year <- my_funnelplot("e) Aarea", ggplot(GIi[["Aarea"]], aes(x = year,
     y = corr.r, colour = factor(stage), size = 2, alpha = 0.6))) + geom_point() +
     scale_alpha(guide = "none") + scale_size(guide = "none") + scale_y_continuous("Correlation coefficient  r",
-    limits = c(-1, 1)) + scale_x_continuous("Years of publication", limits = c(1990,
+    limits = c(-1, 1)) + scale_x_continuous("Year of publication", limits = c(1990,
     2015)) + theme(legend.title = element_blank(), legend.justification = c(0,
     0), legend.position = c(1.2, 0.5), legend.key = element_blank(), plot.margin = unit(c(0,
     0, 0, 0), "mm")) + annotate("text", x = 1995, y = -0.9, label = paste("LRT:",

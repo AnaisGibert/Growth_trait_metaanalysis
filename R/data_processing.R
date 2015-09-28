@@ -90,8 +90,11 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
   Table$stageRGR[Table$RGR.stage == "juveniladult"] <- "mix"
 
 
-  Table$stage <- factor(Table$stage, levels = c("juvenile", "sapling", "adult"))
+  # Table$stage[Table$stageRGR == "juvenile" & Table$ ] <- "seedling"
   Table$stage <- as.factor(Table$stage)
+  Table$stage <- factor(Table$stage, levels = c("seedling", "juvenile", "sapling", "adult","mix"))
+  Table$stage <- replace(Table$stage, Table$stage == "juvenile", "seedling")
+  Table$stage <- factor(Table$stage, levels = c("seedling", "sapling", "adult"))
 
 
   ##### less restrictive, all experiments using data from database in parallel of
@@ -272,7 +275,7 @@ build_ideal_data <- function(CompleteData) {
 
   IdealData <- subset(CompleteData, CompleteData$stress == "unstressed" & CompleteData$bio.scale ==
     "intersp" & CompleteData$similarity == "Sim")
-  IdealData$stage <- factor(IdealData$stage, levels = c("juvenile", "sapling",
+  IdealData$stage <- factor(IdealData$stage, levels = c("seedling", "sapling",
     "adult"))
   IdealData$stageTrait <- factor(IdealData$stageTrait, levels = c("seedling",
     "juvenile", "sapling", "adult", "mix"))
