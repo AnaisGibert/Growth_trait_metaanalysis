@@ -102,6 +102,7 @@ figure_2 <- function(CompleteData_inter) {
   mtext("c)", 3, line = -35.6, outer = TRUE, cex = 0.75, at= 0.1)
 }
 
+
 figure_3 <- function(GC, GI) {
   CoefModel.SLA <- fun_model(GI[["SLA"]], GC[["SLA"]])
   CoefModel.SLA["trait"] <- "SLA"
@@ -150,33 +151,32 @@ figure_3 <- function(GC, GI) {
 
   p1 <- coeff.plot(data = CoefModel.SLA, data.complete = CoefModel.SLA.s, data.ideal = CoefModel.SLA.opt,
     LRT = LRT.sla, PVAL = PVAL.sla, title = "a) SLA", significativite = "***",
-    round.value = 4, limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1,
-    vjust.value = 1, limit.x.text = -0.1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
+    round.value = 4, limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
+    vjust.value = 1, limit.x.text = -0.5, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
     color1 = "grey", color2 = "black")
 
   p2 <- coeff.plot(data = CoefModel.WD, data.complete = CoefModel.WD.s, data.ideal = CoefModel.WD.opt,
     LRT = LRT.wd, PVAL = PVAL.wd, title = "b) WD", significativite = "ns",
-    round.value = 2, limit.x.min = -1, limit.x.max = 2, limit.x.n = 1.4,
-    vjust.value = 1, limit.x.text = -0.75, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
+    round.value = 2, limit.x.min = -1, limit.x.max = 1, limit.x.n = 0.85,
+    vjust.value = 1, limit.x.text = -0.7, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
     color1 = "grey", color2 = "black")
 
   p3 <- coeff.plot.ideal(data.ideal = CoefModel.Hmax.opt, LRT = LRT.h, PVAL = PVAL.h,
-    title = "c) Hmax", significativite = "ns", round.value = 2, limit.x.min = -0.5,
-    limit.x.max = 1.5, limit.x.text = -0.1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
-    limit.x.n = 1.2, vjust.value = 0, color1 = "black")
+    title = "c) Hmax", significativite = "ns", round.value = 2, limit.x.min = -1,
+    limit.x.max = 1.5, limit.x.text = -0.5, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
+    limit.x.n = 1.3, vjust.value = 0, color1 = "black")
 
   p4 <- coeff.plot(data = CoefModel.Seedmass, data.complete = CoefModel.Seedmass.s,
     data.ideal = CoefModel.Seedmass.opt, LRT = LRT.sm, PVAL = PVAL.sm, title = "d) Seed mass",
-    significativite = "***", round.value = 3, limit.x.min = -1.5, limit.x.max = 1,
-    limit.x.text = -1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, limit.x.n = 0.7,
+    significativite = "***", round.value = 3, limit.x.min = -1.5, limit.x.max = 1.5,
+    limit.x.text = -1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, limit.x.n = 1.25,
     vjust.value = 1, color1 = "grey", color2 = "black")
 
   p5 <- coeff.plot(data = CoefModel.Aarea, data.complete = CoefModel.Aarea.s,
     data.ideal = CoefModel.Aarea.opt, LRT = LRT.a, PVAL = PVAL.a, title = "e) Aarea",
-    significativite = "ns", round.value = 3, limit.x.min = -2, limit.x.max = 3,
-    limit.x.text = -1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, limit.x.n = 2.5,
-    vjust.value = 1, color1 = "grey", color2 = "black") + scale_fill_discrete(name = "",
-    breaks = c("ideal", "complete"), labels = c(ideal = "ideal", complete = "complete")) +
+    significativite = "ns", round.value = 3, limit.x.min = -2.4, limit.x.max = 3.5,
+    limit.x.text = -1.2, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, limit.x.n = 3,
+    vjust.value = 1, color1 = "grey", color2 = "black") + 
     theme(legend.title = element_blank(), legend.justification = c(0, 0), legend.position = c(1.2,
       0.5), legend.key = element_blank())
 
@@ -225,13 +225,11 @@ figure_3.2 <- function(GCrgr , GCagr) {
   
   p1 <- coeff.plot.gr(data = CoefModel.SLA, data.RGR = CoefModel.SLA.s, data.AGR = CoefModel.SLA.opt, title = "a) SLA",
                       limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
-                   vjust.value = 1, limit.x.text = -0.1, limit.y.text.l1 = 0.25, limit.y.text.l2 = 0.25,
-                   color1 = "grey", color2 = "black")
+                   vjust.value = 1, limit.x.text = -0.1, limit.y.text.l1 = 0.25, limit.y.text.l2 = 0.25)
   
   p2 <- coeff.plot.gr(data = CoefModel.WD, data.RGR = CoefModel.WD.s, data.AGR = CoefModel.WD.opt,title = "b) WD",
-                      limit.x.min = -1, limit.x.max = 1, limit.x.n = 0.9,
-                   vjust.value = 1, limit.x.text = -1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
-                   color1 = "grey", color2 = "black")
+                      limit.x.min = -1, limit.x.max = 1, limit.x.n = 0.85,
+                   vjust.value = 1, limit.x.text = -1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25)
   
 #   p3 <- coef.plot.gr.AGR(data.AGR = CoefModel.Hmax.opt, LRT = LRT.h, PVAL = PVAL.h,
 #                          title = "c) Hmax", significativite = "ns", round.value = 2, limit.x.min = -0.5,
@@ -241,19 +239,19 @@ figure_3.2 <- function(GCrgr , GCagr) {
   p3 <- coeff.plot.gr(data = CoefModel.Hmax, data.RGR = CoefModel.Hmax.s,
              data.AGR = CoefModel.Hmax.opt,  title = "c) Hmax", limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
              limit.x.text = -0.1, limit.y.text.l1 = 0.25, limit.y.text.l2 = 0.25, 
-             vjust.value = 1, color1 = "grey", color2 = "black")
+             vjust.value = 1)
   
   p4 <- coeff.plot.gr(data = CoefModel.Seedmass, data.RGR = CoefModel.Seedmass.s,
                    data.AGR = CoefModel.Seedmass.opt,  title = "d) Seed mass",
-                   limit.x.min = -1.5, limit.x.max = 1.5, limit.x.n = 1.3,
+                   limit.x.min = -1.5, limit.x.max = 1.5, limit.x.n = 1.25,
                    limit.x.text = -1, limit.y.text.l1 = 0.25, limit.y.text.l2 = 0.25, 
-                   vjust.value = 1, color1 = "grey", color2 = "black")
+                   vjust.value = 1)
   
   p5 <- coeff.plot.gr(data = CoefModel.Aarea, data.RGR = CoefModel.Aarea.s,
                    data.AGR = CoefModel.Aarea.opt, title = "e) Aarea",
                     limit.x.min = -2.4, limit.x.max =3.5,
                    limit.x.text = -1, limit.y.text.l1 = 0.25, limit.y.text.l2 = 0.25, limit.x.n = 3,
-                   vjust.value = 1, color1 = "grey", color2 = "black")  +
+                   vjust.value = 1)  +
     theme(legend.title = element_blank(), legend.justification = c(0, 0), legend.position = c(1.2, 0.5), legend.key = element_blank())
   
   p1 <- p1 + theme(plot.margin  = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank())

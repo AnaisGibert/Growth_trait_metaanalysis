@@ -76,13 +76,14 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
     1.96 * SE, color = factor(stress)))) + geom_point(aes(x = stage, y = Inte),
     position = dodge) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4,
     width = 0.2, position = dodge) + scale_y_continuous("Effect size (z) + CI 95%",
-    limits = c(limit.x.min, limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("(n=",
-    N, ")"), color = factor(stress), group = "all"), size = 2, data = data.complete,
+    limits = c(limit.x.min, limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("n=",
+    N), color = factor(stress), group = "all"), size = 2, data = data.complete,
     parse = F, position = "identity", vjust = +vjust.value, hjust = 0) + geom_text(aes(stage,
-    x.coord, label = paste("(n=", N, ")"), color = factor(stress), group = "ideal"),
+    x.coord, label = paste("n=", N), color = factor(stress), group = "ideal"),
     size = 2, data = data.ideal, parse = F, position = "identity", vjust = -vjust.value,
-    hjust = 0) + scale_color_manual(values = c(color1, color2)) + annotate("text",
-    x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:", round(LRT,
+    hjust = 0) + 
+    scale_color_manual(name = "", values=c(color1, color2), breaks = c("ideal", "complete"), labels = c(ideal = "ideal", complete = "complete")) +
+       annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:", round(LRT,
       2)), size = 2) + annotate("text", x = limit.y.text.l2, y = limit.x.text,
     label = paste("p.value =", round(PVAL, round.value), significativite),
     size = 2)
@@ -90,7 +91,7 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
 
 
 coeff.plot.gr <- function(data, data.RGR, data.AGR, title = "",limit.x.min, limit.x.max, limit.x.text,
-                       limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1, color2) {
+                       limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1="#9E5F3A", color2="black") {
   
   data.RGR["x.coord"] <- limit.x.n
   data.AGR["x.coord"] <- limit.x.n
@@ -116,7 +117,7 @@ coeff.plot.gr <- function(data, data.RGR, data.AGR, title = "",limit.x.min, limi
     scale_color_manual(name = "", values=c(color1, color2), breaks = c("RGR", "AGR"), labels = c("RGR", "AGR"))
 }
 
-
+# RGR = "#9E5F3A", AbsGR = "#F4395B")
 
 coeff.plot.ideal.2 <- function(data.ideal, LRT, PVAL, title = "", significativite = "",
   round.value, limit.x.min, limit.x.max, limit.x.text, limit.x.n, limit.y.text.l1,
@@ -137,8 +138,8 @@ coeff.plot.ideal.2 <- function(data.ideal, LRT, PVAL, title = "", significativit
     1.96 * SE, ymax = Inte + 1.96 * SE, color = factor(stress)))) + geom_point(aes(x = stage,
     y = Inte)) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4, width = 0.2) +
     scale_y_continuous("Effect size (z) + CI 95%", limits = c(limit.x.min,
-      limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("(n=",
-    N, ")"), color = factor(stress), group = "ideal"), size = 2, data = data.ideal,
+      limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("n=",
+    N), color = factor(stress), group = "ideal"), size = 2, data = data.ideal,
     parse = F, position = "identity", vjust = -vjust.value, hjust = 0) + scale_color_manual(values = c(color1)) +
     annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:",
       round(LRT, 2)), size = 2) + annotate("text", x = limit.y.text.l2, y = limit.x.text,
@@ -166,8 +167,8 @@ coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite 
     1.96 * SE, ymax = Inte + 1.96 * SE, color = factor(stress)))) + geom_point(aes(x = stage,
     y = Inte)) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4, width = 0.2) +
     scale_y_continuous("Effect size (z) + CI 95%", limits = c(limit.x.min,
-      limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("(n=",
-    N, ")"), color = factor(stress), group = "ideal"), size = 2, data = data.ideal,
+      limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("n=",
+    N), color = factor(stress), group = "ideal"), size = 2, data = data.ideal,
     parse = F, position = "identity", vjust = -vjust.value, hjust = 0) + scale_color_manual(values = c(color1)) +
     annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:",
       round(LRT, 2)), size = 2) + annotate("text", x = limit.y.text.l2, y = limit.x.text,
@@ -254,13 +255,13 @@ my_plot_overall_gr <- function(data, title = "") {
     SD, color = factor(growth)))) + geom_point(aes(x = stage, y = corr.r),
     position = dodge) + geom_errorbar(aes(x = stage, y = corr.r), position = dodge,
     size = 0.4, width = 0.2) + scale_y_continuous("Coefficient of correlation r (+SD) ",
-    limits = c(-1, 1)) + coord_flip() + geom_text(aes(stage, 0.8, label = paste("(n=",
-    freq, ")"), color = factor(growth), group = "RGR"), size = 2, data = data1,
+    limits = c(-1, 1)) + coord_flip() + geom_text(aes(stage, 0.8, label = paste("n=",
+    freq), color = factor(growth), group = "RGR"), size = 2, data = data1,
     parse = F, position = "identity", vjust = -0.5, hjust = 0) + geom_text(aes(stage,
-    0.8, label = paste("(n=", freq, ")"), color = factor(growth), group = "AbsGR"),
+    0.8, label = paste("n=", freq), color = factor(growth), group = "AbsGR"),
     size = 2, data = data2, parse = F, position = "identity", vjust = +0.5,
-    hjust = 0) + scale_colour_manual(values = c(RGR = "#9E5F3A", AbsGR = "#F4395B"),
-    breaks = c("RGR", "AbsGR")) + theme(legend.position = "none")
+    hjust = 0) + scale_colour_manual(values = c(RGR = "black", AbsGR = "#9E5F3A"),
+    breaks = c("RGR", "AbsGR"), labels = c("RGR"="RGR", "AbsGR"= "AGR")) + theme(legend.position = "none")
 
   p
 }
