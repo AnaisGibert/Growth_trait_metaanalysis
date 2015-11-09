@@ -23,6 +23,9 @@ CoordTable <- build_map_data(RawData)
 IdealData_rgr <- subset(IdealData_inter, IdealData_inter$growth == "RGR")
 IdealData_agr <- subset(IdealData_inter, IdealData_inter$growth == "AbGR")
 
+CompleteData_rgr <- subset(CompleteData_inter, CompleteData_inter$growth == "RGR")
+CompleteData_agr <- subset(CompleteData_inter, CompleteData_inter$growth == "AbGR")
+
 ## split datasets by trait - makes a list with named elements given subset of
 ## data for each trait
 list_by_trait <- function(df) {
@@ -34,6 +37,8 @@ GIi <- list_by_trait(IdealData_inter)
 GIrgr <- list_by_trait(IdealData_rgr)
 GIagr <- list_by_trait(IdealData_agr)
 
+GCrgr <- list_by_trait(CompleteData_rgr)
+GCagr <- list_by_trait(CompleteData_agr)
 
 ## Create restricted Dataset: coefficient of correlation are averaged by study
 ## and by trait
@@ -58,6 +63,11 @@ dev.off()
 
 pdf("output/Fig3.pdf", height = 6, width = 5)
 figure_3(GCi, GIi)
+dev.off()
+
+
+pdf("output/Fig3.2.pdf", height = 6, width = 5)
+figure_3.2(GCrgr, GCagr)
 dev.off()
 
 

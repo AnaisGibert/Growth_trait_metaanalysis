@@ -99,6 +99,106 @@ fun_model <- function(x, y) {
   CoefModel
 }
 
+fun_model1 <- function(x, y) {
+  # models for x ('ideal' dataset) and y ('complete' datatset)
+  null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE,
+               control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
+                                     check.nobs.vs.nRE = "ignore"))  # modele null cad sans la variable que je veux analyser
+  m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = TRUE,
+            control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
+                                  check.nobs.vs.nRE = "ignore"))  # model avec la variable
+  m1 <- lmer(corr.z ~ stage - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE,
+             control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
+                                   check.nobs.vs.nRE = "ignore"))  # model avec les intercepts qui sont a 1
+  
+  null.s <- lmer(corr.z ~ 1 + (1 | id), data = y, weights = nb.sp, REML = TRUE,
+                 control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
+                                       check.nobs.vs.nRE = "ignore"))  # idem mais pour le jeux y
+  m.s <- lmer(corr.z ~ stage + (1 | id), data = y, weights = nb.sp, REML = TRUE,
+              control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
+                                    check.nobs.vs.nRE = "ignore"))
+  m1.s <- lmer(corr.z ~ stage - 1 + (1 | id), data = y, weights = nb.sp, REML = TRUE,
+               control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
+                                     check.nobs.vs.nRE = "ignore"))
+  summ.m <- summary(m)
+  
+  # extraction intercept of fixed parameters
+  FP <- as.data.frame(fixef(m1))
+  FP["stage"] <- "NA"
+  FP["stage"] <- names(fixef(m1))
+  
+  FixSEdiag <- vcov(m1, useScale = FALSE)
+  FixSE <- as.data.frame(sqrt(diag(FixSEdiag)))
+  FixSE["stage"] <- "NA"
+  FixSE["stage"] <- names(fixef(m1))
+  
+  FP.s <- as.data.frame(fixef(m1.s))
+  FP.s["stage"] <- "NA"
+  FP.s["stage"] <- names(fixef(m1.s))
+  
+  FixSEdiag.s <- vcov(m1.s, useScale = FALSE)
+  FixSE.s <- as.data.frame(sqrt(diag(FixSEdiag.s)))
+  FixSE.s["stage"] <- "NA"
+  FixSE.s["stage"] <- names(fixef(m1.s))
+  
+  # new table with extracted data from models
+  l <- (length(FP$stage) + length(FP.s$stage))
+  l1 <- (length(FP$stage))
+  l2 <- (length(FP.s$stage))
+  a <- (l1 + 1)
+  
+  name <- list(1:l, c("stage", "growth", "Inte", "SE", "CIupper", "CIlower"))
+  CoefModel <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]),
+                                    dimnames = name))
+  CoefModel[1:l1, 1] <- c((FP$stage))
+  CoefModel[a:l, 1] <- c((FP.s$stage))
+  CoefModel[1:l1, 2] <- "RGR"
+  CoefModel[a:l, 2] <- "AGR"
+  
+  for (i in 1:l1) {
+    CoefModel[i, 3] <- FP[i, 1]
+    CoefModel[i, 4] <- FixSE[i, 1]
+    CoefModel[i, 5] <- CoefModel[i, 4] * 1.96 + CoefModel[i, 3]
+    CoefModel[i, 6] <- CoefModel[i, 4] * 1.96 - CoefModel[i, 3]
+  }
+  
+  for (j in a:l) {
+    CoefModel[j, 3] <- FP.s[j - l1, 1]
+    CoefModel[j, 4] <- FixSE.s[j - l1, 1]
+    CoefModel[j, 5] <- CoefModel[j, 4] * 1.96 + CoefModel[j, 3]
+    CoefModel[j, 6] <- CoefModel[j, 4] * 1.96 - CoefModel[j, 3]
+  }
+  
+  CoefModel$stage[CoefModel$stage == "stageseedling"] <- "seedling"
+  CoefModel$stage[CoefModel$stage == "stagesapling"] <- "sapling"
+  CoefModel$stage[CoefModel$stage == "stageadult"] <- "adult"
+  
+  
+  fun1 <- function(z) length(na.omit(z$corr.z))
+  fun2 <- function(z) length(na.omit(z$corr.z[z$stage == "seedling"]))
+  fun5 <- function(z) length(na.omit(z$corr.z[z$stage == "sapling"]))
+  fun3 <- function(z) length(na.omit(z$corr.z[z$stage == "adult"]))
+  
+  
+  N <- data.frame(value = c(fun2(x), fun5(x), fun3(x), fun2(y), fun5(y), fun3(y)))
+  
+  CoefModel["N"] <- "NA"
+  # CoefModel['N'] <- N[!(apply(N, 1, function(s) any(s == 0))),]
+  CoefModel$N[CoefModel$stage == "seedling" & CoefModel$growth == "RGR"] <- fun2(x)
+  CoefModel$N[CoefModel$stage == "seedling" & CoefModel$growth == "AGR"] <- fun2(y)
+  
+  CoefModel$N[CoefModel$stage == "sapling" & CoefModel$growth == "RGR"] <- fun5(x)
+  CoefModel$N[CoefModel$stage == "sapling" & CoefModel$growth == "AGR"] <- fun5(y)
+  
+  CoefModel$N[CoefModel$stage == "adult" & CoefModel$growth == "RGR"] <- fun3(x)
+  CoefModel$N[CoefModel$stage == "adult" & CoefModel$growth == "AGR"] <- fun3(y)
+  
+#   CoefModel$growth <- as.factor(CoefModel$growth)
+#   CoefModel$growth <- factor(CoefModel$growth, levels = rev(levels(CoefModel$growth)))
+
+  CoefModel
+}
+
 fun_model2 <- function(x) {
   # models for x ('ideal' dataset) and y ('complete' datatset)
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE,

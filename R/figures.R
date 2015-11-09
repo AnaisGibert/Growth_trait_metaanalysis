@@ -150,13 +150,13 @@ figure_3 <- function(GC, GI) {
 
   p1 <- coeff.plot(data = CoefModel.SLA, data.complete = CoefModel.SLA.s, data.ideal = CoefModel.SLA.opt,
     LRT = LRT.sla, PVAL = PVAL.sla, title = "a) SLA", significativite = "***",
-    round.value = 4, limit.x.min = -0.5, limit.x.max = 1.5, limit.x.n = 1,
+    round.value = 4, limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1,
     vjust.value = 1, limit.x.text = -0.1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
     color1 = "grey", color2 = "black")
 
   p2 <- coeff.plot(data = CoefModel.WD, data.complete = CoefModel.WD.s, data.ideal = CoefModel.WD.opt,
     LRT = LRT.wd, PVAL = PVAL.wd, title = "b) WD", significativite = "ns",
-    round.value = 2, limit.x.min = -1, limit.x.max = 0.5, limit.x.n = 0.3,
+    round.value = 2, limit.x.min = -1, limit.x.max = 2, limit.x.n = 1.4,
     vjust.value = 1, limit.x.text = -0.75, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
     color1 = "grey", color2 = "black")
 
@@ -191,6 +191,81 @@ figure_3 <- function(GC, GI) {
   grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.2, 1))
 }
 
+
+figure_3.2 <- function(GCrgr , GCagr) {
+  CoefModel.SLA <- fun_model1(GCrgr[["SLA"]],GCagr[["SLA"]])
+  CoefModel.SLA["trait"] <- "SLA"
+  CoefModel.SLA.s <- subset(CoefModel.SLA, growth == "RGR")
+  CoefModel.SLA.opt <- subset(CoefModel.SLA, growth == "AGR")
+
+  
+  CoefModel.WD <- fun_model1( GCrgr[["WD"]], GCagr[["WD"]])
+  CoefModel.WD["trait"] <- "WD"
+  CoefModel.WD.s <- subset(CoefModel.WD, growth == "RGR")
+  CoefModel.WD.opt <- subset(CoefModel.WD, growth == "AGR")
+  
+  
+  CoefModel.Hmax <- fun_model1(GCrgr[["Hmax"]], GCagr[["Hmax"]])
+  CoefModel.Hmax["trait"] <- "Hmax"
+  CoefModel.Hmax.s <- subset(CoefModel.Hmax, growth == "RGR")
+  CoefModel.Hmax.opt <- subset(CoefModel.Hmax, growth == "AGR")
+  
+  
+  CoefModel.Seedmass <- fun_model1(GCrgr[["Seedmass"]], GCagr[["Seedmass"]])
+  CoefModel.Seedmass["trait"] <- "Seedmass"
+  CoefModel.Seedmass.s <- subset(CoefModel.Seedmass, growth == "RGR")
+  CoefModel.Seedmass.opt <- subset(CoefModel.Seedmass, growth == "AGR")
+  
+  
+  CoefModel.Aarea <- fun_model1(GCrgr[["Aarea"]], GCagr[["Aarea"]])
+  CoefModel.Aarea["trait"] <- "Aarea"
+  CoefModel.Aarea.s <- subset(CoefModel.Aarea, growth == "RGR")
+  CoefModel.Aarea.opt <- subset(CoefModel.Aarea, growth == "AGR")
+  
+  
+  p1 <- coeff.plot.gr(data = CoefModel.SLA, data.RGR = CoefModel.SLA.s, data.AGR = CoefModel.SLA.opt, title = "a) SLA",
+                      limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
+                   vjust.value = 1, limit.x.text = -0.1, limit.y.text.l1 = 0.25, limit.y.text.l2 = 0.25,
+                   color1 = "grey", color2 = "black")
+  
+  p2 <- coeff.plot.gr(data = CoefModel.WD, data.RGR = CoefModel.WD.s, data.AGR = CoefModel.WD.opt,title = "b) WD",
+                      limit.x.min = -1, limit.x.max = 1, limit.x.n = 0.9,
+                   vjust.value = 1, limit.x.text = -1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
+                   color1 = "grey", color2 = "black")
+  
+#   p3 <- coef.plot.gr.AGR(data.AGR = CoefModel.Hmax.opt, LRT = LRT.h, PVAL = PVAL.h,
+#                          title = "c) Hmax", significativite = "ns", round.value = 2, limit.x.min = -0.5,
+#                          limit.x.max = 1.5, limit.x.text = -0.1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
+#                          limit.x.n = 1.2, vjust.value = 0, color1 = "black")
+  
+  p3 <- coeff.plot.gr(data = CoefModel.Hmax, data.RGR = CoefModel.Hmax.s,
+             data.AGR = CoefModel.Hmax.opt,  title = "c) Hmax", limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
+             limit.x.text = -0.1, limit.y.text.l1 = 0.25, limit.y.text.l2 = 0.25, 
+             vjust.value = 1, color1 = "grey", color2 = "black")
+  
+  p4 <- coeff.plot.gr(data = CoefModel.Seedmass, data.RGR = CoefModel.Seedmass.s,
+                   data.AGR = CoefModel.Seedmass.opt,  title = "d) Seed mass",
+                   limit.x.min = -1.5, limit.x.max = 1.5, limit.x.n = 1.3,
+                   limit.x.text = -1, limit.y.text.l1 = 0.25, limit.y.text.l2 = 0.25, 
+                   vjust.value = 1, color1 = "grey", color2 = "black")
+  
+  p5 <- coeff.plot.gr(data = CoefModel.Aarea, data.RGR = CoefModel.Aarea.s,
+                   data.AGR = CoefModel.Aarea.opt, title = "e) Aarea",
+                    limit.x.min = -2.4, limit.x.max =3.5,
+                   limit.x.text = -1, limit.y.text.l1 = 0.25, limit.y.text.l2 = 0.25, limit.x.n = 3,
+                   vjust.value = 1, color1 = "grey", color2 = "black")  +
+    theme(legend.title = element_blank(), legend.justification = c(0, 0), legend.position = c(1.2, 0.5), legend.key = element_blank())
+  
+  p1 <- p1 + theme(plot.margin  = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank())
+  p2 <- p2 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
+                   plot.margin  = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank())
+  p3 <- p3 + theme(plot.margin  = unit(c(0, 0, 1.5, 0), "mm"), axis.title.x = element_blank())
+  p4 <- p4 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
+                   plot.margin  = unit(c(0, 0, 0, 0), "mm"))
+  p5 <- p5 + theme(plot.margin  = unit(c(0, 0, 0, 0), "mm"))
+  
+  grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.2, 1))
+}
 
 ## Figure appendix
 figure_A1 <- function() {

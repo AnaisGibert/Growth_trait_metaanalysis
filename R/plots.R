@@ -89,6 +89,35 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
 }
 
 
+coeff.plot.gr <- function(data, data.RGR, data.AGR, title = "",limit.x.min, limit.x.max, limit.x.text,
+                       limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1, color2) {
+  
+  data.RGR["x.coord"] <- limit.x.n
+  data.AGR["x.coord"] <- limit.x.n
+  
+  plot1 <- function(title, ggobj, xlab = "Effect size + CI (95%) ", ylab = "Stages") {
+    
+    p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) +
+      geom_vline(yintercept = 0,color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
+      scale_x_discrete("stage", limit = c("seedling", "sapling", "adult")) +
+      coord_flip() + mytheme + theme(legend.position = "none")
+    p
+  }
+  
+  dodge <- position_dodge(width = 0.4)
+  
+  
+  
+  plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +1.96 * SE, color = factor(growth)))) +
+    geom_point(aes(x = stage, y = Inte),position = dodge) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4,width = 0.2, position = dodge) +
+    scale_y_continuous("Effect size (z) + CI 95%",limits = c(limit.x.min, limit.x.max)) +
+    geom_text(aes(stage,x.coord, label = paste("n=", N), color = factor(growth), group = "AGR"),size = 2, data = data.AGR, parse = F, position = "identity", vjust = +vjust.value, hjust = 0) + 
+    geom_text(aes(stage, x.coord, label = paste("n=",N), color = factor(growth), group = "RGR"), size = 2, data = data.RGR, parse = F, position = "identity", vjust = -vjust.value, hjust = 0) +
+    scale_color_manual(name = "", values=c(color1, color2), breaks = c("RGR", "AGR"), labels = c("RGR", "AGR"))
+}
+
+
+
 coeff.plot.ideal.2 <- function(data.ideal, LRT, PVAL, title = "", significativite = "",
   round.value, limit.x.min, limit.x.max, limit.x.text, limit.x.n, limit.y.text.l1,
   limit.y.text.l2, vjust.value, color1) {
