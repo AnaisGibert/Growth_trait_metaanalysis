@@ -10,6 +10,9 @@ for (f in list.files("R", full.names = TRUE)) {
   source(f)
 }
 
+x <- readLines("data/CompileData.csv")
+writeLines(x, "data/CompileData.csv")
+
 CompileTable <- clean_raw_data()
 RawData <- standardise_data(CompileTable)
 
@@ -43,7 +46,7 @@ GCagr <- list_by_trait(CompleteData_agr)
 ## Create restricted Dataset: coefficient of correlation are averaged by study
 ## and by trait
 RCi <- list_by_trait(EffectSizeSum(CompleteData_inter))
-RIi <- list_by_trait(EffectSizeSum(IdealData_inter))
+RIi <- list_by_trait(EffectSizeSum(IdealData_rgr))
 
 ## output directory
 
@@ -61,13 +64,14 @@ pdf("output/Fig2.pdf", height = 8, width = 6)
 figure_2(CompleteData_inter)
 dev.off()
 
+
 pdf("output/Fig3.pdf", height = 6, width = 5)
-figure_3(GCi, GIi)
+figure_3(GIrgr)
 dev.off()
 
 
-pdf("output/Fig3.2.pdf", height = 6, width = 5)
-figure_3.2(GCrgr, GCagr)
+pdf("output/Fig4.pdf", height = 6, width = 5)
+figure_4(GCi)
 dev.off()
 
 
@@ -86,6 +90,10 @@ dev.off()
 
 pdf("output/FigA4.pdf", height = 7, width = 5)
 figure_A4(GIi, GIrgr, GIagr)
+dev.off()
+
+pdf("output/FigA4.1.pdf", height = 6, width = 5)
+figure_3.3(GCi, GIi)
 dev.off()
 
 pdf("output/FigA5.pdf", height = 6, width = 5)

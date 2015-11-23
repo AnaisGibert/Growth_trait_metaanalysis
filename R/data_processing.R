@@ -273,8 +273,8 @@ Build_intersp_complete_data <- function(RawData) {
 # perfomed at the same plant stage
 build_ideal_data <- function(CompleteData) {
 
-  IdealData <- subset(CompleteData, CompleteData$stress == "unstressed" & CompleteData$bio.scale ==
-    "intersp" & CompleteData$similarity == "Sim")
+  IdealData <- subset(CompleteData, CompleteData$stress == "unstressed" & CompleteData$nb.sp > 10
+     & CompleteData$similarity == "Sim")
   IdealData$stage <- factor(IdealData$stage, levels = c("seedling", "sapling",
     "adult"))
   IdealData$stageTrait <- factor(IdealData$stageTrait, levels = c("seedling",
@@ -294,10 +294,12 @@ EffectSizeSum <- function(data) {
     var <- (1/n)^2 * (sum(y)) + 2 * 1 * sqrt(z)
     var
   }
+  
+  data2 <- data[, c("corr.z", "id", "stage","trait", "vr.z", "nb.sp")]
 
-  res <- aggregate(corr.z ~ id + stage + trait, mean, data = na.omit(data))
-  res2 <- aggregate(vr.z ~ id + stage + trait, Fun_var, data = na.omit(data))
-  res3 <- aggregate(nb.sp ~ id + stage + trait, mean, data = na.omit(data))
+  res <- aggregate(corr.z ~ id + stage + trait, mean, data = na.omit(data2))
+  res2 <- aggregate(vr.z ~ id + stage + trait, Fun_var, data = na.omit(data2))
+  res3 <- aggregate(nb.sp ~ id + stage + trait, mean, data = na.omit(data2))
   table <- cbind(res, res2[, "vr.z"], res3[, "nb.sp"])
   colnames(table) <- c("id", "stage", "trait", "corr.z", "vr.z", "nb.sp")
   table
