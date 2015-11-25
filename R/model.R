@@ -230,11 +230,11 @@ fun_model2 <- function(x) {
 
   a <- (l1 + 1)
 
-  name <- list(1:l, c("stage", "stress", "Inte", "SE", "CIupper", "CIlower"))
+  name <- list(1:l, c("stage", "growth", "Inte", "SE", "CIupper", "CIlower"))
   CoefModel <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]),
     dimnames = name))
   CoefModel[1:l1, 1] <- c((FP$stage))
-  CoefModel[1:l1, 2] <- "raw"
+  CoefModel[1:l1, 2] <- "all"
 
 
   for (i in 1:l1) {
@@ -259,11 +259,11 @@ fun_model2 <- function(x) {
 
   CoefModel["N"] <- "NA"
   # CoefModel['N'] <- N[!(apply(N, 1, function(s) any(s == 0))),]
-  CoefModel$N[CoefModel$stage == "seedling" & CoefModel$stress == "raw"] <- fun2(x)
+  CoefModel$N[CoefModel$stage == "seedling" & CoefModel$growth == "all"] <- fun2(x)
 
-  CoefModel$N[CoefModel$stage == "sapling" & CoefModel$stress == "raw"] <- fun5(x)
+  CoefModel$N[CoefModel$stage == "sapling" & CoefModel$growth == "all"] <- fun5(x)
 
-  CoefModel$N[CoefModel$stage == "adult" & CoefModel$stress == "raw"] <- fun3(x)
+  CoefModel$N[CoefModel$stage == "adult" & CoefModel$growth == "all"] <- fun3(x)
 
   CoefModel
 }

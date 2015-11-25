@@ -64,14 +64,14 @@ pdf("output/Fig2.pdf", height = 8, width = 6)
 figure_2(CompleteData_inter)
 dev.off()
 
-
 pdf("output/Fig3.pdf", height = 6, width = 5)
 figure_3(GIrgr)
 dev.off()
 
 
 pdf("output/Fig4.pdf", height = 6, width = 5)
-figure_4(GCi)
+# figure_4(GCi)
+figure_3.4(GCi, GCrgr , GCagr)
 dev.off()
 
 
