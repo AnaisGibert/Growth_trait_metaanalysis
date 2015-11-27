@@ -77,7 +77,7 @@ figure_2 <- function(CompleteData_inter) {
     points(data$growthf[t], y[t], pch = "+", cex=1, col="grey")
 
     axis(1, at = 0:3, labels = cuts, las = 1)
-    axis(2, at = y, labels = data$id, las = 1, cex.axis = 0.55)
+    axis(2, at = y, labels = data$id, las = 1, cex.axis = 0.6)
     abline(v = 1, col = "grey", lty = 2, lwd = 0.5)
     abline(v = 2, col = "grey", lty = 2, lwd = 0.5)
   }
