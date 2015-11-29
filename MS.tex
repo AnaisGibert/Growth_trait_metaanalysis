@@ -6,6 +6,7 @@
 %\raggedright
 
 \newcommand{\smurl}[1]{\url{#1}}
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
 \usepackage{graphicx}
 \usepackage[title,titletoc,toc]{appendix}
 
@@ -82,14 +83,14 @@ As plants approach maximum height they increasingly divert energy away from grow
 
 \textbf{H4: The relationship between seed mass and relative growth rate is negative in seedlings, but weakens with increasing size.}
 
-The main effect of increased seed size is to produce a larger overall seedling. Generally relative growth rate decreases with size, and as such larger seedlings are predicted to have a lower relative growth rate during the earliest phases of growth \citep{Turnbull:2012ew}. However, among larger plants we expect the effect of this initial size to be minimal, and thus the correlation between seed size and growth rate should disappear.
+The main effect of increased seed size is to produce a larger overall seedling. Under similar light conditions, relative growth rate decreases with size because the ratio of leaf area to total biomass decreases with increasing plant size. Thus, larger seedlings are predicted to have a lower relative growth rate during the earliest phases of growth \citep{Turnbull:2012ew}. However, among larger plants we expect the effect of this initial size to be minimal, and thus the correlation between seed size and growth rate should disappear.
 
 \textbf{H5: The relationship between Aarea and growth rate is expected to be positive across all plant sizes, at least under high-light conditions}
 
 We expect greater photosynthetic capacity to translate into faster growth rates by increasing the rate of biomass production (Table \ref{tab:trade-offs}), at least at high light where Aarea is measured. It is uncertain how much this might translate to faster growth in low light. It might greatly depend on the level of light available.
 
 \textbf{Effect on absolute and relative growth rates}
-Tree growth in diameter, height or mass can be expressed in either absolute (AGR) or relative terms (RGR). The choice of the growth measurement is generally confunded with the size of the plant; RGR in mass is mainly used for seedling, and AGR in diameter or height are mainly used for adult. According to the growth model, the predicted relationship between growth and seed mass in seedlings reverses if absolute AGR$_\textrm{mass}$ is used instead of RGR$_\textrm{mass}$ (see Appendix \ref{sec:growth}). The correlation with RGR$_\textrm{mass}$ is negative but becomes positive with AGR$_\textrm{mass}$. For SLA, WD, Hmax and Aarea the predicted relationships are not affected by the growth measurement used. However RGR and AGR are fundamentaly different for a lot of ecologists. So we adopted a two step approach, first we were conservative by focusing exclusively on RGR, then we compared results with those of a more inclusive dataset with both RGR and AGR.
+Tree growth in diameter, height or mass can be expressed in either absolute (AGR) or relative terms (RGR). The choice of the growth measurement is generally confunded with the size of the plant; RGR in mass is mainly used for seedling, and AGR in diameter or height are mainly used for adult. According to the growth model, the predicted relationship between growth and seed mass in seedlings reverses if absolute AGR$_\textrm{mass}$ is used instead of RGR$_\textrm{mass}$ (see Appendix \ref{sec:growth}). The correlation with RGR$_\textrm{mass}$ is negative but becomes positive with AGR$_\textrm{mass}$. For SLA, WD, Hmax and Aarea the predicted relationships are not affected by the growth measurement used. However RGR and AGR are fundamentaly different for a lot of ecologists. So we adopted a two steps approach, first we were conservative by focusing exclusively on RGR, then we compared results with those of a more inclusive dataset with both RGR and AGR.
 
 All the above hypotheses arise from direct mechanistic causation between traits and growth rate. It is possible that other correlations may arise indirectly. For example, seed size is somewhat correlated with height at maturity \citep{Westoby:2009ch}, and so an indirect correlation might arise between seed size and GR in large plants, even though no direct influence is expected. Nevertheless, for purposes of this paper we adopt working hypotheses arising only from direct mechanistic causation. 
 
@@ -262,22 +263,24 @@ a) age, b) height and c) diameter. Horizontal line segments indicate the size ra
 \end{figure}
 
 
+
+
 \clearpage
 \section*{Table}
 \setcounter{table}{0}
 \begin{table}[h!]
 \centering
-\caption{Hypothesised effects of traits on key elements of plant function determining growth rate. Arrows indicate the effect an increase in trait value would have on the main elements of growth eqs. \ref{eq:eq0}-\ref{eq:eq4} in Appendix \ref{sec:growth}, dashes indicate no significant effect. Traits names as in Figure 1. For further details, see Appendix \ref{sec:growth}.}
+\caption{Hypothesised effects of traits on key elements of plant function determining growth rate. Arrows indicate the effect an increase in trait value would have on the main elements of growth eqs. \ref{eq:eq0}-\ref{eq:eq4} in Appendix \ref{sec:growth}, dashes indicate no significant effect. Traits names as in Figure 1. $a_\textrm{l}$ : leaves area, $m_\textrm{t}$: vegetative live mass, $b$: live biomass. For further details, see Appendix \ref{sec:growth}.}
 {\footnotesize
 \vspace{1cm}
-  \begin{tabular}{llccccccc}
+  \begin{tabular}{lllcccccc}
   & & & & SLA & WD & Hmax & seed mass & Aarea \\ \hline
   \multicolumn{3}{ l } {Main element of growth} & & & & & \\ 
   & \multicolumn{2}{ l } {Leaf deployment per mass}  & $\frac{\textrm{d}a_\textrm{l}}{\textrm{d}m_\textrm{t}}$ & $\uparrow$ & $\downarrow$ & - & - & - \\
   & \multicolumn{2}{ l } {Net live biomass production} & $\frac{\textrm{d}b}{\textrm{d}t}$ & & & & & \\
-  & &    photosynthesis & & - & - & - & - & $\uparrow$  \\
-  & &     respiration   & & - & - & - & - & -  \\
-  & &     leaf turnover & & $\uparrow$ & - & - & - & - \\
+  & &     \tabitem photosynthesis & & - & - & - & - & $\uparrow$  \\
+  & &     \tabitem respiration   & & - & - & - & - & -  \\
+  & &     \tabitem leaf turnover & & $\uparrow$ & - & - & - & - \\
   & \multicolumn{2}{ c } {Allocation to vegetative growth} & $\frac{\textrm{d}m_\textrm{t}}{\textrm{d}b}$ & - & - & $\uparrow$ & - & - \\ 
   & & & & & & \\
     \multicolumn{3}{ l } {Relative growth rate in mass} & & $\uparrow$ or $\downarrow$ & $\downarrow$ & - or $\uparrow$ & $\downarrow$ or - & $\uparrow$\\
@@ -298,9 +301,9 @@ a) age, b) height and c) diameter. Horizontal line segments indicate the size ra
   & Quality criteria & Check & How and where is it addressed? \\
   \hline
   1.& Reporting full details of bibliographic searches & yes	& We provided complete details of bibliographic searches (i.e. electronic reference data bases that were searched, keywords, language and search dates) in sub-section "Phase 2 - Systematic search" in material and method.\\
-  2.& Reporting inclusion or exclusion criteria & yes & We specified several inclusion criteria in the sub-section "Phase 2 - Systematic search" in material and method. The Bibtex file `read.bib` on Github reports all the articles red but laid out because they failed to met our criteria.\\
+  2.& Reporting inclusion or exclusion criteria & yes & We specified several inclusion criteria in the sub-section "Phase 2 - Systematic search" in material and method. The Bibtex file `read.bib` on Github reports all the articles consulted but not used.\\
   3.& Weighting effect sizes by study precision & yes & Effects sizes were weighted by number of species. See	 details in sub-section ``Effect size calculation'' in material and method.\\
- 4.& Specifying meta-analytical model &	yes	& We used a mixed-effect model with a study ID as a random variation, and stage as a fixed effect. See details in sub-section "Stage effect" in material and methods. Results are shown in Fig. \ref{fig:fig3}.\\
+ 4.& Specifying meta-analytical model &	yes	& We used a mixed-effect model with a study ID as a random variable, and stage as a fixed effect. See details in sub-section "Stage effect" in material and methods. Results are shown in Fig. \ref{fig:fig3}.\\
  5.& Quantifying heterogeneity in effect sizes &	yes &	We estimated the extend of the heterogeneity using the statistics $I^{2}$ for each trait. See details of methods and results in Appendix E.\\
  6.& Exploring causes of heterogeneity & yes &	We explored the effect of stage, and the year of publication (see points 4 and 10 in this list). \\
  7.& Multifactorial analysis of explanatory variable	& yes & We checked if no one of several other explanatory moderators (i.e. growth measurement, experiment type or growth form) would not consistenly be a strongest predictor of the data. We did not test the multiple variables in a hierarchical fashion, because of the limited size of our dataset. See in Fig. \ref{fig:figA4} f-j and in Fig. \ref{fig:figA6}.\\
