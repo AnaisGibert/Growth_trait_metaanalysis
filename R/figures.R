@@ -12,6 +12,9 @@ figure_2 <- function(CompleteData_inter) {
   s <- s[order(s$size.max, s$size.min, s$stageRGR), ]
   s <- na.omit(s)
 
+  s$ref <- gsub(".", " ", as.character(s$ref), fixed=TRUE)
+  s$ref <- gsub(" and ", " & ", s$ref, fixed=TRUE)
+
   # sort by trait et stage
   s$stageRGR <- factor(s$stageRGR, levels = c("seedling", "juvenile", "sapling",
     "adult", "mix"))
@@ -25,14 +28,13 @@ figure_2 <- function(CompleteData_inter) {
   sd <- subset(s, s$measure.size == "diameter")
   sd <- sd[order(sd$size.min, sd$size.max), ]
 
-  heights <- c(nrow(sa), nrow(sh), nrow(sd))
-  heights <- heights/sum(heights) + 0.1
+  heights <- c(nrow(sa), nrow(sh), nrow(sd)) + 10
+  heights <- heights/sum(heights)
 
   layout(matrix(c(1, 2, 3), 3, 1, byrow = TRUE), widths = c(3, 3, 3), heights = heights)
-  # layout.show(3)
-  par(mar = c(4, 4, 0.1, 0.5), oma = c(1, 2, 1, 1))
+  par(mar = c(5, 8, 0.1, 0.5), oma = c(0, 2, 3, 1))
 
-  plotCI2 <- function(data, cuts, xlab) {
+  plotCI2 <- function(data, cuts, xlab, lab) {
 
     rescale <- function(x, cuts) {
       x[x > max(cuts)] <- max(cuts)
@@ -55,43 +57,46 @@ figure_2 <- function(CompleteData_inter) {
     n <- nrow(data)
     y <- rev(seq_len(n))
     cols <- c("#13519E", "#73005C", "#F57C34", "#E6224C", "grey")[data$stageRGR]
-    plot(NA, xlim = c(0, 3), ylim = c(0, n), yaxt = "n", xaxt = "n", xlab = "",
-      ylab = "")
+    plot(NA, xlim = c(0, 3), ylim = c(0, n+1), yaxt = "n", xaxt = "n", xlab = "",
+      ylab = "", yaxs="i")
     mtext(xlab, 1, line = 2, cex = 0.75)
     segments(data$size.min, y, data$size.max, col = cols)
     i <- data$size.max == data$size.min
     points(data$size.min[i], y[i], col = cols[i], pch = "-")
 
     j <- data$stageRGR != data$stage
-    points(data$size.max[j] + 0.05, y[j], col = "black", pch = "*", cex=2)
+    points(data$size.max[j] + 0.05, y[j], col = "black", pch = "*", cex=1.5)
 
     t <- (data$growth.form == "across growth form")
-    points(data$growthf[t], y[t], pch = "+", cex=1, col="grey")
+    points(data$growthf[t], y[t], pch = "+", cex= 1, col="black")
 
     axis(1, at = 0:3, labels = cuts, las = 1)
-    axis(2, at = y, labels = data$id, las = 1, cex.axis = 0.6)
+    axis(2, at = y, labels = data$ref, las = 1, cex.axis = 0.6)
     abline(v = 1, col = "grey", lty = 2, lwd = 0.5)
     abline(v = 2, col = "grey", lty = 2, lwd = 0.5)
+
+    text(-0.5, n+2, lab, xpd=NA)
   }
 
-  plotCI2(sa, c(0, 1, 5, 10), "age (yrs)")
+  plotCI2(sa, c(0, 1, 5, 10), "age (yrs)", "a)")
   abline(v = 1, col = "#13519E")
-  legend(2.38, 40, c("seedling", "juvenile", "sapling", "adult", "mix", "across growth form",
-    "reassignment"), lwd = c(1, 1, 1, 1, 1, NA, NA), col = c("#13519E", "#73005C",
-    "#F57C34", "#E6224C", "grey", "grey", "black"), pch = c(NA, NA, NA, NA,
-    NA,"+", "*"), bty = "n", x.intersp = 0.3, y.intersp = 1, seg.len = 0.5,
-    cex = 1)
+  legend(2.3, 42, c("seedling", "juvenile", "sapling", "adult", "mix"), lwd = 1,  title = "STAGES",
+    col = c("#13519E", "#73005C", "#F57C34", "#E6224C", "grey"), pch = NA, bty = "n", cex = 0.75,
+   x.intersp = 0.3, y.intersp = 1, seg.len = 0.5,  title.adj = 0)
+  legend(2.3, 32, c("reassigned", "multiple",  " growth forms"), lwd = NA, col = "black",
+    pch = c("+", "*", NA), title = "FLAGS", bty = "n", cex = 0.75,
+    x.intersp = 0.3, y.intersp = 1, seg.len = 0.5,  title.adj = 0)
 
-  plotCI2(sh, c(0, 0.5, 2, 20), "height (m)")
+  text(0.5, 45, "seedlings", xpd=NA, col = "#13519E")
+  text(1.5, 45, "saplings", xpd=NA, col = "#F57C34")
+  text(2.5, 45, "adults", xpd=NA, col = "#E6224C")
+
+  plotCI2(sh, c(0, 0.5, 2, 20), "height (m)", "b)")
   abline(v = 1, col = "#13519E")
 
-  plotCI2(sd, c(0, 1, 10, 80), "diameter (cm)")
+  plotCI2(sd, c(0, 1, 10, 80), "diameter (cm)", "c)")
   abline(v = 2, col = "#E6224C")
 
-  mtext("Study ID", 2, line = 0, outer = TRUE, cex = 0.75)
-  mtext("a)", 3, line = 0.1, outer = TRUE, cex = 0.75, at= 0.1)
-  mtext("b)", 3, line = -26.3, outer = TRUE, cex = 0.75, at= 0.1)
-  mtext("c)", 3, line = -35.6, outer = TRUE, cex = 0.75, at= 0.1)
 }
 
 
