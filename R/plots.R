@@ -1,15 +1,16 @@
 
-mytheme <- theme_bw() + theme(text = element_text(size = 9, colour = "black"),
+mytheme <- function() {
+  theme_bw() + theme(text = element_text(size = 9, colour = "black"),
   title = element_text(size = 9, hjust = 0), axis.title = element_text(size = 9,
     hjust = 0.5), axis.text = element_text(size = 8), axis.line = element_line(colour = "black"),
   panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.border = element_blank(),
   panel.background = element_blank(), legend.justification = c(1, 0), legend.position = c(1,
-    0))
+    0))}
 
 my_plot_1 <- function(title, ggobj, xlab = expression(paste("")), ylab = "Number of correlations extracted") {
   p <- ggobj + geom_bar(alpha = 0.95) + coord_cartesian(ylim = ylim) + coord_flip() +
     labs(title = title) + xlab(xlab) + ylab(ylab) + scale_x_discrete() + theme(text = element_text(size = 9),
-    axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme +
+    axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme() +
     theme(axis.title = element_text(size = 10, hjust = 0.5)) + scale_fill_manual(values = c(seedling = "#13519E",
     sapling = "#F57C34", adult = "#E6224C"), breaks = c("seedling", "sapling",
     "adult"), labels = c("seedling", "sapling", "adult"))
@@ -30,7 +31,7 @@ coeff.plot.2 <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
       scale_x_discrete("stage", limit = c("seedling", "seedling", "sapling",
-        "adult", "mix")) + coord_flip() + mytheme + theme(legend.position = "none")
+        "adult", "mix")) + coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
 
@@ -66,7 +67,7 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
       scale_x_discrete("stage", limit = c("seedling", "sapling", "adult")) +
-      coord_flip() + mytheme + theme(legend.position = "none")
+      coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
 
@@ -101,7 +102,7 @@ coeff.plot.gr <- function(data, data.RGR, data.AGR, title = "",LRT, PVAL,round.v
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) +
       geom_vline(yintercept = 0,color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
       scale_x_discrete("stage", limit = c("seedling", "sapling", "adult")) +
-      coord_flip() + mytheme + theme(legend.position = "none") 
+      coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
   
@@ -131,7 +132,7 @@ coeff.plot.gr3 <- function(data, data1, data.RGR, data.AGR, title = "",LRT, PVAL
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) +
       geom_vline(yintercept = 0,color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
       scale_x_discrete("stage", limit = c("seedling", "sapling", "adult")) +
-      coord_flip() + mytheme + theme(legend.position = "none") 
+      coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
   
@@ -161,7 +162,7 @@ coeff.plot.gr2 <- function(data, data.RGR, data.AGR, title = "", limit.x.min, li
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) +
       geom_vline(yintercept = 0,color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
       scale_x_discrete("stage", limit = c("seedling", "sapling", "adult")) +
-      coord_flip() + mytheme + theme(legend.position = "none") 
+      coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
   
@@ -189,7 +190,7 @@ coeff.plot.rgr <- function(data, title = "",LRT, PVAL,round.value, significativi
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) +
       geom_vline(yintercept = 0,color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
       scale_x_discrete("stage", limit = c("seedling", "sapling", "adult")) +
-      coord_flip() + mytheme + theme(legend.position = "none")
+      coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
   
@@ -219,7 +220,7 @@ coeff.plot.ideal.2 <- function(data.ideal, LRT, PVAL, title = "", significativit
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
       scale_x_discrete("stage", limit = c("seedling", "seedling", "sapling",
-        "adult", "mix")) + coord_flip() + mytheme + theme(legend.position = "none")
+        "adult", "mix")) + coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
 
@@ -248,7 +249,7 @@ coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite 
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
       scale_x_discrete("stage", limit = c("seedling", "sapling", "adult")) +
-      coord_flip() + mytheme + theme(legend.position = "none")
+      coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
 
@@ -267,7 +268,7 @@ coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite 
 
 plot_stage <- function(title, xlab, ggobj, ylab = "ID") {
   p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_errorbarh(aes(xmin = size.min,
-    xmax = size.max, y = id), size = 0.7, width = 0.05, height = 0.2) + mytheme +
+    xmax = size.max, y = id), size = 0.7, width = 0.05, height = 0.2) + mytheme() +
     scale_colour_manual(limits = c("seedling", "juvenile", "sapling", "adult",
       "mix"), values = c(seedling = "green", juvenile = "blue", sapling = "orange",
       adult = "red", mix = "grey"), name = "stage", breaks = c("seedling",
@@ -283,7 +284,7 @@ my_plot_corr.r <- function(data1, title = "", xlab = "Case studies ranked by coe
   my_funnelplot2 <- function(title, ggobj, xlab = "", ylab = "") {
 
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + guides(fill = guide_legend(reverse = TRUE)) +
-      mytheme + scale_y_continuous("Correlation coefficient r", limits = c(-1,
+      mytheme() + scale_y_continuous("Correlation coefficient r", limits = c(-1,
       1)) + scale_colour_manual(limits = c("seedling", "sapling", "adult"),
       values = c(seedling = "#13519E", sapling = "#F57C34", adult = "#E6224C"),
       breaks = c("seedling", "sapling", "adult")) + geom_hline(yintercept = 0,
@@ -310,7 +311,7 @@ my_plot_overall <- function(data, title = "") {
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
       geom_vline(xintercept = 3.5, size = 0.3, linetype = "dashed") + scale_x_discrete("stage",
       limit = c("seedling", "sapling", "adult", "total")) + coord_flip() +
-      mytheme
+      mytheme()
     p
   }
 
@@ -329,7 +330,7 @@ my_plot_overall_gr <- function(data, title = "") {
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
       geom_vline(xintercept = 3.5, size = 0.3, linetype = "dashed") + scale_x_discrete("stage",
       limit = c("seedling", "sapling", "adult", "total")) + coord_flip() +
-      mytheme
+      mytheme()
     p
   }
 
@@ -526,7 +527,7 @@ my_plot_3 <- function(title, ggobj, xlab = expression(paste("")), ylab = "growth
     `GR(Mi)` = "GR(M)", `GR(Shoot)` = "GR(Shoot)", `RGR(?)` = "RGR", `RGR(CSAi)` = "RGR(CSA)",
     `RGR(Di)` = "RGR(D)", `RGR(Hi)` = "RGR(H)", `RGR(Mi)` = "RGR(M)", `RGR(Vi)` = "RGR(V)")) +
     theme(text = element_text(size = 9), axis.text.x = element_text(size = 9,
-      angle = 0, vjust = 1)) + mytheme + theme(axis.title = element_text(size = 10,
+      angle = 0, vjust = 1)) + mytheme() + theme(axis.title = element_text(size = 10,
     hjust = 0.5)) + scale_fill_manual("", values = c(seedling = "#13519E",
     sapling = "#F57C34", adult = "#E6224C"), breaks = c("seedling", "sapling",
     "adult"), labels = c("seedling", "sapling", "adult"))
@@ -539,14 +540,14 @@ my_plot_3b <- function(title, ggobj, xlab = expression(paste("")), ylab = "growt
   p <- ggobj + geom_bar() + coord_cartesian(ylim = ylim) + coord_flip() + labs(title = title) +
     xlab(xlab) + ylab(ylab) + scale_x_discrete("stage", limit = c("seedling",
     "sapling", "adult")) + theme(text = element_text(size = 9), axis.text.x = element_text(size = 9),
-    axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme +
+    axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme() +
     theme(axis.title = element_text(size = 10, hjust = 0.5)) + scale_fill_manual("growth",
     limits = c("AbGR", "RGR"), values = c(AbGR = "grey", RGR = "blue"))
   p
 }
 
 my_funnelplot <- function(title, ggobj, xlab = "", ylab = "") {
-  p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + mytheme + scale_color_manual(name = "stage",
+  p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + mytheme() + scale_color_manual(name = "stage",
     limits = c("seedling", "sapling", "adult"), breaks = c("seedling", "sapling",
       "adult"), values = c(seedling = "#13519E", sapling = "#F57C34", adult = "#E6224C")) +
     geom_hline(xintercept = 0, color = "grey")

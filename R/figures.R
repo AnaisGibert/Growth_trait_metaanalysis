@@ -1,11 +1,3 @@
-to.pdf <- function(expr, filename, ..., verbose = TRUE) {
-  if (verbose)
-    cat(sprintf("Creating %s\n", filename))
-  pdf(filename, ...)
-  on.exit(dev.off())
-  eval.parent(substitute(expr))
-}
-
 ## Figure main text
 figure_1 <- function(RawData) {
   p2 <- my_plot_1("", ggplot(RawData, aes(x = reorder(factor(trait), factor(trait),
@@ -573,13 +565,15 @@ figure_A1 <- function() {
 }
 
 figure_A2 <- function(CoordTable) {
+
   mapWorld <- borders("world", colour = "#FFCC33", fill = "#FFCC33", lty = 0)  # create a layer of borders
   mp <- ggplot() + mapWorld + theme(text = element_text(size = 9, colour = "black"),
     title = element_text(size = 9), panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
     panel.background = element_rect(colour = "#333333", fill = "#6699FF"))
 
-  coordinate.map <- mp + geom_point(aes(x = CoordTable$long.dd, y = CoordTable$lat.dd),
-    color = "red", alpha = I(5/10))
+  x <- CoordTable$lat.dd
+  y <- CoordTable$long.dd
+  coordinate.map <- mp #+ geom_point(aes(x = x, y = y), color = "red", alpha = I(5/10))
   coordinate.map
 }
 

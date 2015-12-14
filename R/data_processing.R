@@ -1,3 +1,14 @@
+## split datasets by trait - makes a list with named elements given subset of
+## data for each trait
+list_by_trait <- function(df) {
+  split(df, df$trait)
+}
+
+subset_growth <- function(data, measure) {
+  subset(data, data$growth == measure)
+}
+
+
 clean_raw_data <- function(filename = "data/CompileData.csv") {
 
   Table <- read.csv(filename, sep = ";", dec = ",")
@@ -375,4 +386,10 @@ build_map_data <- function(RawData) {
   CoordTable$long.dd <- as.numeric(CoordTable$long.dd)
 
   CoordTable
+}
+
+
+merge_bib_files <- function(meta, paper) {
+  combined <- c(meta[setdiff(names(meta), names(paper))], paper)
+  combined[[sort(names(combined))]]
 }

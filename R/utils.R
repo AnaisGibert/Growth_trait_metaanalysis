@@ -1,5 +1,4 @@
 
-
 # Imported from Hmisc to save loading that package ‘wtd.mean’, ‘wtd.var’
 # compute weighted means, and variances For full info see package
 # ?Hmisc::wtd.mean

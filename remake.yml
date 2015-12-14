@@ -1,0 +1,208 @@
+packages:
+  - callr
+  - bibtex
+  - metafor
+  - grid
+  - gridExtra
+  - lme4
+  - ggplot2
+
+sources:
+  - R
+
+targets:
+  all:
+    depends:
+      - ms.pdf
+
+  ms.pdf:
+    command: latex_build("MS.tex", bibliography="output/refs.bib", clean=TRUE)
+    depends:
+      - figures
+
+  figures:
+    depends:
+      - output/Fig1.pdf
+      - output/Fig2.pdf
+      - output/Fig3.pdf
+      - output/Fig4.pdf
+      - output/FigA1.pdf
+      - output/FigA2.pdf
+      - output/FigA3.pdf
+      - output/FigA4.1.pdf
+      - output/FigA4.pdf
+      - output/FigA5.pdf
+      - output/FigA6a.pdf
+      - output/FigA6b.pdf
+      - output/FigA6c.pdf
+      - output/FigA7.pdf
+      - output/FigA8.pdf
+      - output/FigA9.pdf
+
+# ------- References --------------------------
+
+  paper_bib:
+    command: read.bib("references/paper.bib")
+
+  meta_bib:
+    command: read.bib("references/metaanalyses.bib")
+
+  combined_bib:
+    command: merge_bib_files(meta_bib, paper_bib)
+
+  output/refs.bib:
+    command: write.bib(combined_bib, file = target_name)
+
+# ------- data formatting --------------------
+  CompileTable:
+    command: clean_raw_data("data/CompileData.csv")
+
+  RawData:
+    command: standardise_data(CompileTable)
+
+  CompleteData:
+    command: build_complete_data(RawData)
+
+  CompleteData_inter:
+    command: Build_intersp_complete_data(RawData)
+
+  IdealData_inter:
+    command: build_ideal_data(CompleteData)
+
+  CoordTable:
+    command: build_map_data(RawData)
+
+  IdealData_rgr:
+    command: subset_growth(IdealData_inter, I("RGR"))
+
+  IdealData_agr:
+    command: subset_growth(IdealData_inter, I("AbGR"))
+
+  CompleteData_rgr:
+    command: subset_growth(CompleteData_inter, I("RGR"))
+
+  CompleteData_agr:
+    command: subset_growth(CompleteData_inter, I("AbGR"))
+
+  GCi:
+    command: list_by_trait(CompleteData_inter)
+
+  GIi:
+    command: list_by_trait(IdealData_inter)
+
+  GIrgr:
+    command: list_by_trait(IdealData_rgr)
+
+  GIagr:
+    command: list_by_trait(IdealData_agr)
+
+  GCrgr:
+    command: list_by_trait(CompleteData_rgr)
+
+  GCagr:
+    command: list_by_trait(CompleteData_agr)
+
+  ## Create restricted Dataset: coefficient of correlation are averaged by study
+  ## and by trait
+  RCi:
+    command:
+      - EffectSizeSum(CompleteData_inter)
+      - list_by_trait(.)
+
+  RIi:
+    command:
+      - EffectSizeSum(IdealData_rgr)
+      - list_by_trait(.)
+
+  ## Export compiled data
+  output/data.csv:
+    command: write.csv(RawData, target_name, row.names = FALSE)
+
+# ------- plots --------------------
+
+  ## Make output
+  output/Fig1.pdf:
+    command: figure_1(RawData)
+    plot:
+      height: 3
+      width:  4
+
+  output/Fig2.pdf:
+    command: figure_2(CompleteData_inter)
+    plot:
+      height: 8
+      width:  6
+
+  output/Fig3.pdf:
+    command: figure_3(GIrgr)
+    plot:
+      height: 6
+      width:  5
+
+
+  output/Fig4.pdf:
+    command: figure_3.4(GCi, GCrgr , GCagr)
+    plot:
+      height: 6
+      width:  5
+
+  ## Figure appendix
+  output/FigA1.pdf: # allometry
+    command: figure_A1()
+    plot:
+      height: 6
+      width:  6
+
+  output/FigA2.pdf:  #map
+    command: figure_A2(CoordTable)
+    plot:
+      height: 3
+      width:  6
+
+  output/FigA3.pdf:
+    command: figure_A3(GCi)
+    plot:
+      height: 6
+      width:  6
+
+  output/FigA4.pdf:
+    command: figure_A4(GIi, GIrgr, GIagr)
+    plot:
+      height: 7
+      width:  5
+
+  output/FigA4.1.pdf:
+    command: figure_3.3(GCi, GIi)
+    plot:
+      height: 6
+      width:  5
+
+  output/FigA5.pdf:
+    command: figure_A5(RIi, RCi)
+    plot:
+      height: 6
+      width:  5
+
+  output/FigA6a.pdf:
+    command: figure_A6(GCi, I("SLA"), I("WD"), I(c("a", "b")))
+    plot: TRUE
+
+  output/FigA6b.pdf:
+    command: figure_A6(GCi, I("Aarea"), I("Seedmass"), I(c("c", "d")))
+    plot: TRUE
+
+  output/FigA6c.pdf:
+    command: figure_A6.2(GCi, I("Hmax"), I("e"))
+    plot: TRUE
+
+  output/FigA7.pdf:
+    command: figure_A7(GIi)
+    plot: TRUE
+
+  output/FigA8.pdf:
+    command: figure_A8(GCi)
+    plot: TRUE
+
+  output/FigA9.pdf:
+    command: figure_A9(GIi)
+    plot: TRUE

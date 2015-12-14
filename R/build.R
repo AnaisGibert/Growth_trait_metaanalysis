@@ -65,5 +65,3 @@ Sys_which <- function(x) {
   }
   ret
 }
-
-latex_build("MS.tex", bibliography="references/paper.bib", clean=TRUE)
