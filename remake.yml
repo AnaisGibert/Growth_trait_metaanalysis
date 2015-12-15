@@ -39,6 +39,12 @@ targets:
       - output/FigA8.pdf
       - output/FigA9.pdf
 
+# ------- Rscript --------------------------
+
+  analysis.R:
+    packages: remake
+    command: make_script(file=target_name)
+
 # ------- References --------------------------
 
   paper_bib:
