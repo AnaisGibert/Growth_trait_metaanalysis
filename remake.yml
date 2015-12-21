@@ -60,23 +60,23 @@ targets:
     command: write.bib(combined_bib, file = target_name)
 
 # ------- data formatting --------------------
-  CompileTable:
+  AllData:
     command: clean_raw_data("data/CompileData.csv")
 
-  RawData:
-    command: standardise_data(CompileTable)
+  CleanData:
+    command: standardise_data(AllData)
 
   CompleteData:
-    command: build_complete_data(RawData)
+    command: build_complete_data(CleanData)
 
   CompleteData_inter:
-    command: Build_intersp_complete_data(RawData)
+    command: Build_intersp_complete_data(CleanData)
 
   IdealData_inter:
     command: build_ideal_data(CompleteData)
 
   CoordTable:
-    command: build_map_data(RawData)
+    command: build_map_data(CleanData)
 
   IdealData_rgr:
     command: subset_growth(IdealData_inter, I("RGR"))
@@ -122,13 +122,13 @@ targets:
 
   ## Export compiled data
   output/data.csv:
-    command: write.csv(RawData, target_name, row.names = FALSE)
+    command: write.csv(CleanData, target_name, row.names = FALSE)
 
 # ------- plots --------------------
 
   ## Make output
   output/Fig1.pdf:
-    command: figure_1(RawData)
+    command: figure_1(CleanData)
     plot:
       height: 3
       width:  4

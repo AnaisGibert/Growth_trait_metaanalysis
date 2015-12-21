@@ -162,7 +162,7 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
   ## Rename colomns
   Table <- rename(Table, c(stage.simi = "similarity"))
 
-  subset(Table, select = c(id, idcor, authors, year, ref, doi, experiment, experiment.coord,
+  Table <- subset(Table, select = c(id, idcor, authors, year, ref, doi, experiment, experiment.coord,
     stress, growth.form, veg.type, bio.scale, nb.sp, location, nb.site, names.s1,
     names.s2, names.s3, names.s4, names.s5, trace, lat.dms.s1, lat.dir.s1,
     long.dms.s1, long.dir.s1, lat.dms.s2, lat.dir.s2, long.dms.s2, long.dir.s2,
@@ -171,13 +171,16 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
     RGR, growth, measurement, RGR.min, RGR.max, RGR.unit, stageRGR, similarity,
     stageTrait, stage, measure.size, size.min, size.max, size.mean.range, trait,
     trait.min, trait.max, sample.size, sign, coef, coef.type))
-}
 
-standardise_data <- function(CompileTable) {
-  RawData <- subset(CompileTable, CompileTable$trait %in% c("SLA", "WD", "Amass",
+  Table <- subset(Table, Table$trait %in% c("SLA", "WD", "Amass",
     "Aarea", "Nmass", "Narea", "Hmax", "LA", "Pmass", "Seedmass", "LMR", "LAR",
     "NARmass", "NARarea", "Ks", "Vessel density", "Vessel size", "Thickness",
     "SA/LA", "Parea"))
+}
+
+standardise_data <- function(AllData) {
+
+  RawData <- AllData
 
   ## correlation coefficient transformation in corr. r ####
   RawData["corr.r"] <- NA
