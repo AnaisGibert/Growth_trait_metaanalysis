@@ -7,7 +7,7 @@ mytheme <- function() {
   panel.background = element_blank(), legend.justification = c(1, 0), legend.position = c(1,
     0))}
 
-my_plot_1 <- function(title, ggobj, xlab = expression(paste("")), ylab = "Number of correlations extracted") {
+my_plot_1 <- function(title, ggobj, xlab = expression(paste("")), ylab = "Number of correlations recorded") {
   p <- ggobj + geom_bar(alpha = 0.95) + coord_cartesian(ylim = ylim) + coord_flip() +
     labs(title = title) + xlab(xlab) + ylab(ylab) + scale_x_discrete() + theme(text = element_text(size = 9),
     axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme() +
@@ -26,11 +26,11 @@ coeff.plot.2 <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
 
   data.ideal["x.coord"] <- limit.x.n
 
-  my_size_effect_plot1 <- function(title, ggobj, xlab = "Effect size + CI (95%) ",
-    ylab = "Stages") {
+  my_size_effect_plot1 <- function(title, ggobj, xlab = "Effect size",
+    ylab = "Stage") {
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      scale_x_discrete("stage", limit = c("seedling", "seedling", "sapling",
+      scale_x_discrete("Stage", limit = c("seedling", "seedling", "sapling",
         "adult", "mix")) + coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
@@ -40,7 +40,7 @@ coeff.plot.2 <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
   my_size_effect_plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 *
     SE, ymax = Inte + 1.96 * SE, color = factor(stress)))) + geom_point(aes(x = stage,
     y = Inte), position = dodge) + geom_errorbar(aes(x = stage, y = Inte),
-    size = 0.4, width = 0.2, position = dodge) + scale_y_continuous("Effect size (z) + CI 95%",
+    size = 0.4, width = 0.2, position = dodge) + scale_y_continuous("Effect size",
     limits = c(limit.x.min, limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("(n=",
     N, ")"), color = factor(stress), group = "all"), size = 2, data = data.complete,
     parse = F, position = "identity", vjust = +vjust.value, hjust = 0) + geom_text(aes(stage,
@@ -62,11 +62,11 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
   data.complete["x.coord"] <- limit.x.n
   data.ideal["x.coord"] <- limit.x.n
 
-  plot1 <- function(title, ggobj, xlab = "Effect size + CI (95%) ", ylab = "Stages") {
+  plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
 
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      scale_x_discrete("stage", limit = c("seedling", "sapling", "adult")) +
+      scale_x_discrete("Stage", limit = c("seedling", "sapling", "adult")) +
       coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
@@ -76,7 +76,7 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
   plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +
     1.96 * SE, color = factor(stress)))) + geom_point(aes(x = stage, y = Inte),
     position = dodge) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4,
-    width = 0.2, position = dodge) + scale_y_continuous("Effect size (z) + CI 95%",
+    width = 0.2, position = dodge) + scale_y_continuous("Effect size",
     limits = c(limit.x.min, limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("n=",
     N), color = factor(stress), group = "all"), size = 2, data = data.complete,
     parse = F, position = "identity", vjust = +vjust.value, hjust = 0) + geom_text(aes(stage,
@@ -97,11 +97,11 @@ coeff.plot.gr <- function(data, data.RGR, data.AGR, title = "",LRT, PVAL,round.v
   data.RGR["x.coord"] <- limit.x.n
   data.AGR["x.coord"] <- limit.x.n
   
-  plot1 <- function(title, ggobj, xlab = "Effect size + CI (95%) ", ylab = "Stages") {
+  plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
     
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) +
       geom_vline(yintercept = 0,color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      scale_x_discrete("stage", limit = c("seedling", "sapling", "adult")) +
+      scale_x_discrete("Stage", limit = c("seedling", "sapling", "adult")) +
       coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
@@ -112,7 +112,7 @@ coeff.plot.gr <- function(data, data.RGR, data.AGR, title = "",LRT, PVAL,round.v
   
   plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +1.96 * SE, color = factor(growth)))) +
     geom_point(aes(x = stage, y = Inte),position = dodge) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4,width = 0.2, position = dodge) +
-    scale_y_continuous("Effect size (z) + CI 95%",limits = c(limit.x.min, limit.x.max)) +
+    scale_y_continuous("Effect size",limits = c(limit.x.min, limit.x.max)) +
     geom_text(aes(stage,x.coord, label = paste("n=", N), color = factor(growth), group = "AGR"),size = 2, data = data.AGR, parse = F, position = "identity", vjust = +vjust.value, hjust = 0) + 
     geom_text(aes(stage, x.coord, label = paste("n=",N), color = factor(growth), group = "RGR"), size = 2, data = data.RGR, parse = F, position = "identity", vjust = -vjust.value, hjust = 0) +
     scale_color_manual(name = "", values=c(color1, color2), breaks = c("RGR", "AGR"), labels = c("RGR", "AGR"))+
@@ -127,11 +127,11 @@ coeff.plot.gr3 <- function(data, data1, data.RGR, data.AGR, title = "",LRT, PVAL
   data.AGR["x.coord"] <- limit.x.n
   data1["x.coord"] <- limit.x.n
   
-    plot1 <- function(title, ggobj, xlab = "Effect size + CI (95%) ", ylab = "Stages") {
+    plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
     
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) +
       geom_vline(yintercept = 0,color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      scale_x_discrete("stage", limit = c("seedling", "sapling", "adult")) +
+      scale_x_discrete("Stage", limit = c("seedling", "sapling", "adult")) +
       coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
@@ -140,7 +140,7 @@ coeff.plot.gr3 <- function(data, data1, data.RGR, data.AGR, title = "",LRT, PVAL
   
   plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +1.96 * SE, color = factor(growth), linetype = factor(growth)))) +
     geom_point(aes(x = stage, y = Inte), position = dodge ) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4, width = 0.2, position = dodge) +
-    scale_y_continuous("Effect size (z) + CI 95%",limits = c(limit.x.min, limit.x.max)) +
+    scale_y_continuous("Effect size",limits = c(limit.x.min, limit.x.max)) +
     geom_text(aes(stage,x.coord, label = paste("n =", N), color = factor(growth), group = "AGR"),size = 2, data = data.AGR, parse = F, position = "identity", vjust = +vjust.value, hjust = 0) + 
     geom_text(aes(stage, x.coord, label = paste("n =",N), color = factor(growth), group = "RGR"), size = 2, data = data.RGR, parse = F, position = "identity", vjust = 0, hjust = 0) +
     geom_text(aes(stage,x.coord, label = paste("n =", N), color = factor(growth), group = "all"),size = 2, data = data1, parse = F, position = "identity", vjust = -vjust.value, hjust = 0) + 
@@ -157,11 +157,11 @@ coeff.plot.gr2 <- function(data, data.RGR, data.AGR, title = "", limit.x.min, li
   data.RGR["x.coord"] <- limit.x.n
   data.AGR["x.coord"] <- limit.x.n
   
-  plot1 <- function(title, ggobj, xlab = "Effect size + CI (95%) ", ylab = "Stages") {
+  plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
     
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) +
       geom_vline(yintercept = 0,color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      scale_x_discrete("stage", limit = c("seedling", "sapling", "adult")) +
+      scale_x_discrete("Stage", limit = c("seedling", "sapling", "adult")) +
       coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
@@ -172,7 +172,7 @@ coeff.plot.gr2 <- function(data, data.RGR, data.AGR, title = "", limit.x.min, li
   
   plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +1.96 * SE, color = factor(growth)))) +
     geom_point(aes(x = stage, y = Inte),position = dodge) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4,width = 0.2, position = dodge) +
-    scale_y_continuous("Effect size (z) + CI 95%",limits = c(limit.x.min, limit.x.max)) +
+    scale_y_continuous("Effect size",limits = c(limit.x.min, limit.x.max)) +
     geom_text(aes(stage,x.coord, label = paste("n=", N), color = factor(growth), group = "AGR"),size = 2, data = data.AGR, parse = F, position = "identity", vjust = +vjust.value, hjust = 0) + 
     geom_text(aes(stage, x.coord, label = paste("n=",N), color = factor(growth), group = "RGR"), size = 2, data = data.RGR, parse = F, position = "identity", vjust = -vjust.value, hjust = 0) +
     scale_color_manual(name = "", values=c(color1, color2), breaks = c("RGR", "AGR"), labels = c("RGR", "AGR"))
@@ -185,11 +185,11 @@ coeff.plot.rgr <- function(data, title = "",LRT, PVAL,round.value, significativi
   
   data["x.coord"] <- limit.x.n
   
-  plot1 <- function(title, ggobj, xlab = "Effect size + CI (95%) ", ylab = "Stages") {
+  plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
     
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) +
       geom_vline(yintercept = 0,color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      scale_x_discrete("stage", limit = c("seedling", "sapling", "adult")) +
+      scale_x_discrete("Stage", limit = c("seedling", "sapling", "adult")) +
       coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
@@ -200,7 +200,7 @@ coeff.plot.rgr <- function(data, title = "",LRT, PVAL,round.value, significativi
   
   plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +1.96 * SE))) +
     geom_point(aes(x = stage, y = Inte), position = dodge) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4,width = 0.2, position = dodge) +
-    scale_y_continuous("Effect size (z) + CI 95%",limits = c(limit.x.min, limit.x.max)) +
+    scale_y_continuous("Effect size",limits = c(limit.x.min, limit.x.max)) +
      geom_text(aes(stage, x.coord, label = paste("n=",N)), size = 2, data = data, parse = F, position = "identity", vjust = 0, hjust = 0)+
     annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:", round(LRT, 2)), size = 2) + 
     annotate("text", x = limit.y.text.l2, y = limit.x.text, label = paste("p.value =", round(PVAL, round.value), significativite), size = 2) 
@@ -215,11 +215,11 @@ coeff.plot.ideal.2 <- function(data.ideal, LRT, PVAL, title = "", significativit
 
   data.ideal["x.coord"] <- limit.x.n
 
-  my_size_effect_plot2 <- function(title, ggobj, xlab = "Effect size + CI (95%) ",
-    ylab = "Stages") {
+  my_size_effect_plot2 <- function(title, ggobj, xlab = "Effect size",
+    ylab = "Stage") {
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      scale_x_discrete("stage", limit = c("seedling", "seedling", "sapling",
+      scale_x_discrete("Stage", limit = c("seedling", "seedling", "sapling",
         "adult", "mix")) + coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
@@ -227,7 +227,7 @@ coeff.plot.ideal.2 <- function(data.ideal, LRT, PVAL, title = "", significativit
   my_size_effect_plot2(title, ggplot(data.ideal, aes(stage, Inte, ymin = Inte -
     1.96 * SE, ymax = Inte + 1.96 * SE, color = factor(stress)))) + geom_point(aes(x = stage,
     y = Inte)) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4, width = 0.2) +
-    scale_y_continuous("Effect size (z) + CI 95%", limits = c(limit.x.min,
+    scale_y_continuous("Effect size", limits = c(limit.x.min,
       limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("n=",
     N), color = factor(stress), group = "ideal"), size = 2, data = data.ideal,
     parse = F, position = "identity", vjust = -vjust.value, hjust = 0) + scale_color_manual(values = c(color1)) +
@@ -244,11 +244,11 @@ coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite 
 
   data.ideal["x.coord"] <- limit.x.n
 
-  my_size_effect_plot2 <- function(title, ggobj, xlab = "Effect size + CI (95%) ",
-    ylab = "Stages") {
+  my_size_effect_plot2 <- function(title, ggobj, xlab = "Effect size",
+    ylab = "Stage") {
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      scale_x_discrete("stage", limit = c("seedling", "sapling", "adult")) +
+      scale_x_discrete("Stage", limit = c("seedling", "sapling", "adult")) +
       coord_flip() + mytheme() + theme(legend.position = "none")
     p
   }
@@ -256,7 +256,7 @@ coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite 
   my_size_effect_plot2(title, ggplot(data.ideal, aes(stage, Inte, ymin = Inte -
     1.96 * SE, ymax = Inte + 1.96 * SE, color = factor(stress)))) + geom_point(aes(x = stage,
     y = Inte)) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4, width = 0.2) +
-    scale_y_continuous("Effect size (z) + CI 95%", limits = c(limit.x.min,
+    scale_y_continuous("Effect size", limits = c(limit.x.min,
       limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("n=",
     N), color = factor(stress), group = "ideal"), size = 2, data = data.ideal,
     parse = F, position = "identity", vjust = -vjust.value, hjust = 0) + scale_color_manual(values = c(color1)) +
@@ -271,7 +271,7 @@ plot_stage <- function(title, xlab, ggobj, ylab = "ID") {
     xmax = size.max, y = id), size = 0.7, width = 0.05, height = 0.2) + mytheme() +
     scale_colour_manual(limits = c("seedling", "juvenile", "sapling", "adult",
       "mix"), values = c(seedling = "green", juvenile = "blue", sapling = "orange",
-      adult = "red", mix = "grey"), name = "stage", breaks = c("seedling",
+      adult = "red", mix = "grey"), name = "Stage", breaks = c("seedling",
       "juvenile", "sapling", "adult", "mix")) + scale_linetype_manual(limits = c("tree",
     "woody", "across growth form"), values = c("solid", "dashed", "dotted"),
     name = "growth.form", breaks = c("tree", "woody", "across growth form")) +
@@ -281,7 +281,7 @@ plot_stage <- function(title, xlab, ggobj, ylab = "ID") {
 
 my_plot_corr.r <- function(data1, title = "", xlab = "Case studies ranked by coefficient of correlation r") {
 
-  my_funnelplot2 <- function(title, ggobj, xlab = "", ylab = "") {
+  my_funnelplot2 <- function(title, ggobj, xlab = "", ylab = "Stage") {
 
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + guides(fill = guide_legend(reverse = TRUE)) +
       mytheme() + scale_y_continuous("Correlation coefficient r", limits = c(-1,
@@ -305,11 +305,11 @@ my_plot_corr.r <- function(data1, title = "", xlab = "Case studies ranked by coe
 
 my_plot_overall <- function(data, title = "") {
 
-  plot1 <- function(title, ggobj, xlab = "Effect size + CI (95%) ", ylab = "") {
+  plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
 
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      geom_vline(xintercept = 3.5, size = 0.3, linetype = "dashed") + scale_x_discrete("stage",
+      geom_vline(xintercept = 3.5, size = 0.3, linetype = "dashed") + scale_x_discrete("Stage",
       limit = c("seedling", "sapling", "adult", "total")) + coord_flip() +
       mytheme()
     p
@@ -325,10 +325,10 @@ my_plot_overall <- function(data, title = "") {
 
 my_plot_overall_gr <- function(data, title = "") {
 
-  plot1 <- function(title, ggobj, xlab = "Effect size + CI (95%) ", ylab = "") {
+  plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      geom_vline(xintercept = 3.5, size = 0.3, linetype = "dashed") + scale_x_discrete("stage",
+      geom_vline(xintercept = 3.5, size = 0.3, linetype = "dashed") + scale_x_discrete("Stage",
       limit = c("seedling", "sapling", "adult", "total")) + coord_flip() +
       mytheme()
     p
@@ -519,7 +519,7 @@ coeff.plot.multiple3.1 <- function(data, params, labels = NA, xlab = "Effect siz
 }
 
 
-my_plot_3 <- function(title, ggobj, xlab = expression(paste("")), ylab = "growth measurements") {
+my_plot_3 <- function(title, ggobj, xlab = expression(paste("")), ylab = "Growth measurements") {
   p <- ggobj + geom_bar() + coord_cartesian(ylim = ylim) + coord_flip() + labs(title = title) +
     xlab(xlab) + ylab(ylab) + scale_x_discrete("growth measurements", limits = c("GR(Di)",
     "GR(Hi)", "GR(Mi)", "GR(Shoot)", "RGR(?)", "RGR(CSAi)", "RGR(Di)", "RGR(Hi)",
@@ -536,18 +536,8 @@ my_plot_3 <- function(title, ggobj, xlab = expression(paste("")), ylab = "growth
 }
 
 
-my_plot_3b <- function(title, ggobj, xlab = expression(paste("")), ylab = "growth measurements") {
-  p <- ggobj + geom_bar() + coord_cartesian(ylim = ylim) + coord_flip() + labs(title = title) +
-    xlab(xlab) + ylab(ylab) + scale_x_discrete("stage", limit = c("seedling",
-    "sapling", "adult")) + theme(text = element_text(size = 9), axis.text.x = element_text(size = 9),
-    axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme() +
-    theme(axis.title = element_text(size = 10, hjust = 0.5)) + scale_fill_manual("growth",
-    limits = c("AbGR", "RGR"), values = c(AbGR = "grey", RGR = "blue"))
-  p
-}
-
 my_funnelplot <- function(title, ggobj, xlab = "", ylab = "") {
-  p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + mytheme() + scale_color_manual(name = "stage",
+  p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + mytheme() + scale_color_manual(name = "Stage",
     limits = c("seedling", "sapling", "adult"), breaks = c("seedling", "sapling",
       "adult"), values = c(seedling = "#13519E", sapling = "#F57C34", adult = "#E6224C")) +
     geom_hline(xintercept = 0, color = "grey")
@@ -559,5 +549,5 @@ figure_trim.and.fill <- function(x, title) {
   res <- rma(corr.z, vr.z, data = x[!is.na(x$corr.z) & !is.na(x$vr.z), ])
   ### carry out trim-and-fill analysis
   taf <- trimfill(res)
-  funnel(taf, xlab = "corr.z", main = title)
+  funnel(taf, xlab = "Correlation", main = title)
 }

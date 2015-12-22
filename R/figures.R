@@ -72,30 +72,27 @@ figure_2 <- function(CompleteData_inter) {
 
     axis(1, at = 0:3, labels = cuts, las = 1)
     axis(2, at = y, labels = data$ref, las = 1, cex.axis = 0.6)
-    abline(v = 1, col = "grey", lty = 2, lwd = 0.5)
-    abline(v = 2, col = "grey", lty = 2, lwd = 0.5)
+    abline(v = 1, col = "black", lty = 1, lwd = 0.5)
+    abline(v = 2, col = "black", lty = 1, lwd = 0.5)
 
     text(-0.5, n+2, lab, xpd=NA)
   }
 
-  plotCI2(sa, c(0, 1, 5, 10), "age (yrs)", "a)")
-  abline(v = 1, col = "#13519E")
-  legend(2.3, 42, c("seedling", "juvenile", "sapling", "adult", "mix"), lwd = 1,  title = "STAGES",
+  plotCI2(sa, c(0, 1, 5, 10), "Age (yrs)", "a)")
+  legend(2.3, 42, c("seedling", "juvenile", "sapling", "adult", "mix"), lwd = 1,  title = "Original stage:",
     col = c("#13519E", "#73005C", "#F57C34", "#E6224C", "grey"), pch = NA, bty = "n", cex = 0.75,
    x.intersp = 0.3, y.intersp = 1, seg.len = 0.5,  title.adj = 0)
   legend(2.3, 32, c("reassigned", "multiple",  " growth forms"), lwd = NA, col = "black",
-    pch = c("+", "*", NA), title = "FLAGS", bty = "n", cex = 0.75,
+    pch = c("+", "*", NA), title = "Flag:", bty = "n", cex = 0.75,
     x.intersp = 0.3, y.intersp = 1, seg.len = 0.5,  title.adj = 0)
 
-  text(0.5, 45, "seedlings", xpd=NA, col = "#13519E")
-  text(1.5, 45, "saplings", xpd=NA, col = "#F57C34")
-  text(2.5, 45, "adults", xpd=NA, col = "#E6224C")
+  text(0.5, 45, "Seedlings", xpd=NA, col = "black")
+  text(1.5, 45, "Saplings", xpd=NA, col = "black")
+  text(2.5, 45, "Adults", xpd=NA, col = "black")
 
-  plotCI2(sh, c(0, 0.5, 2, 20), "height (m)", "b)")
-  abline(v = 1, col = "#13519E")
+  plotCI2(sh, c(0, 0.5, 2, 20), "Height (m)", "b)")
 
-  plotCI2(sd, c(0, 1, 10, 80), "diameter (cm)", "c)")
-  abline(v = 2, col = "#E6224C")
+  plotCI2(sd, c(0, 1, 10, 80), "Diameter (cm)", "c)")
 
 }
 
@@ -524,42 +521,34 @@ figure_4 <- function(GCi) {
   grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.2, 1))
 }
 
+download_baad <- function(destination_filename) {
+  url <- "https://github.com/dfalster/baad/releases/download/v1.0.0/baad.rds"
+  download(url, destination_filename, mode = "wb")
+}
 
 ## Figure appendix
-figure_A1 <- function() {
-
-  download_baad <- function(destination_filename) {
-    url <- "https://github.com/dfalster/baad/releases/download/v0.9.0/baad.rds"
-    download(url, destination_filename, mode = "wb")
-  }
+figure_A1 <- function(baad) {
 
   single_plot <- function(px, py, data) {
 
     plot(data[[px$var]], data[[py$var]], log = "xy", xlim = px$lim, ylim = py$lim,
-      xlab = px$lab, ylab = py$lab, col = adjustcolor("#00000033", alpha = 0.5),
-      pch = 16)
+      xlab = px$lab, ylab = py$lab, col = "grey", pch = 16)
     abline(v = px$sap, col = "#13519E", lty = 5)
     abline(h = py$sap, col = "#13519E", lty = 5)
     abline(v = px$adult, col = "#E6224C", lty = 5)
     abline(h = py$adult, col = "#E6224C", lty = 5)
   }
 
-  filename <- "downloads/baad.rds"
-  if (!file.exists(filename)) {
-    dir.create(dirname(filename), showWarnings = FALSE, recursive = TRUE)
-    download_baad(filename)
-  }
-
-  data <- readRDS(filename)[["data"]]
+  data <- baad[["data"]]
 
   pars <- list()
-  pars[["dia"]] <- list(var = "d.ba", lab = "basal diameter (m)", lim = c(1e-04,
+  pars[["dia"]] <- list(var = "d.ba", lab = "Basal diameter (m)", lim = c(1e-04,
     1), sap = 0.0025, adult = 0.1)
 
-  pars[["ht"]] <- list(var = "h.t", lab = "height (m)", lim = c(0.01, 100), sap = 0.5,
+  pars[["ht"]] <- list(var = "h.t", lab = "Height (m)", lim = c(0.01, 100), sap = 0.5,
     adult = 5)
 
-  pars[["age"]] <- list(var = "age", lab = "age (yr)", lim = c(0.1, 200), sap = 1,
+  pars[["age"]] <- list(var = "age", lab = "Age (yr)", lim = c(0.1, 200), sap = 1,
     adult = 30)
 
 
