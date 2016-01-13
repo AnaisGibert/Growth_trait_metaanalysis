@@ -10,20 +10,28 @@
 \usepackage{graphicx}
 \usepackage[title,titletoc,toc]{appendix}
 
-
 \title{On the link between functional traits and growth rate: meta-analysis shows effects change with plant size, as predicted}
-\author{Anais Gibert\textasteriskcentered, Emma F. Gray, Mark Westoby, Ian J. Wright, Daniel S. Falster}
+\author{Ana{\"i}s Gibert\textasteriskcentered, Emma F. Gray, Mark Westoby, Ian J. Wright, Daniel S. Falster}
 \affiliation{Biological Sciences, Macquarie University NSW 2109, Australia\\
 \textasteriskcentered Email for correspondence: \texttt{anais.gibert@gmail.com}\\
 Word count: ~5538 words (without supplementary material, Fig and ref)}
 \date{}
+
+% Todo:
+% Ditch abbrvos for SLA, wood density, Hmax?
+% Fix plots
+%   -- labels causing plot size to change, e.g. Fig 3d
+%   -- only one y label for multi-panel plots
+%   -- sample sizes skewiff relative to plots if Figure 4
+%   -- major revision of code -- > lots of repetition, hard to follow
+%   -- Figure 2: add * against traits used in meta-analysis
 
 \bibliographystyle{mee}
 \newcommand{\bibstar}{* }
 
 \mstype{Research Article}
 \runninghead{Influence of traits on growth changes with size}
-\keywords{absolute growth rate, maximum height, photosynthetic rate, ontogenetic stage, functional trait, growth strategy, relative growth rate, seed mass, specific leaf area, wood density}
+\keywords{maximum height, photosynthetic rate, ontogenetic stage, functional trait, growth strategy, seed mass, specific leaf area, wood density}
 
 \begin{document}
 \mstitlepage
@@ -36,11 +44,11 @@ Word count: ~5538 words (without supplementary material, Fig and ref)}
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \itemsep1pt\parskip0pt\parsep0pt
-\item A plant's growth rate has often been seen as a central element of its ecological strategy, and as ultimately linked to its traits. Yet the literature is inconsistent about the empirical correlation between functional traits and growth, casting doubt on the capacity of traits to predict growth.
+\item A plant's growth rate is seen as a central element of its ecological strategy, and as determined by its traits. Yet the literature is inconsistent about the empirical correlation between functional traits and growth, casting doubt on the capacity of some prominent traits to influence growth rate.
 
-\item We propose that traits should influence growth in a way that depends on the size of individual plants. We outline mechanisms and hypotheses based on new theory, and test these predictions in tree species for five traits (specific leaf area, wood density, maximum height, seed mass and maximum assimilation rate) using a meta-analysis of 112 studies ($>$ 500 correlations). To capture the effects of size, we tested for a shift in the direction of correlation between growth rates and traits across three plant stages: seedling, sapling and adult.
+\item We propose that traits should influence growth in a way that depends on the size of individual plants. We outline mechanisms and hypotheses based on new theory, and test these predictions in tree species using a meta-analysis of 103 studies ($>$ 500 correlations) for five traits (specific leaf area, wood density, maximum height, seed mass and maximum assimilation rate). To capture the effects of size, we tested for a shift in the direction of correlation between growth rates and traits across three plant stages: seedling, sapling and adult.
 
-\item Results were consistent with predictions. Specific leaf area was correlated with relative growth rate (RGR) in seedling but not in adult plants. Correlations of RGR with wood density and assimilation rate were not affected by stage. Seed mass and maximum height were correlated with RGR only in one plant stage category: seedlings and adults, respectively. Despite the vast litterature on trait and growth, coverage was limited for wood density, seed mass, maximum height and assimilation rate, and additional studies would be helpful for some trait-growth-stage relationships. 
+\item Results were consistent with predictions. Specific leaf area was correlated with relative growth rate (RGR) in seedlings but not in adult plants. Correlations of RGR with wood density and assimilation rate were not affected by stage. Seed mass and maximum height were correlated with RGR only in one plant stage category: seedlings and adults, respectively. Yet, despite a sizeable literature on traits and growth, coverage was still limited for wood density, seed mass, maximum height and assimilation rate. Additional studies are needed for some trait-growth-stage relationships.
 
 \item Synthesis: We show how trait-growth correlations change in a predictable way with plant size. Our understanding of plant strategies should shift away from attributing species as having slow or fast growth throughout their life, in favour of attributing growth trajectories.
 
@@ -50,47 +58,106 @@ Word count: ~5538 words (without supplementary material, Fig and ref)}
 
 \section*{Introduction}\label{introduction}
 
-The phrase ``plant ecological strategy'' refers to how species face common challenges of acquiring sufficient water, nutrients and light for growth, and then ultimately replacing themselves with offspring. An idea that species strategy differences might involve fast versus slow growth goes back at least to \citet{Grime:1975gr}, who measured a wide spread of relative growth rates of seedlings during early exponential growth under favourable conditions. Seedling potential relative growth rate (RGR) has continued to be used as a major strategy indicator within the CSR (Competitor - Stress tolerator - Ruderal) classification (e.g. \citealt{grime1979plant, Grime:1997wm}). Meanwhile partitioning of seedling RGR into different components showed that specific leaf area (SLA = 1/leaf mass per area LMA) was typically the strongest source of variation between species \citep{Poorter:1989tx, Rees:2010gk}. From the 1990s a new style of ``trait ecology'' arose whereby measurable traits including SLA were used directly as strategy axes \citep{Westoby:2002ft}. An approach via measurable traits made broad comparisons possible across continents and latitudes and thousands of species. Since then, traits have been seen as constructive approaches to understanding plant growth strategies \citep{Grime:1977kc,Chapin:1980gz}, community composition \citep{Lavorel:2002ff,Shipley:2006ie}, global vegetation dynamics \citep{Scheiter:2013ed} and ecosystem processes \citep{Lavorel:2002ff}.
+The phrase ``plant ecological strategy'' refers to how species face common challenges of acquiring sufficient water, nutrients, and light for growth; and then ultimately replacing themselves with offspring. The idea that a strategy differences among species might involve fast versus slow growth goes back at least to \citet{Grime:1975gr}, who observed a wide spread of relative growth rate (RGR) among seedlings growing under favourable conditions. Seedling potential RGR has continued to be used as a major strategy indicator within Grime's CSR (Competitor -- Stress tolerator -- Ruderal) classification (e.g. \citealt{grime1979plant, Grime:1997wm}). Meanwhile partitioning of seedling RGR into different components showed that specific leaf area (SLA) was typically the strongest source of variation between species \citep{Poorter:1989tx, Rees:2010gk}. From the 1990s a new style of ``trait ecology'' arose whereby measurable traits, including SLA, were used directly as strategy axes \citep{Westoby:2002ft}. An approach via measurable traits made broad comparisons possible across continents, latitudes, and thousands of species. Since then, traits have been seen as constructive approaches to understanding plant growth strategies \citep{Westoby:2002ft}, community composition \citep{Lavorel:2002ff,Shipley:2006ie}, global vegetation dynamics \citep{Scheiter:2013ed} and ecosystem processes \citep{Lavorel:2002ff}.
 
-Currently, two main spectra of variation are widely cited as underpinning differences between species in vegetative growth rates. The ``leaf economic spectrum'' \citep{Wright:2004jb} and the ``wood economic spectrum'' \citep{Chave:2009iy} reflect tissue construction costs (for leaf area and for wood volume respectively), trading off with rates of tissue turnover or mortality. It has been widely expected that species with low tissue construction cost will typically have fast growth rates, at least in favourable physical environments \citep[e.g.][]{MullerLandau:2004dc,Poorter:2008iu,Chave:2009iy,Larjavaara:2010bn,Iida:2012jb,Paine:2015df}. Yet, recently a number of empirical studies indicate the correlation between traits and growth is not as consistent as that. Consider SLA as an illustration. Species with high SLA can deploy more canopy area for a given dry mass investment in leaves \citep{Poorter:1999wd, Reich:1992wm}. In addition, SLA is correlated with specific photosynthetic capacity per unit of leaf mass and high nitrogen (N) or phosphorus concentrations in the leaf \citep{Wright:2004jb}. For seedling relative growth rates under favourable conditions, high SLA has repeatedly been found to be a strong predictor regardless of vegetation type or growth form \citep{Lambers:1992bj,Reich:1992wm,Grime:1997wm,Poorter:1999wd,Wright:1999ds}. Yet for adult plants, the correlation has mostly been much weaker or absent \citep{coomes_comparison_1998,Poorter:2008iu,Aiba:2009ft,Easdale:2009gv,Wright:2010tp}. The discrepancy between theoretical expectation and empirical results has led some to question whether traits are even useful for understanding growth \citep{Wright:2010tp, Paine:2015df}.
+Currently, two main spectra of trait variation are widely cited as underpinning differences between species in vegetative growth rates. The ``leaf economic spectrum'' \citep{Wright:2004jb} and the ``wood economic spectrum'' \citep{Chave:2009iy} reflect tissue construction costs (for leaf area and for wood volume respectively), trading off with rates of tissue turnover or mortality. It has been widely expected that species with low tissue construction cost will typically have fast growth rates, at least in favourable physical environments \citep[e.g.][]{MullerLandau:2004dc,Poorter:2008iu,Chave:2009iy,Larjavaara:2010bn,Iida:2012jb,Paine:2015df}. Yet, recently a number of empirical studies indicate the correlation between traits and growth is not as consistent as that. Consider SLA as an illustration. By definition, species with high SLA can deploy more leaf area for a given dry mass investment in leaves \citep{Poorter:1999wd, Reich:1992wm}. In addition, SLA is correlated with specific photosynthetic capacity per unit of leaf mass and high nitrogen or phosphorus concentrations in the leaf \citep{Wright:2004jb}. For seedling RGR under favourable conditions, SLA has repeatedly been found to be a strong predictor regardless of vegetation type or growth form \citep{Lambers:1992bj,Reich:1992wm,Grime:1997wm,Poorter:1999wd,Wright:1999ds}. Yet for adult plants, the correlation has mostly been much weaker or absent \citep{coomes_comparison_1998,Poorter:2008iu,Aiba:2009ft,Easdale:2009gv,Wright:2010tp}. The discrepancy between theoretical expectation and empirical results has led some to question whether traits are even useful for understanding growth \citep{Wright:2010tp, Paine:2015df}.
 
-Meanwhile the possibility has been raised that trait-growth correlations may change systematically with size \citep{Falster:2011ii, Ruger:2012jv, Iida:2014ep, Iida:2014hq}. Size has long been known to play a central role in organismal design and function \citep{Vogel:1988ux, Vogel:2003wb}, including that of trees \citep{Farnsworth:1995im, Givnish:1995ta}. Recent theory suggests that the absence of a correlation between SLA and growth at larger sizes may be expected, when potential influences of traits on plant function are considered \citep{Falster:2011ii}. At larger sizes the low-cost deployment benefits of high SLA may be offset or even outweighed by the high costs of rapid leaf turnover (see section ``Theoretical expectations''). While recent empirical studies supported the idea of a variation in the relationships between traits and growth rates across plant sizes (\citealt{Iida:2014ep, Iida:2014hq}), the trend and mechanisms behind this variation remain unclear. 
+Meanwhile the possibility has been raised that trait-growth correlations may change systematically with size \citep{Falster:2011ii, Ruger:2012jv, Iida:2014ep, Iida:2014hq}. Size has long been known to play a central role in organismal design and function \citep{Vogel:1988ux, Vogel:2003wb}, including that of trees \citep{Farnsworth:1995im, Givnish:1995ta}. Recent theory suggests that the absence of a correlation between SLA and growth at larger sizes may in fact be expected, when potential influences of traits on plant function are considered \citep{Falster:2011ii}. As plants grow larger, a greater amount of the energy is devoted towards building and maintaining non-photosynthetic tissues \citep{Givnish:1995ta}. A model by \citet{Falster:2011ii} suggests this change shifts the benefits and costs of some trait-based trade-offs, such that the net effect on the trait on growth changes with size. While recent empirical studies support the idea that the relationship between traits and growth rates may change with size (\citealt{Iida:2014ep, Iida:2014hq}), the trend and mechanisms behind this variation remain unclear.
 
-In this paper, we used a meta-analytic approach on five prominent traits (specific leaf area = SLA, wood or stem tissue density = WD, maximum leaf photosynthetic capacity per unit area = Aarea, asymptotic or maximum height = Hmax, and seed mass) to investigate:
+In this paper, we investigate for five prominent traits (specific leaf area = SLA, wood or stem tissue density = WD, maximum leaf photosynthetic capacity per unit area = Aarea, asymptotic or maximum height = Hmax, and seed mass):
 \begin{enumerate}
   \item How general is the tendency for correlations between traits and growth rate to vary with plant size?
-  \item  Do the observed relationships conform to predictions (outlined in section ``Theoretical expectations'') derived from a recently developed mechanistic model \citep{Falster:2011ii}?
+  \item Do the observed relationships conform to predictions derived from a recently developed mechanistic model \citep{Falster:2011ii} (see ``Theoretical expectations'')?
 \end{enumerate}
-We gathered correlation coefficients between traits and growth from studies that gave explicit information about the size or stage of the plants. While most studies on traits have not been concerned with effects of plant size, they have generally reported trait-growth correlations for identifiable stage classes. We used plant stage (i.e. seedling, sapling and adult) as a surrogate for the effects of plant size. We focused on tree and woody species since the mechanistic model used to assess our predictions is most applicable to these growth forms. 
-
-Meta-analytic approach allows generalization by summarizing and integrating research results across studies, just like large data compilation commonly used in trait ecology. Yet, a specific interest of meta-analytic approach is also to identify key knowledge gaps. Here, we expected a vast literature on trait and growth to be available, but we were uncertain about the representation of all trait-stages combinations. Thus, a goal of our study was also to identify areas of research needed to improve our understanding of the link between trait and growth.
+To address these questions we used a meta-analytic approach, compiling data from diverse studies reporting correlation coefficients between traits and growth. While most studies investigating the link between traits and growth have not primarily been concerned with effects of plant size, they have generally reported trait-growth correlations for identifiable stage classes (i.e. seedling, sapling, and adult). We therefore used plant stage as a surrogate for the effects of plant size. We focused on tree and woody species since the mechanistic model used to assess our predictions is most applicable to these growth forms. We chose to assess hypotheses via meta-analysis because there already exist a considerable number of studies with salient information, allowing us to assess our hypotheses across a much broader number of species and vegetation types than would have been possible in an experiential study. While, we anticipated a reasonably-sizeable literature on trait and growth to be available, we were uncertain about the representation of all trait-stages combinations. An additional goal of our study was therefore to identify any gaps in knowledge needed to improve our understanding of the link between trait and growth.
 
 \section*{Theoretical expectations}\label{theory}
 
-Recent theoretical work \citep{Falster:2011ii} allows us to formulate hypotheses about relationships between traits and growth, based on a mathematical decomposition of plant growth rate. Specific predictions arise from considering the influence of traits on elements of these equations and how these effects may vary with size (see Appendix \ref{sec:growth} for mathematical explanations). This model extends earlier efforts to model growth as a function of traits \citep{Lambers:1992bj,cornelissen_seedling_1996,Wright:2000kw,Enquist:2007ek}. However, whereas earlier models focused solely on mass-based relative growth rate and did not predict a change in effect of traits with size, the revised equations do allow for these effects, while also making predictions for both absolute and relative growth rates in any of height, diameter or mass.
+Recent theoretical work \citep{Falster:2011ii} allows us to formulate hypotheses about relationships between traits and growth, based on a mathematical decomposition of plant growth rate. Specific predictions arise from considering the influence of traits on elements of these equations and how these effects may vary with size (see Appendix \ref{sec:growth} for mathematical explanations). This model extends earlier efforts to model growth as a function of traits \citep{Lambers:1992bj,Cornelissen:1996hf,Wright:2000kw,Enquist:2007ek}. However, whereas earlier models focused solely on mass-based RGR and did not predict a change in effect of traits with size, the revised equations do allow for these effects, while also making predictions for both AGR and RGR in any of height, diameter or mass.
+
+
+\section{Derivation of hypotheses from growth equations}\label{sec:growth}
+
+We adapted growth equations from \cite{Falster:2011ii} to generate hypotheses on both absolute and relative growth rate in mass (eqn \ref{eq:eq1}), height (eqn \ref{eq:eq2}) and diameter (eqn \ref{eq:eq4}).
+
+The rate at which \textbf{live biomass} $b$ is produced by a plant is given by:
+
+\begin{equation}\label{eq:eq0}
+\underbrace{\frac{db}{dt}}_{\text{net live biomass production}} = \underbrace{y}_{\text{yield}}  \big(\underbrace{a_{l} A_{\textrm{area}}}_{\text{photosynthesis}} - \underbrace{\sum_{i = l,s,r,f} m_{i} r_{i}}_{\text{respiration}}\big) - \underbrace{ \sum_{i = l,s,r,f} m_{i} k_{i}}_{\text{turnover}},
+\end{equation}
+where $y$ is the ratio of carbon fixed in mass per carbon assimilated, and $A_{\textrm{area}}$ is the assimilation rate of CO$_{2}$ per leaf area.
+
+Here, and in the following equations, $m_i$ denotes the \textbf{live mass on the plant}, $r_i$ the mass-specific \textbf{respiration rate}, and $k_i$ the \textbf{turnover rate} of different plant tissues; the subscripts $i = l,s,r,t,f$ referring to leaves, sapwood and bark, roots, total of these vegetative tissues, and to the reproductive tissues (fruits, flowers etc.) (note that the live biomass $b = m_t +m_f$). Similarly $a_i$ denotes \textbf{areas}, of leaves ($i = l$) and of cross-sections of total stem and sapwood ($i = st,ss$) respectively.
+
+
+The \textbf{growth rate in mass}, being the increment in vegetative live mass ($m_t$), is then:
+
+\begin{equation}\label{eq:eq1}
+\underbrace{{\frac{dm_t}{dt}}}_{\text{growth rate in mass}} = \underbrace{\frac{dm_t}{db}}_{\text{allocation to vegetative growth}}  \times \underbrace{\frac{db}{dt}}_{\text{net live biomass production}},
+\end{equation}
+where allocation to growth is the fraction of net live biomass increase that goes to vegetative growth rather than to reproductive tissue production.
+
+The \textbf{growth rate in height} can then be expressed as:
+\begin{equation}\label{eq:eq2}
+\underbrace{\frac{dH}{dt}}_{\text{growth rate in height}} = \underbrace{\frac{dH}{da_{l}}}_{\text{architecture layout}} \times \underbrace{{\frac{da_{l}}{dm_{t}}}}_{\text{leaf deployment per mass}} \times {\frac{dm_t}{db}} \times {\frac{db}{dt}}.
+\end{equation}
+Similarly \textbf{growth rate in basal area} can be expressed as:
+\begin{equation}\label{eq:eq3}
+\underbrace{{\frac{da_{st}}{dt}}}_{\text{basal area growth rate}} = \underbrace{\frac{da_{ss}}{da_{l}}}_{\text{sapwood area per leaf area}} \times {\frac{da_{l}}{dm_{t}}} \times  {\frac{dm_t}{db}} \times {\frac{db}{dt}} +  \underbrace{ \frac{da_{st}}{dt}}_{\text{sapwood turnover}}.
+\end{equation}
+
+The \textbf{growth rate in diameter} is then given by the geometric relationship between diameter and area applied to stem:
+\begin{equation}\label{eq:eq4}
+\underbrace{\frac{dD}{dt}}_{\text{growth rate in diameter}} = \sqrt[]{\frac{\Pi}{a_{st}}} \times {\frac{da_{st}}{dt}}.
+\end{equation}
+
+For the case of seedlings, eqs. \ref{eq:eq0}-\ref{eq:eq1} can be simplified considerably. Turnover of all tissues and allocation to reproduction have not yet begun. It is also common to assume all respiration rates are proportional to leaf area. Biomass growth rate in seedling then becomes a linear function of leaf area:
+\begin{equation}\label{eq:eq1_seedlings}
+{\frac{dm_t}{dt}}  \approx  a_{l} \, y \, (A_{\textrm{area}} - r_{l}).
+\end{equation}
+
+The \textbf{relative growth rate in mass} $(\textrm{RGR}_{\textrm{mass}})$ in seedlings can be obtained by dividing both sides of this simplified eq \ref{eq:eq1_seedlings} by the total mass of living tissues $m_{t}$. The outcome is equivalent to the classical partitioning of RGR \citep{Lambers:1992bj, Cornelissen:1998ta}:
+\begin{equation}\label{eq:eq1_seedlings_RGR}
+\textrm{RGR}_{\textrm{mass}}  \approx \textrm{NAR} \times  \textrm{SLA} \times  \textrm{LMF},
+\end{equation}
+where net assimilation rate NAR = $y \, (A_{\textrm{area}} - r)$, SLA = $a_{l}/ m_{l}$ and leaf mass fraction LMF = $m_{l}/ m_{t}$.
+
+The predicted effects of different traits on growth can then be understood by considering the influence of trait variation on elements of equations  \ref{eq:eq0}-\ref{eq:eq1_seedlings_RGR} (see Table \ref{tab:trade-offs}) and how these may interact with plant size.
 
 \textbf{H1: The relationship between SLA and growth rate is expected to shift from positive in seedlings to non-significant or negative in adult plants}
 
-Plants with high SLA can deploy more leaf area per unit of mass invested. However, high-SLA species also have shorter leaf lifespan and faster leaf turnover rate \citep{Wright:2004jb}. Whether plant growth increases with SLA depends on the relative magnitude of the leaf construction and leaf turnover effects of SLA (Table \ref{tab:trade-offs}). During early life, when leaf comprises a large part of the plant, decreasing leaf construction cost has a positive effect on growth rate. As plants increase in size and leaf mass fraction decreases, the benefit of cheaper leaf construction diminishes; thus the cost of replacing leaf turnover becomes more important.
+Plants with high SLA can deploy more leaf area per unit of mass invested. However, high-SLA species also have shorter leaf lifespan, and must use more energy replacing leaves lost via turnover \citep{Wright:2004jb}. Whether plant growth rate increases with SLA depends on the how the relative magnitude of the benefit (cheap leaf construction) and cost (higher leaf turnover) of increased SLA also change with size (Table \ref{tab:trade-offs}). During early life, when leaf comprises a large part of the plant, decreasing SLA has an overwhelmingly positive effect on growth rate. As plants increase in size and leaf mass fraction decreases, the benefit of cheaper leaf construction diminishes; thus the cost of replacing leaf turnover becomes more important.
+
+For seedlings (eq. \ref{eq:eq1_seedlings_RGR}), cheaper leaf construction (high SLA) should translate directly into faster relative growth rate in mass. For larger plants (eq. \ref{eq:eq1}-\ref{eq:eq4}), SLA is expected to affect growth rate positively through more cost-efficient deployment of leaf area (via $da_l/dm_t$; the same effect as in seedlings), but also negatively via increased leaf turnover (eqn 1; Table \ref{tab:trade-offs}). The effect of SLA on $da_l/dm_t$ decreases as plant size increases and increasing amounts of the plant are wood. Consequently the effect of turnover costs in slowing growth comes to dominate at larger sizes.
 
 \textbf{H2: The relationship between WD and growth rate is expected to be negative across all plant sizes}
 
-High WD increases the cost of building stem tissue and thus the cost of deploying additional leaf area (Table \ref{tab:trade-offs}), which should result in slower growth. Although expensive wood decreases the risk of mortality, this benefit is not reflected in growth outcomes. Thus increasing WD is predicted to decrease growth across the entire size range.
+High WD increases the cost of building stem tissue and thus the cost of deploying additional leaf area (Table \ref{tab:trade-offs}), which should slow growth. Although expensive wood decreases the risk of mortality, this benefit is not reflected in growth outcomes. Thus increasing WD is predicted to decrease growth across the entire size range.
 
-\textbf{H3: The relationship between Hmax and growth rate is expected to be absent in seedlings but to strengthen with increasing plant size.}
+Cheaper stem construction (low WD or stem density) increases the marginal rate of leaf deployment per total mass increment ($da_l/dm_t$), and consequently increases growth rate in leaf area, height, and diameter (eqs. \ref{eq:eq2}-\ref{eq:eq4}; Table \ref{tab:trade-offs}). Disadvantages associated with cheap stem construction take the form of higher mortality and so are not reflected in growth equations. Under this scenario, wood density is negatively correlated to growth rate across all plant stages. Because the relative expenditure on stem compared to leaf is increases as plants grow larger, the relationship between WD and growth may also strengthen in larger plants.
 
-As plants approach maximum height they increasingly divert energy away from growth and into reproduction (see \citealt{Thomas:1996do,Thomas-2011, Wenk:2014jz}). For seedlings, where all individuals are investing solely in growth, we expect no influence of Hmax on growth. As plants become larger, species with smaller Hmax are expected to be allocating more to reproduction and less to growth, because at any given size they are closer to their Hmax (Table \ref{tab:trade-offs}).
+\textbf{H3: The relationship between Hmax and growth rate is expected to be absent in seedlings but to strengthen with increasing plant size}
 
-\textbf{H4: The relationship between seed mass and relative growth rate is negative in seedlings, but weakens with increasing size.}
+As plants approach maximum height they increasingly divert energy away from growth and into reproduction (see \citealt{Thomas:1996do,Thomas-2011, Wenk:2015jz}). For seedlings, where all individuals are investing solely in growth, we expect no influence of Hmax on growth. As plants become larger, species with smaller Hmax are expected to be allocating more to reproduction and less to growth, because at any given size they are closer to their Hmax (Table \ref{tab:trade-offs}).
 
-The main effect of increased seed size is to produce a larger overall seedling. Under similar light conditions, relative growth rate decreases with size because the ratio of leaf area to total biomass decreases with increasing plant size. Thus, larger seedlings are predicted to have a lower relative growth rate during the earliest phases of growth \citep{Turnbull:2012ew}. However, among larger plants we expect the effect of this initial size to be minimal, and thus the correlation between seed size and growth rate should disappear.
+Hmax affects growth via the fraction of energy allocated to vegetative growth versus to seed production ($dm_t/db$ in eq. \ref{eq:eq1}; Table \ref{tab:trade-offs}). For seedlings and seedlings this fraction is 1 for all species and so no effect is expected. But once some species begin to produce seed, then species closer to their Hmax value are expected to be allocating more to seed production and less to vegetative growth. Hence when comparing across plants at a given size, species with smaller Hmax are expected to show slower vegetative growth rates.
 
+
+\textbf{H4: The relationship between seed mass and RGR is negative in seedlings, but weakens with increasing size}
+
+The main effect of increased seed size is to produce a larger overall seedling. Under similar light conditions, RGR decreases with size because the ratio of leaf area to total biomass decreases with increasing plant size. Thus, larger seedlings are predicted to have a lower RGR during the earliest phases of growth \citep{Turnbull:2012ew}. However, among larger plants we expect the effect of this initial size to be minimal, and thus the correlation between seed size and growth rate should disappear.
+
+The $\textrm{RGR}_{\textrm{mass}}$ slows as plants grow larger, and large-seeded species begin larger as seedlings. For larger plants, seed mass is not expected to have any distinct influence on growth rates  (Table \ref{tab:trade-offs}).
 \textbf{H5: The relationship between Aarea and growth rate is expected to be positive across all plant sizes, at least under high-light conditions}
 
 We expect greater photosynthetic capacity to translate into faster growth rates by increasing the rate of biomass production (Table \ref{tab:trade-offs}), at least at high light where Aarea is measured. It is uncertain how much this might translate to faster growth in low light. It might greatly depend on the level of light available.
 
+The effects of benefits (higher assimilation) and costs (higher respiration) of increased Area occur within the same element of eq. \ref{eq:eq0}, and assimilation must outweigh respiration for there to be growth, so the net effect will be positive (Table \ref{tab:trade-offs}).
+
+Note that the predicted relationship between growth and either SLA or seed mass in seedlings differs if AGR in mass is used instead of RGR$_\textrm{mass}$ (i.e. becomes negative for SLA, positive for seed mass). In our study, all data recorded for these trait-stage combinations have been measured on a RGR base for mass (see Fig S9).
+
 \textbf{Effect on absolute and relative growth rates}
-Tree growth in diameter, height or mass can be expressed in either absolute (AGR) or relative terms (RGR). The choice of the growth measurement is generally confunded with the size of the plant; RGR in mass is mainly used for seedling, and AGR in diameter or height are mainly used for adult. According to the growth model, the predicted relationship between growth and seed mass in seedlings reverses if absolute AGR$_\textrm{mass}$ is used instead of RGR$_\textrm{mass}$ (see Appendix \ref{sec:growth}). The correlation with RGR$_\textrm{mass}$ is negative but becomes positive with AGR$_\textrm{mass}$. For SLA, WD, Hmax and Aarea the predicted relationships are not affected by the growth measurement used. However RGR and AGR are fundamentaly different for a lot of ecologists. So we adopted a two steps approach, first we were conservative by focusing exclusively on RGR, then we compared results with those of a more inclusive dataset with both RGR and AGR.
+Tree growth in diameter, height or mass can be expressed as either absolute growth rate (AGR) or relative growth rate (RGR). The choice of the growth measurement is generally confounded with the size of the plant; RGR in mass is mainly used for seedling, and AGR in diameter or height are mainly used for adult. According to the growth model, the predicted relationship between growth and seed mass in seedlings reverses if AGR$_\textrm{mass}$ is used instead of RGR$_\textrm{mass}$ (see Appendix \ref{sec:growth}). The correlation with RGR$_\textrm{mass}$ is negative but becomes positive with AGR$_\textrm{mass}$. For SLA, WD, Hmax, and Aarea, the direction of the predicted relationship is not affected by the growth measurement used. However RGR and AGR are fundamentally different for a lot of ecologists. So we adopted a two steps approach, first we were conservative by focusing exclusively on RGR, then we compared results with those of a more inclusive dataset with both RGR and AGR.
 
 All the above hypotheses arise from direct mechanistic causation between traits and growth rate. It is possible that other correlations may arise indirectly. For example, seed size is somewhat correlated with height at maturity \citep{Westoby:2009ch}, and so an indirect correlation might arise between seed size and GR in large plants, even though no direct influence is expected. Nevertheless, for purposes of this paper we adopt working hypotheses arising only from direct mechanistic causation. 
 
@@ -98,112 +165,125 @@ All the above hypotheses arise from direct mechanistic causation between traits 
 
 \subsection*{Dataset construction}\label{data-construction}
 
-We aimed to identify studies that measured the correlation between five prominent functional traits (SLA, WD, Aarea, Hmax and seed mass) and a growth measurement across species. Our literature search was conducted in two phases.
+We aimed to identify studies reporting the correlations, measured across species, between functional traits and one of several measures of growth  rate (Table \ref{tab:trade-offs}) . We supplemented records from our own bibliographic libraries with results from searching online databases and suggestions from other researchers. Systematic searches were conducted across the two most comprehensive bibliographic platforms: Google scholar and Web of Science (Thomson Reuters). While Web of Science guarantees a relatively stable and reproducible search environment, with clearly defined lists of indexed journals, its searches are limited to meta-data (i.e. title, keywords, and abstracts, \citealt{Beckmann:2012hn}). This limitation does not apply to Google Scholar, where all text that is electronically available on the internet is indexed.
 
-\subsubsection*{Phase 1 - Literature snapshot}\label{literature-snapshot}
+The biggest challenge when searching literature databases is to identify suitable studies from the vast corpus available. Initially we were interested to know whether data existed for a variety of traits; however the number of potential search terms made systemic searching for all these terms in Google Scholar impractical. A preliminary investigation of search results for a variety of traits on the Web of Science platform suggested that searching only on SLA and WD -- two of the most widely measured traits -- would capture  $\sim$80\% of search records that would be returned by searching for a wider range of traits (see Appendix \ref{app:literature-snapshot}). We therefore narrowed our searching to only cover these two main traits.
 
-We first developed a snapshot of the literature, to assess the potential to recover useful data from the wide corpus of literature available. This snapshot was obtained via Web of Science database (Thomson Reuters), between March and June 2014, using a range of Boolean search terms in English. Search terms were as follows: (``trait'' AND (``growth rate'' OR ``relative growth rate'')) AND (``tree*'' OR ``woody*''), where ``trait'' was allowed to be any of the trait names listed in Table \ref{tab:lit_search}. This snapshot indicated that 82\% of the reported correlations linking growth to any of our five core traits would be recovered by searching only on SLA and WD, allowing us to narrow our search considerably.
+Both Web of Science and Google Scholar databases were searched for records linking SLA and WD to growth rate. On Web of Science, we searched using  search terms: (``trait'' AND (``growth rate'' OR ``relative growth rate'')) AND (``tree*'' OR ``woody*''), where ``trait'' was either (``leaf mass per area'' OR ``specific leaf area'' OR ``leaf construction cost'') or (``wood density'' OR``WD'' OR ``wood specific gravity'' OR ``stem density'' OR ``stem specific density'' OR ``SSD'' ).  On Google scholar we searched using terms: ((``SLA'' OR ``LMA'' OR ``specific leaf area'' OR ``leaf mass area'' OR ``wood density'' OR ``WD'' OR ``wood specific gravity'' OR ``stem density'' OR ``stem specific density'') AND (``growth rate'' OR ``relative growth rate'')) AND (``tree*'' OR ``woody*''). This keyword search in Google Scholar returned approximately 18900 papers. We examined all records returned from the Web of Science search (XXX) and the first 750 items from Google Scholar when ranked by ``relevance''. All searches were conducted between March and December 2014.
 
-\subsubsection*{Phase 2 - Systematic search}\label{systematic-search}
+In total we inspected the full text of 583 articles (see Appendix XXXX in Supplementary material for list). Individual studies had to report the following information to be included in our dataset: i) the relationship between growth and trait as a correlation coefficient, ii) the sample size and the number of species used to perform the correlation, and iii) the size or stage of plants. Despite searching only on SLA and WD, we recorded coefficient correlations for a list of 19 traits in total: the five for which we had prior expectations, plus any of 14 others commonly used in the trait literature. Where available, we also recorded the geographic coordinates, number of sites, experiment type (greenhouse, field experiment, forest, shade-house etc.), growth measure (relative or AGR measured using plant diameter, height or mass), vegetation type, life form (tree, woody or mixed with herbaceous species etc.), biological scale (interspecific, intraspecific or intragenus), and experimental treatments (e.g. fertilization, shade, salt stress). In some cases, we asked the authors for additional information about the specific correlation coefficient value when this was not already provided.
 
-While Web of Science guarantees a relatively stable and reproducible search environment, with clearly defined lists of indexed journals, its searches are limited to meta-data (i.e. title, keywords and abstracts, \citealt{Beckmann:2012hn}). This limitation does not apply to Google Scholar, where all text that is electronically available on the Internet will be indexed. Thus, we used Google Scholar to perform a more systematic search of the literature for SLA and WD.
+We recorded coefficient correlations for a list of 19 traits (Fig. \ref{fig:fig1}): the five for which we had prior expectations, plus 14 others commonly used in the trait literature. SLA, leaf area, leaf nitrogen and phosphorus concentration, net (mass) assimilation rates (NAR), and Aarea are traits involved in species leaf economic strategy \citep{Wright:2004jb,Wright:2010tp}. Seed mass and Hmax capture information about reproductive strategy \citep{Falster:2005bw,Moles:2006ft}. WD and sapwood area per leaf area (SA/LA), vessel size and density, and stem specific conductance are all involved in species wood economic strategy  \citep{Chave:2009iy}. Here WD and SA/LA are also considered as indicators of stem construction cost \citep{Falster:2011ii}, whereas SLA and leaf thickness capture crucial information about leaf construction cost \citep{Wright:2004jb}. Finally, the leaf area ratio and leaf mass ratio are indicators of resource distribution to leaf \citep{Lambers:1992bj}.
 
-The Google Scholar database was searched using a range of Boolean search terms for SLA and WD: ((``SLA'' OR ``LMA'' OR ``specific leaf area'' OR ``leaf mass area'' OR ``wood density'' OR ``WD'' OR ``wood specific gravity'' OR ``stem density'' OR ``stem specific density'') AND (``growth rate'' OR ``relative growth rate'')) AND (``tree*'' OR ``woody*''). This keyword search in Google Scholar returned approx. 18900 papers, from which we took the first 750 items when ranked by ``relevance''.
-These papers were examined in addition to those discovered in Phase 1. In addition, we gleaned data from other sources, using our own knowledge as researchers in the field (this included adding data from an in-review study by \citeauthor{Gleason:2016}). The complete list of studies where we inspected the full text is given in Appendix \ref{app:supp_info_files} in Supplementary material.
+Ultimately, data was recorded from from 103 different articles \citep{Aiba:1997ho, Aiba:2009ft, Antunez:2001gk, Atkin:1998in, augspurger_light_1984, baltzer_physiological_2007, baraloto_differential_2006, baraloto_seed_2005, Bloor:2003fa,  Broncano:1998ck, Brown:1996ks, Bruhn:2000jz, Cai:2007ie, CamaraZapata:2003df, CastroDiez:1998gz, CastroDiez:2003jd, Cernusak:2008ds, Chao:2008hg, Chaturvedi:2011jx, Chaturvedi:2014ie, Chave:2009iy,  coomes_comparison_1998, coomes_greater_2009, Cornelissen:1996hf, Cornelissen:1997fd, Cornelissen:1998ta, Dalling:2004gs, DeBell:1994ix, Easdale:2009gv, fan_hydraulic_2012, Fayolle:2012bx, Fujimoto:2006fg, Galmes:2005fa, Gleason:2016, gleeson_plant_1994, grotkopp_toward_2002, Grubb:1996kr, Herault:2011dd, Hoffmann:2003ga, Huante:1995fd, Huante:1995tl, Huante:1998bk, HUNT:1997ge, Iida:2014ep, Iida:2014hq, king_influence_1994, king_tree_2005,  King:2006he, Kitajima:1994ez, Kohyama:2003dk, Kruger:2006fq, Lamers:2006dl, LopezIglesias:2014dk, Loveys:2002hj, Lusk:1997ga, Lusk:2002fma, Lusk:2013bq, Lusk:2013hz, MartinezVilalta:2010iq, McCormack:2012ch, Moya:2008ep, Muller-landau_interspecific_2004, Nascimento:2005kl, Osone:2008dr, Osunkoya:1994ip, Osunkoya:2010ef, Paz:2005kx, Poorter:1999fp, Poorter:2006vb, Poorter:2008iu, Poorter:2010co, Popma:1988tv, Prior:2004cv, Quero:2008jg, Read:2011du, Reich:1998ir, Reich:1998ja, Rossatto:2009gq, RuizRobleto:2005hc, Sack:2004hm, saldana-acosta_seedling_2009, SalgadoLuarte:2012ci, Saverimuttu:1996ih, Shen:2014fw, Shipley:2002fs, Stratton:2001ck, Thomas:1996do, Tomlinson:2014im, Veneklaas:2002dt, Villagra:2013do, Villar:2006cf, walters_are_1996, Walters:1993eu, Walters:1993hf, Wang:1998cs, Warren:2005bc, Westbrook:2011ja, Wright:1999ds, Wright:2000kw, Wright:2001gb, Wright:2003kb, Wright:2010tp, Zhang:1995bh}.
 
-Each study had to meet some basic criteria to be included in our analysis. We restricted our meta-analysis to documents reporting: i) the relationship between growth and trait as a correlation coefficient, ii) the sample size and the number of species used to perform the correlation, and iii) the size/stage of plants. Ultimately data was included from 112 different articles (starred references in bibliography). Where available, we also recorded the geographic coordinates, number of sites, experiment type (greenhouse, field experiment, forest, shade-house etc.), growth measure (relative or absolute growth rate measured using plant diameter, height or mass), vegetation type, life form (tree, woody or mixed with herbaceous species etc.), biological scale (interspecific, intraspecific or intragenus), and experimental treatments (e.g. fertilization, shade, salt stress).  We asked the authors reporting a non-significant correlation for additional information about the specific correlation coefficient value when this was not provide. This allowed us to minimise publication bias via selective reporting of significant results within the published articles (e.g. a particular case of a ``failure to publish bias'' see \citealt{Jennions:2013ta}).
+% bib <- bibtex::read.bib("references/metaanalyses.bib")
+% paste(sort(names(x$keys)), collapse = ', ')
+% These studies dropped because not in list of top traits:
+% Bohlman:2006eo, Cochard:2007bn, Coley:1983hk,  Comas:2002wt, Comas:2004jza, King:2006dg, Poorter:2001fj, Schulze:2006ww,  Tjoelker:1999gp, Tobner:2013cv,
 
-Overall, we recorded coefficient correlations for a list of 19 traits (Fig. \ref{fig:fig1}): the five for which we had prior expectations, plus 14 others commonly used in the trait literature. SLA, leaf area, leaf nitrogen and phosphorus concentration, net (mass) assimilation rates (NAR), and Aarea are traits involved in species leaf economic strategy \citep{Wright:2004jb,Wright:2010tp}. Seed mass and Hmax capture information about reproductive strategy \citep{Falster:2005bw,Moles:2006ft}. WD and sapwood area per leaf area (SA/LA), vessel size and density, and stem specific conductance are all involved in species wood economic strategy  \citep{Chave:2009iy}. Here WD and SA/LA are also considered as indicators of stem construction cost \citep{Falster:2011ii}, whereas SLA and leaf thickness capture crucial information about leaf construction cost \citep{Wright:2004jb}. Finally, the leaf area ratio and leaf mass ratio are indicators of resource distribution to leaf \citep{Lambers:1992bj}. According to the snapshot of the literature on Web of Science, 62\% of the literature for these 19 traits was captured by a search on SLA and WD.
 
 \subsubsection*{Plant stage categories}\label{plant-stage-categories}
 
-We were unable to obtain a consistent and continuous measure of plant size across all studies, thus we relied on categorical groupings by ``stage'' to test our hypotheses. The authors of the 112 articles used in this analysis reported their plants as belonging to any of five different stages: ``seedling'', ``juvenile'', ``sapling'', ``adult'', ``mixed''. While these categories have been established according to the expertise of the authors, by compiling data across multiple studies and vegetation types, we were concerned about the risk of assigning plants of similar size to different categories. This risk turned out to be negligible: overall, we found that the original thresholds in size/age used by the authors to distinguish different stages were relatively compatible (Fig. \ref{fig:fig2}). In particular, there was a clear break between seedlings and saplings in both age (at 1 yr) and height (at 0.5 m). There was also a clear break between saplings and adults in diameter (at 10 cm). According to simple allometric relationships between size variables plotted using data from the Biomass And Allometry Database \citep{Falster:2015}, the thresholds used for each stage transition align relatively well with one another across the different size measurements (age, height and diameter, Fig. \ref{fig:figA1}). Thus we adopted the above values as cut-offs for defining stage boundaries. However, the group ``juvenile'' was largely overlapping with the three others, and so we merged this category with one or the other on a case by case basis.
+We used categorical groupings by plant ``stage'' to test our hypotheses regarding the effects of traits on growth rates. The authors of the 103 articles used in this analysis reported their plants as belonging to any of five different stages: ``seedling'', ``juvenile'', ``sapling'', ``adult'', ``mixed''. While these categories have been established according to the expertise of the authors, we were concerned about the risk of assigning plants of similar size to different categories when compiling data across multiple studies and vegetation types. This risk turned out to be small: overall, we found that the original thresholds in size/age used by the authors to distinguish different stages were relatively compatible (Fig. \ref{fig:fig2}). In particular, there was a clear break between seedlings and saplings in both age (at 1 yr) and height (at 0.5 m). There was also a clear break between saplings and adults in diameter (at 10 cm). Comparing these values to the bivariate relationships observed between variables (age, height, diameter) in the ``Biomass And Allometry Database'' \citep{Falster:2015}, demonstrated that the thresholds identified above for each stage transition also aligned relatively well with one another (Fig. \ref{fig:figA1}). Thus we adopted the above values as cut-offs for defining stage boundaries.
 
-Using the identified boundaries among stages we were able to assign all studies into one of three classes: ``seedling'', ``sapling'', or ``adult''. Using the above cut-offs we were also able to assign a stage category to studies for which no stage was distinctly mentioned by the authors (5\% of the articles, noted as ``mix'' in Fig. \ref{fig:fig2}). Only 7 of 112 articles were ambiguous on their plant stage attribution. Half of these equivocal cases involved the juvenile category. We attributed a study to a new stage category only when 95\% of the recorded range of sizes for that study lay within a particular stage category. Other equivocal cases were caused by ambiguity in the usage of ``adult'' by the authors. Some plants with a large stature were not described as adult by authors because they were still non reproductive \citep{King:2006dg,King:2006he}. Conversely plants with small stature -- because stunted by wind for example \citep{Stratton:2001ck}-- were sometimes assessed as adult when reproductive. For purposed of the present paper we attributed a study to the adult stage when the authors identified the plants as reproductive, and to sapling stage when they identified the plants as non-reproductive, regardless of the plant's size or age. Results using the categories established by the authors are similar to those using the standardized categories (see Fig. \ref{fig:figA6} model.1). In the main text, we report only results using the standardized categories.
+Using the identified boundaries among stages we were able to assign all studies into one of three classes: ``seedling'', ``sapling'', or ``adult''. The group ``juvenile'' was largely overlapping with the three others, and so we merged this category with one or the other on a case by case basis. Using the above cut-offs, we were also able to assign a stage category to studies for which no stage was distinctly mentioned by the authors (5\% of the articles, noted as ``mix'' in Fig. \ref{fig:fig2}). Only 7 of 103 articles were ambiguous on their plant stage attribution. Half of these equivocal cases involved the juvenile category. We attributed a study to a new stage category only when 95\% of the recorded range of sizes for that study lay within a particular stage category. Other equivocal cases were caused by ambiguity in the usage of ``adult'' by the authors. Some plants with a large stature were not described as adult by authors because they were still non reproductive \citep{King:2006he}. Conversely plants with small stature -- because stunted by wind for example \citep{Stratton:2001ck} -- were sometimes assessed as adult when reproductive. For purposes of the present paper, we attributed a study to the adult stage when the authors identified the plants as reproductive, and to sapling stage when they identified the plants as non-reproductive, regardless of the plant's size or age. We found that results using the original categories established by the authors were similar to those using the standardized categories (see Fig. \ref{fig:figA6}).  Thus in the main text, we report only results using the standardized categories.
 
-\subsection*{Statistical analyses}\label{statistical-analyses}
+\subsubsection*{Measurements under ideal conditions}\label{ideal-vs-entire-dataset}
+
+Compiled data included studies differing in the growth measurement used (RGR or AGR), the number of species, the experimental conditions (stressed vs unstressed), and the concordance between stage used to measure trait and growth rate. To assess whether such factors influenced our results, we investigated whether results changed between the entire dataset and a more conservative subset. The entire dataset includes all noted correlations. A second ``ideal'' subset, included only studies recording RGR across \underline{\textgreater} 10 species, under unstressed conditions, and where growth rates and traits were measured on plants from the same stage (expect for Hmax and seed mass, where a particular stage is by definition required to measure the trait).
+
+\subsection*{Statistical analysis}\label{statistical-analyses}
 
 \subsubsection*{Effect size calculation}\label{effect-size}
 
-To measure of effect size, we used the cross-species Pearson product-moment correlation coefficient $r$ between growth rate and trait, weighted by the number of species contributing to the relationship. For studies that reported another coefficient -- such as coefficient of determination, Spearman's rho rank correlation, or Kendall's tau rank correlation -- we converted these to correlation coefficients following \citet{Lajeunesse:2013tm}. As the magnitude of Pearson's correlation coefficient approaches $\pm$ 1.0, its distribution becomes skewed. Accordingly, we transformed the correlation $r$ into a metric $z$ with more-desirable statistical properties. The transformation was achieved via Fisher's z-transformation,
-\[ z = \frac{1}{2} \ln \frac{1+r}{1-r}\]
+To measure effect size, we used the cross-species Pearson product-moment correlation coefficient $r$ between growth rate and trait, weighted by the number of species contributing to the relationship. Results from studies that reported another coefficient -- such as coefficient of determination, Spearman's rho rank correlation, or Kendall's tau rank correlation -- were converted to correlation coefficients following \citet{Lajeunesse:2013tm}. As the magnitude of Pearson's correlation coefficient approaches $\pm$ 1.0, its distribution becomes skewed. Accordingly, we transformed the correlation $r$ into a metric $z$ with more-desirable statistical properties. The transformation was achieved via Fisher's z-transformation,
+\[ z = \frac{1}{2} \ln \frac{1+r}{1-r},\]
 which has a variance estimate of
-\[ v_z= \frac{1}{n-3}\]
-where $n$ is the number of species. We weighted effect size by the number of species used to calculate the correlation, instead of the raw number of individuals, because our questions primarily concerned the correlation between growth and traits across species and not within species.
+\[ v_z= \frac{1}{n-3},\]
+where $n$ is the number of species. We weighted effect size by the number of species used to calculate the correlation, instead of the raw number of individuals, because our questions primarily concerned the correlation between growth and traits across species and not within species. Throughout we report means and 95\% confidence intervals (CI) on effect size.
 
 \subsubsection*{Stage effect}\label{stage-effect}
 
-We tested stage effect on traits for which $>$ 15 correlation coefficients across at least two stages were recorded. We used a mixed-effect model of meta-analysis, in which it is assumed that studies within a stage share a common mean effect but that there is also random variation among studies in a stage, in addition to sampling variation \citep{Zuur:2009cfa}. This random effect allows us to account for the heterogeneity among studies (e.g. experimental type, vegetation type, error, etc.). For each trait, we established whether stage could explain variance in $z$ by comparing models with the stage variable to the null model using log-likelihood ratios \citep{Zuur:2009cfa}. If the log-likelihood test returned a significant p-value, the stage model fitted the data better than the null model. Estimates of the effect size for each stage were considered significant if the 95\% confidence intervals did not overlap with zero.
+We tested an effect of plant stage on the relationship between growth rate and traits using a mixed-effect model, in which it was assumed that studies within a stage shared a common mean effect, but that there was also random variation among studies, in addition to sampling variation \citep{Zuur:2009cfa}. Inclusion of this random effect allowed us to account for heterogeneity among studies, for example in experimental type, and vegetation type. For each trait, we established whether stage could additional explain variance in $z$ by comparing models with a without a stage effect  using log-likelihood ratios \citep{Zuur:2009cfa}. If the log-likelihood test returned a significant p-value, the stage model fitted the data better than the model without. Estimates of the effect size for each stage were considered significant if the CIs did not overlap with zero.
 
-\subsubsection*{"Ideal" vs "complete" dataset}\label{ideal-vs-complete-dataset}
+\subsubsection*{Quality criteria for meta-analyses}
 
-In addition to the chosen criteria for the meta-analyses, the growth measurement used (relative growth rate-RGR or absolute growth rate-AGR), the number of species, the experimental conditions (stressed vs unstressed), and the concordance between stage used to measure trait and growth are clear criteria for assessing the quality of the data for addressing our hypotheses. Thus we stratified the data set into two subsets: one including only studies on RGR, under unstressed conditions and measuring a correlation coefficient at least across 10 species (’ideal’ dataset), and the other set including studies under all conditions (’complete’ dataset). We excluded from the ”ideal” dataset studies where growth and traits were measured on plants from different stages, unless a particular stage was by definition required to measure the trait, such as for seed mass (i.e. seed stage), or Hmax (i.e. adult stage).
+\citet{Koricheva:2014ku} outlined 14 methodological criteria to ensure robust results from meta-analyses. Table \ref{tab:meta} summarises how we addressed each of these. In particular, we i) quantified heterogeneity in effect size, ii) tested for publication bias, and iii) explored temporal change in effect size (see Appendix \ref{app:supp_info_analyses}).
+We also tested how robust our results were to the decisions made in the analysis. Specifically, we assessed the sensitivity of our results to inclusion of studies reporting multiple trait-growth correlation across different conditions (e.g. vegetation type, sites, environmental treatment). In the case of multiple comparisons within a study, we used the method proposed by \citet{Borenstein:2009um}: we calculated the mean correlation coefficient by trait and by study, and then re-calculated the effect size. This produced a reduced dataset, where multiple responses for any given trait were condensed into a study-level average.
 
-\subsubsection*{Quality criteria for meta-analysis}
+\subsubsection*{Software}
 
-\cite{Koricheva:2014ku} outlined 14 methodological quality criteria to ensure robust results from meta-analyses. Table \ref{tab:meta} outlines how we addressed each of these. In particular, we quantified heterogeneity in effect size, we tested for publication bias and we explored temporal change in effect size (see Appendix \ref{app:supp_info_analyses}).
-We also tested how robust our results were to the decisions made in the analysis. In particular, we tested the sensitivity of our results to inclusion of studies that measured a same trait-growth correlation across different conditions (e.g. vegetation type, sites, environemental conditions). The idea is to check that our results were not generated by the dominance of one or few studies reporting several values for the same trait. In the case of multiple comparisons within a study, we used the method proposed by \citet{Borenstein:2009um}: we calculated the mean correlation coefficient by trait and by study, and then re-calculated the effect size. This produced a reduced dataset, where multiple responses for any given trait were condensed into a study-level average.
-
-\subsection*{Availability of code and data}\label{code}
-
-All analyses were conducted with R software \citep{Ralanguageanden:2014wf}. The code and data for producing all figures and results in this paper is available at \smurl{github.com/AnaisGibert/Growth\_trait\_metaanalysis}.
+All analyses were conducted with \texttt{R} software \citep{Ralanguageanden:2014wf} using packages \texttt{lme4} \citep{Bates-2014}. \texttt{metafor} \citep{Viechtbauer-2010}, and \texttt{gpplot2} \citep{Wickham:2009}.
 
 \section*{Results}\label{results}
 
+\subsection*{Trait coverage}
+In total, 103 articles containing 551 correlations linking growth rate to any of the 19 traits  across a range of plant stages were identified (Fig. \ref{fig:fig1}). Considering only our top five traits of interest, the number reduced to 93 articles and 267 correlations. For measurements under ideal conditions, we identified only 55 studies with 137 correlations. The main results reported here were obtained with this ``ideal'' subset of data. These were then compare against results obtained with the entire dataset.
+
+% x <- remake::make("CleanData")
+% unqiue(x$ref)
+% nrow(x)
+% x <- remake::make("CompleteData")
+% unique(x$ref)
+% nrow(x)
+% x <- remake::make("IdealData")
+% unique(x$ref)
+% nrow(x)
+
 \subsection*{Main effects}
 
-Contrary to our expert expectation, a few number of study reported a trait-growth correlation and meet our basic criteria (112 articles, $n = 216$). The main results reported here were obtained with an even more conservative approach ($n = 98$), and were thereby confined to correlations with RGR, across at least 10 species, under non-stressed conditions, and for which the source of trait and growth was controlled (i.e. "ideal" dataset). 
+Overall, results were consistent with predictions, although with limitations arising for some traits due to very unequal numbers of observations between growth stages.
 
-For SLA the correlation between RGR and the trait changed significantly with plant size in the manner expected. Model fit improved when stage was incorporated (see log likelihood ratio tests, Fig. \ref{fig:fig3} a; average values for the coefficients ($\bar{r}$) in Fig. \ref{fig:figA4} a-e). The correlation between RGR and SLA shifted from strongly positive at seedling stage $\bar{r}=0.6 \pm 0.08$, Mean $\pm$ SD) to not significantly different from zero at adult stage ($\bar{r}= -0.01 \pm 0.07$, CI 95\% overlapping zero in Fig. \ref{fig:fig3} a). The correlation coefficients recorded at sapling stage were intermediate between seedling and adult stages. 
+For SLA, the correlation between RGR and the trait changed significantly with plant size in the manner expected (Fig. \ref{fig:fig3}a). The correlation between RGR and SLA shifted from strongly positive at seedling stage ($\bar{r}=0.6 \pm 0.08$, Mean $\pm$ SD) to not significantly different from zero at adult stage ($\bar{r}= -0.01 \pm 0.07$, CI 95\% overlapping zero). The correlation coefficients recorded at sapling stage were intermediate between seedling and adult stages.  Model fit improved significantly when stage was incorporated (see log likelihood ratio tests, Fig. \ref{fig:fig3}a; average values for the coefficients ($\bar{r}$) in Fig. \ref{fig:figA4}a-e).
 
-For WD, Hmax and seed mass, correlations with RGR were also consistent with expectations, although with limitations arising from very unequal numbers of observations between growth stages for some traits. Indeed, confidence intervals of r often spanned zero especially where there were small numbers of studies for particular growth stages, precluding strong conclusions. 
-For WD, results were consistent with negative correlations with RGR across all plant sizes (Fig. \ref{fig:fig3} b, model fit not improved when stage was incorporated). Note that the confident intervals were not crossing zero for sapling and seedling stage despite small sample sizes (n= 4 and 1 respectively), meaning a strong correlation and /or a good consistency in the coefficient reported for each stage across studies.
+For WD, Hmax, and seed mass, correlations with RGR were also consistent with expectations, although our ability to test all hypotheses was at times limited due to low sample size. Indeed, CIs of $r$ often spanned zero especially where there were small numbers of studies for particular growth stages, precluding strong conclusions.
+For WD, results were consistent with the prediction for negative correlations with RGR across all plant sizes (Fig. \ref{fig:fig3}b). Accordingly, model fits were not improved when stage was incorporated. Note that the CIs were not crossing zero for sapling and seedling stage despite the small sample sizes (n= 4 and 1 respectively), meaning a strong correlation and /or a good consistency in the coefficient reported for each stage across studies.
 
-For Hmax, the expectation was for a correlation with growth to be absent for small plants but present at larger sizes, the mechanism being increased relative allocation to reproduction as Hmax is approached. Indeed Hmax was positively correlated with growth at adult stage ($\bar{r}= 0.38 \pm 0.05$). At sapling stages, the correlation between Hmax and growth was not significantly different from that observed at adult stage (model fit not improved when stage was incorporated, see log likelihood ratio tests in Fig. \ref{fig:fig3} c, and confident intervals overlapping), but also was consistent with no correlation (Fig \ref{fig:fig3} c, confidence intervals overlapping zero), due to much smaller numbers of replicate studies. We could not distinguish between these alternatives. 
+For Hmax, the expectation was for a correlation with growth to be absent for small plants but present at larger sizes, the mechanism being increased relative allocation to reproduction as Hmax is approached. Indeed Hmax was positively correlated with growth at adult stage ($\bar{r}= 0.38 \pm 0.05$). At sapling stages, the correlation between Hmax and growth was not significantly different from that observed at adult stage (model fit not improved when stage was incorporated, see log likelihood ratio tests in Fig. \ref{fig:fig3}c, and CIs overlapping), but also was consistent with no correlation (Fig \ref{fig:fig3}c, CIs overlapping zero), due to much smaller numbers of replicate studies. We could not distinguish between these alternatives.
 
-As expected for seed mass, the correlation with RGR shifted from negative at seedling stage ($\bar{r}= -0.5 \pm 0.07$) to not significantly different from zero at adult and sapling stages (Fig \ref{fig:fig3} c, confidence intervals overlapping zero). Hovever, the correlation between seed mass and RGR at adult and sapling stages were also not significantly different from that observed at seedling stage (see log likelihood ratio tests and confident intervals overlapping in Fig. \ref{fig:fig3} c). Again we could not distinguish between these alternatives. But unlike Hmax, the number of coefficent reported for seed mass was almost similar between adult (n= 7) and seedling (n= 10) stages, suggesting that confident interval overalapping zero at adult stage were due to variation in correlation coefficient reported rather than to a much smaller numbers of replicates. 
+As expected for seed mass, the correlation with RGR shifted from negative at seedling stage ($\bar{r}= -0.5 \pm 0.07$) to not significantly different from zero at adult and sapling stages (Fig \ref{fig:fig3}c, CIs overlapping zero). However, the correlation between seed mass and RGR at adult and sapling stages were also not significantly different from that observed at seedling stage (see log likelihood ratio tests and CIs overlapping in Fig. \ref{fig:fig3}c). Again we could not distinguish between these alternatives. But unlike Hmax, the number of coefficient reported for seed mass was almost similar between adult (n= 7) and seedling (n= 10) stages, suggesting that CIs overlapping zero at adult stage were due to variation in correlation coefficient reported rather than to a much smaller numbers of replicates.
 
-For Aarea, results were consistent with a positive correlation with RGR at seedling stage. However, no conclusion can be drawn about a change along plant stages; only four correlation coefficients were reported for this trait, and three of them were measured at the seedling stage (Fig. \ref{fig:fig3} e). 
+For Aarea, results were consistent with a positive correlation with RGR at seedling stage. However, no conclusion can be drawn about a change along plant stages; as only four correlation coefficients were reported for this trait, and three of these were measured at the seedling stage (Fig. \ref{fig:fig3}e).
 
-\subsection*{Results with an inclusive approach}
+\subsection*{Sensitivity of results to analysis decisions}
 
-We also reported results from a more complete dataset, to determine if additional data could reinforce or in contrast overcast some of our conclusions. This ''complete'' dataset included correlations measured with both absolute and relative growth rate (Fig. \ref{fig:fig4}), across at least two species, and did not required any control for the source of trait or growth (i.e. both could be measured on different stages) and for the environemental conditions. This release of criteria enlarged in a considerable extent the number of replicates ($n = 216$). 
+The above results were generated using data measured under ``ideal'' conditions: unstressed growth, growth measured as RGR, traits and growth recorded in same stage, \underline{\textgreater} 10 species. We now report results from the entire dataset, to determine if additional data would alter our conclusions. This entire dataset included correlations measured with both AGR and RGR (Fig. \ref{fig:fig4}), across at least two species, and did not control for the source of trait or growth (i.e. both could be measured on different stages) or environmental conditions. These relaxed criteria considerably increased the number of replicates, from $n = 137$ to $n = 267$ correlations. These additional replicates were unequally distributed across trait-stage combinations. Some trait-stage combinations already with a lot of data got even more support (e.g. from 25 to 59 correlation coefficients reported for SLA at seedling stage), while others still had few replicates. On the 13 traits-stage combinations studied in total, six had \textless five correlation coefficients: (i.e. WD-seedling, Hmax-sapling, Hmax-seedling, Seed mass-sapling, Aarea-adult and Aarea-sapling.
 
-The ''complete'' dataset generated similar effect sizes to those reported above for SLA, WD, Hmax and seed mass, and led to similar conclusions (Fig. \ref{fig:fig4}). This supports the robustness of the analysis using the conservative approach ('ideal dataset'). For Aarea, additional replicates from the ''complete'' dataset allowed to compare the effect size across plant stage. The results were consistent with a positive correlations with RGR across adult and seedling stages (Fig \ref{fig:fig4} e; CI not overlapping zero). 
+% x <- remake::make("CompleteData")
+% nrow(x)
 
-The comparison of Aarea effect size between "ideal" (Fig. \ref{fig:fig3} d) and "complete" (Fig. \ref{fig:fig4} d) dataset, showed no signal of an effect of stress (here mainly low light) on the correlation with RGR at seedling stage; the correlation was still positive between Aarea and RGR even when 8 correlations measured under low light conditions were added. 
+Effect sizes and overall results using the entire dataset were similar to those reported above using the ``ideal'' subset (Fig. \ref{fig:fig4}). For Aarea, the additional replicates in the entire dataset allowed us to compare the effect size across plant stage. The results were consistent with the prediction for a positive correlation with RGR across adult and seedling stages (Fig \ref{fig:fig4}e; CI not overlapping zero). Comparison of Aarea effect  between the ``ideal'' subset (Fig. \ref{fig:fig3}d) and entire dataset (Fig. \ref{fig:fig4}d), indicated little effect of stress (here mainly low light) on the correlation with RGR at seedling stage; as the correlation was still positive  when 8 correlations measured under low light conditions were added.
 
-The comparison between RGR and AGR was possible for some trait-stage combinations. For seed mass, effects size differed significantly between RGR and AGR at seedling stage; as expected the correlation with RGR was positive and shifted to non significant with AGR (Fig \ref{fig:fig4} d; CI not overlapping). For both WD and Hmax, effects size measured with RGR or AGR were no differents at adult stage; CI were overlapping despite equal sample size (Fig \ref{fig:fig4} b and c).
+For some trait-stage combinations, it was possible to compare results between RGR and AGR. For both WD and Hmax, effects size measured with RGR or AGR were no different at adult stage; CIs were overlapping despite equal sample size (Fig \ref{fig:fig4}b-c).  For seed mass, effects size differed significantly between RGR and AGR at seedling stage; as expected the correlation with RGR was positive and shifted to non significant with AGR (Fig \ref{fig:fig4}d; CI not overlapping).
 
-New replicates from the complete dataset were not equally distributed across all trait-stage combinations. Some trait-stage combinations already well studied got even more support (e.g. from 25 to 59 correlation coefficients reported for SLA at seedling stage), but other still had few replicates. Thus, on the 13 traits-stage combinations studied in total, six were only supported by five or less correlations coefficient (i.e. WD-seedling, Hmax-sapling, Hmax-seedling, Seed mass-sapling, Aarea-adult and Aarea-sapling).
+\subsection*{Tests for bias in sampling}
 
-\subsection*{Coverage of dataset}
+Given our basic conclusion that reported correlations responded to plant size in a manner consistent with expectations from theory, we assessed the coverage of the available data, to determine if biased sampling could have erroneously generated the above results.
 
-Given our basic conclusion that reported correlations responded to plant size in a manner consistent with expectations from theory, we assess now the coverage of the available data, to determine if biased sampling could have erroneously generated the above results.
+In total, we found only 103 studies published between between 1983 and 2014 that met our requirements. Climate zones spanned from temperate regions to tropics (map in Fig. \ref{fig:figA2}). Different experiment types (laboratory, field, plantation or greenhouse), growth measurements and growth form (tree, woody or across growth form) were included. The number of species used for each correlation ranged from 2 to 300 species, with an average of 31. Given this variety, it was not surprising to find a wide range of $r$ reported for each trait. For instance, $r$ varied from -0.98 to 0.99 for SLA, and from -0.74 to 0.74 for WD (Fig. \ref{fig:figA3}). Growth form, experiment type and growth measurement type were not strong predictors in general (Fig. \ref{fig:figA6}); suggesting confounding with these factors is not a likely explanation of the major results reported.
 
-In total, we found only 112 studies published between between 1983 and 2014 that met our requirements. Climate zones spanned from temperate regions to tropics (map in Fig. \ref{fig:figA2}). Different experiment types (laboratory, field, plantation or greenhouse), growth measurements and growth form (tree, woody or across growth form) were included. Number of species used for each correlation ranged from 2 to 300 species with average 31. Given this variety, it was not surprising to find wide ranges of $r$ reported for all traits. For instance, $r$ varied from -0.98 to 0.99 for SLA, and from -0.74 to 0.74 for WD (Fig. \ref{fig:figA3}). Growth form, experiment type and growth measurement type were not strong predictors in general (Fig. \ref{fig:figA6}), and confounding with these factors is not a likely explanation of the major results reported.
-
-Overall our study met quality criteria expected for meta-analysis in ecology (Table \ref{tab:meta}). The impact of publication bias was probably trivial (Appendix E, Fig. \ref{fig:figA7}). The extent of heterogeneity was high, but was substantially explained by the plant stage effect for SLA and seed mass, as expected (Appendix E). Finally, there was no indication of a temporal change in the effect size being reported within stages (Appendix E, Fig. \ref{fig:figA9}).
-
-Finally, our results were unlikely to be biased by dominance of one or a few studies that measured a large number of responses, since when multiple responses were condensed into a single average within a trait and within a study, outcomes were very similar (Fig. \ref{fig:figA5}).
-
+Overall our study met quality criteria expected for meta-analysis in ecology (Table \ref{tab:meta}). The impact of publication bias was seemingly trivial (Appendix E, Fig. \ref{fig:figA7}). The extent of heterogeneity was high, but was substantially explained by our core hypothesis of a plant stage effect for SLA and seed mass (Appendix E). There was no indication of a temporal change in the effect size being reported within stages (Appendix E, Fig. \ref{fig:figA9}). Finally, our results were unlikely to be biased by dominance of one or a few studies that measured a large number of responses, since when multiple responses were condensed into a single average within a trait and within a study, outcomes were very similar (Fig. \ref{fig:figA5}).
 
 \section*{Discussion}\label{discussion}
 
-The meta-analysis reported here demonstrates that for several key traits, the influence of the trait on growth rate changes as plants grow from small to large. While the possibility has been raised recently that trait-growth correlations may change systematically with size \citep{Falster:2011ii, Ruger:2012jv, Iida:2014ep, Iida:2014hq}, this is the first time that specific mechanistic hypotheses have been corroborated by meta-analysis of existing literature. Meta-analysis allowed us to generalize and thus to reach a consensus about the effect of traits on growth. Growth rates are known to change with size through ontogeny \citep{Condit:1993hd, Clark:1999ed, Herault:2011dd}, in other words plants follow a growth trajectory. Species traits should be understood as influencing this trajectory and potentially re-ranking growth rates between species as size increases. This is a shift in outlook compared to much present thinking whereby traits are seen as rendering species fast-growing or slow-growing throughout life.
+The meta-analysis reported here demonstrates that for several key traits, the influence of the trait on growth rate changes as plants grow from small to large. While the possibility has been raised recently that trait-growth correlations may change systematically with size \citep{Falster:2011ii, Ruger:2012jv, Iida:2014ep, Iida:2014hq}, this is the first time that specific mechanistic hypotheses have been corroborated against a wide array of existing studies. Meta-analysis allowed us to generalize and thus to reach a consensus about the effect of traits on growth. Growth rates were already known to change with size through ontogeny \citep{Condit:1993hd, Clark:1999ed, Herault:2011dd}, in other words individual plants follow a growth trajectory. Our results suggest species traits should be understood as influencing this trajectory and potentially re-ranking growth rates between individuals from different species as their size increases. This is a shift in outlook compared to much present thinking, whereby traits are seen as rendering species fast-growing or slow-growing throughout life.
+
+TODO: XXXX Something about limited amount of data
+
 
 \subsection*{Why does the effect of traits on growth vary with size?}
 
-For five prominent traits, the patterns observed were consistent with specific predictions from a mechanistic growth model. This is coherent with the mechanisms through which traits affect growth being correctly understood in the model. Other mechanisms could also generated these patterns and we discussed them in the discussion. For SLA the meta-analysis confirmed quite strongly the predicted influence of plant size on the trait-growth correlation. For WD, Aarea, seed mass and Hmax results were consistent with predictions, but coverage was limited and additional studies would be helpful for some trait-growth-stage relationships. 
+For five prominent traits, the patterns observed were consistent with specific predictions from a mechanistic growth model. This suggests the mechanisms through which traits affect growth may be correctly understood in the model. For SLA the meta-analysis confirmed quite strongly the predicted influence of plant size on the trait-growth correlation. For WD, Aarea, seed mass and Hmax results were consistent with predictions, but coverage was limited and additional studies would be helpful for some trait-growth-stage relationships.
 
-It has previously been noted that the correlation of SLA with growth disappears among saplings and larger trees (\citealt{Wright:2010tp} for Barro Colorado Island forest, Panama), and this meta-analysis generalises that result. Several authors have suggested that the disappearance of SLA's influence on growth might be due to a disproportionate accumulation of leaf area by low SLA species \citep{Reich:1992wm,Poorter:2008iu,Wright:2010tp}, yet it remains unclear whether such a mechanism works as intended. Further, the assumed empirical relationship between SLA and total leaf area does not hold true as a generalisation across large number of species (\citeauthor{Duursma-2015}, in review). In the model described here, the mechanism is slightly different: high-SLA species incur faster leaf turnover, the cost of which outweighs the benefits of cheap leaf construction at larger sizes.
+It has previously been noted that the correlation of SLA with growth disappears among saplings and larger trees (\citealt{Wright:2010tp} for Barro Colorado Island forest, Panama), and this meta-analysis generalises that result. Several authors have suggested that the disappearance of SLA's influence on growth might be due to a disproportionate accumulation of leaf area by low SLA species \citep{Reich:1992wm,Poorter:2008iu,Wright:2010tp}, yet it remains unclear whether such a mechanism works as intended. Further, the assumed empirical relationship between SLA and total leaf area does not hold true as a generalisation across large number of species \citep{Duursma-2015}. In the model described here, the mechanism is slightly different: high-SLA species incur faster leaf turnover, the cost of which outweighs the benefits of cheap leaf construction at larger sizes.
 
 For seedlings our study showed, as expected, a negative relationship between seed mass and RGR (in mass or height or volume) for small plants, that dissipated as plants grew larger. This negative relationship arises because seedlings from larger seeds begin life larger themselves, as has been extensively discussed in the literature \citep[reviewed by][]{Turnbull:2012ew}. 
 
-For WD the meta-analysis showed negative correlation with RGR across all plant stages, as previously reported from individual studies \citep{Wright:2010tp,Ruger:2012jv}. It should be noted however that there are few data available to test this proposition at seedling stage (n=1-5). In our model (Appendix \ref{sec:growth}) cheaper stem construction is responsible for the predicted negative correlation. Lower xylem conductance and associated lower photosynthetic potential have also been suggested \citep[reviewed by][]{Chave:2009iy}.
-For seedlings a negative correlation arose regardless wood density was measured on adult plants, or calculated as seedling stem segment dry weight over its volume (i.e. stem density in  \citealt{CastroDiez:1998gz}), suggesting that both measurements could be used.
+For WD the meta-analysis showed negative correlation with RGR across all plant stages, as previously reported from individual studies \citep{Wright:2010tp,Ruger:2012jv}. It should be noted however that there are few data available to test this proposition at seedling stage (n=1-5). In our model, cheaper stem construction is responsible for the predicted negative correlation. Lower xylem conductance and associated lower photosynthetic potential have also been suggested \citep[reviewed by][]{Chave:2009iy}.
+For seedlings a negative correlation arose regardless WD was measured on adult plants, or calculated as seedling stem segment dry weight over its volume (i.e. stem density in  \citealt{CastroDiez:1998gz}), suggesting that both measurements could be used.
 
-As far as we are aware, our study is the first to compare Aarea and growth correlations between small and large plants. In the growth model (Appendix \ref{sec:growth}), a consistent correlation irrespective of size arises from a direct effect of Aarea on plant growth rate. Meta-analyses showed a positive correlation for adult and seedling but not for saplings (n=3). In the seedling stage, where most of data were available, we noted no signal of an effect of low light on the positive correlation between Aarea and growth rate.
+As far as we are aware, our study is the first to compare Aarea and growth correlations between small and large plants. In the growth model, a consistent correlation irrespective of size arises from a direct effect of Aarea on plant growth rate. Meta-analyses showed a positive correlation for adult and seedling but not for saplings (n=3). In the seedling stage, where most of data were available, we noted no signal of an effect of low light on the positive correlation between Aarea and growth rate.
 
 Meta-analysis showed a positive correlation between Hmax and RGR for adult stage, but not for saplings and seedlings. The trend for tall stature species to grow faster at a given tree size than small stature species has been noted across several tree size classes and forest types (e.g. \citealt{Thomas:1996do,Poorter:2008iu,Wright:2010tp,Herault:2011dd,Ruger:2012jv,Iida:2014ep}). In \citet{Wright:2010tp}, Hmax was considered a weak predictor of growth rates of saplings; however it was the strongest predictor of growth rates of large trees. \citet{Poorter:2008iu} speculated that the Hmax-RGR relationship among large trees might arise from including small tree species with maximum size not much larger than the 10cm dbh lower threshold used to define large trees. In our growth equations, Hmax affects growth via the fraction of energy diverted to reproduction. At a given tree size, species closer to their Hmax are expected to be allocating relatively less to vegetative growth. However this applies only at sizes where some of the species have begun to reproduce, and should not affect sapling and seedling growth rates. While the results of the meta-analysis were consistent with the expected pattern for Hmax, we noted that a limited number of replicates were available for both saplings (n=4) and seedling stages (n=1). Consequently, subsequent research are welcomed to validate this result. 
 
@@ -218,47 +298,49 @@ A lot of biotic and abiotic conditions such as light and water micro-environment
 
 Clearly there is much scope for strengthening our understanding of correlations between traits and growth through (1) adding further empirical studies for traits and size-classes with weaker representation, (2) accounting more satisfactorily for variables such as light, and (3) expressing plant sizes on continuous scales of mass or height rather than through the approximate and partly subjective categories unavoidably adopted here. Additional data are specifically required in small plants (seedling and sapling) for WD and Hmax, and in large plants (adult and sapling) for Aarea and more broadly for all traits requiring a measure of whole plant biomass (e.g. LMR, LAR, NAR). However, the existing published evidence is consistent with qualitative predictions of a simple model that assesses the effects of plant size on growth. Thus, the linkage of growth to the mechanisms outlined here can shed light on tree growth trajectories and the size-dependent effects of functional traits on the changing species growth rate rankings as individuals grow larger.
 
-\section*{Acknowledgments}\label{Acknowledgment}
+\section*{Acknowledgements}\label{Acknowledgment}
 
-We thank Andrea Stephens for helpful comments on the meta-analyses, and Sean Gleason et al for pre-publication access to their data. Charles Warren and Jordi Martìnez-Vilalta kindly provided additional information about their published results. This work was funded by the Australian Research Council through a fellowship to M.W, a discovery grant to D.S.F and a Macquarie University Research Fellowships to E.F.G.
+We thank Andrea Stephens for helpful comments on the meta-analyses, and Sean Gleason et al for pre-publication access to their data. Charles Warren and Jordi Mart{\'i}nez-Vilalta kindly provided additional information about their published results. This work was funded by the Australian Research Council through a fellowship to M.W, a discovery grant to D.S.F and a Macquarie University Research Fellowships to E.F.G.
+
+\subsection*{Availability of code and data}\label{code}
+
+The code and data for producing all figures and results in this paper is available at \smurl{github.com/AnaisGibert/Growth\_trait\_metaanalysis}. Upon publication, a copy of the data set will also be made available in the Dryad Digital Repository.
+
 
 \clearpage
 \linespread{1}
 
-\nocite{*}
-
 \bibliography{output/refs}\label{references}
-
 
 \clearpage
 \section*{Figures}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/Fig1.pdf}
-\caption{Number of recorded correlations between trait and growth rate in our dataset, by size and trait. Traits are: Aarea (or Amass) = rate of CO$_{2}$ assimilation per unit leaf area (or leaf mass) = maximum photosynthetic rate, Hmax = asymptotic maximum height,  Ks = stem hydraulic conductance, LA = leaf area, LMR = leaf mass ratio, NARarea = net mass assimilation rate per unit of leaf area, Nmass (or Narea) = nitrogen content per unit of leaf mass (or leaf area), Pmass = phosphorus content per unit of leaf mass, SA/LA = sapwood area per leaf area, SLA = specific leaf area, thickness = leaf thickness, Vessel size = stem conduit size, vessel density = stem conduit density, WD = wood density. Results shown here are the ''complete'' dataset (see methods for details).}
-\label{fig:fig1}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
 \includegraphics[width=15cm,height=20cm,keepaspectratio]{output/Fig2.pdf}
-\caption{The range of plant sizes and stage recoded in original publications, compared to standardised thresholds used in the analysis. Panels are for
-a) age, b) height and c) diameter. Horizontal line segments indicate the size range (max., min.) for the plants used to measure growth. Study IDs correspond to the reference number in our dataset. Colours denote stage information given by the authors. The solid vertical lines indicate the thresholds used in our analysis. "*" indicated when a stage reassignment is needed. "+" on left side of the graph indicate cases where plants came from different growth form.}
+\caption{The range of plant sizes and stage recoded in original publications (coloured lines), compared to standardised thresholds used in the analysis (black lines). Horizontal line segments indicate the size range (max., min.) for the plants used to measure growth. The solid vertical lines indicate the thresholds used to classify plants in one of three stages. Studies mark with a ``*'' were those where stage was changed, compared to the original publication. Studies marked with ``+'' are those where plants came from different growth form.}
+% TODO: Anais -- what does different growth form mean?
 \label{fig:fig2}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/Fig1.pdf}
+\caption{Number of recorded correlations between trait and growth rate in our dataset, by size and trait. Traits are: Aarea (or Amass) = rate of CO$_{2}$ assimilation per unit leaf area (or leaf mass) = maximum photosynthetic rate, Hmax = asymptotic or maximum height,  Ks = stem hydraulic conductance, LA = leaf area, LMR = leaf mass ratio, NARarea = net mass assimilation rate per unit of leaf area, Nmass (or Narea) = nitrogen content per unit of leaf mass (or leaf area), Pmass = phosphorus content per unit of leaf mass, SA/LA = sapwood area per leaf area, SLA = specific leaf area, Thickness = leaf thickness, Vessel size = stem conduit size, Vessel density = stem conduit density, WD = wood density. Results shown are from the entire dataset (see methods for details).}
+\label{fig:fig1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
 \includegraphics[width=15cm,height=20cm,keepaspectratio]{output/Fig3.pdf}
-\caption{The relationship between relative growth rates (RGR) and traits changes with plant stage and trait. Plots show the effect size (+ 95\%CI) for the average correlation across species, by plant stage. Effect size is a standardized measure of the deviation of correlation coefficient from zero (Fisher's z-transformed). Effects are significant if confidence intervals (95\%CI) for a given stage do not overlap with zero. Trait names as in Fig. \ref{fig:fig1}. $n$ indicates number of correlations contributing to each effect. Likelihood Ratio Tests (LRT) compared maximum-likelihood fits between a pooled model and one separated by stage. A significant p-value means the model including stage effect fitted the data better than the null model. Results shown are from the ideal dataset (see methods for details).}
+\caption{The relationship between relative growth rates (RGR) and traits changes with plant stage and trait. Plots show the effect size (+ 95\% confidence intervals; CI) for the average correlation across species, by plant stage. Effect size is a standardized measure of the deviation of correlation coefficient from zero (Fisher's z-transformed). Effects are significant if CIs for a given stage do not overlap with zero. Trait names as in Fig. \ref{fig:fig1}. $n$ indicates number of correlations contributing to each effect. Likelihood Ratio Tests (LRT) compared maximum-likelihood fits between a pooled model and one separated by stage. A significant p-value means adding a stage effect to the model significantly improved model fit. Results shown are from the ideal dataset (see methods for details).}
 \label{fig:fig3}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=15cm,height=20cm,keepaspectratio]{output/Fig4.pdf}
-\caption{Relationships between relative (RGR) and/or absolute (AGR) growth rates and traits along plant stage. The legend is identical to Fig 3, with two exceptions. i) Results shown are from the "complete" dataset (see methods for details). ii) Likelihodd Ratio Tests were calculated on effect size combining RGR and AGR exclusively.}
+\caption{Relationships between relative (RGR) and/or absolute (AGR) growth rates and traits along plant stage. The legend is identical to Fig 3, with two exceptions. i) Results shown are from the entire dataset (see methods for details). ii) Likelihood Ratio Tests were calculated on effect size combining RGR and AGR exclusively.}
 \label{fig:fig4}
 \end{figure}
 
@@ -293,27 +375,27 @@ a) age, b) height and c) diameter. Horizontal line segments indicate the size ra
 \clearpage
 \begin{table}[h!]
 \centering
-\caption{Check-list of quality criteria for meta-analysis in ecology developed by Koricheva and Gurevitch (2014) }
+\caption{Check-list of criteria for meta-analysis in ecology developed by \citet{Koricheva:2014ku}.}
 {\footnotesize
 \vspace{0.5cm}
 \begin{tabular}{p{0.2cm}p{4cm}p{0.8cm}p{7cm}}
   \hline
-  & Quality criteria & Check & How and where is it addressed? \\
+  & Quality criteria & Check & How and where is it addressed?\\
   \hline
-  1.& Reporting full details of bibliographic searches & yes	& We provided complete details of bibliographic searches (i.e. electronic reference data bases that were searched, keywords, language and search dates) in sub-section "Phase 2 - Systematic search" in material and method.\\
-  2.& Reporting inclusion or exclusion criteria & yes & We specified several inclusion criteria in the sub-section "Phase 2 - Systematic search" in material and method. The Bibtex file `read.bib` on Github reports all the articles consulted but not used.\\
-  3.& Weighting effect sizes by study precision & yes & Effects sizes were weighted by number of species. See	 details in sub-section ``Effect size calculation'' in material and method.\\
- 4.& Specifying meta-analytical model &	yes	& We used a mixed-effect model with a study ID as a random variable, and stage as a fixed effect. See details in sub-section "Stage effect" in material and methods. Results are shown in Fig. \ref{fig:fig3}.\\
- 5.& Quantifying heterogeneity in effect sizes &	yes &	We estimated the extend of the heterogeneity using the statistics $I^{2}$ for each trait. See details of methods and results in Appendix E.\\
- 6.& Exploring causes of heterogeneity & yes &	We explored the effect of stage, and the year of publication (see points 4 and 10 in this list). \\
- 7.& Multifactorial analysis of explanatory variable	& yes & We checked if no one of several other explanatory moderators (i.e. growth measurement, experiment type or growth form) would not consistenly be a strongest predictor of the data. We did not test the multiple variables in a hierarchical fashion, because of the limited size of our dataset. See in Fig. \ref{fig:figA4} f-j and in Fig. \ref{fig:figA6}.\\
-  8.& Testing for publication bias &	yes	& We used several methods (i.e. funnel plots, the ``trim and fill'' method and the Rosenberg’s fail-safe number). See details of methods and results in Appendix E and in Fig. \ref{fig:figA7}.\\
-  9.& Sensitivity analysis &	yes &	See details in sub-section "Sensitivity analysis" in material and method. See results in Fig. \ref{fig:fig3} and Fig. \ref{fig:figA5}  \\
-  10.& Exploring temporal changes in effect size &	yes	& See details of methods and results in Appendix E and Fig. \ref{fig:figA9}. \\
-  11.& Controlling for phylogeny &	no &	It was not possible to control by the phylogeny since the number of species used to measured each coefficient of correlation ranged from 2 to 300 species.\\
-  12.& Specifying the software used &	yes	& See sub-section ``Availability of code and data'' in material and methods\\
- 13.& Providing reference list of primary studies included in the analysis &	yes &	See sub-section ``Availability of code and data'' in material and methods. The Bibtex file `meta-analyses.bib` corresponds to all the articles included in the meta-analyses. \\
-  14.& Providing the data set used for meta-analysis  &	yes &	A copy of the complete data set is available on Github. See ``Availability of code and data'', section "Statistical analysis" in material and methods. \\
+  1.& Reporting full details of bibliographic searches & yes	& Complete details of bibliographic searches (i.e. electronic reference data bases that were searched, keywords, language, and search dates) are available in the ``Material and Methods''.\\
+  2.& Reporting inclusion or exclusion criteria & yes & Inclusion criteria are specified in the ``Material and Methods''. A full list of all articles evaluated is available in the Appendix \ref{app:literature-snapshot}.\\
+  3.& Weighting effect sizes by study precision & yes & Effects sizes were weighted by number of species. See	``Material and Methods'' for details.\\
+ 4.& Specifying meta-analytical model &	yes	& We use a mixed-effect model with a study ID as a random variable, and stage as a fixed effect. See ``Material and Methods'' for details. Results are shown in Fig. \ref{fig:fig3}.\\
+ 5.& Quantifying heterogeneity in effect sizes &	yes &	We estimate the extent of heterogeneity for each trait using the $I^{2}$ statistic. See Appendix \ref{app:supp_info_analyses} for details.\\
+ 6.& Exploring causes of heterogeneity & yes &	We explore the effect of stage, and the year of publication (see points 4 and 10 in this list).\\
+ 7.& Multifactorial analysis of explanatory variable	& yes & We check whether several other explanatory moderators (i.e. growth measurement, experiment type or growth form) are consistently the strongest predictors of the data. We do not test the multiple variables in a hierarchical fashion, because of the limited size of our dataset. See in Figs \ref{fig:figA4}f-j \& \ref{fig:figA6}.\\
+  8.& Testing for publication bias &	yes	& We used several methods (i.e. funnel plots, the ``trim and fill'' method, and Rosenberg's fail-safe number). See Appendix \ref{app:supp_info_analyses} for details.\\
+  9.& Sensitivity analysis &	yes &See ``Material and Methods'' for details, results in Figs \ref{fig:fig3} \& \ref{fig:figA5}.\\
+  10.& Exploring temporal changes in effect size &	yes	& See Appendix \ref{app:supp_info_analyses} for details.\\
+  11.& Controlling for phylogeny &	no &	It was not possible to control by the phylogeny, since the number of species used to measured each coefficient of correlation ranged from 2 to 300 species.\\
+  12.& Specifying the software used &	yes	& See sections in ``Material and Methods'' and ``Availability of code and data''.\\
+ 13.& Providing reference list of primary studies included in the analysis &	yes &	All articles from which data were extracted are cited in the paper.\\
+  14.& Providing the data set used for meta-analysis  &	yes &	A copy of the data set is available. See ``Availability of code and data'' for details.\\
    \hline
 \end{tabular}
 }
@@ -330,82 +412,103 @@ a) age, b) height and c) diameter. Horizontal line segments indicate the size ra
 \setcounter{figure}{0}
 \setcounter{table}{0}
 
-\section{Derivation of hypotheses from growth equations}\label{sec:growth}
-
-We adapted growth equations from \cite{Falster:2011ii} to generate hypotheses on both absolute and relative growth rates in mass (eqn \ref{eq:eq1}), height (eqn \ref{eq:eq2}) and diameter (eqn \ref{eq:eq4}).
-
-The rate at which \textbf{live biomass} $b$ is produced by a plant is given by:
-
-\begin{equation}\label{eq:eq0}
-\underbrace{\frac{db}{dt}}_{\text{net live biomass production}} = \underbrace{y}_{\text{yield}}  \big(\underbrace{a_{l} A_{\textrm{area}}}_{\text{photosynthesis}} - \underbrace{\sum_{i = l,s,r,f} m_{i} r_{i}}_{\text{respiration}}\big) - \underbrace{ \sum_{i = l,s,r,f} m_{i} k_{i}}_{\text{turnover}},
-\end{equation}
-
-where $y$ is the ratio of carbon fixed in mass per carbon assimilated,  and  $A_{\textrm{area}}$ is the assimilation rate of CO$_{2}$ per leaf area.
-
-Here, and in the following equations, $m_i$ denotes the \textbf{live mass on the plant}, $r_i$ the mass-specific \textbf{respiration rate}, and $k_i$ the \textbf{turnover rate} of different plant tissues; the subscripts $i = l,s,r,t,f$ referring to leaves, sapwood and bark, roots, total of these vegetative tissues, and to the reproductive tissues (fruits, flowers etc.) (note that the live biomass $b = m_t +m_f$). Similarly $a_i$ denotes \textbf{areas}, of leaves ($i = l$) and of cross-sections of total stem and sapwood ($i = st,ss$) respectively.
-
-
-The \textbf{growth rate in mass}, being the increment in vegetative live mass ($m_t$), is then:
-
-\begin{equation}\label{eq:eq1}
-\underbrace{{\frac{dm_t}{dt}}}_{\text{growth rate in mass}} = \underbrace{\frac{dm_t}{db}}_{\text{allocation to vegetative growth}}  \times \underbrace{\frac{db}{dt}}_{\text{net live biomass production}},
-\end{equation}
-
-where allocation to growth is the fraction of net live biomass increase that goes to vegetative growth rather than to reproductive tissue production.
-
-The \textbf{growth rate in height} can then be expressed as:
-
-\begin{equation}\label{eq:eq2}
-\underbrace{\frac{dH}{dt}}_{\text{growth rate in height}} = \underbrace{\frac{dH}{da_{l}}}_{\text{architecture layout}} \times \underbrace{{\frac{da_{l}}{dm_{t}}}}_{\text{leaf deployment per mass}} \times {\frac{dm_t}{db}} \times {\frac{db}{dt}}.
-\end{equation}
-
-Similarly \textbf{growth rate in basal area} can be expressed as:
-
-\begin{equation}\label{eq:eq3}
-\underbrace{{\frac{da_{st}}{dt}}}_{\text{basal area growth rate}} = \underbrace{\frac{da_{ss}}{da_{l}}}_{\text{sapwood area per leaf area}} \times {\frac{da_{l}}{dm_{t}}} \times  {\frac{dm_t}{db}} \times {\frac{db}{dt}} +  \underbrace{ \frac{da_{st}}{dt}}_{\text{sapwood turnover}}.
-\end{equation}
-
-The \textbf{growth rate in diameter} is then given by the geometric relationship between diameter and area applied to stem:
-\begin{equation}\label{eq:eq4}
-\underbrace{\frac{dD}{dt}}_{\text{growth rate in diameter}} = \sqrt[]{\frac{\Pi}{a_{st}}} \times {\frac{da_{st}}{dt}}.
-\end{equation}
-
-For the case of seedlings, eqs. \ref{eq:eq0}-\ref{eq:eq1} can be simplified considerably. Turnover of all tissues and allocation to reproduction have not yet begun. It is also common to assume all respiration rates are proportional to leaf area. Biomass growth rate in seedling then becomes a linear function of leaf area:
-
-\begin{equation}\label{eq:eq1_seedlings}
-{\frac{dm_t}{dt}}  \approx  a_{l} \, y \, (A_{\textrm{area}} - r_{l}).
-\end{equation}
-
-The \textbf{relative growth rate in mass} $(\textrm{RGR}_{\textrm{mass}})$ in seedlings can be obtained by dividing both sides of this simplified eq \ref{eq:eq1_seedlings} by the total mass of living tissues $m_{t}$. The outcome is equivalent to the classical partitioning of RGR \citep{Lambers:1992bj, Cornelissen:1998ta}:
-\begin{equation}\label{eq:eq1_seedlings_RGR}
-\textrm{RGR}_{\textrm{mass}}  \approx \textrm{NAR} \times  \textrm{SLA} \times  \textrm{LMF},
-\end{equation}
- where net assimilation rate NAR = $y \, (A_{\textrm{area}} - r)$, SLA = $a_{l}/ m_{l}$ and leaf mass fraction LMF = $m_{l}/ m_{t}$.
-
-
-The predicted effects of different traits on growth can then be understood by considering the influence of trait variation on elements of equations  \ref{eq:eq0}-\ref{eq:eq1_seedlings_RGR} (see Table \ref{tab:trade-offs}) and how these may interact with plant size.
-
-
-\textbf{Specific leaf area (SLA):} For seedlings (eq. \ref{eq:eq1_seedlings_RGR}), cheaper leaf construction (high SLA) should translate directly into faster relative growth rate in mass. For larger plants (eq. \ref{eq:eq1}-\ref{eq:eq4}), SLA is expected to affect growth rate positively through more cost-efficient deployment of leaf area (via $da_l/dm_t$; the same effect as in seedlings), but also negatively via increased leaf turnover (eqn 1; Table \ref{tab:trade-offs}). The effect of SLA on $da_l/dm_t$ decreases as plant size increases and increasing amounts of the plant are wood. Consequently the effect of turnover costs in slowing growth comes to dominate at larger sizes.
-
-\textbf{Wood density (WD):} Cheaper stem construction (low WD or stem density) increases the marginal rate of leaf deployment per total mass increment ($da_l/dm_t$), and consequently increases growth rate in leaf area, height and diameter (eqs. \ref{eq:eq2}-\ref{eq:eq4}; Table \ref{tab:trade-offs}). Disadvantages associated with cheap stem construction take the form of higher mortality and so are not reflected in growth equations. Under this scenario, wood density is negatively correlated to growth rate across all plant stages. Because the relative expenditure on stem compared to leaf is increases as plants grow larger, the relationship between WD and growth may also strengthen in larger plants.
-
-\textbf{Maximum height (Hmax):} Hmax affects growth via the fraction of energy allocated to vegetative growth versus to seed production ($dm_t/db$ in eq. \ref{eq:eq1}; Table \ref{tab:trade-offs}). For seedlings and seedlings this fraction is 1 for all species and so no effect is expected. But once some species begin to produce seed, then species closer to their Hmax value are expected to be allocating more to seed production and less to vegetative growth. Hence when comparing across plants at a given size, species with smaller Hmax are expected to show slower vegetative growth rates.
-
-\textbf{Seed mass:} The $\textrm{RGR}_{\textrm{mass}}$ slows as plants grow larger, and large-seeded species begin larger as seedlings. For larger plants, seed mass is not expected to have any distinct influence on growth rates  (Table \ref{tab:trade-offs}).
-
-\textbf{Potential photosynthesis rate (Aarea):} The effects of benefits (higher assimilation) and costs (higher respiration) of increased Area occur within the same element of eq. \ref{eq:eq0}, and assimilation must outweigh respiration for there to be growth, so the net effect will be positive (Table \ref{tab:trade-offs}).
-
-Note that the predicted relationship between growth and either SLA or seed mass in seedlings differs if absolute growth rate in mass is used instead of RGR$_\textrm{mass}$ (i.e. becomes negative for SLA, positive for seed mass). In our study, all data recorded for these trait-stage combinations have been measured on a RGR base for mass (see Fig S9).
-
 
 \clearpage
 
-\section{Supporting files}\label{app:supp_info_files}
+\clearpage
+\section{Supporting figures}\label{app:supp_info_figures}
 
-The code and data for producing all figures and results in this paper is available at github.com/AnaisGibert/Growth\_trait\_metaanalysis.  Upon publication, a copy of the complete data set is also available from the Dryad Digital Repository.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA1.pdf}
+\caption{Relationships between a) age and diameter (m), b) age and height (m), and c) diameter and height among plants in the Biomass and Allometry Database. Lines indicate the cut-offs between stage categories used in this study: blue lines indicate limit between seedlings and saplings, red lines indicate limits between saplings and adults.}
+\label{fig:figA1}
+\end{figure}
 
-\section{Supporting tables}\label{app:supp_info_tables}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA2.pdf}
+\caption{Geographical distribution of site locations from studies performed in the field used in the meta-analysis. Results shown here are from the entire dataset (for details see ``Material and Methods'').}
+\label{fig:figA2}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA3.pdf}
+\caption{Range of correlations (r) between
+growth and traits reported in the literature. Plots show the coefficients of correlation (r)
+between plant growth and a) Specific leaf area (SLA, n =
+111), b) Wood density (WD, n = 64), c) Asymptotic
+maximum height (Hmax, n = 23), d) Seed mass (Seedmass, n = 36 and
+e) Rate of CO2 assimilation (Aarea, n = 24) reported from 103
+articles. The x axis represents the article ID sorted by the average reported coefficient value r. Each bubble represents an r value, the diameter of the bubble is proportional to its weight in the meta-analysis (i.e. number of species). The colours correspond to the stage for which the r values have been recorded: red points correspond to adult stage, orange points to saplings, and blue points to seedlings. Results shown here are from the entire dataset (for details see ``Material and Methods''). }
+\label{fig:figA3}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA4.pdf}
+\caption{Mean coefficient correlation r (+SD) between growth and traits, measured by stage (a-e
+) and by stage and growth type (f-j). a and f) Specific leaf area (SLA), b and g) Wood density (WD), c and h) Asymptotic maximum height (Hmax), d and i) Seed mass (Seedmass) and e and j) Rate of CO2 assimilation (Aarea). On figures f to j, relative (RGR) and absolute (AGR) growth rates are set apart. The mean coefficients are weighted by sample size and established from 103 articles. Results shown here are from the ``ideal'' subset of data (for details see ``Material and Methods''), ``n'' indicates the number of correlations.}
+\label{fig:figA4}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA5.pdf}
+\caption{Effect size ($\pm$95\% confidence intervals, CI) of plant stage on the correlations between growth rate and five functional traits across species, with a data set averaging multiple comparisons by trait and by study. In the case of multiple comparisons within a study, effect sizes were calculated using the mean correlation coefficient by trait and by study. a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax) , d) Seed mass and e) Assimilation rate of CO2 (Aarea). Effect size is a standardized measure of the magnitude of the relationship between a particular stage and the correlation coefficient z (Fisher's z-transformed). Effects are significant if CIs do not overlap with zero. LRT: likelihood Ratio Test compared the fit between null model and stage model, both models are fitted by Maximum Likelihood. Black point: ideal data , grey points: all the data (for details see ``Material and Methods''). ``n'' indicates the number of independent comparisons for each effect.}
+\label{fig:figA5}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6a.pdf}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6b.pdf}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6c.pdf}
+\caption{Effects size on the correlation between growth and traits of plant stage (mod1), growth measurement (mod2), vegetation type (mod3), and experiment type (mod4). a) Specific leaf area (SLA), b) Wood density (WD),c) Assimilation rate of CO2 (Aarea), d) Seed mass, and e) Asymptotic maximum height (Hmax). The effect size (z + 95\%CI) is reported for each class, and models are fitted by restricted max likelihood (REML). Abbreviation: GR = growth rate and RGR = relative growth rate, measured in diameter (D), height (H), mass(M), cross section area (CSA) and volume (V), across GF: coefficient of correlation measured on tree in mixture with other growth form. AIC: Akaike information criterion corresponds to the quality of each model, and allow a comparison between models. Smallest is the AIC better is the model. Results shown here are from ``ideal'' subset of data (for details see ``Material and Methods''). ``n'' indicates number of correlation r reported.}
+\label{fig:figA6}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA7.pdf}
+\caption{Funnel plots with filled in data based on the trim and fill method, showing transformed correlation coefficient z between growth and a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Note that in these plots the y axis is 1/number of species included in the correlation, not the replication for the correlation. The open points correspond to the estimated missing studies. The number of missing values is 7 for SLA,1 for WD, 0 for Hmax, 6 for seed mass and 0 for Aarea. Results shown here are from the ``ideal'' subset of data (for details see ``Material and Methods'').}
+\label{fig:figA7}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA8.pdf}
+\caption{Number of correlation extracted by traits, stage, and growth type (absolute vs relative, and measurement). a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Absolute growth rate (AGR) is on the left and relative growth rate (RGR) on the right of each plot. Results shown here are from the entire dataset (for details see ``Material and Methods''). }
+\label{fig:figA8}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA9.pdf}
+\caption{Temporal changes in coefficient of correlation between growth and traits. a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass, and e) Assimilation rate of CO2 (Aarea). The colours correspond to the stage for which the r values have been recorded: red points corresponds to adult stage, orange points to saplings, and grey points to seedlings. Results shown here are from the ``ideal'' subset of data (for details see ``Material and Methods'').}
+\label{fig:figA9}
+\end{figure}
+
+\clearpage
+\section{Supporting Analyses}\label{app:supp_info_analyses}
+
+\subsection{Literature coverage by trait}\label{app:literature-snapshot}
+
+TODO: XXXX
+
+We first developed a snapshot of the literature, to assess the potential to recover useful data from the wide corpus of literature available. This snapshot was obtained via Web of Science database (Thomson Reuters), between March and June 2014, using a range of Boolean search terms in English. Search terms were as follows: (``trait'' AND (``growth rate'' OR ``relative growth rate'')) AND (``tree*'' OR ``woody*''), where ``trait'' was allowed to be any of the trait names listed in Table \ref{tab:lit_search}. This snapshot indicated that 82\% of the reported correlations linking growth to any of our five core traits would be recovered by searching only on SLA and WD, allowing us to narrow our search considerably.
 
 \linespread{1}
 
@@ -445,135 +548,46 @@ Aarea & Photosynthetic rate per area & ``photosynthetic rate per area'' OR ``rat
 \end{table}
 
 
-\clearpage
-\section{Supporting figures}\label{app:supp_info_figures}
-
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA1.pdf}
-\caption{Allometric relationships between a) age and diameter (m), b) age and height (m), and c) diameter and height in trees according to the BAAD database. Blue and red lines are the cut-offs between stage categories used in the literature. Blue lines corresponds to limits between seedlings and saplings, red lines to limits between saplings and adults.}
-\label{fig:figA1}
-\end{figure}
-
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA2.pdf}
-\caption{Geographical distribution of site locations from studies performed in the field used in the meta-analysis. Results shown here are from the ``complete'' dataset (see methods for details).}
-\label{fig:figA2}
-\end{figure}
-
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA3.pdf}
-\caption{Range of correlations (r) between
-growth and traits reported in the literature. Plots show the coefficients of correlation (r)
-between plant growth and a) Specific leaf area (SLA, n =
-111), b) Wood density (WD, n = 64), c) Asymptotic
-maximum height (Hmax, n = 23), d) Seed mass (Seedmass, n = 36 and
-e) Rate of CO2 assimilation (Aarea, n = 24) reported from 112
-articles. The x axis represents the article ID sorted by the average reported coefficient value r. Each bubble represents an r value, the diameter of the bubble is proportional to its weight in the meta-analysis (i.e. number of species). The colours correspond to the stage for which the r values have been recorded: red points correspond to adult stage, orange points to saplings, and blue points to seedlings. Results shown here are from the ``complete'' dataset (see methods for details). }
-\label{fig:figA3}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA4.pdf}
-\caption{Mean coefficient correlation r (+SD) between growth and traits, measured by stage (a-e
-) and by stage and growth type (f-j). a and f) Specific leaf area (SLA), b and g) Wood density (WD), c and h) Asymptotic maximum height (Hmax), d and i) Seed mass (Seedmass) and e and j) Rate of CO2 assimilation (Aarea). On figures f to j, relative (RGR) and absolute (AGR) growth rates are set apart. The mean coefficients are weighted by sample size and established from 112 articles. Results shown here are from the ''ideal dataset'' (see methods for details), ''n'' indicates the number of correlations.}
-\label{fig:figA4}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA5.pdf}
-\caption{Effect size (+ 95\%CI) of plant stage on the correlations between growth rate and five functional traits across species, with a data set averaging multiple comparisons by trait and by study. In the case of multiple comparisons within a study, effect sizes were calculated using the mean correlation coefficient by trait and by study. a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax) , d) Seed mass and e) Assimilation rate of CO2 (Aarea). Effect size is a standardized measure of the magnitude of the relationship between a particular stage and the correlation coefficient z (Fisher's z-transformed). Effects are significant if confidence intervals (+CI95\%) do not overlap with zero. LRT: likelihood Ratio Test compared the fit between null model and stage model, both models are fitted by Maximum Likelihood. Black point: ideal data , grey points: all the data (see methods for details). ''n'' indicates the number of independent comparisons for each effect.}
-\label{fig:figA5}
-\end{figure}
-
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6a.pdf}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6b.pdf}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6c.pdf}
-\caption{Effects size on the correlation between growth and traits of plant stage (mod1), growth measurement (mod2), vegetation type (mod3),  and experiment type (mod4). a) Specific leaf area (SLA), b) Wood density (WD),c) Assimilation rate of CO2 (Aarea), d) Seed mass, and e) Asymptotic maximum height (Hmax). The effect size (z + 95\%CI) is reported for each class, and models are fitted by restricted max likelihood (REML). Abbreviation: GR = growth rate and RGR = relative growth rate, measured in diameter (D), height (H), mass(M), cross section area (CSA) and volume (V), across GF: coefficient of correlation measured on tree in mixture with other growth form. AIC: Akaike information criterion corresponds to the quality of each model, and allow a comparison between models. Smallest is the AIC better is the model. Results shown here are from ``ideal'' dataset (see methods for details). ''n'' indicates number of correlation r reported.}
-\label{fig:figA6}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA7.pdf}
-\caption{Funnel plots with filled in data based on the trim and fill method, showing transformed correlation coefficient z between growth and a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Note that in these plots the y axis is 1/number of species included in the correlation, not the replication for the correlation. The open points correspond to the estimated missing studies. The number of missing values is 7 for SLA,1 for WD, 0 for Hmax, 6 for seed mass and 0 for Aarea. Results shown here are from the ''ideal'' dataset (see methods for details).}
-\label{fig:figA7}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA8.pdf}
-\caption{Number of correlation extracted by traits, stage and growth type (absolute vs relative, and measurement). a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Absolute growth rate (AGR) is on the left and relative growth rate (RGR) on the right of each plot. Results shown here are from the ``complete'' dataset (see methods for details). }
-\label{fig:figA8}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA9.pdf}
-\caption{Temporal changes in coefficient of correlation between growth and traits. a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass, and e) Assimilation rate of CO2 (Aarea). The colours correspond to the stage for which the r values have been recorded: red points corresponds to adult stage, orange points to saplings, and grey points to seedlings. Results shown here are from the ``ideal'' dataset (see methods for details).}
-\label{fig:figA9}
-\end{figure}
-
-\clearpage
-\section{Supporting Analyses}\label{app:supp_info_analyses}
 \subsection{Quantifying and exploring the cause of heterogeneity in effect sizes}
 
-\textbf{Goal:} In our meta-analysis, reported studies differed in design as well as in vegetation type, biome or species studied. Such diversity is commonly referred to as methodological heterogeneity, and may or may not be responsible for observed discrepancies in the results of the studies. The extent of heterogeneity might influence the results of the meta-analysis, and thus induce some difficulty in drawing overall conclusions (See \citealt{Higgins:2002iq}). It is therefore important to be able to quantify the extent of heterogeneity among a collection of studies.
+\noindent\textbf{Goal:} In our meta-analysis, reported studies differed in design as well as in vegetation type, biome or species studied. Such diversity is commonly referred to as methodological heterogeneity, and may or may not be responsible for observed discrepancies in the results of the studies. The extent of heterogeneity might influence the results of the meta-analysis, and thus induce some difficulty in drawing overall conclusions (See \citealt{Higgins:2002iq}). It is therefore important to be able to quantify the extent of heterogeneity among a collection of studies.
 
-\textbf{Methods:} A common way of addressing the extent of heterogeneity is the statistic $I^{2}$ (\citealt{Santos:2012gt}, originally defined by \citealt{Higgins:2002iq}). $I^{2}$ estimates the consistency of the results obtained from published studies used in our meta-analysis; it describes the percentage of variability in point estimates that is due to heterogeneity rather than sampling error. It can be interpreted as a ratio (0\% $<$ $I^{2}$ $<$ 100\%) not affected by the number of studies or the metric of the effect size in the analysis. 
+\noindent\textbf{Methods:} A common way of addressing the extent of heterogeneity is the statistic $I^{2}$ (\citealt{Santos:2012gt}, originally defined by \citealt{Higgins:2002iq}). $I^{2}$ estimates the consistency of the results obtained from published studies used in our meta-analysis; it describes the percentage of variability in point estimates that is due to heterogeneity rather than sampling error. It can be interpreted as a ratio (0\% $<$ $I^{2}$ $<$ 100\%) not affected by the number of studies or the metric of the effect size in the analysis.
 
 An $I^{2}$ near zero indicates that almost all of the dispersion will be attributed to random error, and any attempt to explain the variance is an attempt to explain something that is (by definition) random. By contrast, as $I^{2}$ moves away from zero we know that some of the variance is real and can potentially be explained by subgroup analysis or meta-regression.
-There is no universal rule to cover definition for ‘low, ‘moderate’ or ‘high heterogeneity. \citealt{Higgins:2003hz} suggested some benchmarks for $I^{2}$ based on the survey of meta-analyses of clinical trials. They suggested that values on the order of 25\%, 50\% and 75\% might be considered as ''low'', ''moderate'' and ''high'', respectively. These suggestions are tentative; the interpretation of heterogeneity in a systematic review will depend critically on the size and direction of treatment effects, as well as on considerations of methodological diversity in the studies (see \citealt{Borenstein:2009um}).
-Here, we estimated $I^{2}$ as following equation from \citealt{Higgins:2002iq}, then we calculated how part of the heterogeneity may be due to the influence of moderators (stage and publication year) and finally we asked if the residual heterogeneity was statistically significant. In R, we used the package metafor (code available on github).
+There is no universal rule to cover definition for ``low'', ``moderate'' or ``high'' heterogeneity. \citealt{Higgins:2003hz} suggested some benchmarks for $I^{2}$ based on the survey of meta-analyses of clinical trials. They suggested that values on the order of 25\%, 50\% and 75\% might be considered as ``low'', ``moderate'' and ``high'', respectively. These suggestions are tentative; the interpretation of heterogeneity in a systematic review will depend critically on the size and direction of treatment effects, as well as on considerations of methodological diversity in the studies (see \citealt{Borenstein:2009um}).
+Here, we estimated $I^{2}$ as following equation from \citealt{Higgins:2002iq}, then we calculated how part of the heterogeneity may be due to the influence of moderators (stage and publication year) and finally we asked if the residual heterogeneity was statistically significant. In R, we used the package metafor  \citep{Viechtbauer-2010}.
 
 
-\textbf{Results:} We observed high levels of heterogeneity for all traits (SLA :$I^{2}$ 85.4\% CI: 80.9 to 92.1, WD :$I^{2}$ 61.8\% CI: 42.8 to 84.1, Hmax: $I^{2}$ 81.2\% CI: 69.8 to 93.4, seed mass: $I^{2}$ 91.2\%, 85.9 to 96.1, Aarea: $I^{2}$ 68.3\% CI: 33.7 to 90.1) which suggests that the correlations coefficient r between growth and traits are not uniform across the range of studies investigated. This result suggested that a large part of the variance is not explained by sample error.
+\noindent\textbf{Results:} We observed high levels of heterogeneity for all traits (SLA :$I^{2}$ 85.4\% CI: 80.9 to 92.1, WD :$I^{2}$ 61.8\% CI: 42.8 to 84.1, Hmax: $I^{2}$ 81.2\% CI: 69.8 to 93.4, seed mass: $I^{2}$ 91.2\%, 85.9 to 96.1, Aarea: $I^{2}$ 68.3\% CI: 33.7 to 90.1) which suggests that the correlations coefficient r between growth and traits are not uniform across the range of studies investigated. This result suggested that a large part of the variance is not explained by sampling error.
 
-For SLA and seed mass, 50.1\% and 20\% respectively of the total amount of heterogeneity were accounted for by including the stage as a moderator. For the other traits, the stage explained little or no part of the heterogeneity observed across studies ($<$5\%). These results were consistent with our expectations about a shift in the relationship between growth and traits across plant size for SLA and seed mass, and the absence of an effect for WD and Aarea (see Theoretical expectation section). The result for Hmax was more ambiguous since we expected the relationship between Hmax and growth rate to be absent in seedlings but to strengthen with increasing plant size (at adult stage). As discussed in the results section of the article, the smaller number of replicate studies for sapling and seedling stage limited the generality of our conclusion for this trait.
+For SLA and seed mass, 50.1\% and 20\% respectively of the total amount of heterogeneity were accounted for by including the plant stage as a moderator. For the other traits, the plant stage explained little or no part of the heterogeneity observed across studies ($<$5\%). These results were consistent with our expectations about a shift in the relationship between growth and traits across plant size for SLA and seed mass, and the absence of an effect for WD and Aarea (see Theoretical expectation section). The result for Hmax was more ambiguous since we expected the relationship between Hmax and growth rate to be absent in seedlings but to strengthen with increasing plant size (at adult stage). As discussed in the results section of the article, the smaller number of replicate studies for sapling and seedling stage limited the generality of our conclusion for this trait.
 
-The test for residual heterogeneity was significant for all traits, possibly indicating that other moderators not considered in the model were influencing the correlation between growth and traits. This is not surprising because although the trait and growth measurements are standardized \citep{Cornelissen:2003gw}, studies differed in their design as well as in vegetation type, biome and species studied. Indeed, a goal in the trait literature is to establish general patterns of correlation between growth and traits and to validate them across a large variety of conditions. Here, we did not explore the influence of other moderators, since our goal was to test clear hypotheses about the influence of plant size/stage, not to establish the best predictor of the correlation between growth and traits. Finally, since between study variation is significant, as indicated by heterogeneity analyses, the use of the random effect model was appropriate in our meta-analysis.
+The test for residual heterogeneity was significant for all traits, possibly indicating that other moderators not considered in the model were influencing the correlation between growth and traits. This is not surprising because although the trait and growth measurements are standardized \citep{Cornelissen:2003gw}, studies differed in their design as well as in vegetation type, biome, and species studied. Indeed, a goal in the trait literature is to establish general patterns of correlation between growth and traits and to validate them across a large variety of conditions. Here, we did not explore the influence of other moderators, since our goal was to test clear hypotheses about the influence of plant size/stage, not to establish the best predictor of the correlation between growth and traits. Finally, since between study variation is significant, as indicated by heterogeneity analyses, the use of the random effect model was appropriate in our meta-analysis.
 
 \subsection{Testing for publication bias}
-\textbf{Goal:} Studies with significant results are more likely to be published. As a consequence, the studies in a meta-analysis may overestimate the true effect size because they are based on a biased sample of the target population of studies. A publication bias occurs when the probability of publication depends on the statistical significance of the effect. Here we tested if there is evidence of any bias, and if the effect size observed for each trait is an artefact of this bias.
+\noindent\textbf{Goal:} Studies with significant results are more likely to be published. As a consequence, the studies in a meta-analysis may overestimate the true effect size because they are based on a biased sample of the target population of studies. A publication bias occurs when the probability of publication depends on the statistical significance of the effect. Here we tested if there is evidence of any bias, and if the effect size observed for each trait is an artefact of this bias.
 
-\textbf{Method:} Initially, we checked the dataset for publication bias with a visual assessment of funnel plots. A publication bias toward significant results creates an asymmetric funnel with small studies with non-significant effects missing from the mouth of the funnel on the side opposite to the true effect. While funnel plot are recommended to aid interpretation, there is a high risk of failing to detect actual publication bias (see \citealt{Koricheva:2013tz}) by using an exclusively visual assessment. In addition, funnel plots are not effective when the number of studies is small ($<30$) such as for Aarea and seed mass.
-Next, we used the ''trim and fill'' method to estimate the number of studies missing from our meta-analysis. This method adjusts for funnel plot asymmetry \citep{Duval:2000dg}.
-Finally, we estimated the number of studies needed to overturn a result, using Rosenberg’s fail-safe number \citep{Rosenberg:2005hk}. The fail-safe N is not based on funnel plot asymmetry. The Rosenberg method calculates the number of studies averaging null results that would have to be added to the given set of observed outcomes to reduce the significance level (p-value) of the weighted average effect \citep{Rosenberg:2005hk}. A significant meta-analytic result is robust if the fail-safe N is greater than 5k+10, where k is the number of studies already in the meta-analysis \citep{Rosenthal:1979do}.
-In R, we used the package `metafor` (code available on github).
+\noindent\textbf{Methods:} Initially, we checked the dataset for publication bias with a visual assessment of funnel plots. A publication bias toward significant results creates an asymmetric funnel with small studies with non-significant effects missing from the mouth of the funnel on the side opposite to the true effect. While funnel plot are recommended to aid interpretation, there is a high risk of failing to detect actual publication bias (see \citealt{Koricheva:2013tz}) by using an exclusively visual assessment. In addition, funnel plots are not effective when the number of studies is small ($<30$) such as for Aarea and seed mass.
+Next, we used the ``trim and fill'' method to estimate the number of studies missing from our meta-analysis. This method adjusts for funnel-plot asymmetry \citep{Duval:2000dg}.
+Finally, we estimated the number of studies needed to overturn a result, using Rosenberg's fail-safe number \citep{Rosenberg:2005hk}. The fail-safe N is not based on funnel plot asymmetry. Rather, the Rosenberg method calculates the number of studies on-average null results that would need to be added to the given set of observed outcomes to reduce the significance level (p-value) of the weighted average effect \citep{Rosenberg:2005hk}. A significant meta-analytic result is robust if the fail-safe N is greater than 5k+10, where k is the number of studies already in the meta-analysis \citep{Rosenthal:1979do}.
+In R, we used the package ``metafor''  \citep{Viechtbauer-2010}.
 
-\textbf{Result:} As expected the correlation coefficient varied less as sample size increased (funnel plots in Fig. \ref{fig:figA9}). Funnel plots exhibited a typical funnel shape for all five functional traits analysed, showing no evidence for publication bias (Fig. \ref{fig:figA9}).
-The ‘trim and fill’ method detected some missing values in our data. The estimated number of missing value ranges from 0 to 7 depending on the trait considered (Fig. \ref{fig:figA9}). The overall estimates measured with the fill in data changed from $0.5 \pm 0.07$  to $0.4 \pm 0.07$ for SLA and from $-0.48 \pm 0.11$ to $-0.32 \pm 0.12$ for the seed mass, suggesting a lower correlation coefficient for SLA, and seed mass. Even although the estimated correlations were closer to zero with the missing studies filled in, the results still indicate that the effect is statistically significant.
-The Rosenberg’s Fail-safe (N) were 7086, 1823, 990, 574, 291 for SLA, WD, Hmax, Seedmass and Aarea, suggesting that a large number of studies with a mean correlation coefficient of 0 need to be added to the analysis before the cumulative correlation would become non-significant. N was greater than 5k+10 for all traits.
+\noindent\textbf{Results:} As expected the correlation coefficient varied less as sample size increased (funnel plots in Fig. \ref{fig:figA9}). Funnel plots exhibited a typical funnel shape for all five functional traits analysed, showing no evidence for publication bias (Fig. \ref{fig:figA9}).
+The ``trim and fill'' method detected some missing values in our data. The estimated number of missing value ranges from 0 to 7 depending on the trait considered (Fig. \ref{fig:figA9}). The overall estimates measured with the fill in data changed from $0.5 \pm 0.07$  to $0.4 \pm 0.07$ for SLA and from $-0.48 \pm 0.11$ to $-0.32 \pm 0.12$ for the seed mass, suggesting a lower correlation coefficient for SLA, and seed mass. Although the correlations estimated with the missing studies filled in were closer to zero than without, the trait effect is still statistically significant.
+The Rosenberg's Fail-safe (N) were 7086, 1823, 990, 574, 291 for SLA, WD, Hmax, Seedmass, and Aarea, suggesting that a large number of studies with a mean correlation coefficient of 0 need to be added to the analysis before the cumulative correlation would become non-significant. N was greater than 5k+10 for all traits.
 These results suggest that the impact of publication bias is probably trivial in our meta-analyses.
 
 \subsection{Exploring temporal changes in effect size}
-\textbf{Goal:} Our meta-analysis combines data from studies published between 1983 and 2014. It has been shown that the magnitude of the effect size may change over time due to a publication bias (i.e. a lag to publish negative results), a change in the methodology or biological changes in the magnitude of the effect (see \citealt{Koricheva:2013hy}). Therefore, detecting such temporal changes may be important to the interpretation of the results of a meta-analysis.
+\noindent\textbf{Goal:} Our meta-analysis combines data from studies published between 1983 and 2014. It has been shown that the magnitude of the effect size may change over time due to a publication bias (i.e. a lag to publish negative results), a change in the methodology or biological changes in the magnitude of the effect (see \citealt{Koricheva:2013hy}). Therefore, detecting such temporal changes may be important to the interpretation of the results of a meta-analysis.
 
-\textbf{Method:} In the trait literature the year of publication may be confounded with a methodological change. Indeed, in the early 90’s studies mainly focused on seedlings, whereas today a broader range of plant sizes/stages are studied (Fig. \ref{fig:figA9}). As a consequence, we used publication year as a moderator in our analyses \citep{Zvereva:2008jm} across but also within stages for all traits.  
+\noindent\textbf{Methods:} In the trait literature the year of publication may be confounded with a methodological change. Indeed, in the early 90's studies mainly focused on seedlings, whereas today a broader range of plant sizes/stages are studied (Fig. \ref{fig:figA9}). As a consequence, we used publication year as a moderator in our analyses \citep{Zvereva:2008jm} across but also within stages for all traits.
 
-\textbf{Result:} There was a change in the effect size with publication year for SLA ($p<0.0001$, estimates: $-0.04 \pm 0.009$ ), seed mass ($p = 0.011$, estimates: $0.041 \pm 0.016$ ) and Aarea ($p = 0.0102$, estimates: $-0.0453 \pm 0.0176$ ). The Fig. \ref{fig:figA9} shows that for these three traits the publication years may be confounded with plant stage; correlation coefficients have been reported since 1993, but studies started to report data on adult stage only ten years later (around 2000-2007).
+\noindent\textbf{Results:} There was a change in the effect size with publication year for SLA ($p<0.0001$, estimates: $-0.04 \pm 0.009$ ), seed mass ($p = 0.011$, estimates: $0.041 \pm 0.016$ ) and Aarea ($p = 0.0102$, estimates: $-0.0453 \pm 0.0176$ ). Fig. \ref{fig:figA9} shows that for these three traits the publication years may be confounded with plant stage; correlation coefficients have been reported since 1993, but studies started to report data on adult stage only ten years later (around 2000-2007).
 
 For SLA and seed mass, a publication year effect was not observed within seedling and sapling stages, but was identified for the adult stage (SLA $p = 0.003$, seed mass $p = 0.06$). For both SLA and seed mass, the magnitude of the effect size decreased with publication year (Fig. \ref{fig:figA9} a and d), suggesting we overestimated the magnitude of the effect size for these two traits. In reality, the main effect size obtained would be more close to zero or more negative for SLA and more positive for seed mass. These results are consistent with our hypotheses; we expected a negative or non-significant effect of SLA on growth in adult stage, and a non-significant or positive effect of seed mass on plant growth (see theoretical expectation).
 
-For Aarea, publication year explained a part of the variation across stage but not within stage, and the magnitude of the effect size decreased with publication year. This pattern is classic in meta-analyses; \citealt{Koricheva:2013hy} showed that a majority of studies reported a decrease rather than an increase in the magnitude of effect size with publication year. Yet, here this effect did not lead to a reduction in statistical significance of the main effect size or to a change of sign. While overestimated, the main effect size for the correlation between growth and Aarea stays positive (Fig. \ref{fig:figA9} e).  
+For Aarea, publication year explained a part of the variation across stage but not within stage, and the magnitude of the effect size decreased with publication year. This pattern is classic feature in meta-analyses: \citealt{Koricheva:2013hy} showed that a majority of studies reported a decrease rather than an increase in the magnitude of effect size with publication year. Yet, here this effect did not lead to a reduction in statistical significance of the main effect size or to a change of sign. While overestimated, the main effect size for the correlation between growth and Aarea stays positive (Fig. \ref{fig:figA9} e).
 
 The temporal changes were confounded with a plant stage effect in our meta-analysis, but they did not jeopardize the stability of our conclusions. The conclusions of a meta-analysis conducted in different years should not differ from those reported here.
 
