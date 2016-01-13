@@ -14,6 +14,7 @@ targets:
   all:
     depends:
       - ms.pdf
+      - analysis.R
 
   ms.pdf:
     command: latex_build("MS.tex", bibliography="output/refs.bib", clean=TRUE)
@@ -40,6 +41,7 @@ targets:
       - output/FigA9.pdf
 
 # ------- Rscript --------------------------
+# used to generate output for those who don't like remake
 
   analysis.R:
     packages: remake
@@ -60,29 +62,31 @@ targets:
     command: write.bib(combined_bib, file = target_name)
 
 # ------- data formatting --------------------
+  # Data for top 19 traits
   AllData:
     command: clean_raw_data("data/CompileData.csv")
 
   CleanData:
     command: standardise_data(AllData)
 
+  # Data for top 5 traits
   CompleteData:
     command: build_complete_data(CleanData)
 
   CompleteData_inter:
     command: Build_intersp_complete_data(CleanData)
 
-  IdealData_inter:
+  IdealData:
     command: build_ideal_data(CompleteData)
 
   CoordTable:
     command: build_map_data(CleanData)
 
   IdealData_rgr:
-    command: subset_growth(IdealData_inter, I("RGR"))
+    command: subset_growth(IdealData, I("RGR"))
 
   IdealData_agr:
-    command: subset_growth(IdealData_inter, I("AbGR"))
+    command: subset_growth(IdealData, I("AbGR"))
 
   CompleteData_rgr:
     command: subset_growth(CompleteData_inter, I("RGR"))
@@ -94,7 +98,7 @@ targets:
     command: list_by_trait(CompleteData_inter)
 
   GIi:
-    command: list_by_trait(IdealData_inter)
+    command: list_by_trait(IdealData)
 
   GIrgr:
     command: list_by_trait(IdealData_rgr)
@@ -126,7 +130,6 @@ targets:
 
 # ------- plots --------------------
 
-  ## Make output
   output/Fig1.pdf:
     command: figure_1(CleanData)
     plot:
@@ -152,12 +155,21 @@ targets:
       height: 6
       width:  5
 
-  ## Figure appendix
+## Figures appendix
+
+  downloads/baad.rds:
+    command: download_baad(target_name)
+    packages: downloader
+    cleanup_level: never
+
+  baad:
+    command: readRDS("downloads/baad.rds")
+
   output/FigA1.pdf: # allometry
-    command: figure_A1()
+    command: figure_A1(baad)
     plot:
-      height: 6
-      width:  6
+      height: 3
+      width:  9
 
   output/FigA2.pdf:  #map
     command: figure_A2(CoordTable)
