@@ -67,8 +67,8 @@ figure_2 <- function(CompleteData_inter) {
     j <- data$stageRGR != data$stage
     points(data$size.max[j] + 0.05, y[j], col = "black", pch = "*", cex=1.5)
 
-    t <- (data$growth.form == "across growth form")
-    points(data$growthf[t], y[t], pch = "+", cex= 1, col="black")
+#     t <- (data$growth.form == "across growth form")
+#     points(data$growthf[t], y[t], pch = "+", cex= 1, col="black")
 
     axis(1, at = 0:3, labels = cuts, las = 1)
     axis(2, at = y, labels = data$ref, las = 1, cex.axis = 0.6)
@@ -82,8 +82,8 @@ figure_2 <- function(CompleteData_inter) {
   legend(2.3, 42, c("seedling", "juvenile", "sapling", "adult", "mix"), lwd = 1,  title = "Original stage:",
     col = c("#13519E", "#73005C", "#F57C34", "#E6224C", "grey"), pch = NA, bty = "n", cex = 0.75,
    x.intersp = 0.3, y.intersp = 1, seg.len = 0.5,  title.adj = 0)
-  legend(2.3, 32, c("reassigned", "multiple",  " growth forms"), lwd = NA, col = "black",
-    pch = c("+", "*", NA), title = "Flag:", bty = "n", cex = 0.75,
+  legend(2.3, 32, c("reassigned"), lwd = NA, col = "black",
+    pch = c( "*"), title = "Flag:", bty = "n", cex = 0.75,
     x.intersp = 0.3, y.intersp = 1, seg.len = 0.5,  title.adj = 0)
 
   text(0.5, 45, "Seedlings", xpd=NA, col = "black")
@@ -334,7 +334,7 @@ figure_3.4 <- function(GCi, GCrgr , GCagr) {
   
   p2 <- coeff.plot.gr3(data = CoefModel.WD, data1=CoefModel.WD2, data.RGR = CoefModel.WD.s, data.AGR = CoefModel.WD.opt, 
                        LRT=LRT.wd, PVAL=PVAL.wd, round.value = 2, significativite = "ns", title = "b) WD",
-                       limit.x.min = -1, limit.x.max = 1, limit.x.n = 0.85,
+                       limit.x.min = -1, limit.x.max = 1, limit.x.n = 0.84,
                        vjust.value = 2, limit.x.text = -0.5, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25)
   
   p3 <- coeff.plot.gr3(data = CoefModel.Hmax, data1=CoefModel.Hmax2, data.RGR = CoefModel.Hmax.s,data.AGR = CoefModel.Hmax.opt,
@@ -567,7 +567,7 @@ figure_A2 <- function(CoordTable) {
 
   x <- CoordTable$lat.dd
   y <- CoordTable$long.dd
-  coordinate.map <- mp #+ geom_point(aes(x = x, y = y), color = "red", alpha = I(5/10))
+  coordinate.map <- mp + geom_point(aes(x = y, y = x), color = "red", alpha = I(7/10))
   coordinate.map
 }
 
@@ -718,7 +718,7 @@ figure_A5 <- function(RIi, RCi) {
   p3 <- coeff.plot.ideal(data.ideal = CoefModel.Hmax.opt, LRT = 0, PVAL = 0.98,
     title = "c) Hmax", significativite = "ns", round.value = 3, limit.x.min = -0.5,
     limit.x.max = 1.5, limit.x.text = -0.25, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
-    limit.x.n = 1.3, vjust.value = 0, color1 = "black")
+    limit.x.n = 1.3, vjust.value = -0.1, color1 = "black")
 
   CoefModel.Seedmass <- fun_model(RIi[["Seedmass"]], RCi[["Seedmass"]])
   CoefModel.Seedmass.s <- subset(CoefModel.Seedmass, stress == "complete")

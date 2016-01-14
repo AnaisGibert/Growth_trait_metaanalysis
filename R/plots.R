@@ -61,7 +61,8 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
 
   data.complete["x.coord"] <- limit.x.n
   data.ideal["x.coord"] <- limit.x.n
-
+  data["x.coord"] <- limit.x.n
+  
   plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
 
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(yintercept = 0,
@@ -71,18 +72,19 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
     p
   }
 
-  dodge <- position_dodge(width = 0.4)
+  dodge <- position_dodge(width = 0.6)
 
   plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +
     1.96 * SE, color = factor(stress)))) + geom_point(aes(x = stage, y = Inte),
     position = dodge) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4,
     width = 0.2, position = dodge) + scale_y_continuous("Effect size",
     limits = c(limit.x.min, limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("n=",
-    N), color = factor(stress), group = "all"), size = 2, data = data.complete,
-    parse = F, position = "identity", vjust = +vjust.value, hjust = 0) + geom_text(aes(stage,
-    x.coord, label = paste("n=", N), color = factor(stress), group = "ideal"),
-    size = 2, data = data.ideal, parse = F, position = "identity", vjust = -vjust.value,
-    hjust = 0) + 
+    N), color = factor(stress)), size = 2, data = data,
+    parse = F, position = dodge, nudge_y =0  , hjust = 0) + 
+#     geom_text(aes(stage,
+#     x.coord, label = paste("n=", N), color = factor(stress), group = "ideal"),
+#     size = 2, data = data.ideal, parse = F, position = "identity", vjust = -vjust.value,
+#     hjust = 0) + 
     scale_color_manual(name = "", values=c(color1, color2), breaks = c("ideal", "complete"), labels = c(ideal = "ideal", complete = "complete")) +
        annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:", round(LRT,
       2)), size = 2) + annotate("text", x = limit.y.text.l2, y = limit.x.text,
@@ -123,9 +125,10 @@ coeff.plot.gr <- function(data, data.RGR, data.AGR, title = "",LRT, PVAL,round.v
 
 coeff.plot.gr3 <- function(data, data1, data.RGR, data.AGR, title = "",LRT, PVAL,round.value,significativite = "", limit.x.min, limit.x.max, limit.x.text,
                           limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1="gray", color2="#9E5F3A", color3="black") {
-  data.RGR["x.coord"] <- limit.x.n
-  data.AGR["x.coord"] <- limit.x.n
-  data1["x.coord"] <- limit.x.n
+#   data.RGR["x.coord"] <- limit.x.n
+#   data.AGR["x.coord"] <- limit.x.n
+#   data1["x.coord"] <- limit.x.n
+  data["x.coord"] <- limit.x.n
   
     plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
     
@@ -136,14 +139,14 @@ coeff.plot.gr3 <- function(data, data1, data.RGR, data.AGR, title = "",LRT, PVAL
     p
   }
   
-  dodge <- position_dodge(width = 0.5)
+  dodge <- position_dodge(width = 0.6)
   
   plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +1.96 * SE, color = factor(growth), linetype = factor(growth)))) +
     geom_point(aes(x = stage, y = Inte), position = dodge ) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4, width = 0.2, position = dodge) +
     scale_y_continuous("Effect size",limits = c(limit.x.min, limit.x.max)) +
-    geom_text(aes(stage,x.coord, label = paste("n =", N), color = factor(growth), group = "AGR"),size = 2, data = data.AGR, parse = F, position = "identity", vjust = +vjust.value, hjust = 0) + 
-    geom_text(aes(stage, x.coord, label = paste("n =",N), color = factor(growth), group = "RGR"), size = 2, data = data.RGR, parse = F, position = "identity", vjust = 0, hjust = 0) +
-    geom_text(aes(stage,x.coord, label = paste("n =", N), color = factor(growth), group = "all"),size = 2, data = data1, parse = F, position = "identity", vjust = -vjust.value, hjust = 0) + 
+    geom_text(aes(stage, x.coord, label = paste("n =", N), color = factor(growth)),size = 2, data = data, parse = F, position = dodge, nudge_y = -0.2, hjust = 0) + 
+#     geom_text(aes(stage, x.coord, label = paste("n =",N), color = factor(growth), group = "RGR"), size = 2, data = data.RGR, parse = F, position = "identity", vjust = 0, hjust = 0) +
+#     geom_text(aes(stage,x.coord, label = paste("n =", N), color = factor(growth), group = "all"),size = 2, data = data1, parse = F, position = "identity", vjust = 0, hjust = 0) + 
     scale_color_manual(name = "", values=c(color1, color2, color3), breaks = c("all","RGR", "AGR"), labels = c("RGR + AGR","RGR", "AGR"))+
     scale_linetype_manual(values = c("dotted", "dotted", "solid"), breaks = c("all","RGR", "AGR"), labels = c("RGR + AGR","RGR", "AGR"), guide="none") +
     annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:", round(LRT, 2)), size = 2) + 
