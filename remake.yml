@@ -189,11 +189,11 @@ targets:
       height: 6
       width:  5
 
-  output/FigA4.1.pdf:
-    command: figure_3.3(GCi, GIi)
-    plot:
-      height: 6
-      width:  5
+  #output/FigA4.1.pdf:
+   # command: figure_3.3(GCi, GIi)
+   # plot:
+    #  height: 6
+    #  width:  5
 
   output/FigA5.pdf:
     command: figure_A5(RIi, RCi)

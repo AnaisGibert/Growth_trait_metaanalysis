@@ -262,7 +262,7 @@ coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite 
     scale_y_continuous("Effect size", limits = c(limit.x.min,
       limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("n=",
     N), color = factor(stress), group = "ideal"), size = 2, data = data.ideal,
-    parse = F, position = "identity", vjust = -vjust.value, hjust = 0) + scale_color_manual(values = c(color1)) +
+    parse = F, position = "identity", vjust = 0, hjust = 0) + scale_color_manual(values = c(color1)) +
     annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:",
       round(LRT, 2)), size = 2) + annotate("text", x = limit.y.text.l2, y = limit.x.text,
     label = paste("p.value =", round(PVAL, round.value), significativite),
@@ -322,7 +322,9 @@ my_plot_overall <- function(data, title = "") {
 
   plot1(title, ggplot(data, aes(stage, corr.r, ymin = corr.r - SD, ymax = corr.r +
     SD))) + geom_point(aes(x = stage, y = corr.r)) + geom_errorbar(aes(x = stage,
-    y = corr.r), size = 0.4, width = 0) + scale_y_continuous("Coefficient of correlation r (+SD) ",
+    y = corr.r), size = 0.4, width = 0) + 
+    geom_text(aes(stage, 0.8, label = paste("n=",freq)), size = 2, data = data, parse = F, position = "identity", vjust = 0.2, hjust = 0)+
+    scale_y_continuous("Coefficient of correlation r (+SD) ",
     limits = c(-1, 1))
 }
 
