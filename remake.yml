@@ -30,7 +30,7 @@ targets:
       - output/FigA1.pdf
       - output/FigA2.pdf
       - output/FigA3.pdf
-      - output/FigA4.1.pdf
+#      - output/FigA4.1.pdf
       - output/FigA4.pdf
       - output/FigA5.pdf
       - output/FigA6a.pdf
@@ -186,7 +186,7 @@ targets:
   output/FigA4.pdf:
     command: figure_A4(GIi, GIrgr, GIagr)
     plot:
-      height: 7
+      height: 6
       width:  5
 
   output/FigA4.1.pdf:

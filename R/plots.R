@@ -85,7 +85,7 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
 #     x.coord, label = paste("n=", N), color = factor(stress), group = "ideal"),
 #     size = 2, data = data.ideal, parse = F, position = "identity", vjust = -vjust.value,
 #     hjust = 0) + 
-    scale_color_manual(name = "", values=c(color1, color2), breaks = c("ideal", "complete"), labels = c(ideal = "ideal", complete = "complete")) +
+    scale_color_manual(name = "", values=c(color1, color2), breaks = c("ideal", "complete"), labels = c(ideal = "ideal", complete = "entire")) +
        annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:", round(LRT,
       2)), size = 2) + annotate("text", x = limit.y.text.l2, y = limit.x.text,
     label = paste("p.value =", round(PVAL, round.value), significativite),
