@@ -77,7 +77,7 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
   plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +
     1.96 * SE, color = factor(stress)))) + geom_point(aes(x = stage, y = Inte),
     position = dodge) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4,
-    width = 0.2, position = dodge) + scale_y_continuous("Effect size",
+    width = 0, position = dodge) + scale_y_continuous("Effect size",
     limits = c(limit.x.min, limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("n=",
     N), color = factor(stress)), size = 2, data = data,
     parse = F, position = dodge, hjust = 0) +
@@ -142,7 +142,7 @@ coeff.plot.gr3 <- function(data, data1, data.RGR, data.AGR, title = "",LRT, PVAL
   dodge <- position_dodge(width = 0.6)
   
   plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +1.96 * SE, color = factor(growth), linetype = factor(growth)))) +
-    geom_point(aes(x = stage, y = Inte), position = dodge ) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4, width = 0.2, position = dodge) +
+    geom_point(aes(x = stage, y = Inte), position = dodge ) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4, width = 0, position = dodge) +
     scale_y_continuous("Effect size",limits = c(limit.x.min, limit.x.max)) +
     geom_text(aes(stage, x.coord, label = paste("n =", N), color = factor(growth)),size = 2, data = data, parse = F, position = dodge, hjust = 0) +
 #     geom_text(aes(stage, x.coord, label = paste("n =",N), color = factor(growth), group = "RGR"), size = 2, data = data.RGR, parse = F, position = "identity", vjust = 0, hjust = 0) +
@@ -185,29 +185,29 @@ coeff.plot.gr2 <- function(data, data.RGR, data.AGR, title = "", limit.x.min, li
 
 coeff.plot.rgr <- function(data, title = "",LRT, PVAL,round.value, significativite = "", limit.x.min, limit.x.max, limit.x.text, 
                           limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1="#9E5F3A") {
-  
-  data["x.coord"] <- limit.x.n
-  
-  plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
-    
-    p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) +
-      geom_vline(xintercept = 0,color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      scale_x_discrete("Stage", limit = c("seedling", "sapling", "adult")) +
-      coord_flip() + mytheme() + theme(legend.position = "none")
-    p
-  }
-  
-  dodge <- position_dodge(width = 0.4)
-  
-  
-  
-  plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +1.96 * SE))) +
-    geom_point(aes(x = stage, y = Inte), position = dodge) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4,width = 0.2, position = dodge) +
-    scale_y_continuous("Effect size",limits = c(limit.x.min, limit.x.max)) +
-     geom_text(aes(stage, x.coord, label = paste("n=",N)), size = 2, data = data, parse = F, position = "identity", vjust = 0, hjust = 0)+
-    annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:", round(LRT, 2)), size = 2) + 
-    annotate("text", x = limit.y.text.l2, y = limit.x.text, label = paste("p.value =", round(PVAL, round.value), significativite), size = 2) 
-}
+      
+      data["x.coord"] <- limit.x.n
+      
+      plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
+        
+        p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) +
+          geom_vline(xintercept = 0,color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
+          scale_x_discrete("Stage", limit = c("seedling", "sapling", "adult")) +
+          coord_flip() + mytheme() + theme(legend.position = "none")
+        p
+      }
+      
+      dodge <- position_dodge(width = 0.4)
+      
+      
+      
+      plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +1.96 * SE))) +
+        geom_point(aes(x = stage, y = Inte), position = dodge) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4,width = 0, position = dodge) +
+        scale_y_continuous("Effect size",limits = c(limit.x.min, limit.x.max)) +
+         geom_text(aes(stage, x.coord, label = paste("n=",N)), size = 2, data = data, parse = F, position = "identity", vjust = 0, hjust = 0)+
+        annotate("text", x = limit.y.text.l1, y = limit.x.text , label = paste("LRT:", round(LRT, 2)), size = 2) + 
+        annotate("text", x = limit.y.text.l2, y = limit.x.text , label = paste("p.value =", round(PVAL, round.value), significativite), size = 2) 
+    }
 
 
 
@@ -258,7 +258,7 @@ coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite 
 
   my_size_effect_plot2(title, ggplot(data.ideal, aes(stage, Inte, ymin = Inte -
     1.96 * SE, ymax = Inte + 1.96 * SE, color = factor(stress)))) + geom_point(aes(x = stage,
-    y = Inte)) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4, width = 0.2) +
+    y = Inte)) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4, width = 0) +
     scale_y_continuous("Effect size", limits = c(limit.x.min,
       limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("n=",
     N), color = factor(stress), group = "ideal"), size = 2, data = data.ideal,
@@ -322,7 +322,7 @@ my_plot_overall <- function(data, title = "") {
 
   plot1(title, ggplot(data, aes(stage, corr.r, ymin = corr.r - SD, ymax = corr.r +
     SD))) + geom_point(aes(x = stage, y = corr.r)) + geom_errorbar(aes(x = stage,
-    y = corr.r), size = 0.4, width = 0.2) + scale_y_continuous("Coefficient of correlation r (+SD) ",
+    y = corr.r), size = 0.4, width = 0) + scale_y_continuous("Coefficient of correlation r (+SD) ",
     limits = c(-1, 1))
 }
 
@@ -345,9 +345,9 @@ my_plot_overall_gr <- function(data, title = "") {
   data2 <- subset(data, data$growth == "AbsGR")
 
   p <- plot1(title, ggplot(data, aes(stage, corr.r, ymin = corr.r - SD, ymax = corr.r +
-    SD, color = factor(growth)))) + geom_point(aes(x = stage, y = corr.r),
-    position = dodge) + geom_errorbar(aes(x = stage, y = corr.r), position = dodge,
-    size = 0.4, width = 0.2) + scale_y_continuous("Coefficient of correlation r (+SD) ",
+    SD, color = factor(growth)))) +
+    geom_point(aes(x = stage, y = corr.r), position = dodge) + geom_errorbar(aes(x = stage, y = corr.r), position = dodge,
+    size = 0.4, width = 0) + scale_y_continuous("Coefficient of correlation r (+SD) ",
     limits = c(-1, 1)) + coord_flip() + geom_text(aes(stage, 0.8, label = paste("n=",
     freq), color = factor(growth), group = "RGR"), size = 2, data = data1,
     parse = F, position = "identity", vjust = -0.5, hjust = 0) + geom_text(aes(stage,

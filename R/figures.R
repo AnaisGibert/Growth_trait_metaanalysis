@@ -96,94 +96,94 @@ figure_2 <- function(CompleteData_inter) {
 
 }
 
-figure_3.3 <- function(GC, GI) {
-  CoefModel.SLA <- fun_model(GI[["SLA"]], GC[["SLA"]])
-  CoefModel.SLA["trait"] <- "SLA"
-  CoefModel.SLA.s <- subset(CoefModel.SLA, stress == "complete")
-  CoefModel.SLA.opt <- subset(CoefModel.SLA, stress == "ideal")
-  LRT.sla <- fun_OneLR(GI[["SLA"]])
-  LRT.sla.2 <- fun_OneLR(GC[["SLA"]])
-  PVAL.sla <- fun_Onepvalue(GI[["SLA"]])
-  PVAL.sla.2 <- fun_Onepvalue(GC[["SLA"]])
-
-  CoefModel.WD <- fun_model(GI[["WD"]], GC[["WD"]])
-  CoefModel.WD["trait"] <- "WD"
-  CoefModel.WD.s <- subset(CoefModel.WD, stress == "complete")
-  CoefModel.WD.opt <- subset(CoefModel.WD, stress == "ideal")
-  LRT.wd <- fun_OneLR(GI[["WD"]])
-  LRT.wd.2 <- fun_OneLR(GC[["WD"]])
-  PVAL.wd <- fun_Onepvalue(GI[["WD"]])
-  PVAL.wd.2 <- fun_Onepvalue(GC[["WD"]])
-
-  CoefModel.Hmax <- fun_model(GI[["Hmax"]], GC[["Hmax"]])
-  CoefModel.Hmax["trait"] <- "Hmax"
-  CoefModel.Hmax.s <- subset(CoefModel.Hmax, stress == "complete")
-  CoefModel.Hmax.opt <- subset(CoefModel.Hmax, stress == "ideal")
-  LRT.h <- fun_OneLR(GI[["Hmax"]])
-  LRT.h.2 <- fun_OneLR(GC[["Hmax"]])
-  PVAL.h <- fun_Onepvalue(GI[["Hmax"]])
-  PVAL.h.2 <- fun_Onepvalue(GC[["Hmax"]])
-
-  CoefModel.Seedmass <- fun_model(GI[["Seedmass"]], GC[["Seedmass"]])
-  CoefModel.Seedmass["trait"] <- "Seedmass"
-  CoefModel.Seedmass.s <- subset(CoefModel.Seedmass, stress == "complete")
-  CoefModel.Seedmass.opt <- subset(CoefModel.Seedmass, stress == "ideal")
-  LRT.sm <- fun_OneLR(GI[["Seedmass"]])
-  LRT.sm.2 <- fun_OneLR(GC[["Seedmass"]])
-  PVAL.sm <- fun_Onepvalue(GI[["Seedmass"]])
-  PVAL.sm.2 <- fun_Onepvalue(GC[["Seedmass"]])
-
-  CoefModel.Aarea <- fun_model(GI[["Aarea"]], GC[["Aarea"]])
-  CoefModel.Aarea["trait"] <- "Aarea"
-  CoefModel.Aarea.s <- subset(CoefModel.Aarea, stress == "complete")
-  CoefModel.Aarea.opt <- subset(CoefModel.Aarea, stress == "ideal")
-  LRT.a <- fun_OneLR(GI[["Aarea"]])
-  LRT.a.2 <- fun_OneLR(GC[["Aarea"]])
-  PVAL.a <- fun_Onepvalue(GI[["Aarea"]])
-  PVAL.a.2 <- fun_Onepvalue(GC[["Aarea"]])
-
-  p1 <- coeff.plot(data = CoefModel.SLA, data.complete = CoefModel.SLA.s, data.ideal = CoefModel.SLA.opt,
-    LRT = LRT.sla, PVAL = PVAL.sla, title = "a) SLA", significativite = "***",
-    round.value = 4, limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
-    vjust.value = 1, limit.x.text = -0.5, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
-    color1 = "grey", color2 = "black")
-
-  p2 <- coeff.plot(data = CoefModel.WD, data.complete = CoefModel.WD.s, data.ideal = CoefModel.WD.opt,
-    LRT = LRT.wd, PVAL = PVAL.wd, title = "b) WD", significativite = "ns",
-    round.value = 2, limit.x.min = -1, limit.x.max = 1, limit.x.n = 0.85,
-    vjust.value = 1, limit.x.text = -0.7, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
-    color1 = "grey", color2 = "black")
-
-  p3 <- coeff.plot.ideal(data.ideal = CoefModel.Hmax.opt, LRT = LRT.h, PVAL = PVAL.h,
-    title = "c) Hmax", significativite = "ns", round.value = 2, limit.x.min = -1,
-    limit.x.max = 1.5, limit.x.text = -0.5, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
-    limit.x.n = 1.3, vjust.value = 0, color1 = "black")
-
-  p4 <- coeff.plot(data = CoefModel.Seedmass, data.complete = CoefModel.Seedmass.s,
-    data.ideal = CoefModel.Seedmass.opt, LRT = LRT.sm, PVAL = PVAL.sm, title = "d) Seed mass",
-    significativite = "***", round.value = 3, limit.x.min = -1.5, limit.x.max = 1.5,
-    limit.x.text = -1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, limit.x.n = 1.25,
-    vjust.value = 1, color1 = "grey", color2 = "black")
-
-  p5 <- coeff.plot(data = CoefModel.Aarea, data.complete = CoefModel.Aarea.s,
-    data.ideal = CoefModel.Aarea.opt, LRT = LRT.a, PVAL = PVAL.a, title = "e) Aarea",
-    significativite = "ns", round.value = 3, limit.x.min = -2.4, limit.x.max = 3.5,
-    limit.x.text = -1.2, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, limit.x.n = 3,
-    vjust.value = 1, color1 = "grey", color2 = "black") + 
-    theme(legend.title = element_blank(), legend.justification = c(0, 0), legend.position = c(1.2,
-      0.5), legend.key = element_blank())
-
-  p1 <- p1 + theme(plot.margin = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank(),axis.title.y = element_text(colour = "white"))
-  p2 <- p2 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
-    plot.margin = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank())
-  p3 <- p3 + theme(plot.margin = unit(c(0, 0, 1.5, 0), "mm"), axis.title.x = element_blank())
-  p4 <- p4 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
-    plot.margin = unit(c(0, 0, -1, 0), "mm"))
-  p5 <- p5 + theme(plot.margin = unit(c(0, 0, 0, 0), "mm"), axis.title.y = element_text(colour = "white"))
-
-  grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.2, 1))
-}
-
+# figure_3.3 <- function(GC, GI) {
+#   CoefModel.SLA <- fun_model(GI[["SLA"]], GC[["SLA"]])
+#   CoefModel.SLA["trait"] <- "SLA"
+#   CoefModel.SLA.s <- subset(CoefModel.SLA, stress == "complete")
+#   CoefModel.SLA.opt <- subset(CoefModel.SLA, stress == "ideal")
+#   LRT.sla <- fun_OneLR(GI[["SLA"]])
+#   LRT.sla.2 <- fun_OneLR(GC[["SLA"]])
+#   PVAL.sla <- fun_Onepvalue(GI[["SLA"]])
+#   PVAL.sla.2 <- fun_Onepvalue(GC[["SLA"]])
+# 
+#   CoefModel.WD <- fun_model(GI[["WD"]], GC[["WD"]])
+#   CoefModel.WD["trait"] <- "WD"
+#   CoefModel.WD.s <- subset(CoefModel.WD, stress == "complete")
+#   CoefModel.WD.opt <- subset(CoefModel.WD, stress == "ideal")
+#   LRT.wd <- fun_OneLR(GI[["WD"]])
+#   LRT.wd.2 <- fun_OneLR(GC[["WD"]])
+#   PVAL.wd <- fun_Onepvalue(GI[["WD"]])
+#   PVAL.wd.2 <- fun_Onepvalue(GC[["WD"]])
+# 
+#   CoefModel.Hmax <- fun_model(GI[["Hmax"]], GC[["Hmax"]])
+#   CoefModel.Hmax["trait"] <- "Hmax"
+#   CoefModel.Hmax.s <- subset(CoefModel.Hmax, stress == "complete")
+#   CoefModel.Hmax.opt <- subset(CoefModel.Hmax, stress == "ideal")
+#   LRT.h <- fun_OneLR(GI[["Hmax"]])
+#   LRT.h.2 <- fun_OneLR(GC[["Hmax"]])
+#   PVAL.h <- fun_Onepvalue(GI[["Hmax"]])
+#   PVAL.h.2 <- fun_Onepvalue(GC[["Hmax"]])
+# 
+#   CoefModel.Seedmass <- fun_model(GI[["Seedmass"]], GC[["Seedmass"]])
+#   CoefModel.Seedmass["trait"] <- "Seedmass"
+#   CoefModel.Seedmass.s <- subset(CoefModel.Seedmass, stress == "complete")
+#   CoefModel.Seedmass.opt <- subset(CoefModel.Seedmass, stress == "ideal")
+#   LRT.sm <- fun_OneLR(GI[["Seedmass"]])
+#   LRT.sm.2 <- fun_OneLR(GC[["Seedmass"]])
+#   PVAL.sm <- fun_Onepvalue(GI[["Seedmass"]])
+#   PVAL.sm.2 <- fun_Onepvalue(GC[["Seedmass"]])
+# 
+#   CoefModel.Aarea <- fun_model(GI[["Aarea"]], GC[["Aarea"]])
+#   CoefModel.Aarea["trait"] <- "Aarea"
+#   CoefModel.Aarea.s <- subset(CoefModel.Aarea, stress == "complete")
+#   CoefModel.Aarea.opt <- subset(CoefModel.Aarea, stress == "ideal")
+#   LRT.a <- fun_OneLR(GI[["Aarea"]])
+#   LRT.a.2 <- fun_OneLR(GC[["Aarea"]])
+#   PVAL.a <- fun_Onepvalue(GI[["Aarea"]])
+#   PVAL.a.2 <- fun_Onepvalue(GC[["Aarea"]])
+# 
+#   p1 <- coeff.plot(data = CoefModel.SLA, data.complete = CoefModel.SLA.s, data.ideal = CoefModel.SLA.opt,
+#     LRT = LRT.sla, PVAL = PVAL.sla, title = "a) SLA", significativite = "***",
+#     round.value = 4, limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
+#     vjust.value = 1, limit.x.text = -0.5, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
+#     color1 = "grey", color2 = "black")
+# 
+#   p2 <- coeff.plot(data = CoefModel.WD, data.complete = CoefModel.WD.s, data.ideal = CoefModel.WD.opt,
+#     LRT = LRT.wd, PVAL = PVAL.wd, title = "b) WD", significativite = "ns",
+#     round.value = 2, limit.x.min = -1, limit.x.max = 1, limit.x.n = 0.85,
+#     vjust.value = 1, limit.x.text = -0.7, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
+#     color1 = "grey", color2 = "black")
+# 
+#   p3 <- coeff.plot.ideal(data.ideal = CoefModel.Hmax.opt, LRT = LRT.h, PVAL = PVAL.h,
+#     title = "c) Hmax", significativite = "ns", round.value = 2, limit.x.min = -1,
+#     limit.x.max = 1.5, limit.x.text = -0.5, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
+#     limit.x.n = 1.3, vjust.value = 0, color1 = "black")
+# 
+#   p4 <- coeff.plot(data = CoefModel.Seedmass, data.complete = CoefModel.Seedmass.s,
+#     data.ideal = CoefModel.Seedmass.opt, LRT = LRT.sm, PVAL = PVAL.sm, title = "d) Seed mass",
+#     significativite = "***", round.value = 3, limit.x.min = -1.5, limit.x.max = 1,
+#     limit.x.text = -1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, limit.x.n = 1.25,
+#     vjust.value = 1, color1 = "grey", color2 = "black")
+# 
+#   p5 <- coeff.plot(data = CoefModel.Aarea, data.complete = CoefModel.Aarea.s,
+#     data.ideal = CoefModel.Aarea.opt, LRT = LRT.a, PVAL = PVAL.a, title = "e) Aarea",
+#     significativite = "ns", round.value = 3, limit.x.min = -2.4, limit.x.max = 3.5,
+#     limit.x.text = -1.2, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, limit.x.n = 3,
+#     vjust.value = 1, color1 = "grey", color2 = "black") + 
+#     theme(legend.title = element_blank(), legend.justification = c(0, 0), legend.position = c(1.2,
+#       0.5), legend.key = element_blank())
+# 
+#   p1 <- p1 + theme(plot.margin = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank(),axis.title.y = element_text(colour = "white"))
+#   p2 <- p2 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
+#     plot.margin = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank())
+#   p3 <- p3 + theme(plot.margin = unit(c(0, 0, 1.5, 0), "mm"), axis.title.x = element_blank())
+#   p4 <- p4 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
+#     plot.margin = unit(c(0, 0, -1, 0), "mm"))
+#   p5 <- p5 + theme(plot.margin = unit(c(0, 0, 0, 0), "mm"), axis.title.y = element_text(colour = "white"))
+# 
+#   grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.2, 1))
+# }
+# 
 
 # figure_3.2 <- function(GCrgr , GCagr) {
 #   CoefModel.SLA <- fun_model1(GCrgr[["SLA"]],GCagr[["SLA"]])
@@ -325,45 +325,57 @@ figure_3.4 <- function(GCi, GCrgr , GCagr) {
   CoefModel.Seedmass <- rbind(CoefModel.Seedmass2, CoefModel.Seedmass.s, CoefModel.Seedmass.opt )
   CoefModel.Aarea <- rbind(CoefModel.Aarea2, CoefModel.Aarea.s, CoefModel.Aarea.opt )
   
+  limit.y.text.l1 <- 0.8
+  limit.y.text.l2 <- 0.6
   
   p1 <- coeff.plot.gr3(data = CoefModel.SLA, data1=CoefModel.SLA2 , data.RGR = CoefModel.SLA.s, data.AGR = CoefModel.SLA.opt,
                        LRT=LRT.sla, PVAL=PVAL.sla, round.value = 4, significativite = "***", title = "a) SLA",
                        limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
-                       vjust.value = 2, limit.x.text = -0.5, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25)
+                       vjust.value = 2, limit.x.text = -0.6, limit.y.text.l1 , limit.y.text.l2 )
   
   p2 <- coeff.plot.gr3(data = CoefModel.WD, data1=CoefModel.WD2, data.RGR = CoefModel.WD.s, data.AGR = CoefModel.WD.opt, 
                        LRT=LRT.wd, PVAL=PVAL.wd, round.value = 2, significativite = "ns", title = "b) WD",
                        limit.x.min = -1, limit.x.max = 1, limit.x.n = 0.84,
-                       vjust.value = 2, limit.x.text = -0.5, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25)
+                       vjust.value = 2, limit.x.text = -0.73, limit.y.text.l1 , limit.y.text.l2)
   
   p3 <- coeff.plot.gr3(data = CoefModel.Hmax, data1=CoefModel.Hmax2, data.RGR = CoefModel.Hmax.s,data.AGR = CoefModel.Hmax.opt,
                         LRT=LRT.hmax, PVAL=PVAL.hmax, round.value = 3, significativite = "ns", title = "c) Hmax", 
                        limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
-                       limit.x.text = -0.5, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, 
+                       limit.x.text = -0.65, limit.y.text.l1 , limit.y.text.l2 , 
                        vjust.value = 2)
   
   p4 <- coeff.plot.gr3(data = CoefModel.Seedmass, data1=CoefModel.Seedmass2, data.RGR = CoefModel.Seedmass.s, data.AGR = CoefModel.Seedmass.opt, 
                        LRT=LRT.sm, PVAL=PVAL.sm, round.value = 3, significativite = "**", title = "d) Seed mass",
-                       limit.x.min = -1.5, limit.x.max = 1.5, limit.x.n = 1.25,
-                       limit.x.text = -0.8, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, 
+                       limit.x.min = -1.5, limit.x.max = 1.5, limit.x.n = 1,
+                       limit.x.text = -1.07, limit.y.text.l1 , limit.y.text.l2 , 
                        vjust.value = 2)
   
   p5 <- coeff.plot.gr3(data = CoefModel.Aarea, data1=CoefModel.Aarea2, data.RGR = CoefModel.Aarea.s, data.AGR = CoefModel.Aarea.opt,
                        LRT=LRT.aarea, PVAL=PVAL.aarea, round.value = 2, significativite = "ns", title = "e) Aarea",
                        limit.x.min = -2.4, limit.x.max =3.5,
-                       limit.x.text = -1.3, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, limit.x.n = 3,
-                       vjust.value = 2)  +
-    theme(legend.title = element_blank(), legend.justification = c(0, 0), legend.position = c(1.2, 0.3), legend.key = element_blank())
+                       limit.x.text = -1.6, limit.y.text.l1 , limit.y.text.l2 , limit.x.n = 3,
+                       vjust.value = 2)  + 
+      theme(legend.title = element_blank(), legend.justification = c(0, 0), legend.position = c(1.3, 0.2), legend.key = element_blank())
   
-  p1 <- p1 + theme(plot.margin  = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank(), axis.title.y = element_text(colour = "white"))
+#   p1 <- p1 + theme(plot.margin  = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank(), axis.title.y = element_text(colour = "white"))
+#   p2 <- p2 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
+#                    plot.margin  = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank())
+#   p3 <- p3 + theme(plot.margin  = unit(c(0, 0, 1.5, 0), "mm"), axis.title.x = element_blank())
+#   p4 <- p4 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
+#                    plot.margin  = unit(c(0, 0, -1, 0), "mm"))
+#   p5 <- p5 + theme(plot.margin  = unit(c(0, 0, 0, 0), "mm"), axis.title.y = element_text(colour = "white"))
+#   
+#   grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.2, 1))
+#   
+  p1 <- p1 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank(),axis.title.y = element_text(colour = "white"))
   p2 <- p2 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
-                   plot.margin  = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank())
-  p3 <- p3 + theme(plot.margin  = unit(c(0, 0, 1.5, 0), "mm"), axis.title.x = element_blank())
+                   plot.margin  = unit(c(2.5, 0, 1.5, 1), "mm"), axis.title.x = element_blank())
+  p3 <- p3 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank())
   p4 <- p4 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
-                   plot.margin  = unit(c(0, 0, -1, 0), "mm"))
-  p5 <- p5 + theme(plot.margin  = unit(c(0, 0, 0, 0), "mm"), axis.title.y = element_text(colour = "white"))
+                   plot.margin  = unit(c(2.5, 0, -3.5, 1), "mm"))
+  p5 <- p5 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.y = element_text(colour = "white"))
   
-  grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.2, 1))
+  grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.3, 1),heights = c(1, 1, 1.1))
 }
 
 
@@ -396,13 +408,16 @@ figure_3 <- function(GIrgr) {
   LRT.aarea<- fun_OneLR(GIrgr[["Aarea"]])
   PVAL.aarea <- fun_Onepvalue(GIrgr[["Aarea"]])
   
+  limit.y.text.l1 <- 0.8
+  limit.y.text.l2 <- 0.6
+  
   p1 <- coeff.plot.rgr(data = CoefModel.SLA, title = "a) SLA", LRT=LRT.sla, PVAL=PVAL.sla, round.value = 4, significativite = "***",
-                      limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
-                      vjust.value = 1, limit.x.text = -0.5, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25)
+                       limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
+                       vjust.value = 2, limit.x.text = -0.6, limit.y.text.l1 , limit.y.text.l2 )
   
   p2 <- coeff.plot.rgr(data = CoefModel.WD,title = "b) WD", LRT=LRT.wd, PVAL=PVAL.wd, round.value = 3, significativite = "*",
-                      limit.x.min = -1, limit.x.max = 1, limit.x.n = 0.85,
-                      vjust.value = 1, limit.x.text = -0.5, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25)
+                       limit.x.min = -1, limit.x.max = 1, limit.x.n = 0.84,
+                       vjust.value = 2, limit.x.text = -0.73, limit.y.text.l1 , limit.y.text.l2)
   
   #   p3 <- coef.plot.gr.AGR(data.AGR = CoefModel.Hmax.opt, LRT = LRT.h, PVAL = PVAL.h,
   #                          title = "c) Hmax", significativite = "ns", round.value = 2, limit.x.min = -0.5,
@@ -411,29 +426,30 @@ figure_3 <- function(GIrgr) {
   
   p3 <- coeff.plot.rgr(data = CoefModel.Hmax, title = "c) Hmax",LRT=LRT.hmax, PVAL=PVAL.hmax, round.value = 3, significativite = "ns",
                        limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
-                      limit.x.text = -0.5, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, 
-                      vjust.value = 1)
+                       limit.x.text = -0.65, limit.y.text.l1 , limit.y.text.l2 , 
+                       vjust.value = 2)
   
   p4 <- coeff.plot.rgr(data = CoefModel.Seedmass, title = "d) Seed mass", LRT=LRT.sm, PVAL=PVAL.sm, round.value = 3, significativite = "ns",
-                      limit.x.min = -1.5, limit.x.max = 1.5, limit.x.n = 1.25,
-                      limit.x.text = -0.8, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, 
-                      vjust.value = 1)
+                       limit.x.min = -1.5, limit.x.max = 1.5, limit.x.n = 1.25,
+                       limit.x.text = -1.07, limit.y.text.l1 , limit.y.text.l2 , 
+                       vjust.value = 20)
   
   p5 <- coeff.plot.rgr(data = CoefModel.Aarea, title = "e) Aarea", LRT=LRT.aarea, PVAL=PVAL.aarea, round.value = 3, significativite = "ns",
-                      limit.x.min = -2.4, limit.x.max =3.5,
-                      limit.x.text = -1.3, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, limit.x.n = 3,
-                      vjust.value = 1)  +
+                       limit.x.min = -2.4, limit.x.max =3.5,
+                       limit.x.text = -1.55, limit.y.text.l1 , limit.y.text.l2 , limit.x.n = 3,
+                       vjust.value = 2)  +
     theme(legend.title = element_blank(), legend.justification = c(0, 0), legend.position = c(1.2, 0.5), legend.key = element_blank())
   
-  p1 <- p1 + theme(plot.margin  = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank(),axis.title.y = element_text(colour = "white"))
+  p1 <- p1 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank(),axis.title.y = element_text(colour = "white"))
   p2 <- p2 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
-                   plot.margin  = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank())
-  p3 <- p3 + theme(plot.margin  = unit(c(0, 0, 1.5, 0), "mm"), axis.title.x = element_blank())
+                   plot.margin  = unit(c(2.5, 0, 1.5, 1), "mm"), axis.title.x = element_blank())
+  p3 <- p3 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank())
   p4 <- p4 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
-                   plot.margin  = unit(c(0, 0, -1, 0), "mm"))
-  p5 <- p5 + theme(plot.margin  = unit(c(0, 0, 0, 0), "mm"), axis.title.y = element_text(colour = "white"))
+                   plot.margin  = unit(c(2.5, 0, -3.5, 1), "mm"))
+  p5 <- p5 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.y = element_text(colour = "white"))
   
-  grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.2, 1))
+  grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.3, 1),heights = c(1, 1, 1.1))
+  
 }
 
 # # figure_4 <- function(GCi) {
@@ -638,17 +654,22 @@ figure_A4 <- function(GIi, GIrgr, GIagr) {
   # y=0.95, hjust=0,just = 'left',gp = gpar(fontsize = 10, col = 'black'))) +
   # annotation_custom(grobA)
 
-  p1 <- my_plot_overall(SLA, title = "a) SLA") + theme(plot.margin = unit(c(0,
-    0, 1, 0), "mm"), axis.title.x = element_blank(), axis.title.y = element_text(colour = "white"))
-  p2 <- my_plot_overall(WD, title = "b) WD") + theme(axis.text.y = element_blank(),
-    axis.title.y = element_blank(), plot.margin = unit(c(0, 0, 1, 0), "mm"),axis.title.x= element_blank())
-  p3 <- my_plot_overall(Hmax, title = "c) Hmax") + theme(plot.margin = unit(c(0,
-    0, 1, 0), "mm"), axis.title.x = element_blank())
-  p4 <- my_plot_overall(Seedmass, title = "d) Seed mass") + theme(axis.text.y = element_blank(),
-   plot.margin = unit(c(0, 0, -1., 0), "mm"), axis.title.y = element_blank())
-  p5 <- my_plot_overall(Aarea, title = "e) Aarea") + theme(plot.margin = unit(c(0,
-    0, 1, 0), "mm"), axis.title.y = element_text(colour = "white"))
+  p1 <- my_plot_overall(SLA, title = "a) SLA") 
+  p2 <- my_plot_overall(WD, title = "b) WD") 
+  p3 <- my_plot_overall(Hmax, title = "c) Hmax") 
+  p4 <- my_plot_overall(Seedmass, title = "d) Seed mass") 
+  p5 <- my_plot_overall(Aarea, title = "e) Aarea") 
 
+  p1 <- p1 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank(),axis.title.y = element_text(colour = "white"))
+  p2 <- p2 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
+                   plot.margin  = unit(c(2.5, 0, 1.5, 1), "mm"), axis.title.x = element_blank())
+  p3 <- p3 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank())
+  p4 <- p4 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
+                   plot.margin  = unit(c(2.5, 0, -3.5, 1), "mm"))
+  p5 <- p5 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.y = element_text(colour = "white"))
+  
+ 
+  
 #   p1_gr <- my_plot_overall_gr(SLA_gr, title = "f) SLA by growth type") + theme(axis.text.y = element_blank(),
 #     axis.title.y = element_blank(), plot.margin = unit(c(0, 0, 1, 0), "mm"),
 #     axis.title.x = element_blank(), legend.title = element_blank(), legend.justification = c(0,
@@ -669,8 +690,7 @@ figure_A4 <- function(GIi, GIrgr, GIagr) {
 
   # Missing data for some stages, that's fine but causes a warning message
   suppressWarnings({
-    grid.arrange(p1, p2, p3, p4, p5, ncol = 2,
-      nrow = 3, widths = c(1.2, 1), heights = c(1, 1, 1.1))
+    grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.3, 1),heights = c(1, 1, 1.1))
   })
 }
 
@@ -683,12 +703,17 @@ figure_A5 <- function(RIi, RCi) {
   LRT.sla.2 <- fun_OneLR(RCi[["SLA"]])
   PVAL.sla <- fun_Onepvalue(RIi[["SLA"]])
   PVAL.sla.2 <- fun_Onepvalue(RCi[["SLA"]])
+  
+  limit.y.text.l1 <- 0.8
+  limit.y.text.l2 <- 0.6
 
   p1 <- coeff.plot(data = CoefModel.SLA, data.complete = CoefModel.SLA.s, data.ideal = CoefModel.SLA.opt,
     LRT = LRT.sla, PVAL = PVAL.sla, title = "a) SLA", significativite = "***",
-    round.value = 3, limit.x.min = -0.5, limit.x.max = 1.5, limit.x.n = 1.2,
-    vjust.value = 0.8, limit.x.text = -0.15, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
+    round.value = 3,
+    limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
+    vjust.value = 2, limit.x.text = -0.6, limit.y.text.l1 , limit.y.text.l2 ,
     color1 = "grey", color2 = "black")
+  
 
   CoefModel.WD <- fun_model(RIi[["WD"]], RCi[["WD"]])
   CoefModel.WD.s <- subset(CoefModel.WD, stress == "complete")
@@ -702,7 +727,7 @@ figure_A5 <- function(RIi, RCi) {
   p2 <- coeff.plot(data = CoefModel.WD, data.complete = CoefModel.WD.s, data.ideal = CoefModel.WD.opt,
     LRT = LRT.wd, PVAL = PVAL.wd, title = "b) WD", significativite = "ns",
     round.value = 3, limit.x.min = -1, limit.x.max = 0.5, limit.x.n = 0.3,
-    vjust.value = 0.8, limit.x.text = -0.75, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
+    vjust.value = 0.8, limit.x.text = -0.75, limit.y.text.l1 , limit.y.text.l2,
     color1 = "grey", color2 = "black")
 
 
@@ -716,9 +741,9 @@ figure_A5 <- function(RIi, RCi) {
   PVAL.h.2 <- fun_Onepvalue(RCi[["Hmax"]])
 
   p3 <- coeff.plot.ideal(data.ideal = CoefModel.Hmax.opt, LRT = 0, PVAL = 0.98,
-    title = "c) Hmax", significativite = "ns", round.value = 3, limit.x.min = -0.5,
-    limit.x.max = 1.5, limit.x.text = -0.1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25,
-    limit.x.n = 1.3, vjust.value = -0.1, color1 = "black")
+    title = "c) Hmax", significativite = "ns", round.value = 3, limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
+    limit.x.text = -0.65, limit.y.text.l1 , limit.y.text.l2 , 
+    vjust.value = 2, color1 = "black")
 
   CoefModel.Seedmass <- fun_model(RIi[["Seedmass"]], RCi[["Seedmass"]])
   CoefModel.Seedmass.s <- subset(CoefModel.Seedmass, stress == "complete")
@@ -731,8 +756,8 @@ figure_A5 <- function(RIi, RCi) {
 
   p4 <- coeff.plot(data = CoefModel.Seedmass, data.complete = CoefModel.Seedmass.s,
     data.ideal = CoefModel.Seedmass.opt, LRT = LRT.sm, PVAL = PVAL.sm, title = "d) Seed mass",
-    significativite = "***", round.value = 3, limit.x.min = -1.5, limit.x.max = 1,
-    limit.x.text = -1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, limit.x.n = 0.7,
+    significativite = "***", round.value = 3, limit.x.min = -2, limit.x.max = 1,
+    limit.x.text = -1.5, limit.y.text.l1 , limit.y.text.l2 , limit.x.n = 0.7,
     vjust.value = 0.8, color1 = "grey", color2 = "black")
 
 
@@ -748,22 +773,23 @@ figure_A5 <- function(RIi, RCi) {
 
   p5 <- coeff.plot(data = CoefModel.Aarea, data.complete = CoefModel.Aarea.s,
     data.ideal = CoefModel.Aarea.opt, LRT = NA, PVAL = NA, title = "e) Aarea",
-    significativite = "", round.value = 3, limit.x.min = -2, limit.x.max = 3,
-    limit.x.text = -1, limit.y.text.l1 = 0.5, limit.y.text.l2 = 0.25, limit.x.n = 2.5,
-    vjust.value = 1, color1 = "grey", color2 = "black") +
+    significativite = "", round.value = 3, limit.x.min = -2.4, limit.x.max =3.5,
+    limit.x.text = -1.6, limit.y.text.l1 , limit.y.text.l2 , limit.x.n = 3,
+    vjust.value = 2, color1 = "grey", color2 = "black") +
     theme(legend.title = element_blank(), legend.justification = c(0, 0), legend.position = c(1.2,
       0.5), legend.key = element_blank())
 
 
-  p1 <- p1 + theme(plot.margin = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank(), axis.title.y = element_text(colour = "white"))
+  p1 <- p1 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank(),axis.title.y = element_text(colour = "white"))
   p2 <- p2 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
-    axis.title.x = element_blank(), plot.margin = unit(c(0, 0, 0, 0), "mm"))
-  p3 <- p3 + theme(plot.margin = unit(c(0, 0, 0, 0), "mm"), axis.title.x = element_blank())
+                   plot.margin  = unit(c(2.5, 0, 1.5, 1), "mm"), axis.title.x = element_blank())
+  p3 <- p3 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank())
   p4 <- p4 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
-    plot.margin = unit(c(0, 0, -1.1, 0), "mm"))
-  p5 <- p5 + theme(plot.margin = unit(c(0, 0, 0, 0), "mm"), axis.title.y = element_text(colour = "white"))
+                   plot.margin  = unit(c(2.5, 0, -3.5, 1), "mm"))
+  p5 <- p5 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.y = element_text(colour = "white"))
+  
 
-  grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.2, 1))
+  grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.3, 1),heights = c(1, 1, 1.1))
 }
 
 figure_A6 <- function(GC, trait1, trait2, titles) {
