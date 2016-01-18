@@ -3,9 +3,12 @@
 \usepackage[osf]{mathpazo}
 \usepackage{ms}
 \usepackage[]{natbib}
+\definecolor{grey}{rgb}{0.5, 0.5, 0.5}
+
 %\raggedright
 
 \newcommand{\smurl}[1]{\url{#1}}
+\newcommand{\ud}{\ensuremath{\rm{d}}}
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 \usepackage{graphicx}
 \usepackage[title,titletoc,toc]{appendix}
@@ -24,9 +27,11 @@ Word count: ~5538 words (without supplementary material, Fig and ref)}
 %   -- Figure 2: add * against traits used in meta-analysis
 %   -- check the appendix: in particular test of heterogeneity etc. need to re-run the analysis
 %   -- check the results and adequation with text of ms
+% - seach on XXX, footnote
+% - check refs to appendices in main text
 
 \bibliographystyle{mee}
-\newcommand{\bibstar}{* }
+
 
 \mstype{Research Article}
 \runninghead{Influence of traits on growth changes with size}
@@ -57,108 +62,100 @@ Word count: ~5538 words (without supplementary material, Fig and ref)}
 
 \section*{Introduction}\label{introduction}
 
-The phrase ``plant ecological strategy'' refers to how species face common challenges of acquiring sufficient water, nutrients, and light for growth; and then ultimately replacing themselves with offspring. The idea that a strategy differences among species might involve fast versus slow growth goes back at least to \citet{Grime:1975gr}, who observed a wide spread of relative growth rate (RGR) among seedlings growing under favourable conditions. Seedling potential RGR has continued to be used as a major strategy indicator within Grime's CSR (Competitor -- Stress tolerator -- Ruderal) classification (e.g. \citealt{grime1979plant, Grime:1997wm}). Meanwhile partitioning of seedling RGR into different components showed that specific leaf area (SLA) was typically the strongest source of variation between species \citep{Poorter:1989tx, Rees:2010gk}. From the 1990s a new style of ``trait ecology'' arose whereby measurable traits, including SLA, were used directly as strategy axes \citep{Westoby:2002ft}. An approach via measurable traits made broad comparisons possible across continents, latitudes, and thousands of species. Since then, traits have been seen as constructive approaches to understanding plant growth strategies \citep{Westoby:2002ft}, community composition \citep{Lavorel:2002ff,Shipley:2006ie}, global vegetation dynamics \citep{Scheiter:2013ed} and ecosystem processes \citep{Lavorel:2002ff}.
+The phrase ``plant ecological strategy'' refers to how species face common challenges of acquiring sufficient water, nutrients, and light for growth; and then ultimately replacing themselves with offspring. The idea that a strategy differences among species might involve fast versus slow growth goes back at least to \citet{Grime:1975gr}, who observed a wide spread of relative growth rate (RGR) among seedlings growing under favourable conditions. Seedling potential RGR has continued to be used as a major strategy indicator within Grime's CSR (Competitor -- Stress tolerator -- Ruderal) classification (e.g. \citealt{grime1979plant, Grime:1997wm}). Meanwhile partitioning of seedling RGR into different components showed that the trait specific leaf area (SLA) was typically the strongest source of variation between species \citep{Poorter:1989tx, Rees:2010gk}. From the 1990s a new style of ``trait ecology'' arose whereby measurable traits, including SLA, were used directly as strategy axes \citep{Westoby:2002ft}. An approach via measurable traits made broad comparisons possible across continents, latitudes, and thousands of species. Since then, traits have been seen as constructive approaches to understanding plant growth strategies \citep{Westoby:2002ft}, community composition \citep{Lavorel:2002ff,Shipley:2006ie}, global vegetation dynamics \citep{Scheiter:2013ed} and ecosystem processes \citep{Lavorel:2002ff}.
 
-Currently, two main spectra of trait variation are widely cited as underpinning differences between species in vegetative growth rates. The ``leaf economic spectrum'' \citep{Wright:2004jb} and the ``wood economic spectrum'' \citep{Chave:2009iy} reflect tissue construction costs (for leaf area and for wood volume respectively), trading off with rates of tissue turnover or mortality. It has been widely expected that species with low tissue construction cost will typically have fast growth rates, at least in favourable physical environments \citep[e.g.][]{MullerLandau:2004dc,Poorter:2008iu,Chave:2009iy,Larjavaara:2010bn,Iida:2012jb,Paine:2015df}. Yet, recently a number of empirical studies indicate the correlation between traits and growth is not as consistent as that. Consider SLA as an illustration. By definition, species with high SLA can deploy more leaf area for a given dry mass investment in leaves \citep{Poorter:1999wd, Reich:1992wm}. In addition, SLA is correlated with specific photosynthetic capacity per unit of leaf mass and high nitrogen or phosphorus concentrations in the leaf \citep{Wright:2004jb}. For seedling RGR under favourable conditions, SLA has repeatedly been found to be a strong predictor regardless of vegetation type or growth form \citep{Lambers:1992bj,Reich:1992wm,Grime:1997wm,Poorter:1999wd,Wright:1999ds}. Yet for adult plants, the correlation has mostly been much weaker or absent \citep{coomes_comparison_1998,Poorter:2008iu,Aiba:2009ft,Easdale:2009gv,Wright:2010tp}. The discrepancy between theoretical expectation and empirical results has led some to question whether traits are even useful for understanding growth \citep{Wright:2010tp, Paine:2015df}.
+Currently, two main spectra of trait variation are widely cited as underpinning differences between species in vegetative growth rates. The ``leaf economic spectrum'' \citep{Wright:2004jb} and the ``wood economic spectrum'' \citep{Chave:2009iy} reflect tissue construction costs (for leaf area and for wood volume respectively), trading off with rates of tissue turnover or mortality. It has been widely expected that species with low tissue construction cost will typically have fast growth rates, at least in favourable physical environments \citep[e.g.][]{MullerLandau:2004dc,Poorter:2008iu,Chave:2009iy,Larjavaara:2010bn,Iida:2012jb,Paine:2015df}. Yet, recently a number of empirical studies indicate the correlation between traits and growth is not as consistent as that. Consider SLA as an example. By definition, species with high SLA can deploy more leaf area for a given dry mass investment in leaves \citep{Poorter:1999wd, Reich:1992wm}. In seedlings growing under favourable conditions, SLA has repeatedly been found to be a strong predictor of relative growth rate, regardless of vegetation type or growth form \citep{Lambers:1992bj,Reich:1992wm,Grime:1997wm,Poorter:1999wd,Wright:1999ds}. Yet for adult plants, the correlation has mostly been much weaker or absent \citep{coomes_comparison_1998,Poorter:2008iu,Aiba:2009ft,Easdale:2009gv,Wright:2010tp}. The discrepancy between theoretical expectation and empirical results has led some to question whether traits are even useful for understanding growth \citep{Wright:2010tp, Paine:2015df}.
 
-Meanwhile the possibility has been raised that trait-growth correlations may change systematically with size \citep{Falster:2011ii, Ruger:2012jv, Iida:2014ep, Iida:2014hq}. Size has long been known to play a central role in organismal design and function \citep{Vogel:1988ux, Vogel:2003wb}, including that of trees \citep{Farnsworth:1995im, Givnish:1995ta}. Recent theory suggests that the absence of a correlation between SLA and growth at larger sizes may in fact be expected, when potential influences of traits on plant function are considered \citep{Falster:2011ii}. As plants grow larger, a greater amount of the energy is devoted towards building and maintaining non-photosynthetic tissues \citep{Givnish:1995ta}. A model by \citet{Falster:2011ii} suggests this change shifts the benefits and costs of some trait-based trade-offs, such that the net effect on the trait on growth changes with size. While recent empirical studies support the idea that the relationship between traits and growth rates may change with size (\citealt{Iida:2014ep, Iida:2014hq}), the trend and mechanisms behind this variation remain unclear.
+Meanwhile the possibility has been raised that trait-growth correlations may change systematically with size \citep{King-1999,Falster:2011ii, Ruger:2012jv, Iida:2014ep, Iida:2014hq}. Size has long been known to play a central role in organismal design and function \citep{Vogel:1988ux, Vogel:2003wb}, including that of trees \citep{Farnsworth:1995im, Givnish:1995ta}. Recent theory suggests that the absence of a correlation between SLA and growth at larger sizes may in fact be expected, when potential influences of traits on plant function are considered \citep{Falster:2011ii}. As plants grow larger, a greater amount of the energy is devoted towards building and maintaining non-photosynthetic tissues \citep{Givnish:1995ta}. A model by \citet{Falster:2011ii} suggests this change shifts the benefits and costs of some trait-based trade-offs, such that the net effect on the trait on growth changes with size. While recent empirical studies support the idea that the relationship between traits and growth rates may change with size (\citealt{Iida:2014ep, Iida:2014hq}), the trend and mechanisms behind this variation remain unclear.
 
 In this paper, we investigate for five prominent traits (specific leaf area = SLA, wood or stem tissue density = WD, maximum leaf photosynthetic capacity per unit area = Aarea, asymptotic or maximum height = Hmax, and seed mass):
 \begin{enumerate}
   \item How general is the tendency for correlations between traits and growth rate to vary with plant size?
   \item Do the observed relationships conform to predictions derived from a recently developed mechanistic model \citep{Falster:2011ii} (see ``Theoretical expectations'')?
 \end{enumerate}
-To address these questions we used a meta-analytic approach, compiling data from diverse studies reporting correlation coefficients between traits and growth. While most studies investigating the link between traits and growth have not primarily been concerned with effects of plant size, they have generally reported trait-growth correlations for identifiable stage classes (i.e. seedling, sapling, and adult). We therefore used plant stage as a surrogate for the effects of plant size. We focused on tree and woody species since the mechanistic model used to assess our predictions is most applicable to these growth forms. We chose to assess hypotheses via meta-analysis because there already exist a considerable number of studies with salient information, allowing us to assess our hypotheses across a much broader number of species and vegetation types than would have been possible in an experiential study. While, we anticipated a reasonably-sizeable literature on trait and growth to be available, we were uncertain about the representation of all trait-stages combinations. An additional goal of our study was therefore to identify any gaps in knowledge needed to improve our understanding of the link between trait and growth.
+To address these questions we used a meta-analytic approach, compiling data from diverse studies reporting correlation coefficients between traits and growth. While most studies investigating the link between traits and growth have not primarily been concerned with the effects of plant size, they have generally reported trait-growth correlations for identifiable stage classes (i.e. seedling, sapling, and adult). We therefore used plant stage as a surrogate for plant size. We focused on tree and woody species since the mechanistic model used to assess our predictions is most applicable to these growth forms. We chose to assess hypotheses via meta-analysis because there already exist a considerable number of studies with salient information, allowing us to assess our hypotheses across a much broader number of species and vegetation types than would have been possible in an experiential study. While, we anticipated a reasonably-sizeable literature on trait and growth to be available, we were uncertain about the representation of all trait-stages combinations. An additional goal of our study was therefore to identify gaps in knowledge, needed to improve our understanding of the link between trait and growth.
 
 \section*{Theoretical expectations}\label{theory}
 
-Recent theoretical work \citep{Falster:2011ii} allows us to formulate hypotheses about relationships between traits and growth, based on a mathematical decomposition of plant growth rate. Specific predictions arise from considering the influence of traits on elements of these equations and how these effects may vary with size (see Appendix \ref{sec:growth} for mathematical explanations). This model extends earlier efforts to model growth as a function of traits \citep{Lambers:1992bj,Cornelissen:1996hf,Wright:2000kw,Enquist:2007ek}. However, whereas earlier models focused solely on mass-based RGR and did not predict a change in effect of traits with size, the revised equations do allow for these effects, while also making predictions for both AGR and RGR in any of height, diameter or mass.
+Recent theoretical work \citep{Falster:2011ii} allows us to formulate hypotheses about the expected relationship between traits and growth, based on a mathematical decomposition of plant growth rate. Specific predictions arise from considering the influence of traits on elements of these equations and how these effects may vary with size. This model extends earlier efforts to model growth as a function of traits \citep{Lambers:1992bj,Cornelissen:1996hf,Wright:2000kw,Enquist:2007ek}. However, whereas earlier models focused solely on mass-based RGR and did not predict a change in effect of traits with size, the revised equations do allow for these effects, while also making predictions for both absolute and relative growth in any of mass (eq. \ref{eq:eq1}), height (eq. \ref{eq:eq2}), or diameter (eq. \ref{eq:eq4}).
 
+Below we first outline equations for the new growth model, adapted \citet{Falster:2011ii}. We then use this model to generate qualitative predictions on how the effect of traits on growth rate changes with plant size. These hypotheses are summarised in Table \ref{tab:trade-offs}.
 
-\section{Derivation of hypotheses from growth equations}\label{sec:growth}
+\subsection*{A generic model for growth rate in plant mass, height and stem diameter}\label{sec:growth}
 
-We adapted growth equations from \cite{Falster:2011ii} to generate hypotheses on both absolute and relative growth rate in mass (eqn \ref{eq:eq1}), height (eqn \ref{eq:eq2}) and diameter (eqn \ref{eq:eq4}).
-
-The rate at which \textbf{live biomass} $b$ is produced by a plant is given by:
-
+The rate at which \textbf{live biomass} $B$ is produced by a plant is given by:
 \begin{equation}\label{eq:eq0}
-\underbrace{\frac{db}{dt}}_{\text{net live biomass production}} = \underbrace{y}_{\text{yield}}  \big(\underbrace{a_{l} A_{\textrm{area}}}_{\text{photosynthesis}} - \underbrace{\sum_{i = l,s,r,f} m_{i} r_{i}}_{\text{respiration}}\big) - \underbrace{ \sum_{i = l,s,r,f} m_{i} k_{i}}_{\text{turnover}},
+\underbrace{\frac{\ud B}{\ud t}}_{\text{net live biomass production}} = \underbrace{\alpha_{\rm y}}_{\text{yield}}  \big(\underbrace{A_{\rm l} p}_{\text{photosynthesis}} - \underbrace{\sum_{i = {\rm l,s,r}} M_{i} r_{i}}_{\text{respiration}}\big) - \underbrace{ \sum_{i = \rm{l,s,r}} M_{i} k_{i}}_{\text{turnover}},
 \end{equation}
-where $y$ is the ratio of carbon fixed in mass per carbon assimilated, and $A_{\textrm{area}}$ is the assimilation rate of CO$_{2}$ per leaf area.
-
-Here, and in the following equations, $m_i$ denotes the \textbf{live mass on the plant}, $r_i$ the mass-specific \textbf{respiration rate}, and $k_i$ the \textbf{turnover rate} of different plant tissues; the subscripts $i = l,s,r,t,f$ referring to leaves, sapwood and bark, roots, total of these vegetative tissues, and to the reproductive tissues (fruits, flowers etc.) (note that the live biomass $b = m_t +m_f$). Similarly $a_i$ denotes \textbf{areas}, of leaves ($i = l$) and of cross-sections of total stem and sapwood ($i = st,ss$) respectively.
-
-
-The \textbf{growth rate in mass}, being the increment in vegetative live mass ($m_t$), is then:
-
+where $\alpha_{\rm y}$ is the ratio of carbon fixed in mass per carbon assimilated, and $p$ is the assimilation rate of CO$_{2}$ per leaf area. Here, and in the following equations, $M_i$ denotes the \textbf{live mass on the plant}, $r_i$ the mass-specific \textbf{respiration rate}, and $k_i$ the \textbf{turnover rate} of different plant tissues; the subscripts $i = \rm{l,s,r,t,f}$ referring to leaves, sapwood and bark, roots, total of these vegetative tissues, and to the reproductive tissues (fruits, flowers etc.)  Similarly $A_i$ denotes \textbf{areas}, of leaves ($i = l$) and of cross-sections of total stem and sapwood ($i =\rm{st,ss}$) respectively. Note that the live biomass $B = M_{\rm t} + M_{\rm f}$.  Applying the product rule of differential calculus, the \textbf{growth rate in plant mass}, ($M_{\rm t}$), can be decomposed as
 \begin{equation}\label{eq:eq1}
-\underbrace{{\frac{dm_t}{dt}}}_{\text{growth rate in mass}} = \underbrace{\frac{dm_t}{db}}_{\text{allocation to vegetative growth}}  \times \underbrace{\frac{db}{dt}}_{\text{net live biomass production}},
+\underbrace{{\frac{\ud M_{\rm t}}{\ud t}}}_{\text{growth rate in mass}} = \underbrace{\frac{\ud M_{\rm t}}{\ud B}}_{\text{allocation to vegetative growth}}  \times \underbrace{\frac{\ud B}{\ud t}}_{\text{net live biomass production}},
 \end{equation}
-where allocation to growth is the fraction of net live biomass increase that goes to vegetative growth rather than to reproductive tissue production.
+where $\frac{\ud M_{\rm t}}{\ud B}$ is the fraction of net live biomass increase that goes to vegetative growth rather than to production of reproductive tissues.
 
-The \textbf{growth rate in height} can then be expressed as:
+The \textbf{growth rate in height} can likewise be decomposed as the product of several meaningful terms:
 \begin{equation}\label{eq:eq2}
-\underbrace{\frac{dH}{dt}}_{\text{growth rate in height}} = \underbrace{\frac{dH}{da_{l}}}_{\text{architecture layout}} \times \underbrace{{\frac{da_{l}}{dm_{t}}}}_{\text{leaf deployment per mass}} \times {\frac{dm_t}{db}} \times {\frac{db}{dt}}.
+\underbrace{\frac{\ud H}{\ud t}}_{\text{growth rate in height}} = \underbrace{\frac{\ud H}{\ud A_{\rm l}}}_{\text{architecture layout}} \times \underbrace{{\frac{\ud A_{\rm l}}{\ud M_{\rm t}}}}_{\text{leaf deployment per mass}} \times {\frac{\ud M_{\rm t}}{\ud B}} \times {\frac{\ud B}{\ud t}}.
 \end{equation}
-Similarly \textbf{growth rate in basal area} can be expressed as:
+The first term on the right of eq \ref{eq:eq2},
+$\ud H / \ud A_{\rm l}$, is the growth in plant height
+per unit growth in total leaf area -- accounting for the architectural
+strategy of the plant. We assume this function is unrelated to the traits considered in the current paper. The second term, $\ud A_{\rm l} / \ud M_{\rm t}$,
+accounts for the marginal cost of deploying an additional unit of leaf
+area, including construction of the leaf itself and various support
+structures. As such, $\ud A_{\rm l} / \ud M_{\rm t}$
+can itself be expressed as a sum of construction costs per unit leaf
+area,
+\begin{equation}\label{eq:daldmt}
+\frac{\ud A_{\rm l}}{\ud M_{\rm t}}
+= \left(\frac{\ud M_{\rm l}}{\ud A_{\rm l}}
+ +  \frac{\ud M_{\rm s}}{\ud A_{\rm l}} + \frac{\ud M_{\rm r}}{\ud A_{\rm l}}\right)^{-1}.
+\end{equation}
+
+Similarly \textbf{growth rate in basal area} can be expressed as the sum of growth in sapwood and heartwood, with the former term again decomposed as a product:
 \begin{equation}\label{eq:eq3}
-\underbrace{{\frac{da_{st}}{dt}}}_{\text{basal area growth rate}} = \underbrace{\frac{da_{ss}}{da_{l}}}_{\text{sapwood area per leaf area}} \times {\frac{da_{l}}{dm_{t}}} \times  {\frac{dm_t}{db}} \times {\frac{db}{dt}} +  \underbrace{ \frac{da_{st}}{dt}}_{\text{sapwood turnover}}.
+\begin{array}{ccccc}
+\underbrace{{\frac{\ud A_{\rm st}}{\ud t}}}_{\text{basal area growth rate}} &=& \frac{\ud A_{\rm ss}}{\ud t} &+& \frac{\ud A_{\rm sh}}{\ud t} \\
+&=& \underbrace{\frac{\ud A_{\rm ss}}{\ud A_{\rm l}}  \times {\frac{\ud A_{\rm l}}{\ud M_{\rm t}}} \times  {\frac{\ud M_{\rm t}}{\ud B}} \times {\frac{\ud B}{\ud t}}}_{\text{increase in total sapwood}} &+&  \underbrace{k_{\rm ss} \times \frac{\ud A_{\rm ss}}{\ud t}}_{\text{sapwood turnover}},\\
+\end{array}
 \end{equation}
-
-The \textbf{growth rate in diameter} is then given by the geometric relationship between diameter and area applied to stem:
+where $\frac{\ud A_{\rm ss}}{\ud A_{\rm l}} $ is the  sapwood area per leaf area. The \textbf{growth rate in diameter} is then obtained via the geometric relationship between stem diameter and stem area,
 \begin{equation}\label{eq:eq4}
-\underbrace{\frac{dD}{dt}}_{\text{growth rate in diameter}} = \sqrt[]{\frac{\Pi}{a_{st}}} \times {\frac{da_{st}}{dt}}.
+\underbrace{\frac{\ud D}{\ud t}}_{\text{growth rate in diameter}} = \sqrt[]{\frac{\Pi}{A_{\rm st}}} \times {\frac{\ud A_{\rm st}}{\ud t}}.
 \end{equation}
 
-For the case of seedlings, eqs. \ref{eq:eq0}-\ref{eq:eq1} can be simplified considerably. Turnover of all tissues and allocation to reproduction have not yet begun. It is also common to assume all respiration rates are proportional to leaf area. Biomass growth rate in seedling then becomes a linear function of leaf area:
-\begin{equation}\label{eq:eq1_seedlings}
-{\frac{dm_t}{dt}}  \approx  a_{l} \, y \, (A_{\textrm{area}} - r_{l}).
-\end{equation}
+\subsection*{Predicted effects of traits on growth}
 
-The \textbf{relative growth rate in mass} $(\textrm{RGR}_{\textrm{mass}})$ in seedlings can be obtained by dividing both sides of this simplified eq \ref{eq:eq1_seedlings} by the total mass of living tissues $m_{t}$. The outcome is equivalent to the classical partitioning of RGR \citep{Lambers:1992bj, Cornelissen:1998ta}:
-\begin{equation}\label{eq:eq1_seedlings_RGR}
-\textrm{RGR}_{\textrm{mass}}  \approx \textrm{NAR} \times  \textrm{SLA} \times  \textrm{LMF},
-\end{equation}
-where net assimilation rate NAR = $y \, (A_{\textrm{area}} - r)$, SLA = $a_{l}/ m_{l}$ and leaf mass fraction LMF = $m_{l}/ m_{t}$.
+The above equations are general, i.e. they do not depend on detailed assumptions about plant construction. To make qualitative predictions with respect to traits such as specific leaf area and wood density, however, we require one additional assumption: that the mass of sapwood tissue ($M_{\rm ss}$) increases disproportionately with respect to the plants leaf area ($A_{\rm l}$). This assumption, which is included in nearly every model of plant growth that has been developed, has the effect of changing the relative importance of different components within equations for $\frac{\ud B}{\ud t}$ and $\frac{\ud A_{\rm l}}{\ud M_{\rm t}}$ above as a plant increases in size. Specifically, in eq. \ref{eq:eq0}, the costs of stem respiration and turnover increase faster than leaf photosynthesis, respiration or turnover, as the plant grows. Similarly, in eq. \ref{eq:daldmt}, the costs of constructing sapwood support to support a given unit of leaf area, $\frac{\ud M_{\rm s}}{\ud A_{\rm l}}$, increases faster the cost of producing a unit of leaf area, $\frac{\ud M_{\rm l}}{\ud A_{\rm l}}$ which is simply the inverse of specific leaf area. Whether plant growth rate increases with a specific trait, therefore depends on how the trait effects the different elements of \ref{eq:eq0}-\ref{eq:eq4} and how those effects change with size (Table \ref{tab:trade-offs}).
 
-The predicted effects of different traits on growth can then be understood by considering the influence of trait variation on elements of equations  \ref{eq:eq0}-\ref{eq:eq1_seedlings_RGR} (see Table \ref{tab:trade-offs}) and how these may interact with plant size.
-
-\textbf{H1: The relationship between SLA and growth rate is expected to shift from positive in seedlings to non-significant or negative in adult plants}
-
-Plants with high SLA can deploy more leaf area per unit of mass invested. However, high-SLA species also have shorter leaf lifespan, and must use more energy replacing leaves lost via turnover \citep{Wright:2004jb}. Whether plant growth rate increases with SLA depends on the how the relative magnitude of the benefit (cheap leaf construction) and cost (higher leaf turnover) of increased SLA also change with size (Table \ref{tab:trade-offs}). During early life, when leaf comprises a large part of the plant, decreasing SLA has an overwhelmingly positive effect on growth rate. As plants increase in size and leaf mass fraction decreases, the benefit of cheaper leaf construction diminishes; thus the cost of replacing leaf turnover becomes more important.
-
-For seedlings (eq. \ref{eq:eq1_seedlings_RGR}), cheaper leaf construction (high SLA) should translate directly into faster relative growth rate in mass. For larger plants (eq. \ref{eq:eq1}-\ref{eq:eq4}), SLA is expected to affect growth rate positively through more cost-efficient deployment of leaf area (via $da_l/dm_t$; the same effect as in seedlings), but also negatively via increased leaf turnover (eqn 1; Table \ref{tab:trade-offs}). The effect of SLA on $da_l/dm_t$ decreases as plant size increases and increasing amounts of the plant are wood. Consequently the effect of turnover costs in slowing growth comes to dominate at larger sizes.
-
-\textbf{H2: The relationship between WD and growth rate is expected to be negative across all plant sizes}
-
-High WD increases the cost of building stem tissue and thus the cost of deploying additional leaf area (Table \ref{tab:trade-offs}), which should slow growth. Although expensive wood decreases the risk of mortality, this benefit is not reflected in growth outcomes. Thus increasing WD is predicted to decrease growth across the entire size range.
-
-Cheaper stem construction (low WD or stem density) increases the marginal rate of leaf deployment per total mass increment ($da_l/dm_t$), and consequently increases growth rate in leaf area, height, and diameter (eqs. \ref{eq:eq2}-\ref{eq:eq4}; Table \ref{tab:trade-offs}). Disadvantages associated with cheap stem construction take the form of higher mortality and so are not reflected in growth equations. Under this scenario, wood density is negatively correlated to growth rate across all plant stages. Because the relative expenditure on stem compared to leaf is increases as plants grow larger, the relationship between WD and growth may also strengthen in larger plants.
-
-\textbf{H3: The relationship between Hmax and growth rate is expected to be absent in seedlings but to strengthen with increasing plant size}
-
-As plants approach maximum height they increasingly divert energy away from growth and into reproduction (see \citealt{Thomas:1996do,Thomas-2011, Wenk:2015jz}). For seedlings, where all individuals are investing solely in growth, we expect no influence of Hmax on growth. As plants become larger, species with smaller Hmax are expected to be allocating more to reproduction and less to growth, because at any given size they are closer to their Hmax (Table \ref{tab:trade-offs}).
-
-Hmax affects growth via the fraction of energy allocated to vegetative growth versus to seed production ($dm_t/db$ in eq. \ref{eq:eq1}; Table \ref{tab:trade-offs}). For seedlings and seedlings this fraction is 1 for all species and so no effect is expected. But once some species begin to produce seed, then species closer to their Hmax value are expected to be allocating more to seed production and less to vegetative growth. Hence when comparing across plants at a given size, species with smaller Hmax are expected to show slower vegetative growth rates.
+Based on the above model and this single assumption about growth, we outline five hypotheses, which arise by considering the influence of trait variation on elements of equations  \ref{eq:eq0}-\ref{eq:eq4} (see Table \ref{tab:trade-offs}) and how these may interact with plant size. These hypotheses reflect a direct mechanistic causation between traits and growth rate. It is possible that other correlations may arise indirectly. Nevertheless, for purposes of this paper we adopt working hypotheses arising only from direct mechanistic causation. With only XXX exception, the predicted effects of the trait are also similar when growth is expressed on relative of absolute terms, and as diameter, height or mass growth (Table \ref{tab:trade-offs} (TRUE XXXX?).
+\footnote{The correlation with RGR$_{\rm mass}$ is negative but becomes positive with AGR$_{\rm mass}$. For SLA, WD, Hmax, and Aarea, the direction of the predicted relationship is not affected by the growth measurement used. However RGR and AGR are fundamentally different for a lot of ecologists. So we adopted a two steps approach, first we were conservative by focusing exclusively on RGR, then we compared results with those of a more inclusive dataset with both RGR and AGR.}
 
 
-\textbf{H4: The relationship between seed mass and RGR is negative in seedlings, but weakens with increasing size}
+\subsubsection*{H1: The relationship between SLA and growth rate is expected to shift from positive in seedlings to non-significant or negative in adult plants}
 
-The main effect of increased seed size is to produce a larger overall seedling. Under similar light conditions, RGR decreases with size because the ratio of leaf area to total biomass decreases with increasing plant size. Thus, larger seedlings are predicted to have a lower RGR during the earliest phases of growth \citep{Turnbull:2012ew}. However, among larger plants we expect the effect of this initial size to be minimal, and thus the correlation between seed size and growth rate should disappear.
+Plants with high SLA can deploy a unit of leaf area more cheaply. However, high-SLA species also have shorter leaf lifespan, and must use more energy replacing leaves lost via turnover \citep{Wright:2004jb}. These two effects occur within the terms  $\frac{\ud B}{\ud t}$ and $\frac{\ud A_{\rm l}}{\ud M_{\rm t}}$ in the above model. Whether plant growth rate increases with SLA depends on the how the relative magnitude of the benefit (cheap leaf construction, via $\frac{\ud A_{\rm l}}{\ud M_{\rm t}}$ ) and cost (higher leaf turnover, via $\frac{\ud B}{\ud t}$) of increased SLA also change with size (Table \ref{tab:trade-offs}). During early life, when leaf comprises a large part of the plant, decreasing SLA has an overwhelmingly positive effect on height and diameter growth rate, because the effect of reducing $\frac{\ud M_{\rm l}}{\ud A_{\rm l}}$ has a large effect compared to the other terms in eq. \ref{eq:daldmt}. As plants increase in size, however, the cost of building sapwood ($\frac{\ud M_{\rm s}}{\ud A_{\rm l}}$) increases disproportionately, decreasing the benefit of cheaper leaf construction in eq.  \ref{eq:daldmt}. Consequently, the relative effect of leaf turnover comes to dominate at larger sizes, and as such, the effect of SLA on height and diameter growth shifts from positive to negative as plants increase in size.
 
-The $\textrm{RGR}_{\textrm{mass}}$ slows as plants grow larger, and large-seeded species begin larger as seedlings. For larger plants, seed mass is not expected to have any distinct influence on growth rates  (Table \ref{tab:trade-offs}).
-\textbf{H5: The relationship between Aarea and growth rate is expected to be positive across all plant sizes, at least under high-light conditions}
+Among seedlings, growth is often measured in units of plant mass, rather than stem or diameter. For mass growth in seedlings, cheaper leaf construction (high SLA)  translates directly into faster relative growth rate (See Appendix XXX eq. \ref{eq:eq1_seedlings_RGR}).
 
-We expect greater photosynthetic capacity to translate into faster growth rates by increasing the rate of biomass production (Table \ref{tab:trade-offs}), at least at high light where Aarea is measured. It is uncertain how much this might translate to faster growth in low light. It might greatly depend on the level of light available.
+\subsection*{H2: The relationship between WD and growth rate is expected to be negative across all plant sizes}
 
-The effects of benefits (higher assimilation) and costs (higher respiration) of increased Area occur within the same element of eq. \ref{eq:eq0}, and assimilation must outweigh respiration for there to be growth, so the net effect will be positive (Table \ref{tab:trade-offs}).
+High WD increases the cost of building stem tissue and thus the cost of deploying additional leaf area (Table \ref{tab:trade-offs}), which should slow growth. This effects occur within the term $\frac{\ud A_{\rm l}}{\ud M_{\rm t}}$ in the above model. Although expensive wood decreases the risk of mortality, this benefit is not reflected in growth outcomes. Thus increasing WD is predicted to decrease growth across the entire size range.
 
-Note that the predicted relationship between growth and either SLA or seed mass in seedlings differs if AGR in mass is used instead of RGR$_\textrm{mass}$ (i.e. becomes negative for SLA, positive for seed mass). In our study, all data recorded for these trait-stage combinations have been measured on a RGR base for mass (see Fig S9).
+Cheaper stem construction (low WD or stem density) increases the marginal rate of leaf deployment per total mass increment ($\frac{\ud A_{\rm l}}{\ud M_{\rm t}}$), and consequently increases growth rate in leaf area, height, and diameter (eqs. \ref{eq:eq2}-\ref{eq:eq4}; Table \ref{tab:trade-offs}). Disadvantages associated with cheap stem construction take the form of higher mortality and so are not reflected in growth equations. Under this scenario, wood density is negatively correlated to growth rate across all plant stages. Because the relative expenditure on stem compared to leaf is increases as plants grow larger, the relationship between WD and growth may also strengthen in larger plants.
 
-\textbf{Effect on absolute and relative growth rates}
-Tree growth in diameter, height or mass can be expressed as either absolute growth rate (AGR) or relative growth rate (RGR). The choice of the growth measurement is generally confounded with the size of the plant; RGR in mass is mainly used for seedling, and AGR in diameter or height are mainly used for adult. According to the growth model, the predicted relationship between growth and seed mass in seedlings reverses if AGR$_\textrm{mass}$ is used instead of RGR$_\textrm{mass}$ (see Appendix \ref{sec:growth}). The correlation with RGR$_\textrm{mass}$ is negative but becomes positive with AGR$_\textrm{mass}$. For SLA, WD, Hmax, and Aarea, the direction of the predicted relationship is not affected by the growth measurement used. However RGR and AGR are fundamentally different for a lot of ecologists. So we adopted a two steps approach, first we were conservative by focusing exclusively on RGR, then we compared results with those of a more inclusive dataset with both RGR and AGR.
+\subsection*{H3: The relationship between Hmax and growth rate is expected to be absent in seedlings but to strengthen with increasing plant size}
 
-All the above hypotheses arise from direct mechanistic causation between traits and growth rate. It is possible that other correlations may arise indirectly. For example, seed size is somewhat correlated with height at maturity \citep{Westoby:2009ch}, and so an indirect correlation might arise between seed size and GR in large plants, even though no direct influence is expected. Nevertheless, for purposes of this paper we adopt working hypotheses arising only from direct mechanistic causation. 
+As plants approach maximum height they increasingly divert energy away from growth and into reproduction (see \citealt{Thomas:1996do,Thomas-2011, Wenk:2015jz}). This effect occurs in the term $\frac{\ud M_{\rm t}}{\ud B}$ in the above model. For seedlings, where all individuals are investing solely in growth, we expect no influence of Hmax on growth (i.e. $\frac{\ud M_{\rm t}}{\ud B} =1$). But once some species begin to produce seed, then species closer to their Hmax value are expected to be allocating more to seed production and less to vegetative growth. Hence when comparing across plants at a given size, species with smaller Hmax are expected to show slower vegetative growth rates (Table \ref{tab:trade-offs}).
+
+
+\subsection*{H4: The relationship between seed mass and RGR is negative in seedlings, but weakens with increasing size}
+
+The main effect of increased seed size is to produce a larger overall seedling. Under similar light conditions, RGR decreases with size because the ratio of leaf area to total biomass decreases with increasing plant size. Thus, larger seedlings are predicted to have a lower RGR during the earliest phases of growth \citep{Turnbull:2012ew}. However, among larger plants we expect the effect of this initial size to be minimal, and thus the correlation between seed size and growth rate should disappear. The ${\rm RGR}_{{\rm mass}}$ slows as plants grow larger, and large-seeded species begin larger as seedlings. For larger plants, seed mass is not expected to have any distinct influence on growth rates  (Table \ref{tab:trade-offs}). However, the predicted relationship between growth and seed mass in seedlings reverses if AGR$_{\rm mass}$ is used instead of RGR$_{\rm mass}$.
+
+\subsection*{H5: The relationship between Aarea and growth rate is expected to be positive across all plant sizes, at least under high-light conditions}
+
+We expect greater photosynthetic capacity to translate into faster growth rates by increasing the rate of biomass production (Table \ref{tab:trade-offs}), at least at high light where Aarea is measured. This effects occurs within the term  $\frac{\ud B}{\ud t} $ in the above model. The effects of benefits (higher assimilation) and costs (higher respiration) of increased Area occur within the same element of eq. \ref{eq:eq0}, and because assimilation is typically higher than respiration in high light, the net effect will be positive (Table \ref{tab:trade-offs}). It is uncertain how much this effect might translate to faster growth in low light. It might greatly depend on the level of light available.
 
 \section*{Materials and methods}\label{material-and-methods}
 
@@ -270,13 +267,13 @@ Overall our study met quality criteria expected for meta-analysis in ecology (Ta
 The meta-analysis reported here demonstrates that for several key traits, the influence of the trait on growth rate changes as plants grow from small to large. While the possibility has been raised recently that trait-growth correlations may change systematically with size \citep{Falster:2011ii, Ruger:2012jv, Iida:2014ep, Iida:2014hq}, this is the first time that specific mechanistic hypotheses have been corroborated against a wide array of existing studies. Meta-analysis allowed us to generalize and thus to reach a consensus about the effect of traits on growth. Growth rates were already known to change with size through ontogeny \citep{Condit:1993hd, Clark:1999ed, Herault:2011dd}, in other words individual plants follow a growth trajectory. Our results suggest species traits should be understood as influencing this trajectory and potentially re-ranking growth rates between individuals from different species as their size increases. This is a shift in outlook compared to much present thinking, whereby traits are seen as rendering species fast-growing or slow-growing throughout life.
 
 TODO: XXXX Something about limited amount of data
-
+TODO: XXX some thing about qualitative predictions \ref{Falster-2016}
 
 \subsection*{Why does the effect of traits on growth vary with size?}
 
 For five prominent traits, the patterns observed were consistent with specific predictions from a mechanistic growth model. This suggests the mechanisms through which traits affect growth may be correctly understood in the model. For SLA the meta-analysis confirmed quite strongly the predicted influence of plant size on the trait-growth correlation. For WD, Aarea, seed mass and Hmax results were consistent with predictions, but coverage was limited and additional studies would be helpful for some trait-growth-stage relationships.
 
-It has previously been noted that the correlation of SLA with growth disappears among saplings and larger trees (\citealt{Wright:2010tp} for Barro Colorado Island forest, Panama), and this meta-analysis generalises that result. Several authors have suggested that the disappearance of SLA's influence on growth might be due to a disproportionate accumulation of leaf area by low SLA species \citep{Reich:1992wm,Poorter:2008iu,Wright:2010tp}, yet it remains unclear whether such a mechanism works as intended. Further, the assumed empirical relationship between SLA and total leaf area does not hold true as a generalisation across large number of species \citep{Duursma-2015}. In the model described here, the mechanism is slightly different: high-SLA species incur faster leaf turnover, the cost of which outweighs the benefits of cheap leaf construction at larger sizes.
+It has previously been noted that the correlation of SLA with growth disappears among saplings and larger trees (\citealt{Wright:2010tp} for Barro Colorado Island forest, Panama), and this meta-analysis generalises that result. Several authors have suggested that the disappearance of SLA's influence on growth might be due to a disproportionate accumulation of leaf area by low SLA species \citep{Reich:1992wm,Poorter:2008iu,Wright:2010tp}, yet it remains unclear whether such a mechanism works as intended. \footnote{R3:  It is difficult to figure out what this statement is referring to. Were these publications referring to an increase in LAI and hence self-shading in large plants with high SLA as compared to large plants with low SLA?} Further, the assumed empirical relationship between SLA and total leaf area does not hold true as a generalisation across large number of species \citep{Duursma-2015}. In the model described here, the mechanism is slightly different: high-SLA species incur faster leaf turnover, the cost of which outweighs the benefits of cheap leaf construction at larger sizes. \footnote{TODO XXX R3:That field-grown seedlings generally have higher SLAs than do trees of the same species under similar high-light environments (King 1999) is consistent with both our observed and predicted growth benefits of high SLA for seedlings.}
 
 For seedlings our study showed, as expected, a negative relationship between seed mass and RGR (in mass or height or volume) for small plants, that dissipated as plants grew larger. This negative relationship arises because seedlings from larger seeds begin life larger themselves, as has been extensively discussed in the literature \citep[reviewed by][]{Turnbull:2012ew}. 
 
@@ -304,8 +301,7 @@ We thank Andrea Stephens for helpful comments on the meta-analyses, and Sean Gle
 
 \subsection*{Availability of code and data}\label{code}
 
-The code and data for producing all figures and results in this paper is available at \smurl{github.com/AnaisGibert/Growth\_trait\_metaanalysis}. Upon publication, a copy of the data set will also be made available in the Dryad Digital Repository.
-
+The code and data for producing all figures and results in this paper is available at \smurl{github.com/AnaisGibert/Growth\_trait\_metaanalysis}. Prior to publication, the data set will also be made available in the Dryad Digital Repository.
 
 \clearpage
 \linespread{1}
@@ -349,27 +345,47 @@ The code and data for producing all figures and results in this paper is availab
 \clearpage
 \section*{Table}
 \setcounter{table}{0}
+
+\newcommand{\sepp}{{\color{grey}/}}
+
 \begin{table}[h!]
 \centering
-\caption{Hypothesised effects of traits on key elements of plant function determining growth rate. Arrows indicate the effect an increase in trait value would have on the main elements of growth eqs. \ref{eq:eq0}-\ref{eq:eq4} in Appendix \ref{sec:growth}, dashes indicate no significant effect. Traits names as in Figure 1. $a_\textrm{l}$ : leaves area, $m_\textrm{t}$: vegetative live mass, $b$: live biomass. For further details, see Appendix \ref{sec:growth}.}
+\caption{Hypothesised effects of traits on key elements of plant function determining growth rate, as described in eq. \ref{eq:eq0}-\ref{eq:eq4}. Arrows indicate the effect an increase in trait value would have on each element of the equations, with dashes indicating no effect. For further details, see main text.}
 {\footnotesize
 \vspace{1cm}
   \begin{tabular}{lllcccccc}
-  & & & & SLA & WD & Hmax & seed mass & Aarea \\ \hline
-  \multicolumn{3}{ l } {Main element of growth} & & & & & \\ 
-  & \multicolumn{2}{ l } {Leaf deployment per mass}  & $\frac{\textrm{d}a_\textrm{l}}{\textrm{d}m_\textrm{t}}$ & $\uparrow$ & $\downarrow$ & - & - & - \\
-  & \multicolumn{2}{ l } {Net live biomass production} & $\frac{\textrm{d}b}{\textrm{d}t}$ & & & & & \\
-  & &     \tabitem photosynthesis & & - & - & - & - & $\uparrow$  \\
-  & &     \tabitem respiration   & & - & - & - & - & -  \\
-  & &     \tabitem leaf turnover & & $\uparrow$ & - & - & - & - \\
-  & \multicolumn{2}{ c } {Allocation to vegetative growth} & $\frac{\textrm{d}m_\textrm{t}}{\textrm{d}b}$ & - & - & $\uparrow$ & - & - \\ 
+  & & & & SLA & WD & Hmax & Seed mass & Aarea \\ \hline
+  \\
+  \multicolumn{9}{ l } {\textbf{Elements of equations \ref{eq:eq0}-\ref{eq:eq4}}}  \\
+  & \multicolumn{2}{ l } {Leaf deployment per mass}  & $\frac{\ud A_{\rm l}}{\ud M_{\rm t}}$ & \\
+    & &     \tabitem leaf  &  & $\uparrow$ & - & - & - & - \\
+    & &     \tabitem sapwood & & - & $\downarrow$ & - & - & - \\
+    & &     \tabitem root & & - & - & - & - & - \\
+  & \multicolumn{2}{ c } {Allocation to vegetative growth} & $\frac{\ud M_{\rm t}}{\ud B}$ & - & - & $\uparrow$ & - & - \\
   & & & & & & \\
-    \multicolumn{3}{ l } {Relative growth rate in mass} & & $\uparrow$ or $\downarrow$ & $\downarrow$ & - or $\uparrow$ & $\downarrow$ or - & $\uparrow$\\
+  & \multicolumn{2}{ l } {Net live biomass production} & $\frac{\ud B}{\ud t}$ & & & & & \\
+  & &     \tabitem photosynthesis & & - & - & - & - & $\uparrow$  \\
+  & &     \tabitem respiration   & & - & - & - & - & $\uparrow$  \\
+  & &     \tabitem leaf turnover & & $\downarrow$ & - & - & - & - \\
+  & \multicolumn{2}{ l } {Architecture} & $\frac{\ud H}{\ud A_{\rm l}}$ & - & - & - & - & - \\
+  & \multicolumn{2}{ l } {Sapwood area per leaf} & $\frac{\ud A_{\rm ss}}{\ud A_{\rm l}}$ & - & - & - & - & - \\
+  & \multicolumn{2}{ l } {Sapwood turnover} & $k_{\rm ss}$ & - & - & - & - & - \\ \hline
+  \\
+  \multicolumn{9}{ l } {\textbf{Predicted effect on plant growth rate} (small plant {\sepp} large plant)} \\
+  & \multicolumn{2}{ l } {in mass, $M_{\rm t}$} \\
+  & & \tabitem{Absolute} & & $-$\sepp$\downarrow$ & $-$\sepp$-$ &  $-${\sepp}$\uparrow$ & $\uparrow${\sepp}$-$ & $\uparrow${\sepp}$\uparrow$ \\
+  & & \tabitem{Relative} & & $\uparrow${\sepp}$\downarrow$ & $-${\sepp}$-$ &  $-${\sepp}$\uparrow$ & $\downarrow${\sepp}$-$ & $\uparrow${\sepp}$\uparrow$ \\
+  & \multicolumn{2}{ l } {in height, $H$} \\
+  & & \tabitem{Absolute} & & $\uparrow${\sepp}$\downarrow$ & $\downarrow${\sepp}$\downarrow$ & $-${\sepp}$\uparrow$ & $\uparrow${\sepp}$-$ & $\uparrow${\sepp}$\uparrow$ \\
+  & & \tabitem{Relative} & & $\uparrow${\sepp}$\downarrow$ & $\downarrow${\sepp}$\downarrow$ & $-${\sepp}$\uparrow$ & $\downarrow${\sepp}$-$ & $\uparrow${\sepp}$\uparrow$ \\
+  & \multicolumn{2}{ l } {in diameter, $D$} \\
+  & & \tabitem{Absolute} & & $\uparrow${\sepp}$\downarrow$ & $\downarrow${\sepp}$\downarrow$ & $-${\sepp}$\uparrow$ & $\uparrow${\sepp}$-$ & $\uparrow${\sepp}$\uparrow$ \\
+  & & \tabitem{Relative} & & $\uparrow${\sepp}$\downarrow$ & $\downarrow${\sepp}$\downarrow$ & $-${\sepp}$\uparrow$ & $\downarrow${\sepp}$-$ & $\uparrow${\sepp}$\uparrow$ \\
 \hline
   \end{tabular}
   }
 \label{tab:trade-offs}
-  \end{table}
+\end{table}
 
 \clearpage
 \begin{table}[h!]
@@ -546,6 +562,20 @@ Aarea & Photosynthetic rate per area & ``photosynthetic rate per area'' OR ``rat
 \end{table}
 
 \clearpage
+
+\subsection{Simplified growth equations for seedlings of similar size}
+
+For the case of seedlings, eqs. \ref{eq:eq0}-\ref{eq:eq1} can be simplified considerably. Turnover of all tissues and allocation to reproduction have not yet begun. It is also common to assume all respiration rates are proportional to leaf area. Biomass growth rate in seedling then becomes a linear function of leaf area:
+\begin{equation}\label{eq:eq1_seedlings}
+{\frac{\ud M_{\rm t}}{\ud t}}  \approx  A_{\rm l} \, y \, (p - r_{\rm l}).
+\end{equation}
+
+The \textbf{relative growth rate in mass} $({\rm RGR}_{{\rm mass}})$ in seedlings can be obtained by dividing both sides of this simplified eq \ref{eq:eq1_seedlings} by the total mass of living tissues $M_{\rm t}$. The outcome is equivalent to the classical partitioning of RGR \citep{Lambers:1992bj, Cornelissen:1998ta}:
+\begin{equation}\label{eq:eq1_seedlings_RGR}
+{\rm RGR}_{{\rm mass}}  \approx {\rm NAR} \times  {\rm SLA} \times  {\rm LMF},
+\end{equation}
+where net assimilation rate NAR = $y \, (p - r)$, SLA = $A_{\rm l}/ M_{\rm l}$ and leaf mass fraction LMF = $M_{\rm l}/ M_{\rm t}$.
+
 \subsection{Quantifying and exploring the cause of heterogeneity in effect sizes}
 
 \noindent\textbf{Goal:} In our meta-analysis, reported studies differed in design as well as in vegetation type, biome or species studied. Such diversity is commonly referred to as methodological heterogeneity, and may or may not be responsible for observed discrepancies in the results of the studies. The extent of heterogeneity might influence the results of the meta-analysis, and thus induce some difficulty in drawing overall conclusions (See \citealt{Higgins:2002iq}). It is therefore important to be able to quantify the extent of heterogeneity among a collection of studies.
