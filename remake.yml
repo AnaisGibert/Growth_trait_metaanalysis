@@ -119,6 +119,9 @@ targets:
 
   GCagr:
     command: list_by_trait(CompleteData_agr)
+    
+  Snapshot:
+    command: snapshot_websci("data/ref.traits/WebSci_all.csv")
 
   ## Create restricted Dataset: coefficient of correlation are averaged by study
   ## and by trait

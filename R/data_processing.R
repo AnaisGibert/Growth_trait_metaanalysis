@@ -396,3 +396,7 @@ merge_bib_files <- function(meta, paper) {
   combined <- c(meta[setdiff(names(meta), names(paper))], paper)
   combined[[sort(names(combined))]]
 }
+
+snapshot_websci <- function(filename1 = "data/ref.traits/WebSci_all.csv"){
+    Table <- read.csv(filename, sep = ";", dec = ",")
+}
