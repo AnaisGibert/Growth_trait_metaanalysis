@@ -558,29 +558,33 @@ default_lmer_control <- function() {
 
 fun_OneLR <- function(x) {
 
-  x <- droplevels(x)
-  
-  null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = default_lmer_control())
-  m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = default_lmer_control())
-  
-  sum <- summary(m)
-  ## log likelihood ratio test, anova makes sure to use the ML criterion, even
-  ## though the models were fit with REML
-  return(anova(null, m)$Chisq[2])
+  # Throws messages when there are less than 3 obseravtions for each stage, 
+  # but we're fine with that
+  suppressWarnings({
+    null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
+                 control = default_lmer_control())
+    m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = FALSE,
+              control = default_lmer_control())
+    ## log likelihood ratio test, anova makes sure to use the ML criterion, even
+    ## though the models were fit with REML
+    anova(null, m)$Chisq[2]
+  })
 }
 
 fun_Onepvalue <- function(x) {
-  null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = default_lmer_control())
-  m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = default_lmer_control())
-  sum <- summary(m)
-  ## log likelihood ratio test, anova makes sure to use the ML criterion, even
-  ## though the models were fit with REML
-  return(anova(null, m)$Pr[2])
-}
+  
+  # Throws messages when there are less than 3 obseravtions for each stage, 
+  # but we're fine with that
+  suppressWarnings({
+    null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
+                 control = default_lmer_control())
+    m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = FALSE,
+              control = default_lmer_control())
+    ## log likelihood ratio test, anova makes sure to use the ML criterion, even
+    ## though the models were fit with REML
+    anova(null, m)$Pr[2]
+    })
+  }
 
 fun_OneLR2 <- function(x) {
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
