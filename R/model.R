@@ -692,3 +692,19 @@ fun_year <- function(a) {
 }
 
 
+fun_snapshot <- function(Snapshot){
+  
+  Snapshot$ref <- with(Snapshot, paste(AU, TI,PY, sep = "_"))
+    nb_ref <- length(unique(Snapshot$ref))
+  
+  x_2 <- subset(Snapshot, Snapshot$trait %in% c("SLA", "WD"))
+   nb_ref_uniq_2  <- length(unique(x_2$ref))
+  
+  x_5 <- subset(Snapshot, Snapshot$trait %in% c("SLA", "WD", "Aarea", "Hmax", "Seedmass"))
+   nb_ref_uniq_5 <- length(unique(x_5$ref))
+ 
+  perc_19traits = (nb_ref_uniq_2/nb_ref) *100
+  perc_5traits = (nb_ref_uniq_2/nb_ref_uniq_5) *100
+  
+  list(main.traits =perc_5traits, all.traits =perc_19traits)
+  }

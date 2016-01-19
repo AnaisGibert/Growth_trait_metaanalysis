@@ -21,6 +21,13 @@ targets:
     depends:
       - figures
       - ms_suppinfo.tex
+      - ms_snapshotinfo.tex
+      
+  ms_snapshotinfo.tex:
+    depends:
+      - Snapshot
+      - R/model.R
+    knitr: TRUE
 
   ms_suppinfo.tex:
     depends:
@@ -119,7 +126,8 @@ targets:
 
   GCagr:
     command: list_by_trait(CompleteData_agr)
-    
+  
+  ## List of article recorded with the snapshot of literature  
   Snapshot:
     command: snapshot_websci("data/ref.traits/WebSci_all.csv")
 
