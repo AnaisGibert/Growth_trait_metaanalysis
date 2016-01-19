@@ -542,21 +542,29 @@ table_overall <- function(y) {
 
 }
 
+default_lmer_control <- function() {
+  # Ignore warnings when we have fewer observations than levels
+  lmerControl(check.nobs.vs.nlev = "ignore",
+              check.nobs.vs.rankZ = "ignore",
+              check.nobs.vs.nRE = "ignore") 
+#            optimizer = "bobyqa", 
+#            check.conv.grad = .makeCC("ignore", tol = 0.002, relTol = NULL), 
+#            check.conv.singular = .makeCC(action = "ignore", tol = 1e-04), 
+#            check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)
+#           )
+}
 
 # Summarise results of the model
 
 fun_OneLR <- function(x) {
 
+  x <- droplevels(x)
+  
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-        tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control())
   m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-        tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control())
+  
   sum <- summary(m)
   ## log likelihood ratio test, anova makes sure to use the ML criterion, even
   ## though the models were fit with REML
@@ -565,15 +573,9 @@ fun_OneLR <- function(x) {
 
 fun_Onepvalue <- function(x) {
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-        tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control())
   m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-        tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control())
   sum <- summary(m)
   ## log likelihood ratio test, anova makes sure to use the ML criterion, even
   ## though the models were fit with REML
@@ -582,15 +584,9 @@ fun_Onepvalue <- function(x) {
 
 fun_OneLR2 <- function(x) {
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-        tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control())
   m <- lmer(corr.z ~ stageRGR + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-        tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control())
   sum <- summary(m)
   ## log likelihood ratio test, anova makes sure to use the ML criterion, even
   ## though the models were fit with REML
@@ -599,15 +595,9 @@ fun_OneLR2 <- function(x) {
 
 fun_Onepvalue2 <- function(x) {
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-        tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control())
   m <- lmer(corr.z ~ stageRGR + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-        tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control())
   sum <- summary(m)
   ## log likelihood ratio test, anova makes sure to use the ML criterion, even
   ## though the models were fit with REML
@@ -616,15 +606,9 @@ fun_Onepvalue2 <- function(x) {
 
 fun_OneLR_year <- function(x) {
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-        tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control())
   m <- lmer(corr.z ~ year + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-        tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control())
   sum <- summary(m)
   ## log likelihood ratio test, anova makes sure to use the ML criterion, even
   ## though the models were fit with REML
@@ -633,15 +617,9 @@ fun_OneLR_year <- function(x) {
 
 fun_Onepvalue_year <- function(x) {
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-        tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control())
   m <- lmer(corr.z ~ year + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-        tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control())
   sum <- summary(m)
   anova(null, m)$Pr[2]
 }
