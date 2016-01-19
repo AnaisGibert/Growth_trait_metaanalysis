@@ -20,7 +20,15 @@ targets:
     command: latex_build("MS.tex", bibliography="output/refs.bib", clean=TRUE)
     depends:
       - figures
+      - ms_suppinfo.tex
 
+  ms_suppinfo.tex:
+    depends:
+      - GCi
+      - GIi
+      - R/model.R
+    knitr: TRUE
+    
   figures:
     depends:
       - output/Fig1.pdf
@@ -214,7 +222,7 @@ targets:
     plot: TRUE
 
   output/FigA7.pdf:
-    command: figure_A7(GIi)
+    command: figure_A7(GCi)
     plot: TRUE
 
   output/FigA8.pdf:
@@ -222,5 +230,5 @@ targets:
     plot: TRUE
 
   output/FigA9.pdf:
-    command: figure_A9(GIi)
+    command: figure_A9(GCi)
     plot: TRUE

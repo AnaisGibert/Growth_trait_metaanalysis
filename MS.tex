@@ -235,7 +235,7 @@ For SLA, the correlation between RGR and the trait changed significantly with pl
 For WD, Hmax, and seed mass, correlations with RGR were also consistent with expectations but our ability to test all hypotheses was at times limited due to low sample size. Indeed, while meta-analysis are possible even with few observations, strong conclusions are generally precluded by very large CIs of the effect size (i.e CI often spanned zero). 
 For WD, results were consistent with the prediction for negative correlations with RGR across all plant sizes (Fig. \ref{fig:fig3}b). Accordingly, model fits were marginaly improved when stage was incorporated (p.value = 0.049). Note that the CIs were not crossing zero for seedling and sapling stage despite the small sample sizes (n= 1 and 4 respectively), meaning a strong correlation and/or a good consistency in the coefficient reported for each stage across studies. 
 
-For Hmax, the expectation was for a correlation with growth to be present for large plants but absent for smaller sizes, the mechanism being increased relative allocation to reproduction as Hmax is approached. Here, Hmax was positively correlated with growth at adult stage ($\bar{r}= 0.38 \pm 0.05$), not correlated at sapling stages (Fig \ref{fig:fig3}c, CIs overlapping zero) and no data were recorded for seedling stages. 
+For Hmax, the expectation was for a correlation with growth to be present for large plants but absent for smaller sizes, the mechanism being increased relative allocation to reproduction as Hmax is approached. Here, Hmax was positively correlated with growth at adult stage ($\bar{r}= 0.38 \pm 0.05$), not correlated at sapling stage (Fig \ref{fig:fig3}c, CIs overlapping zero) and no data were recorded for seedling stage. 
 While these results were consistent with expectation, we could not distinguish with another alternative: Hmax was correlated to growth for adult stage, but the correlation between Hmax and growth at sapling stage was not significantly different from that observed at adult stage (model fit not improved when stage was incorporated, see log likelihood ratio tests in Fig. \ref{fig:fig3}c, and CIs overlapping between sapling and adult stages). Due to small numbers of replicate studies for sapling stage and no replicates for seedling stage, we could not conclude on the absence of correlation between Hmax and growth at small plant size.
 
 As expected for seed mass, the correlation with RGR shifted from negative at seedling stage ($\bar{r}= -0.5 \pm 0.07$) to not significantly different from zero at adult and sapling stages (Fig \ref{fig:fig3}c, CIs overlapping zero). However, the correlation between seed mass and RGR at adult and sapling stages were also not significantly different from that observed at seedling stage (see log likelihood ratio tests and CIs overlapping in Fig. \ref{fig:fig3}c). Again we could not distinguish between these alternatives. But unlike Hmax, the number of coefficient reported for seed mass was almost similar between adult (n= 7) and seedling (n= 10) stages, suggesting that CIs overlapping zero at adult stage were due to variation in correlation coefficient reported rather than to a much smaller numbers of replicates.
@@ -313,17 +313,20 @@ The code and data for producing all figures and results in this paper is availab
 
 \begin{figure}[h!]
 \centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/Fig1.pdf}
+\caption{Number of recorded correlations between trait and growth rate in our dataset, by stage and trait. Traits are: Aarea (or Amass) = rate of CO$_{2}$ assimilation per unit leaf area (or leaf mass) = maximum photosynthetic rate, Hmax = asymptotic or maximum height,  Ks = stem hydraulic conductance, LA = leaf area, LMR = leaf mass ratio, NARarea = net mass assimilation rate per unit of leaf area, Nmass (or Narea) = nitrogen content per unit of leaf mass (or leaf area), Pmass = phosphorus content per unit of leaf mass, SA/LA = sapwood area per leaf area, SLA = specific leaf area, Thickness = leaf thickness, Vessel size = stem conduit size, Vessel density = stem conduit density, WD = wood density. Results shown are from the entire dataset (see methods for details).}
+\label{fig:fig1}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
 \includegraphics[width=15cm,height=20cm,keepaspectratio]{output/Fig2.pdf}
 \caption{The range of plant sizes and stage recoded in original publications (horizontal coloured lines), compared to standardised thresholds used in the analysis (vertical black lines). Horizontal line segments indicate the size range (max., min.) for the plants used to measure growth. The solid vertical lines indicate the thresholds used to classify plants in one of three stages in our meta-anlyses. Studies mark with a ''*'' were those where stage was changed or assigned, compared to the original publication. }
 \label{fig:fig2}
 \end{figure}
 
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/Fig1.pdf}
-\caption{Number of recorded correlations between trait and growth rate in our dataset, by stage and trait. Traits are: Aarea (or Amass) = rate of CO$_{2}$ assimilation per unit leaf area (or leaf mass) = maximum photosynthetic rate, Hmax = asymptotic or maximum height,  Ks = stem hydraulic conductance, LA = leaf area, LMR = leaf mass ratio, NARarea = net mass assimilation rate per unit of leaf area, Nmass (or Narea) = nitrogen content per unit of leaf mass (or leaf area), Pmass = phosphorus content per unit of leaf mass, SA/LA = sapwood area per leaf area, SLA = specific leaf area, Thickness = leaf thickness, Vessel size = stem conduit size, Vessel density = stem conduit density, WD = wood density. Results shown are from the entire dataset (see methods for details).}
-\label{fig:fig1}
-\end{figure}
+
 
 \begin{figure}[h!]
 \centering
@@ -331,6 +334,7 @@ The code and data for producing all figures and results in this paper is availab
 \caption{The relationship between relative growth rates (RGR) and traits changes with plant stage and trait. Plots show the effect size (+ 95\% confidence intervals; CI) for the average correlation across $>$10 species, by plant stage. Effect size is a standardized measure of the deviation of correlation coefficient from zero (Fisher's z-transformed). Effects are significant if CIs for a given stage do not overlap with zero. Trait names as in Fig. \ref{fig:fig1}. $n$ indicates number of correlations contributing to each effect. Likelihood Ratio Tests (LRT) compared maximum-likelihood fits between a pooled model and one separated by stage. A significant p-value means adding a stage effect to the model significantly improved model fit. Results shown are from the ideal dataset (see methods for details).}
 \label{fig:fig3}
 \end{figure}
+
 
 \begin{figure}[h!]
 \centering
@@ -496,22 +500,23 @@ articles. The x axis represents the article ID sorted by the average reported co
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA7.pdf}
-\caption{Funnel plots with filled in data based on the trim and fill method, showing transformed correlation coefficient z between growth and a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Note that in these plots the y axis is 1/number of species included in the correlation, not the replication for the correlation. The open points correspond to the estimated missing studies. The number of missing values is 7 for SLA,1 for WD, 0 for Hmax, 6 for seed mass and 0 for Aarea. Results shown here are from the ``ideal'' subset of data (for details see ``Material and Methods'').}
-\label{fig:figA7}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
 \includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA8.pdf}
-\caption{Number of correlation extracted by traits, stage, and growth type (absolute vs relative, and measurement). a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Absolute growth rate (AGR) is on the left and relative growth rate (RGR) on the right of each plot. Results shown here are from the entire dataset (for details see ``Material and Methods''). }
+\caption{Number of correlation extracted by traits, stage, and growth type (absolute vs relative, and measurement). a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Absolute growth rate (AGR) is on the left and relative growth rate (RGR) on the right of each plot. Results shown here are from the "ideal" subset of the data (for details see ``Material and Methods''). }
 \label{fig:figA8}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA7.pdf}
+\caption{Funnel plots with filled in data based on the trim and fill method, showing transformed correlation coefficient z between growth and a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Note that in these plots the y axis is 1/number of species included in the correlation, not the replication for the correlation. The open points correspond to the estimated missing studies. The number of missing values is 4 for SLA,0 for WD, 0 for Hmax, 11 for seed mass and 0 for Aarea. Results shown here are from the entire dataset. Results with the "ideal" subset of data (for details see ``Material and Methods''), shown no missing values for all traits.}
+\label{fig:figA7}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
 \includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA9.pdf}
-\caption{Temporal changes in coefficient of correlation between growth and traits. a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass, and e) Assimilation rate of CO2 (Aarea). The colours correspond to the stage for which the r values have been recorded: red points corresponds to adult stage, orange points to saplings, and grey points to seedlings. Results shown here are from the ``ideal'' subset of data (for details see ``Material and Methods'').}
+\caption{Temporal changes in coefficient of correlation between growth and traits. a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass, and e) Assimilation rate of CO2 (Aarea). The colours correspond to the stage for which the r values have been recorded: red points corresponds to adult stage, orange points to saplings, and grey points to seedlings. Results shown here are from the entire dataset.}
 \label{fig:figA9}
 \end{figure}
 
@@ -576,49 +581,10 @@ The \textbf{relative growth rate in mass} $({\rm RGR}_{{\rm mass}})$ in seedling
 \end{equation}
 where net assimilation rate NAR = $y \, (p - r)$, SLA = $A_{\rm l}/ M_{\rm l}$ and leaf mass fraction LMF = $M_{\rm l}/ M_{\rm t}$.
 
+
 \subsection{Quantifying and exploring the cause of heterogeneity in effect sizes}
 
-\noindent\textbf{Goal:} In our meta-analysis, reported studies differed in design as well as in vegetation type, biome or species studied. Such diversity is commonly referred to as methodological heterogeneity, and may or may not be responsible for observed discrepancies in the results of the studies. The extent of heterogeneity might influence the results of the meta-analysis, and thus induce some difficulty in drawing overall conclusions (See \citealt{Higgins:2002iq}). It is therefore important to be able to quantify the extent of heterogeneity among a collection of studies.
-
-\noindent\textbf{Methods:} A common way of addressing the extent of heterogeneity is the statistic $I^{2}$ (\citealt{Santos:2012gt}, originally defined by \citealt{Higgins:2002iq}). $I^{2}$ estimates the consistency of the results obtained from published studies used in our meta-analysis; it describes the percentage of variability in point estimates that is due to heterogeneity rather than sampling error. It can be interpreted as a ratio (0\% $<$ $I^{2}$ $<$ 100\%) not affected by the number of studies or the metric of the effect size in the analysis.
-
-An $I^{2}$ near zero indicates that almost all of the dispersion will be attributed to random error, and any attempt to explain the variance is an attempt to explain something that is (by definition) random. By contrast, as $I^{2}$ moves away from zero we know that some of the variance is real and can potentially be explained by subgroup analysis or meta-regression.
-There is no universal rule to cover definition for ``low'', ``moderate'' or ``high'' heterogeneity. \citealt{Higgins:2003hz} suggested some benchmarks for $I^{2}$ based on the survey of meta-analyses of clinical trials. They suggested that values on the order of 25\%, 50\% and 75\% might be considered as ``low'', ``moderate'' and ``high'', respectively. These suggestions are tentative; the interpretation of heterogeneity in a systematic review will depend critically on the size and direction of treatment effects, as well as on considerations of methodological diversity in the studies (see \citealt{Borenstein:2009um}).
-Here, we estimated $I^{2}$ as following equation from \citealt{Higgins:2002iq}, then we calculated how part of the heterogeneity may be due to the influence of moderators (stage and publication year) and finally we asked if the residual heterogeneity was statistically significant. In R, we used the package metafor  \citep{Viechtbauer-2010}.
-
-
-\noindent\textbf{Results:} We observed high levels of heterogeneity for all traits (SLA :$I^{2}$ 85.4\% CI: 80.9 to 92.1, WD :$I^{2}$ 61.8\% CI: 42.8 to 84.1, Hmax: $I^{2}$ 81.2\% CI: 69.8 to 93.4, seed mass: $I^{2}$ 91.2\%, 85.9 to 96.1, Aarea: $I^{2}$ 68.3\% CI: 33.7 to 90.1) which suggests that the correlations coefficient r between growth and traits are not uniform across the range of studies investigated. This result suggested that a large part of the variance is not explained by sampling error.
-
-For SLA and seed mass, 50.1\% and 20\% respectively of the total amount of heterogeneity were accounted for by including the plant stage as a moderator. For the other traits, the plant stage explained little or no part of the heterogeneity observed across studies ($<$5\%). These results were consistent with our expectations about a shift in the relationship between growth and traits across plant size for SLA and seed mass, and the absence of an effect for WD and Aarea (see Theoretical expectation section). The result for Hmax was more ambiguous since we expected the relationship between Hmax and growth rate to be absent in seedlings but to strengthen with increasing plant size (at adult stage). As discussed in the results section of the article, the smaller number of replicate studies for sapling and seedling stage limited the generality of our conclusion for this trait.
-
-The test for residual heterogeneity was significant for all traits, possibly indicating that other moderators not considered in the model were influencing the correlation between growth and traits. This is not surprising because although the trait and growth measurements are standardized \citep{Cornelissen:2003gw}, studies differed in their design as well as in vegetation type, biome, and species studied. Indeed, a goal in the trait literature is to establish general patterns of correlation between growth and traits and to validate them across a large variety of conditions. Here, we did not explore the influence of other moderators, since our goal was to test clear hypotheses about the influence of plant size/stage, not to establish the best predictor of the correlation between growth and traits. Finally, since between study variation is significant, as indicated by heterogeneity analyses, the use of the random effect model was appropriate in our meta-analysis.
-
-\subsection{Testing for publication bias}
-\noindent\textbf{Goal:} Studies with significant results are more likely to be published. As a consequence, the studies in a meta-analysis may overestimate the true effect size because they are based on a biased sample of the target population of studies. A publication bias occurs when the probability of publication depends on the statistical significance of the effect. Here we tested if there is evidence of any bias, and if the effect size observed for each trait is an artefact of this bias.
-
-\noindent\textbf{Methods:} Initially, we checked the dataset for publication bias with a visual assessment of funnel plots. A publication bias toward significant results creates an asymmetric funnel with small studies with non-significant effects missing from the mouth of the funnel on the side opposite to the true effect. While funnel plot are recommended to aid interpretation, there is a high risk of failing to detect actual publication bias (see \citealt{Koricheva:2013tz}) by using an exclusively visual assessment. In addition, funnel plots are not effective when the number of studies is small ($<30$) such as for Aarea and seed mass.
-Next, we used the ``trim and fill'' method to estimate the number of studies missing from our meta-analysis. This method adjusts for funnel-plot asymmetry \citep{Duval:2000dg}.
-Finally, we estimated the number of studies needed to overturn a result, using Rosenberg's fail-safe number \citep{Rosenberg:2005hk}. The fail-safe N is not based on funnel plot asymmetry. Rather, the Rosenberg method calculates the number of studies on-average null results that would need to be added to the given set of observed outcomes to reduce the significance level (p-value) of the weighted average effect \citep{Rosenberg:2005hk}. A significant meta-analytic result is robust if the fail-safe N is greater than 5k+10, where k is the number of studies already in the meta-analysis \citep{Rosenthal:1979do}.
-In R, we used the package ``metafor''  \citep{Viechtbauer-2010}.
-
-\noindent\textbf{Results:} As expected the correlation coefficient varied less as sample size increased (funnel plots in Fig. \ref{fig:figA9}). Funnel plots exhibited a typical funnel shape for all five functional traits analysed, showing no evidence for publication bias (Fig. \ref{fig:figA9}).
-The ``trim and fill'' method detected some missing values in our data. The estimated number of missing value ranges from 0 to 7 depending on the trait considered (Fig. \ref{fig:figA9}). The overall estimates measured with the fill in data changed from $0.5 \pm 0.07$  to $0.4 \pm 0.07$ for SLA and from $-0.48 \pm 0.11$ to $-0.32 \pm 0.12$ for the seed mass, suggesting a lower correlation coefficient for SLA, and seed mass. Although the correlations estimated with the missing studies filled in were closer to zero than without, the trait effect is still statistically significant.
-The Rosenberg's Fail-safe (N) were 7086, 1823, 990, 574, 291 for SLA, WD, Hmax, Seedmass, and Aarea, suggesting that a large number of studies with a mean correlation coefficient of 0 need to be added to the analysis before the cumulative correlation would become non-significant. N was greater than 5k+10 for all traits.
-These results suggest that the impact of publication bias is probably trivial in our meta-analyses.
-
-\subsection{Exploring temporal changes in effect size}
-\noindent\textbf{Goal:} Our meta-analysis combines data from studies published between 1983 and 2014. It has been shown that the magnitude of the effect size may change over time due to a publication bias (i.e. a lag to publish negative results), a change in the methodology or biological changes in the magnitude of the effect (see \citealt{Koricheva:2013hy}). Therefore, detecting such temporal changes may be important to the interpretation of the results of a meta-analysis.
-
-\noindent\textbf{Methods:} In the trait literature the year of publication may be confounded with a methodological change. Indeed, in the early 90's studies mainly focused on seedlings, whereas today a broader range of plant sizes/stages are studied (Fig. \ref{fig:figA9}). As a consequence, we used publication year as a moderator in our analyses \citep{Zvereva:2008jm} across but also within stages for all traits.
-
-\noindent\textbf{Results:} There was a change in the effect size with publication year for SLA ($p<0.0001$, estimates: $-0.04 \pm 0.009$ ), seed mass ($p = 0.011$, estimates: $0.041 \pm 0.016$ ) and Aarea ($p = 0.0102$, estimates: $-0.0453 \pm 0.0176$ ). Fig. \ref{fig:figA9} shows that for these three traits the publication years may be confounded with plant stage; correlation coefficients have been reported since 1993, but studies started to report data on adult stage only ten years later (around 2000-2007).
-
-For SLA and seed mass, a publication year effect was not observed within seedling and sapling stages, but was identified for the adult stage (SLA $p = 0.003$, seed mass $p = 0.06$). For both SLA and seed mass, the magnitude of the effect size decreased with publication year (Fig. \ref{fig:figA9} a and d), suggesting we overestimated the magnitude of the effect size for these two traits. In reality, the main effect size obtained would be more close to zero or more negative for SLA and more positive for seed mass. These results are consistent with our hypotheses; we expected a negative or non-significant effect of SLA on growth in adult stage, and a non-significant or positive effect of seed mass on plant growth (see theoretical expectation).
-
-For Aarea, publication year explained a part of the variation across stage but not within stage, and the magnitude of the effect size decreased with publication year. This pattern is classic feature in meta-analyses: \citealt{Koricheva:2013hy} showed that a majority of studies reported a decrease rather than an increase in the magnitude of effect size with publication year. Yet, here this effect did not lead to a reduction in statistical significance of the main effect size or to a change of sign. While overestimated, the main effect size for the correlation between growth and Aarea stays positive (Fig. \ref{fig:figA9} e).
-
-The temporal changes were confounded with a plant stage effect in our meta-analysis, but they did not jeopardize the stability of our conclusions. The conclusions of a meta-analysis conducted in different years should not differ from those reported here.
-
+\input{ms_suppinfo}
 
 \end{appendices}
 \end{document}

@@ -630,35 +630,47 @@ fun_Onepvalue_year <- function(x) {
 
 
 fun_Heterogeneity.CI <- function(x) {
+  x <- droplevels(x)
+  
   res_null <- rma(corr.z, vr.z, 
                   data = x[!is.na(x$corr.z) & !is.na(x$nb.sp),])
   confint(res_null)
 }
 
 fun_Heterogeneity.H <- function(x, mods) {
+  
+  x <- droplevels(x)
   res_null <- rma(corr.z, vr.z, 
                   data = x[!is.na(x$corr.z) & !is.na(x$nb.sp),])
   res_stage <- rma(corr.z, vr.z, mods = mods, 
                   data = x[!is.na(x$corr.z) & !is.na(x$vr.z),])
   Hmodel <- (res_null$tau2 - res_stage$tau2)/res_null$tau2 * 100  #% of the total amount of heterogeneity can be accounted for by including the moderators of the model
-  l <- list(Hexplained = Hmodel, pvalue = res_stage$QEp, Qdf = res_stage$QE,
+  H <- res_null$I2 
+  l <- list(Hlevel=H, Hexplained = Hmodel, pvalue = res_stage$QEp, Qdf = res_stage$QE,
     effectsize_moderator = res_stage$zval, pvalueeffectsize = res_stage$pval)
   l
 }
 
 
-
 fun_trim.and.fill_number <- function(x) {
+  x <- droplevels(x)
+  
   res <- rma(corr.z, vr.z, data = x[!is.na(x$corr.z) & !is.na(x$vr.z), ])
   ### carry out trim-and-fill analysis
   taf <- trimfill(res)
-  taf$k0
-
+  l <- list(N= taf$k0, estimate= taf$b, se =taf$se, CImax= taf$ci.ub, CImin=taf$ci.lb)
+  l
 }
 
 
-fun_year <- function(data) {
-  table <- data
+fun_fsn <- function(x){
+  a <- fsn(corr.z, vr.z, data = x[!is.na(x$corr.z) & !is.na(x$vr.z), ], type = "Rosenthal", alpha = 0.05, digits = 4)
+  a
+}
+
+
+fun_year <- function(a) {
+  table <- a
 
   res <- rma(corr.z, vr.z, mod = ~year, 
                   data = table[!is.na(table$corr.z) & !is.na(table$nb.sp),])
@@ -672,8 +684,11 @@ fun_year <- function(data) {
                   data = y[!is.na(y$corr.z) & !is.na(y$nb.sp),])
 
   z <- subset(table, table$stage == "adult")
+  browser()
   res_adu <- rma(corr.z, vr.z, mod = ~year, 
                   data = z[!is.na(z$corr.z) & !is.na(z$nb.sp),])
 
   list(all = res, seedling = res_juv, sapling = res_sap, adult = res_adu)
 }
+
+
