@@ -707,4 +707,15 @@ fun_snapshot <- function(Snapshot){
   perc_5traits = (nb_ref_uniq_2/nb_ref_uniq_5) *100
   
   list(main.traits =perc_5traits, all.traits =perc_19traits)
-  }
+}
+
+
+fun_gap <- function(CleanData){
+  library(plyr)
+  
+  table <- ddply(CleanData, c("trait", "stage"), function(x) length(x$corr.r))
+  table2 <- ddply(table, c("trait"), function(x) max(x$V1)/ sum(x$V1))
+  
+  table3 <- subset(table2, table2$V1 > 0.75)
+  length(table3$V1)
+} 
