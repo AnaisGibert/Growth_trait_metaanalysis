@@ -17,35 +17,38 @@ targets:
       - analysis.R
 
   ms.pdf:
-    command: latex_build("MS.tex", bibliography="output/refs.bib", clean=TRUE)
+    command: latex_build("MS.tex", bibliography="output/refs-main.bib", clean=TRUE)
     depends:
-      - figures
-      - ms_suppinfo.tex
-      - ms_snapshotinfo.tex
+      - figures_main
+      - ms-suppinfo.pdf
       
-  ms_snapshotinfo.tex:
+  ms-suppinfo.pdf:
+    command: latex_build("ms-suppinfo.tex", bibliography="output/refs-suppmat.bib", clean=FALSE)
+    # Don't clean because we need info for cross references
     depends:
-      - Snapshot
-      - R/model.R
-    knitr: TRUE
+      - figures_suppmat
 
-  ms_suppinfo.tex:
+  ms-suppinfo.tex:
     depends:
+      - R/model.R
       - GCi
       - GIi
-      - R/model.R
+      - Snapshot
+      - read_bib
     knitr: TRUE
     
-  figures:
+  figures_main:
     depends:
       - output/Fig1.pdf
       - output/Fig2.pdf
       - output/Fig3.pdf
       - output/Fig4.pdf
+
+  figures_suppmat:
+    depends:
       - output/FigA1.pdf
       - output/FigA2.pdf
       - output/FigA3.pdf
-#      - output/FigA4.1.pdf
       - output/FigA4.pdf
       - output/FigA5.pdf
       - output/FigA6a.pdf
@@ -73,8 +76,17 @@ targets:
   combined_bib:
     command: merge_bib_files(meta_bib, paper_bib)
 
-  output/refs.bib:
+  output/refs-main.bib:
     command: write.bib(combined_bib, file = target_name)
+
+  suppmat_bib:
+    command: merge_bib_files(combined_bib, read_bib)
+
+  output/refs-suppmat.bib:
+    command: write.bib(combined_bib, file = target_name)
+
+  read_bib:
+    command: read.bib("references/read.bib")
 
 # ------- data formatting --------------------
   # Data for top 19 traits

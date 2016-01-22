@@ -3,21 +3,17 @@
 \usepackage[osf]{mathpazo}
 \usepackage{ms}
 \usepackage[]{natbib}
-\definecolor{grey}{rgb}{0.5, 0.5, 0.5}
 
 %\raggedright
 
-\newcommand{\smurl}[1]{\url{#1}}
-\newcommand{\ud}{\ensuremath{\rm{d}}}
-\newcommand{\tabitem}{~~\llap{\textbullet}~~}
 \usepackage{graphicx}
-\usepackage[title,titletoc,toc]{appendix}
 
-\title{On the link between functional traits and growth rate: meta-analysis shows effects change with plant size, as predicted}
-\author{Ana{\"i}s Gibert\textasteriskcentered, Emma F. Gray, Mark Westoby, Ian J. Wright, Daniel S. Falster}
-\affiliation{Biological Sciences, Macquarie University NSW 2109, Australia\\
-\textasteriskcentered Email for correspondence: \texttt{anais.gibert@gmail.com}\\
-Word count: ~8211 words /9600 (without supplementary material, Fig and ref)}
+% Enable cross referencing to Evidence document
+\usepackage{xr}
+\externaldocument{ms-suppinfo}
+
+\input{ms-common-defs}
+
 \date{}
 
 % Todo:
@@ -26,14 +22,10 @@ Word count: ~8211 words /9600 (without supplementary material, Fig and ref)}
 %   -- major revision of code -- > lots of repetition, hard to follow
 %   -- Figure 2: add * against traits used in meta-analysis: no
 % - seach on XXX, footnote
-% - check refs to appendices in main text
 
 
 \bibliographystyle{mee}
-
-
 \mstype{Research Article}
-\runninghead{Influence of traits on growth changes with size}
 \keywords{maximum height, photosynthetic rate, ontogenetic stage, functional trait, growth strategy, seed mass, specific leaf area, wood density}
 
 \begin{document}
@@ -95,7 +87,7 @@ The rate at which \textbf{live biomass} $B$ is produced by a plant is given by
 \begin{equation}\label{eq:eq0}
 \underbrace{\frac{\ud B}{\ud t}}_{\text{net live biomass production}} = \underbrace{\alpha_{\rm y}}_{\text{yield}}  \big(\underbrace{A_{\rm l} p}_{\text{photosynthesis}} - \underbrace{\sum_{i = {\rm l,s,r}} M_{i} r_{i}}_{\text{respiration}}\big) - \underbrace{ \sum_{i = \rm{l,s,r}} M_{i} k_{i}}_{\text{turnover}} \, ,
 \end{equation}
-where $\alpha_{\rm y}$ is the ratio of carbon fixed in mass per carbon assimilated, and $p$ is the assimilation rate of CO$_{2}$ per leaf area. Here, and in the following equations, $M_i$ denotes the \textbf{live mass on the plant}, $r_i$ the mass-specific \textbf{respiration rate}, and $k_i$ the \textbf{turnover rate} of different plant tissues; the subscripts $i = \rm{l,s,r,t,f}$ referring to leaves, sapwood and bark, roots, total of these vegetative tissues, and to the reproductive tissues (fruits, flowers etc.)  Similarly $A_i$ denotes \textbf{areas}, of leaves ($i = l$) and of cross-sections of total stem and sapwood ($i =\rm{st,ss}$) respectively. Note that the live biomass $B = M_{\rm t} + M_{\rm f}$.  Applying the product rule of differential calculus, the \textbf{growth rate in plant mass}, ($M_{\rm t}$), can be decomposed as
+where $\alpha_{\rm y}$ is the ratio of carbon fixed in mass per carbon assimilated, and $p$ is the assimilation rate of CO$_{2}$ per leaf area. Here, and in the following equations, $M_i$ denotes the \textbf{live mass on the plant}, $r_i$ the mass-specific \textbf{respiration rate}, and $k_i$ the \textbf{turnover rate} of different plant tissues; the subscripts $i = \rm{l,s,r,t,f}$ referring to leaves, sapwood and bark, roots, total of these vegetative tissues, and to the reproductive tissues (fruits, flowers etc.)  Similarly $A_i$ denotes \textbf{areas}, of leaves ($i = l$) and of cross-sections of total stem and sapwood ($i =\rm{st,ss}$) respectively. Note that the live biomass $B = M_{\rm t} + M_{\rm f}$.  Applying the chain rule of differential calculus, the \textbf{growth rate in plant mass}, ($M_{\rm t}$), can be decomposed as
 \begin{equation}\label{eq:eq1}
 \underbrace{{\frac{\ud M_{\rm t}}{\ud t}}}_{\text{growth rate in mass}} = \underbrace{\frac{\ud M_{\rm t}}{\ud B}}_{\text{allocation to vegetative growth}}  \times \underbrace{\frac{\ud B}{\ud t}}_{\text{net live biomass production}},
 \end{equation}
@@ -321,7 +313,7 @@ The code and data for producing all figures and results in this paper is availab
 \clearpage
 \linespread{1}
 
-\bibliography{output/refs}\label{references}
+\bibliography{output/refs-main}\label{references}
 
 \clearpage
 \section*{Figures}
@@ -436,188 +428,4 @@ The code and data for producing all figures and results in this paper is availab
 \label{tab:meta}
 \end{table}
 
-
-\clearpage
-\setcounter{secnumdepth}{1}
-\begin{appendices}\label{sec:appendices}
-\renewcommand{\thefigure}{S\arabic{figure}}
-\renewcommand{\thetable}{S\arabic{table}}
-
-\setcounter{figure}{0}
-\setcounter{table}{0}
-
-
-
-\clearpage
-\section{Supporting figures}\label{app:supp_info_figures}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA1.pdf}
-\caption{Relationships between a) age and diameter (m), b) age and height (m), and c) diameter and height among plants in the Biomass and Allometry Database. Lines indicate the cut-offs between stage categories used in this study: blue lines indicate limit between seedlings and saplings, red lines indicate limits between saplings and adults.}
-\label{fig:figA1}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6a.pdf}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6b.pdf}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6c.pdf}
-\caption{Effects size on the correlation between growth and traits of plant stage (mod1), growth measurement (mod2), vegetation type (mod3), and experiment type (mod4). a) Specific leaf area (SLA), b) Wood density (WD),c) Assimilation rate of CO2 (Aarea), d) Seed mass, and e) Asymptotic maximum height (Hmax). The effect size (z + 95\%CI) is reported for each class, and models are fitted by restricted max likelihood (REML). Abbreviation: GR = growth rate and RGR = relative growth rate, measured in diameter (D), height (H), mass(M), cross section area (CSA) and volume (V), across GF: coefficient of correlation measured on tree in mixture with other growth form. AIC: Akaike information criterion corresponds to the quality of each model, and allow a comparison between models. Smallest is the AIC better is the model. Results shown here are from ``ideal'' subset of data (for details see ``Material and Methods''). ``n'' indicates number of correlation r reported.}
-\label{fig:figA6}
-\end{figure}
-
-
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA4.pdf}
-\caption{Mean coefficient correlation r (+SD) between growth and traits measured by stage.  a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass (Seedmass) and e) Rate of CO2 assimilation (Aarea). The mean coefficients are weighted by sample size and established from 103 articles. Results shown here are from the ''ideal'' subset of data (for details see ``Material and Methods''), ``n'' indicates the number of correlations.}
-\label{fig:figA4}
-\end{figure}
-
-
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA8.pdf}
-\caption{Number of correlation extracted by traits, stage, and growth type (absolute vs relative, and measurement). a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Absolute growth rate (AGR) is on the left and relative growth rate (RGR) on the right of each plot. Results shown here are from the "ideal" subset of the data (for details see ``Material and Methods''). }
-\label{fig:figA8}
-\end{figure}
-
-
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA2.pdf}
-\caption{Geographical distribution of site locations from studies performed in the field used in the meta-analysis. Results shown here are from the entire dataset (for details see ``Material and Methods'').}
-\label{fig:figA2}
-\end{figure}
-
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA3.pdf}
-\caption{Range of correlations (r) between
-growth and traits reported in the literature. Plots show the coefficients of correlation (r)
-between plant growth and a) Specific leaf area (SLA, n =
-111), b) Wood density (WD, n = 64), c) Asymptotic
-maximum height (Hmax, n = 23), d) Seed mass (Seedmass, n = 36 and
-e) Rate of CO2 assimilation (Aarea, n = 24) reported from 103
-articles. The x axis represents the article ID sorted by the average reported coefficient value r. Each bubble represents an r value, the diameter of the bubble is proportional to its weight in the meta-analysis (i.e. number of species). The colours correspond to the stage for which the r values have been recorded: red points correspond to adult stage, orange points to saplings, and blue points to seedlings. Results shown here are from the entire dataset (for details see ``Material and Methods''). }
-\label{fig:figA3}
-\end{figure}
-
-
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA7.pdf}
-\caption{Funnel plots with filled in data based on the trim and fill method, showing transformed correlation coefficient z between growth and a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Note that in these plots the y axis is 1/number of species included in the correlation, not the replication for the correlation. The open points correspond to the estimated missing studies. The number of missing values is 4 for SLA,0 for WD, 0 for Hmax, 11 for seed mass and 0 for Aarea. Results shown here are from the entire dataset. Results with the "ideal" subset of data (for details see ``Material and Methods''), shown no missing values for all traits.}
-\label{fig:figA7}
-\end{figure}
-
-
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA9.pdf}
-\caption{Temporal changes in coefficient of correlation between growth and traits. a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass, and e) Assimilation rate of CO2 (Aarea). The colours correspond to the stage for which the r values have been recorded: red points corresponds to adult stage, orange points to saplings, and grey points to seedlings. Results shown here are from the entire dataset.}
-\label{fig:figA9}
-\end{figure}
-
-
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA5.pdf}
-\caption{Effect size ($\pm$95\% confidence intervals, CI) of plant stage on the correlations between growth rate and five functional traits across species, with a data set averaging multiple comparisons by trait and by study. In the case of multiple comparisons within a study, effect sizes were calculated using the mean correlation coefficient by trait and by study. a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax) , d) Seed mass and e) Assimilation rate of CO2 (Aarea). Effect size is a standardized measure of the magnitude of the relationship between a particular stage and the correlation coefficient z (Fisher's z-transformed). Effects are significant if CIs do not overlap with zero. LRT: likelihood Ratio Test compared the fit between null model and stage model, both models are fitted by Maximum Likelihood. Black point: ideal data , grey points: all the data (for details see ``Material and Methods''). ``n'' indicates the number of independent comparisons for each effect.}
-\label{fig:figA5}
-\end{figure}
-
-\clearpage
-
-\section{Supporting Tables}\label{app:supp_info_table}
-
-\linespread{1}
-
-\begin{table}[h!]
-\centering
-\caption{List of the nineteen traits targeted. Abbreviation,
-definition and search term used in the meta-analysis}
-\label{tab:lit_search}
-\vspace{0.5cm}
-{\footnotesize
-\begin{tabular}{p{3cm}p{3cm}p{8cm}}
-  \hline
-Trait & Definition & Search terms \\
-  \hline
-Aarea & Photosynthetic rate per area & ``photosynthetic rate per area'' OR ``rate of CO2 assimilation per area'' OR ``Aarea'' OR ``Amax'' OR ``photosynthetic capacity per area'' \\
-  Amass & Photosynthetic rate per mass & ``photosynthetic rate per mass'' OR ``rate of CO2 assimilation per mass'' OR ``Amass'' OR ``Amax'' \\
-  Hmax & Maximum height & ``potential height'' OR ``maximum height'' OR ``Hmax'' \\
-  Ks & Stem specific conductance & ``Ks'' OR ``stem specific conductance'' OR ``stem hydraulic conductance'' OR ``sapwood conductance'' \\
-  LA & Leaf lamina area & ``leaf length'' OR ``leaf lamina area'' OR ``leaf width'' OR ``leaf size'' \\
-  LAR & Leaf area ratio & ``leaf area ratio'' \\
-  LMR & Leaf mass ratio & ``leaf mass ratio'' OR ``leaf mass fraction'' \\
-  NARarea & Net assimilation rate per area &  ``net assimilation rate per area'' OR ``rate of dry mass increament per area'' OR ``NARarea'' OR ``NAR'' \\
-  Narea & Leaf nitrogen content per area & ``Narea'' OR ``nitrogen per area'' OR ``N/area'' OR ``leaf nitrogen content per area'' OR ``LNCarea'' OR ``leaf nitrogen content" \\
-  Nmass & Leaf nitrogen content per mass & ``Nmass'' OR ``nitrogen per mass'' OR ``N/mass'' OR ``leaf nitrogen content per mass'' OR ``LNCmass'' OR ``leaf nitrogen content" \\
-  Parea & Leaf phosphorus content per area & ``Parea'' OR ``leaf P'' OR  ``leaf phosphorus content per area''  OR ``leaf phosphorus content'' \\
-  Pmass & Leaf phosphorus content per mass & ``Pmass'' OR ``leaf P'' OR  ``leaf phosphorus content per mass'' OR ``leaf phosphorus content'' \\
-  SA/LA & Sapwood area per leaf area & ``sapwood area per leaf area'' OR ``huber value'' OR ``leaf area per sapwood area'' \\
-  Seed mass & Seed mass & ``seed mass'' OR ``seed size'' OR ``seed volume'' \\
-  SLA & Specific Leaf Area & ``leaf mass per area'' OR ``specific leaf area'' OR ``leaf construction cost'' \\
-  Thickness & Leaf thickness & ``leaf thickness''  OR ``leaf tissue density'' \\
-  Vessel density & Vessel density & ``vessel density'' OR ``stem conduit density'' \\
-  Vessel size & Vessel area or diameter & ``conduit area'' OR ``stem conduit area'' OR ``vessel diameter'' OR ``vessel size'' OR ``conduit size''   \\
-  WD & Wood density & ``wood density'' OR``WD'' OR ``wood specific gravity'' OR ``stem density'' OR ``stem specific density'' OR ``SSD'' \\
-   \hline
-\end{tabular}
-}
-\end{table}
-
-\clearpage
-
-\section{Supporting Analyses}\label{app:supp_info_analyses}
-
-\subsection{Simplified growth equations for seedlings of similar size}\label{app:growth-equation}
-
-For the case of seedlings, eqs. \ref{eq:eq0}-\ref{eq:eq1} can be simplified considerably. Turnover of all tissues and allocation to reproduction have not yet begun. It is also common to assume all respiration rates are proportional to leaf area. Biomass growth rate in seedling then becomes a linear function of leaf area:
-\begin{equation}\label{eq:eq1_seedlings}
-{\frac{\ud M_{\rm t}}{\ud t}}  \approx  A_{\rm l} \, y \, (p - r_{\rm l}).
-\end{equation}
-
-The \textbf{relative growth rate in mass} $({\rm RGR}_{{\rm mass}})$ in seedlings can be obtained by dividing both sides of this simplified eq \ref{eq:eq1_seedlings} by the total mass of living tissues $M_{\rm t}$. The outcome is equivalent to the classical partitioning of RGR \citep{Lambers:1992bj, Cornelissen:1998ta}:
-\begin{equation}\label{eq:eq1_seedlings_RGR}
-{\rm RGR}_{{\rm mass}}  \approx {\rm NAR} \times  {\rm SLA} \times  {\rm LMF},
-\end{equation}
-where net assimilation rate NAR = $y \, (p - r)$, SLA = $A_{\rm l}/ M_{\rm l}$ and leaf mass fraction LMF = $M_{\rm l}/ M_{\rm t}$.
-
-\clearpage
-
-\subsection{Literature coverage by trait}\label{app:literature-snapshot}
-
-\input{ms_snapshotinfo}
-
-
-\subsection{Full list of all articles evaluated}\label{app:literature-list}
-
-In total we inspected the full text of 583 articles. The full list of these artciles is in the "read.bib" file available at
-\smurl{github.com/AnaisGibert/Growth\_trait\_metaanalysis}.
-
-\clearpage
-
-\subsection{Quantifying and exploring the cause of heterogeneity in effect sizes}\label{app:heterogeneity}
-
-\input{ms_suppinfo}
-
-\end{appendices}
 \end{document}

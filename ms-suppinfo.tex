@@ -1,0 +1,298 @@
+
+\documentclass[10pt,twoside]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+\usepackage{suppmat}
+\usepackage{listings}
+\usepackage[T1]{fontenc} % Better underscores, shockingly.
+\usepackage{graphicx}
+
+\input{ms-common-defs}
+
+% We will generate all images so they have a width \maxwidth. This means
+% that they will get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+\titleprefix{Supporting information for:}
+
+\date{}
+
+\usepackage[]{natbib}
+\bibliographystyle{mee}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+
+\section{Supporting Figures}\label{app:supp_info_figures}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA1.pdf}
+\caption{Relationships between a) age and diameter (m), b) age and height (m), and c) diameter and height among plants in the Biomass and Allometry Database. Lines indicate the cut-offs between stage categories used in this study: blue lines indicate limit between seedlings and saplings, red lines indicate limits between saplings and adults.}
+\label{fig:figA1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6a.pdf}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6b.pdf}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6c.pdf}
+\caption{Effects size on the correlation between growth and traits of plant stage (mod1), growth measurement (mod2), vegetation type (mod3), and experiment type (mod4). a) Specific leaf area (SLA), b) Wood density (WD),c) Assimilation rate of CO2 (Aarea), d) Seed mass, and e) Asymptotic maximum height (Hmax). The effect size (z + 95\%CI) is reported for each class, and models are fitted by restricted max likelihood (REML). Abbreviation: GR = growth rate and RGR = relative growth rate, measured in diameter (D), height (H), mass(M), cross section area (CSA) and volume (V), across GF: coefficient of correlation measured on tree in mixture with other growth form. AIC: Akaike information criterion corresponds to the quality of each model, and allow a comparison between models. Smallest is the AIC better is the model. Results shown here are from ``ideal'' subset of data (for details see ``Material and Methods''). ``n'' indicates number of correlation r reported.}
+\label{fig:figA6}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA4.pdf}
+\caption{Mean coefficient correlation r (+SD) between growth and traits measured by stage.  a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass (Seedmass) and e) Rate of CO2 assimilation (Aarea). The mean coefficients are weighted by sample size and established from 103 articles. Results shown here are from the ''ideal'' subset of data (for details see ``Material and Methods''), ``n'' indicates the number of correlations.}
+\label{fig:figA4}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA8.pdf}
+\caption{Number of correlation extracted by traits, stage, and growth type (absolute vs relative, and measurement). a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Absolute growth rate (AGR) is on the left and relative growth rate (RGR) on the right of each plot. Results shown here are from the "ideal" subset of the data (for details see ``Material and Methods''). }
+\label{fig:figA8}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA2.pdf}
+\caption{Geographical distribution of site locations from studies performed in the field used in the meta-analysis. Results shown here are from the entire dataset (for details see ``Material and Methods'').}
+\label{fig:figA2}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA3.pdf}
+\caption{Range of correlations (r) between
+growth and traits reported in the literature. Plots show the coefficients of correlation (r)
+between plant growth and a) Specific leaf area (SLA, n =
+111), b) Wood density (WD, n = 64), c) Asymptotic
+maximum height (Hmax, n = 23), d) Seed mass (Seedmass, n = 36 and
+e) Rate of CO2 assimilation (Aarea, n = 24) reported from 103
+articles. The x axis represents the article ID sorted by the average reported coefficient value r. Each bubble represents an r value, the diameter of the bubble is proportional to its weight in the meta-analysis (i.e. number of species). The colours correspond to the stage for which the r values have been recorded: red points correspond to adult stage, orange points to saplings, and blue points to seedlings. Results shown here are from the entire dataset (for details see ``Material and Methods''). }
+\label{fig:figA3}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA7.pdf}
+\caption{Funnel plots with filled in data based on the trim and fill method, showing transformed correlation coefficient z between growth and a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Note that in these plots the y axis is 1/number of species included in the correlation, not the replication for the correlation. The open points correspond to the estimated missing studies. The number of missing values is 4 for SLA,0 for WD, 0 for Hmax, 11 for seed mass and 0 for Aarea. Results shown here are from the entire dataset. Results with the "ideal" subset of data (for details see ``Material and Methods''), shown no missing values for all traits.}
+\label{fig:figA7}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA9.pdf}
+\caption{Temporal changes in coefficient of correlation between growth and traits. a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass, and e) Assimilation rate of CO2 (Aarea). The colours correspond to the stage for which the r values have been recorded: red points corresponds to adult stage, orange points to saplings, and grey points to seedlings. Results shown here are from the entire dataset.}
+\label{fig:figA9}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA5.pdf}
+\caption{Effect size ($\pm$95\% confidence intervals, CI) of plant stage on the correlations between growth rate and five functional traits across species, with a data set averaging multiple comparisons by trait and by study. In the case of multiple comparisons within a study, effect sizes were calculated using the mean correlation coefficient by trait and by study. a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax) , d) Seed mass and e) Assimilation rate of CO2 (Aarea). Effect size is a standardized measure of the magnitude of the relationship between a particular stage and the correlation coefficient z (Fisher's z-transformed). Effects are significant if CIs do not overlap with zero. LRT: likelihood Ratio Test compared the fit between null model and stage model, both models are fitted by Maximum Likelihood. Black point: ideal data , grey points: all the data (for details see ``Material and Methods''). ``n'' indicates the number of independent comparisons for each effect.}
+\label{fig:figA5}
+\end{figure}
+
+\clearpage
+
+\section{Supporting Tables}\label{app:supp_info_table}
+
+\linespread{1}
+
+\begin{table}[h!]
+\centering
+\caption{List of the nineteen traits targeted. Abbreviation,
+definition and search term used in the meta-analysis}
+\label{tab:lit_search}
+\vspace{0.5cm}
+{\footnotesize
+\begin{tabular}{p{3cm}p{3cm}p{8cm}}
+  \hline
+Trait & Definition & Search terms \\
+  \hline
+Aarea & Photosynthetic rate per area & ``photosynthetic rate per area'' OR ``rate of CO2 assimilation per area'' OR ``Aarea'' OR ``Amax'' OR ``photosynthetic capacity per area'' \\
+  Amass & Photosynthetic rate per mass & ``photosynthetic rate per mass'' OR ``rate of CO2 assimilation per mass'' OR ``Amass'' OR ``Amax'' \\
+  Hmax & Maximum height & ``potential height'' OR ``maximum height'' OR ``Hmax'' \\
+  Ks & Stem specific conductance & ``Ks'' OR ``stem specific conductance'' OR ``stem hydraulic conductance'' OR ``sapwood conductance'' \\
+  LA & Leaf lamina area & ``leaf length'' OR ``leaf lamina area'' OR ``leaf width'' OR ``leaf size'' \\
+  LAR & Leaf area ratio & ``leaf area ratio'' \\
+  LMR & Leaf mass ratio & ``leaf mass ratio'' OR ``leaf mass fraction'' \\
+  NARarea & Net assimilation rate per area &  ``net assimilation rate per area'' OR ``rate of dry mass increament per area'' OR ``NARarea'' OR ``NAR'' \\
+  Narea & Leaf nitrogen content per area & ``Narea'' OR ``nitrogen per area'' OR ``N/area'' OR ``leaf nitrogen content per area'' OR ``LNCarea'' OR ``leaf nitrogen content" \\
+  Nmass & Leaf nitrogen content per mass & ``Nmass'' OR ``nitrogen per mass'' OR ``N/mass'' OR ``leaf nitrogen content per mass'' OR ``LNCmass'' OR ``leaf nitrogen content" \\
+  Parea & Leaf phosphorus content per area & ``Parea'' OR ``leaf P'' OR  ``leaf phosphorus content per area''  OR ``leaf phosphorus content'' \\
+  Pmass & Leaf phosphorus content per mass & ``Pmass'' OR ``leaf P'' OR  ``leaf phosphorus content per mass'' OR ``leaf phosphorus content'' \\
+  SA/LA & Sapwood area per leaf area & ``sapwood area per leaf area'' OR ``huber value'' OR ``leaf area per sapwood area'' \\
+  Seed mass & Seed mass & ``seed mass'' OR ``seed size'' OR ``seed volume'' \\
+  SLA & Specific Leaf Area & ``leaf mass per area'' OR ``specific leaf area'' OR ``leaf construction cost'' \\
+  Thickness & Leaf thickness & ``leaf thickness''  OR ``leaf tissue density'' \\
+  Vessel density & Vessel density & ``vessel density'' OR ``stem conduit density'' \\
+  Vessel size & Vessel area or diameter & ``conduit area'' OR ``stem conduit area'' OR ``vessel diameter'' OR ``vessel size'' OR ``conduit size''   \\
+  WD & Wood density & ``wood density'' OR``WD'' OR ``wood specific gravity'' OR ``stem density'' OR ``stem specific density'' OR ``SSD'' \\
+   \hline
+\end{tabular}
+}
+\end{table}
+
+\clearpage
+
+\section{Supporting Analyses}\label{app:supp_info_analyses}
+
+\subsection{Simplified growth equations for seedlings of similar size}\label{app:growth-equation}
+
+For the case of seedlings, the growth equations can be simplified considerably. Turnover of all tissues and allocation to reproduction have not yet begun. It is also common to assume all respiration rates are proportional to leaf area. Biomass growth rate in seedling then becomes a linear function of leaf area:
+\begin{equation}\label{eq:eq1_seedlings}
+{\frac{\ud M_{\rm t}}{\ud t}}  \approx  A_{\rm l} \, y \, (p - r_{\rm l}).
+\end{equation}
+
+The \textbf{relative growth rate in mass} $({\rm RGR}_{{\rm mass}})$ in seedlings can be obtained by dividing both sides of this simplified eq \ref{eq:eq1_seedlings} by the total mass of living tissues $M_{\rm t}$. The outcome is equivalent to the classical partitioning of RGR \citep{Lambers:1992bj, Cornelissen:1998ta}:
+\begin{equation}\label{eq:eq1_seedlings_RGR}
+{\rm RGR}_{{\rm mass}}  \approx {\rm NAR} \times  {\rm SLA} \times  {\rm LMF},
+\end{equation}
+where net assimilation rate NAR = $y \, (p - r)$, SLA = $A_{\rm l}/ M_{\rm l}$ and leaf mass fraction LMF = $M_{\rm l}/ M_{\rm t}$.
+
+\subsection{Literature coverage by trait}\label{app:literature-snapshot}
+
+We developed a snapshot of the literature, to assess the potential to recover useful data from the wide corpus of literature available by searching exclusively on SLA and WD. This snapshot was obtained via Web of Science database (Thomson Reuters), between March and June 2014, using a range of Boolean search terms in English. Search terms were as follows: (``trait'' AND (``growth rate'' OR ``relative growth rate'')) AND (``tree*'' OR ``woody*''), where ``trait'' was allowed to be any of the trait names listed in Table \ref{tab:lit_search}. This snapshot indicated that 84\% of the reported correlations linking growth to any of our five core traits would be recovered by searching only on SLA and WD. And it was 70\% of the literature that would be captured by SLA and WD for the total 19 traits. Thus we narrow our search to only cover these two main traits.
+
+
+\subsection{Full list of all articles evaluated}\label{app:literature-list}
+
+In total we inspected the full text of 583 articles, including \citet{Ackerly:1996vo,Adler:2014jw,Agren:1985kl,Agren:1988fc,Agren:1996gl,Agren:2003ee,Agren:2004el,Agyeman:1999ef,aiba_tree_1996,Aiba:1997ho,Aiba:2005gl,Aiba:2009ft,AlmeidaCortez:1999jn,AlvarezClare:2009ht,anekonda_selection_1996,Anonymous:kmGgY8eO,Antunez:2001gk,Arendonk:1994kv,arendt_adaptive_1997,Arnqvist:1995es,Atkin:1996ug,Atkin:1996uy,Atkin:1998in,Atkin:2006kx,augspurger_light_1984,Augspurger:1984ct,Baker:2004jy,baltzer_determinants_2007,baltzer_physiological_2007,BarajasMorales:1987vz,baraloto_differential_2006,baraloto_seed_2005,Baraloto:2005er,Baraloto:2010fd,barberis_gaps_2005,Barigah:1998bi,Barot:2014hb,Beckmann:2012hn,Bellingham:2004kd,bicknell_development_1982,Blackman:1951ux,Bloor:2003fa,Bohlman:2006eo,Bonal:2007kf,bond_tortoise_1989,Bond:2001ti,Bond:2003bb,Bond:2005gn,Bongers:1990jl,Boogaard:1996hz,Boot:1996ug,Borchert:1994kj,Borenstein:2009um,Boring:1981ic,Botkin:1972tk,Bouffier:2008do,Bowman:2005ds,Bowman:2013cb,Brink:2011hi,Broncano:1998ck,Brouillette:2014hq,Brown:1996ks,Bruhn:2000jz,Buckley:2006ga,Burns:1997jy,Butterfield:1993uc,Cai:2007ie,Cai:2007vs,Cai:2008tu,Callaway:1994kk,CamaraZapata:2003df,CamaraZapata:2004up,Canadell:2007ij,Carmona:2010kp,Carnicer:2013el,caspersen_how_2011,Castro:2008wq,CastroDiez:1998gz,CastroDiez:2003jd,CastroDiez:2006gv,CastroDiez:2006gva,Catoni:2014bs,Causton:1994bk,Cebrian:1994jo,Cernusak:2008ds,Chacon:2005kn,Chambers:2001uw,Chao:2008hg,Chapin:1980gz,Chapin:1989il,Chaturvedi:2011jx,Chaturvedi:2014ie,Chave:2006tu,Chave:2009iy,Chen:2014jt,Chiariello:1989bl,clark_assessing_1999,clark_life_1992,Clark:1994kx,Clark:1999ed,Cochard:2007bn,Coleman:1994hm,coley_resource_1985,Coley:1983hk,Coley:1988wq,Comas:2002wt,Comas:2004jz,Comas:2004jza,Condit:1993hd,connell_subcanopy_1997,Conover:2009gj,Coombe:1962kz,coomes_comparison_1998,coomes_effects_2007,coomes_greater_2009,Cordero:2003wk,cornelissen_generalities_1999,cornelissen_interactive_1996,cornelissen_seedling_1996,Cornelissen:1996hf,Cornelissen:1997fd,Cornelissen:1998ta,Cornelissen:1999fq,Cornelissen:2001jr,Cornelissen:2003gw,Cornelissen:2008ge,Cregg:1988te,curran_wood_2008,dalling_seed_2002,Dalling:2004gs,darling_evaluating_2012,davies_tree_2001,DeBell:1994ix,DeDeyn:2008hv,DeLucia:1989kj,Delucia:1998vz,doncaster_non-linear_2008,Durand:2001fh,Duval:2000dg,Dyer:2001jw,Easdale:2009gv,edwards_allometric_2012,Edwards:2014db,Ellison:1993fz,Emmanuel:2014cz,Enquist:2007ek,Erickson:1974el,Evans:1998ug,Falagas:2008gtb,Falster:2005bw,Falster:2011ii,Falster:2015,Falster:2015bd,fan_hydraulic_2012,Farnsworth:1995im,Farrar:1989wt,Farrar:1998wx,Fayolle:2012bx,Fenner:1999ev,Fetene:2001kc,finegan_diameter_1999,FitzJohn:2014cf,Fortunel:2014gz,Fujimoto:2006fg,Galmes:2005fa,Garnier:1991kp,Garnier:1992kn,Garnier:1995fc,Garnier:1997ba,Garnier:1997fi,Garnier:1998wm,Garnier:2001fk,Gibert:2013bo,gilbert_life_2006,Givnish:1995ta,gleeson_plant_1994,Goldberg:1982cf,GonzalezMunoz:2013ie,Goudriaan:1990tl,Gower:1993jo,Grattapaglia:1996tq,Gregorczyk:1996fv,Grime:1975gr,Grime:1975kk,Grime:1977kc,Grime:1997wm,Grime:2012gt,grime1979plant,Groninger:1996bu,grotkopp_toward_2002,Grotkopp:2007di,Grubb:1977ki,Grubb:1996kr,Grubb:1996kra,Gulias:2009ja,Gunatilleke:1997hd,Gusewell:2004kc,gutsell_accurately_2002,Hannrup:2004ke,Hattenschwiler:2001eu,HDBradshaw:1995tu,Hellgren:1996by,Hempson:2014ir,Herault:2010db,Herault:2011dd,Higgins:2002iq,Higgins:2003hz,Hilbert:1990vo,Hipps:1995tu,Hirose:1988jl,HOFFLAND:1996gk,Hoffmann:2003ga,Holzwarth:2015dg,Hoshika:2014gv,houghton_does_2013,Houter:2014gu,Huante:1992jg,Huante:1995fd,Huante:1995tl,Huante:1998bk,Huante:1998ft,Huante:1998hx,Hubbell:2005dm,Hummel:2006ko,Hunt:1987wc,HUNT:1997ge,HUNT:1997gf,Huxley:1967gk,Iida:2012jb,Iida:2014ep,Iida:2014hq,Imaji:2010ik,Ingestad:1979fi,Ingestad:1995kw,Ishii:2000et,Ivancich:2012iu,Jennions:2013ta,Johnson:2009iz,Jurado:1992fh,Karlsson:1987il,Ke:1999bk,Khurana:2004wv,Kidd:1921bp,king_correlations_1991,king_influence_1994,king_relationships_1997,king_size-related_2011,king_tree_2005,King:2006dg,King:2006he,Kitajima:1994ez,Kitajima:2002fm,Kitajima:2013hb,Kneeshaw:2006bd,kobe_carbohydrate_1997,Kobe:1999ha,Koch:2004br,Kohyama:2003dk,Konings:1989we,Koricheva:2013hy,Koricheva:2013tz,Koricheva:2014ku,Korner:2005dh,korning_growth_1994,Kraft:2008un,Kruger:2006fq,Kruger:2006fqb,Kumar:2014iz,Kunstler:2009dt,Kunstler:2010ei,Kwesiga:1986tk,Lachapelle:2012kl,Lacourse:2009wg,Lajeunesse:2013tm,Lamarque:2011im,Lambers:1992bj,Lambers:2004bj,Lamers:2006dl,Larjavaara:2010bn,Larjavaara:2014ur,Lasky:2013iq,Lasky:2015wu,Latham:1992ei,Lavorel:2002ff,Lavorel:2002tw,Leao:2014hw,Lee:1996bh,Leoni:2009jx,Li:2005ww,Li:2013bi,Limpens:2014cm,lind_life-history_2013,Loach:1970gp,loehle_height_1998,loehle_tree_1988,Loehle:1988je,Long:1996vp,Long:2011er,LopezIglesias:2014dk,Loveys:2002hj,Loveys:2003kl,Lu:2014kb,lusk_leaf_2002,lusk_leaf_2004,lusk_ontogenetic_2006,lusk_whole-plant_2013,Lusk:1997ga,Lusk:2002fm,Lusk:2002fma,Lusk:2008fo,Lusk:2011cf,Lusk:2013bq,Lusk:2013hz,MadrigalGonzalez:2014go,Maranon:1993iv,Markesteijn:2009if,Marron:2005cm,Martin:2011ij,MartinezVilalta:2010iq,Matias:2011fq,Mayfield:2006gn,McCormack:2012ch,mccormick_larval_2004,McIntyre:1999go,McMillin:1973iv,Mediavilla:2003cg,Meinzer:2011br,Menaut:1990dl,MendesRodrigues:2011bc,Metcalfe:1997jy,Meziane:1999ci,Milberg:1998hv,Moles:2006ft,Montgomery:2004wq,Mooney:1978dl,Morin:2011ih,Moya:2008ep,Muller-landau_interspecific_2004,Muller:1990di,MullerLandau:2004dc,MullerLandau:2008eo,Mundim:2012eo,MunneBosch:2004ki,Murphy:1986vw,Murray:2013hd,MYERS:2007fo,myster_tree_2009,Nascimento:2005kl,Niemann:1995by,Niinemets:1999tw,Niinemets:2006jy,Niklas:2010bd,Nikula:2011ke,Norby:1989jc,Norby:2001go,OBERBAUER:1986ib,OKALI:1972uf,Oren:1986he,Osada:2001cq,Osada:2011ds,Osone:2008dr,Osone:2014hb,Osunkoya:1991en,Osunkoya:1994ip,Osunkoya:2010ef,Pages:2003ke,Paine:2015df,palik_vertical_1993,Paz:2005kx,Pere:2013gr,Pietsch:2014he,Piper:1986el,Pliura:2007we,POLLARD:1968wv,poorter_relationships_2008,Poorter:1986bb,Poorter:1989tx,Poorter:1990bt,Poorter:1990ku,Poorter:1991cf,Poorter:1991ki,Poorter:1992hg,Poorter:1994em,Poorter:1995jn,Poorter:1996kt,Poorter:1998uf,Poorter:1999fp,Poorter:1999wd,Poorter:2001fj,Poorter:2002uj,Poorter:2003dn,Poorter:2005dj,Poorter:2006kw,Poorter:2006vb,Poorter:2008iu,Poorter:2009ia,Poorter:2010co,Poorter:2012if,Popma:1988tv,PORTSMUTH:2007kn,Prentice:1991dz,primack_growth_1985,Prior:2004cv,Pugnaire:1999ww,Queenborough:2013jf,Quero:2008jg,Ralanguageanden:2014wf,Read:2011du,Reed:2003cx,Rees:2010gk,Reich:1987fh,Reich:1991kf,Reich:1992wm,Reich:1994bt,Reich:1995cb,Reich:1998ir,Reich:1998ja,Reich:1998ti,Reich:1998vb,Reich:1999gp,Reich:2003gm,Reich:2003jy,Reich:2014ho,Rice:1989ex,Rincon:1993cp,Rincon:1994da,Roderick:2000id,Rohula:2014cp,Rosenberg:2005hk,Rosenthal:1979do,Rossatto:2009gq,Rossi:2006ky,Roumet:1996jb,Rowland:2014bw,Rozendall:2006hm,Ruger:2011kv,Ruger:2012jv,Ruger:2012jva,RuizRobleto:2005hc,russo_interspecific_2008,Ryser:1996fo,Ryser:2014vo,Sack:2001ev,Sack:2004hm,Sack:2013ku,saldana-acosta_seedling_2009,SaldanaAcosta:2008jv,SalgadoLuarte:2010gg,SalgadoLuarte:2012ci,SanchezGomez:2006kg,Santiago:2004bn,Santiago:2007dw,Santiago:2007wi,Santos:2012gt,Saverimuttu:1996ih,Scheiter:2013ed,Schererlorenzen:2007ie,Schlapfer:1996fs,Scholes:1997vz,Schulze:2006ww,schumacher_influence_2009,Sellin:2013fi,Senevirathna:2003un,Shen:2014fw,Shinano:2001wr,Shipley:1990js,Shipley:2000jv,Shipley:2002ek,Shipley:2002fs,Shipley:2006dx,Shipley:2006ie,Sillett:2010ck,Soriano:2011ep,South:1991wn,Srivastava:2009we,stahl_whole-plant_2013,Stephenson:2014ek,sterck_plasticity_2013,sterck_sapling_2014,Sterck:2001ii,Sterck:2006wk,Sterck:2011eh,StGermain:2008fi,Stratton:2001ck,Sugiura:2011kc,Sugiyama:2005gx,Sungpalee:2009bh,Suzuki:1999id,svenning_seedling_2008,Swanborough:1996im,Swenson:2007iv,Swenson:2008ij,Syvertsen:1981uv,Tamme:2014wl,TanakaOda:2010dg,Taub:2002ku,Taylor:2001ur,terSteege:2001hy,Thomas:1996do,Thomas:1999bv,Thomas:2011br,Tjoelker:1998em,Tjoelker:1999gp,Tobner:2013cv,Tolley:1984ge,Tomlinson:2014im,Tullus:2012kw,turnbull_growth_2008,Turnbull:2012ew,Valentine:2012dz,Valio:2001tz,Valladares:2000bd,Valladares:2006bb,van_der_werf_importance_1998,van_dooren_delayed_1998,VanAndel:1989vq,vanderHeijden:2007kj,vanderWerf:1993by,VEENENDAAL:td,Veneklaas:1998uk,Veneklaas:2002dt,Venus:1979vd,Venus:1979wh,Vieira:2014cd,Vigl:2014hw,Villagra:2013do,Villar:1998iz,Villar:2006cf,VillarSalvador:2004th,Violle:2007jw,Vitasse:2009ke,Vogel:1988ux,Walczynska:2012hv,Wallentin:2008iw,WALTER:2008hc,walters_are_1996,walters_low-light_1999,Walters:1993eu,Walters:1993hf,Walters:2000tk,Wang:1998cs,Waring:1985ii,Warren:2005bc,Watling:1997ep,Watling:1997id,Weber:2008im,Weedon:2009ko,Weiher:1999js,West:2003fo,Westbrook:2011ja,Westoby:1998ug,Westoby:2002ft,Westoby:2006dm,Westoby:2009ch,Whale:1985to,White:2007gs,Wikberg:2004hl,Wikstrom:1995dc,Wilson:1999dm,Wright:1998ub,Wright:1999ds,Wright:1999eha,Wright:2000kw,Wright:2001gb,Wright:2003kb,Wright:2004jb,Wright:2005iv,Wright:2010tp,Xiong:2000hw,Xiong:2001ep,Xiong:2001es,Xu:2014cn,Yan:2008vk,Yang:1994cf,Yang:2010ek,Yang:2014js,yavitt_seedling_2008,Yeboah:2013jh,yetter_height_1986,Zhang:1995bh,Zhang:1995dz,Zhang:2011fe,Zvereva:2008jm}.
+
+A corresponding bibtex file is available in the file `references/read.bib`, available at
+\smurl{github.com/AnaisGibert/Growth\_trait\_metaanalysis}.
+
+\subsection{Quantifying and exploring the cause of heterogeneity in effect sizes}\label{app:heterogeneity}
+
+\noindent\textbf{Goal:} In our meta-analysis, reported studies differed in design as well as in vegetation type, biome or species studied. Such diversity is commonly referred to as methodological heterogeneity, and may or may not be responsible for observed discrepancies in the results of the studies. The extent of heterogeneity might influence the results of the meta-analysis, and thus induce some difficulty in drawing overall conclusions (See \citealt{Higgins:2002iq}). It is therefore important to be able to quantify the extent of heterogeneity among a collection of studies.
+
+\noindent\textbf{Methods:} A common way of addressing the extent of heterogeneity is the statistic $I^{2}$ (\citealt{Santos:2012gt}, originally defined by \citealt{Higgins:2002iq}). $I^{2}$ estimates the consistency of the results obtained from published studies used in our meta-analysis; it describes the percentage of variability in point estimates that is due to heterogeneity rather than sampling error. It can be interpreted as a ratio (0\% $<$ $I^{2}$ $<$ 100\%) not affected by the number of studies or the metric of the effect size in the analysis.
+
+An $I^{2}$ near zero indicates that almost all of the dispersion will be attributed to random error, and any attempt to explain the variance is an attempt to explain something that is (by definition) random. By contrast, as $I^{2}$ moves away from zero we know that some of the variance is real and can potentially be explained by subgroup analysis or meta-regression.
+There is no clear rule to cover definition for ``low'', ``moderate'' or ``high'' heterogeneity. \citealt{Higgins:2003hz} suggested some benchmarks for $I^{2}$ based on the survey of meta-analyses of clinical trials. They suggested that values on the order of 25\%, 50\% and 75\% might be considered as ``low'', ``moderate'' and ``high'', respectively. These suggestions are tentative; the interpretation of heterogeneity in a systematic review will depend critically on the size and direction of treatment effects, as well as on considerations of methodological diversity in the studies (see \citealt{Borenstein:2009um}).
+Here, we estimated $I^{2}$ as following equation from \citealt{Higgins:2002iq} using the entire dataset, then we calculated how part of the heterogeneity may be due to the influence of moderators (stage and publication year) and finally we asked if the residual heterogeneity was statistically significant. In R, we used the package metafor  \citep{Viechtbauer-2010}.
+
+
+\noindent\textbf{Results:} We observed high levels of heterogeneity for all traits (SLA :$I^{2}$ 84\% CI: 80-91\%, WD :$I^{2}$ 63\% CI: 48-85, Hmax: $I^{2}$ 81\% CI: 70-93, seed mass: $I^{2}$ 90\%, CI 84.9-94.9, Aarea: $I^{2}$ 71.5\% CI: 42-86) which suggests that the correlations coefficient r between growth and traits are not uniform across the range of studies investigated. This result suggested that a large part of the variance is not explained by sampling error.
+
+For SLA, seed mass and Hmax, 41\%, 20.2\% and 17\% respectively of the total amount of heterogeneity were accounted for by including the plant stage as a moderator. For the other traits, the plant stage explained little or no part of the heterogeneity observed across studies ( WD: 9\% and Aarea: 0.1\% ). These results were consistent with our expectations about a shift in the relationship between growth and traits across plant size for SLA, seed mass and Hmax, and the absence of an effect for WD and Aarea (see Theoretical expectation section).
+
+The test for residual heterogeneity was significant for all traits, possibly indicating that other moderators not considered in the model were influencing the correlation between growth and traits. This is not surprising because although the trait and growth measurements are standardized \citep{Cornelissen:2003gw}, studies differed in their design as well as in vegetation type, biome, and species studied. Indeed, a goal in the trait literature is to establish general patterns of correlation between growth and traits and to validate them across a large variety of conditions. Here, we did not explore the influence of other moderators, since our goal was to test clear hypotheses about the influence of plant size/stage, not to establish the best predictor of the correlation between growth and traits. Finally, since between study variation is significant, as indicated by heterogeneity analyses, the use of the random effect model was appropriate in our meta-analysis.
+\clearpage
+
+\subsection{Testing for publication bias}
+\noindent\textbf{Goal:} Studies with significant results are more likely to be published. As a consequence, the studies in a meta-analysis may overestimate the true effect size because they are based on a biased sample of the target population of studies. A publication bias occurs when the probability of publication depends on the statistical significance of the effect. Here we tested if there is evidence of any bias, and if the effect size observed for each trait is an artefact of this bias.
+
+\noindent\textbf{Methods:} Initially, we checked the dataset for publication bias with a visual assessment of funnel plots. A publication bias toward significant results creates an asymmetric funnel with small studies with non-significant effects missing from the mouth of the funnel on the side opposite to the true effect. While funnel plot are recommended to aid interpretation, there is a high risk of failing to detect actual publication bias (see \citealt{Koricheva:2013tz}) by using an exclusively visual assessment. In addition, funnel plots are not effective when the number of studies is small ($<30$) such as for Aarea and seed mass.
+Next, we used the ``trim and fill'' method to estimate the number of studies missing from our meta-analysis. This method adjusts for funnel-plot asymmetry \citep{Duval:2000dg}.
+Finally, we estimated the number of studies needed to overturn a result, using Rosenberg's fail-safe number \citep{Rosenberg:2005hk}. The fail-safe N is not based on funnel plot asymmetry. Rather, the Rosenberg method calculates the number of studies on-average null results that would need to be added to the given set of observed outcomes to reduce the significance level (p-value) of the weighted average effect \citep{Rosenberg:2005hk}. A significant meta-analytic result is robust if the fail-safe N is greater than 5k+10, where k is the number of studies already in the meta-analysis \citep{Rosenthal:1979do}.
+In R, we used the package ``metafor''  \citep{Viechtbauer-2010}.
+
+\noindent\textbf{Results:} As expected the correlation coefficient varied less as sample size increased (funnel plots in Fig. \ref{fig:figA7}). Funnel plots exhibited a typical funnel shape for all five functional traits analysed, showing no evidence for publication bias (Fig. \ref{fig:figA7}).
+The ``trim and fill'' method detected some missing values in the entire dataset (but no missing values in the "ideal" dataset). In the entire dataset, the estimated number of missing value ranges from 0 to 11 depending on the trait considered (Fig. \ref{fig:figA7}). The overall estimates measured with the fill in data changed from $0.5 \pm 0.07$ to 0.48 $\pm$ 0.07 for SLA and from $-0.48 \pm 0.11$ to \ensuremath{-0.29}$\pm$ 0.12 for the seed mass, suggesting a lower correlation coefficient for SLA, and a higher for seed mass. Although the correlations estimated with the missing studies filled in were closer to zero than without, the trait effect is still statistically significant (CIs not overlapping zero; SLA CI 0.35 to 0.62, Seed mass CI \ensuremath{-0.51} to \ensuremath{-0.06}).
+
+The Rosenberg's Fail-safe (N) were 10617, 3344, 1138, 2261, 643 for SLA, WD, Hmax, Seedmass, and Aarea, suggesting that a large number of studies with a mean correlation coefficient of 0 need to be added to the analysis before the cumulative correlation would become non-significant. N was greater than 5k+10 for all traits (120 $< N <$ 455).
+These results suggest that the impact of publication bias is probably trivial in our meta-analyses.
+
+\clearpage
+\subsection{Exploring temporal changes in effect size}
+\noindent\textbf{Goal:} Our meta-analysis combines data from studies published between 1983 and 2014. It has been shown that the magnitude of the effect size may change over time due to a publication bias (i.e. a lag to publish negative results), a change in the methodology or biological changes in the magnitude of the effect (see \citealt{Koricheva:2013hy}). Therefore, detecting such temporal changes may be important to the interpretation of the results of a meta-analysis.
+
+\noindent\textbf{Methods:} In the trait literature the year of publication may be confounded with a methodological change. Indeed, in the early 90's studies mainly focused on seedlings, whereas today a broader range of plant sizes/stages are studied (Fig. \ref{fig:figA9}). As a consequence, we used publication year as a moderator in our analyses \citep{Zvereva:2008jm} across but also within stages for all traits.
+
+\noindent\textbf{Results:} There was a change in the effect size with publication year for SLA ($p<0.0001$, estimates: $-0.04 \pm 0.009$ ), seed mass ($p = 0.011$, estimates: $0.041 \pm 0.016$ ) and Aarea ($p = 0.0102$, estimates: $-0.0453 \pm 0.0176$ ). Fig. \ref{fig:figA9} shows that for these three traits the publication years may be confounded with plant stage; correlation coefficients have been reported since 1993, but studies started to report data on adult stage only ten years later (around 2000-2007).
+
+For SLA and seed mass, a publication year effect was not observed within seedling and sapling stages, but was identified for the adult stage (SLA $p = 0.003$, seed mass $p = 0.06$). For both SLA and seed mass, the magnitude of the effect size decreased with publication year (Fig. \ref{fig:figA9} a and d), suggesting we overestimated the magnitude of the effect size for these two traits. In reality, the main effect size obtained would be more close to zero or more negative for SLA and more positive for seed mass. These results are consistent with our hypotheses; we expected a negative or non-significant effect of SLA on growth in adult stage, and a non-significant or positive effect of seed mass on plant growth (see theoretical expectation).
+
+For Aarea, publication year explained a part of the variation across stage but not within stage, and the magnitude of the effect size decreased with publication year. This pattern is classic feature in meta-analyses: \citealt{Koricheva:2013hy} showed that a majority of studies reported a decrease rather than an increase in the magnitude of effect size with publication year. Yet, here this effect did not lead to a reduction in statistical significance of the main effect size or to a change of sign. While overestimated, the main effect size for the correlation between growth and Aarea stays positive (Fig. \ref{fig:figA9} e).
+
+The temporal changes were confounded with a plant stage effect in our meta-analysis, but they did not jeopardize the stability of our conclusions. The conclusions of a meta-analysis conducted in different years should not differ from those reported here.
+
+
+\clearpage
+
+\bibliography{output/refs-suppmat}
+
+\end{document}
