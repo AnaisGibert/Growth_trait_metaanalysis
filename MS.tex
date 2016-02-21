@@ -69,7 +69,7 @@ The rate at which \textbf{live biomass} $B$ is produced by a plant is given by
 \begin{equation}\label{eq:eq0}
 \underbrace{\frac{\ud B}{\ud t}}_{\text{net live biomass production}} = \underbrace{\alpha_{\rm y}}_{\text{yield}}  \big(\underbrace{A_{\rm l} p}_{\text{photosynthesis}} - \underbrace{\sum_{i = {\rm l,s,r}} M_{i} r_{i}}_{\text{respiration}}\big) - \underbrace{ \sum_{i = \rm{l,s,r}} M_{i} k_{i}}_{\text{turnover}} \, ,
 \end{equation}
-where $\alpha_{\rm y}$ is the ratio of carbon fixed in mass per carbon assimilated, and $p$ is the assimilation rate of CO$_{2}$ per leaf area. Here, and in the following equations, $M_i$ denotes the \textbf{live mass on the plant}, $r_i$ the mass-specific \textbf{respiration rate}, and $k_i$ the \textbf{turnover rate} of different plant tissues; the subscripts $i = \rm{l,s,r,t,f}$ referring to leaves, sapwood and bark, roots, total of these vegetative tissues, and to the reproductive tissues (fruits, flowers etc.)  Similarly $A_i$ denotes \textbf{areas}, of leaves ($i = l$) and of cross-sections of total stem and sapwood ($i =\rm{st,ss}$) respectively. Note that the live biomass $B = M_{\rm t} + M_{\rm f}$.  Applying the chain rule of differential calculus, the \textbf{growth rate in plant mass}, ($M_{\rm t}$), can be decomposed as
+where $\alpha_{\rm y}$ is the ratio of carbon fixed in mass per carbon assimilated, and $p$ is the assimilation rate of CO$_{2}$ per leaf area. Here, and in the following equations, $M_i$ denotes the \textbf{live mass on the plant}, $r_i$ the mass-specific \textbf{respiration rate}, and $k_i$ the \textbf{turnover rate} of different plant tissues; the subscripts $i = \rm{l,s,r,t,f}$ referring to leaves, sapwood and bark, roots, total of these vegetative tissues, and to the reproductive tissues (fruits, flowers etc.)  Similarly $A_i$ denotes \textbf{areas}, of leaves ($i = l$) and of cross-sections of total stem and sapwood ($i =\rm{st,ss}$) respectively. Note that the live biomass $B = M_{\rm t} + M_{\rm f}$. Applying the chain rule of differential calculus, the \textbf{growth rate in plant mass}, ($M_{\rm t}$), can be decomposed as
 \begin{equation}\label{eq:eq1}
 \underbrace{{\frac{\ud M_{\rm t}}{\ud t}}}_{\text{growth rate in mass}} = \underbrace{\frac{\ud M_{\rm t}}{\ud B}}_{\text{allocation to vegetative growth}}  \times \underbrace{\frac{\ud B}{\ud t}}_{\text{net live biomass production}},
 \end{equation}
@@ -341,8 +341,8 @@ The code and data for producing all figures and results in this paper is availab
   \\
   \multicolumn{9}{ l } {\textbf{Predicted effect on plant growth rate} (small plant {\sepp} large plant)} \\
   & \multicolumn{2}{ l } {in mass} \\
-  & & \tabitem{Absolute} & $\ud M_{\rm t} / \ud t$ & $\downarrow$\sepp$\downarrow$ & $-$\sepp$-$ &  $-${\sepp}$\uparrow$ & $\uparrow${\sepp}$-$ & $\uparrow${\sepp}$\uparrow$ \\
-  & & \tabitem{Relative} & $\ud M_{\rm t} / \ud t / M_{\rm t}$ & $\uparrow${\sepp}$\downarrow$ & $\downarrow${\sepp}$\downarrow$ &  $-${\sepp}$\uparrow$ & $\downarrow${\sepp}$-$ & $\uparrow${\sepp}$\uparrow$ \\
+  & & \tabitem{Absolute} &  $\ud M_{\rm t} / \ud t$ & $\downarrow$\sepp$\downarrow$ & $-$\sepp$-$ &  $-${\sepp}$\uparrow$ & $\uparrow${\sepp}$-$ & $\uparrow${\sepp}$\uparrow$ \\
+  & & \tabitem{Relative} & $\ud M_{\rm t} / \ud t . M_{\rm t}$ & $\uparrow${\sepp}$\downarrow$ & $\downarrow${\sepp}$\downarrow$ &  $-${\sepp}$\uparrow$ & $\downarrow${\sepp}$-$ & $\uparrow${\sepp}$\uparrow$ \\
   & \multicolumn{2}{ l } {in height} \\
   & & \tabitem{Absolute} & $\ud H / \ud t$ & $\uparrow${\sepp}$\downarrow$ & $\downarrow${\sepp}$\downarrow$ & $-${\sepp}$\uparrow$ & $\uparrow${\sepp}$-$ & $\uparrow${\sepp}$\uparrow$ \\
   & & \tabitem{Relative} & $\ud H / \ud t / H$ & $\uparrow${\sepp}$\downarrow$ & $\downarrow${\sepp}$\downarrow$ & $-${\sepp}$\uparrow$ & $\downarrow${\sepp}$-$ & $\uparrow${\sepp}$\uparrow$ \\
