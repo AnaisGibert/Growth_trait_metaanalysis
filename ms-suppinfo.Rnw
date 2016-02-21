@@ -55,7 +55,7 @@
 \begin{figure}[h!]
 \centering
 \includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6c.pdf}
-\caption{Effects size on the correlation between growth and traits of plant stage (mod1), growth measurement (mod2), vegetation type (mod3), and experiment type (mod4). a) Specific leaf area (SLA), b) Wood density (WD),c) Assimilation rate of CO2 (Aarea), d) Seed mass, and e) Asymptotic maximum height (Hmax). The effect size (z + 95\%CI) is reported for each class, and models are fitted by restricted max likelihood (REML). Abbreviation: GR = growth rate and RGR = relative growth rate, measured in diameter (D), height (H), mass(M), cross section area (CSA) and volume (V), across GF: coefficient of correlation measured on tree in mixture with other growth form. AIC: Akaike information criterion corresponds to the quality of each model, and allow a comparison between models. Smallest is the AIC better is the model. Results shown here are from ``ideal'' subset of data (for details see ``Material and Methods''). ``n'' indicates number of correlation r reported.}
+\caption{Effects size on the correlation between growth and traits of plant stage (mod1), growth measurement (mod2), vegetation type (mod3), and experiment type (mod4). a) Specific leaf area (SLA), b) Wood density (WD),c) Assimilation rate of CO2 (Aarea), d) Seed mass, and e) Asymptotic maximum height (Hmax). The effect size (z + 95\%CI) is reported for each class, and models are fitted by restricted max likelihood (REML). Abbreviation: GR = growth rate and RGR = relative growth rate, measured in diameter (D), height (H), mass(M), cross section area (CSA) and volume (V), across GF: coefficient of correlation measured on tree in mixture with other growth form. AIC: Akaike information criterion corresponds to the quality of each model, and allow a comparison between models. The smaller the AIC, the better the model is. Results shown here are from ``ideal'' subset of data (for details see ``Material and Methods''). ``n'' indicates number of correlation r reported.}
 \label{fig:figA6}
 \end{figure}
 
@@ -174,14 +174,14 @@ Aarea & Photosynthetic rate per area & ``photosynthetic rate per area'' OR ``rat
 
 For the case of seedlings, the growth equations can be simplified considerably. Turnover of all tissues and allocation to reproduction have not yet begun. It is also common to assume all respiration rates are proportional to leaf area. Biomass growth rate in seedling then becomes a linear function of leaf area:
 \begin{equation}\label{eq:eq1_seedlings}
-{\frac{\ud M_{\rm t}}{\ud t}}  \approx  A_{\rm l} \, y \, (p - r_{\rm l}).
+{\frac{\ud M_{\rm a} }{\ud t}}  \approx  A_{\rm l} \, y \, (p - r_{\rm l}).
 \end{equation}
 
-The \textbf{relative growth rate in mass} $({\rm RGR}_{{\rm mass}})$ in seedlings can be obtained by dividing both sides of this simplified eq \ref{eq:eq1_seedlings} by the total mass of living tissues $M_{\rm t}$. The outcome is equivalent to the classical partitioning of RGR \citep{Lambers:1992bj, Cornelissen:1998ta}:
+The \textbf{relative growth rate in mass} $({\rm RGR}_{{\rm mass}})$ in seedlings can be obtained by dividing both sides of this simplified eq \ref{eq:eq1_seedlings} by the total mass of living tissues $M_{\rm a} $. The outcome is equivalent to the classical partitioning of RGR \citep{Lambers:1992bj, Cornelissen:1998ta}:
 \begin{equation}\label{eq:eq1_seedlings_RGR}
 {\rm RGR}_{{\rm mass}}  \approx {\rm NAR} \times  {\rm SLA} \times  {\rm LMF},
 \end{equation}
-where net assimilation rate NAR = $y \, (p - r)$, SLA = $A_{\rm l}/ M_{\rm l}$ and leaf mass fraction LMF = $M_{\rm l}/ M_{\rm t}$.
+where net assimilation rate NAR = $y \, (p - r)$, SLA = $A_{\rm l}/ M_{\rm l}$ and leaf mass fraction LMF = $M_{\rm l}/ M_{\rm a} $.
 
 \subsection{Literature coverage by trait}\label{app:literature-snapshot}
 
@@ -247,3 +247,4 @@ The temporal changes were confounded with a ontogenetic stage effect in our meta
 \bibliography{output/refs-suppmat}
 
 \end{document}
+

@@ -974,3 +974,4 @@ figure_A9 <- function(GIi) {
       funnel_Aarea_year, nrow = 3, ncol = 2)
   })
 }
+
