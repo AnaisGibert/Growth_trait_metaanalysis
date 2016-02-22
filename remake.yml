@@ -83,7 +83,7 @@ targets:
     command: merge_bib_files(combined_bib, read_bib)
 
   output/refs-suppmat.bib:
-    command: write.bib(combined_bib, file = target_name)
+    command: write.bib(suppmat_bib, file = target_name)
 
   read_bib:
     command: read.bib("references/read.bib")
