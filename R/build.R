@@ -18,6 +18,8 @@ latex_build <- function(filename, bibliography=NULL,
     res <- run_latex(filename, interaction, engine)
   }
 
+  Encoding(res) <- "UTF-8"
+
   pat <- c("Rerun to get cross-references right", # labels
            "Rerun to get citations correct",      # bibtex
            "Rerun to get outlines right")         # tikz
