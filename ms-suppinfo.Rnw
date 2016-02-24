@@ -1,4 +1,3 @@
-
 \documentclass[10pt,twoside]{article}
 
 \usepackage{suppmat}

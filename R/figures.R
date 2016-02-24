@@ -1,5 +1,6 @@
 ## Figure main text
 figure_1 <- function(RawData) {
+
   p2 <- my_plot_1("", ggplot(RawData, aes(x = reorder(factor(trait), factor(trait),
     function(x) length(x) * 1), fill = stage, order = stage)))
   p2
@@ -334,7 +335,7 @@ figure_3.4 <- function(GCi, GCrgr , GCagr) {
                        vjust.value = 2, limit.x.text = -0.6, limit.y.text.l1 , limit.y.text.l2 )
   
   p2 <- coeff.plot.gr3(data = CoefModel.WD, data1=CoefModel.WD2, data.RGR = CoefModel.WD.s, data.AGR = CoefModel.WD.opt, 
-                       LRT=LRT.wd, PVAL=PVAL.wd, round.value = 2, significativite = "ns", title = "b) WD",
+                       LRT=LRT.wd, PVAL=PVAL.wd, round.value = 2, significativite = "ns", title = "b) Wood density",
                        limit.x.min = -1, limit.x.max = 1, limit.x.n = 0.84,
                        vjust.value = 2, limit.x.text = -0.73, limit.y.text.l1 , limit.y.text.l2)
   
@@ -415,7 +416,7 @@ figure_3 <- function(GIrgr) {
                        limit.x.min = -1, limit.x.max = 1.5, limit.x.n = 1.3,
                        vjust.value = 2, limit.x.text = -0.6, limit.y.text.l1 , limit.y.text.l2 )
   
-  p2 <- coeff.plot.rgr(data = CoefModel.WD,title = "b) WD", LRT=LRT.wd, PVAL=PVAL.wd, round.value = 3, significativite = "*",
+  p2 <- coeff.plot.rgr(data = CoefModel.WD,title = "b) Wood density", LRT=LRT.wd, PVAL=PVAL.wd, round.value = 3, significativite = "*",
                        limit.x.min = -1, limit.x.max = 1, limit.x.n = 0.84,
                        vjust.value = 2, limit.x.text = -0.73, limit.y.text.l1 , limit.y.text.l2)
   
@@ -655,7 +656,7 @@ figure_A4 <- function(GIi, GIrgr, GIagr) {
   # annotation_custom(grobA)
 
   p1 <- my_plot_overall(SLA, title = "a) SLA") 
-  p2 <- my_plot_overall(WD, title = "b) WD") 
+  p2 <- my_plot_overall(WD, title = "b) Wood density") 
   p3 <- my_plot_overall(Hmax, title = "c) Hmax") 
   p4 <- my_plot_overall(Seedmass, title = "d) Seed mass") 
   p5 <- my_plot_overall(Aarea, title = "e) Aarea") 
@@ -843,7 +844,7 @@ figure_A7 <- function(GIi) {
   par(mar = c(5, 4, 1, 2))
 
   p1 <- figure_trim.and.fill(GIi[["SLA"]], title = "a) SLA")
-  p2 <- figure_trim.and.fill(GIi[["WD"]], title = "b) WD")
+  p2 <- figure_trim.and.fill(GIi[["WD"]], title = "b) Wood density")
   p3 <- figure_trim.and.fill(GIi[["Hmax"]], title = "c) Hmax")
   p4 <- figure_trim.and.fill(GIi[["Seedmass"]], title = "d) Seedmass")
   p5 <- figure_trim.and.fill(GIi[["Aarea"]], title = "e) Aarea")
@@ -889,7 +890,7 @@ figure_A8 <- function(GCi) {
 
   layout(matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), 3, 4, byrow = TRUE))
   plotgrowth(GCi[["SLA"]], "a) SLA")
-  plotgrowth(GCi[["WD"]], "b) WD")
+  plotgrowth(GCi[["WD"]], "b) Wood density")
   plotgrowth(GCi[["Hmax"]], "c) Hmax")
   plotgrowth(GCi[["Seedmass"]], "d) Seed mass")
   mtext("Number of correlation extracted", side = 1, line = 2.5, at = 0,
@@ -932,7 +933,7 @@ figure_A9 <- function(GIi) {
       3), "***"), size = 2)
 
 
-  funnel_WD_year <- my_funnelplot("b) WD", ggplot(GIi[["WD"]], aes(x = year,
+  funnel_WD_year <- my_funnelplot("b) Wood density", ggplot(GIi[["WD"]], aes(x = year,
     y = corr.r, colour = factor(stage), size = 2, alpha = 0.6))) + geom_point() +
     scale_y_continuous("", limits = c(-1, 1)) + scale_x_continuous("", limits = c(1990,
     2015)) + theme(legend.position = "none") + annotate("text", x = 1995, y = -0.9,
