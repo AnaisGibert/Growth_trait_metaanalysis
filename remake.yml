@@ -174,14 +174,14 @@ targets:
       width:  4
 
   output/Fig3.pdf:
-    command: figure_3(GIrgr)
+    command: figure_3.1(GIrgr,GCrgr )
     plot:
       height: 6
       width:  5
 
 
   output/Fig4.pdf:
-    command: figure_3.4(GCi, GCrgr , GCagr)
+    command: figure_3.2(GCrgr , GCagr)
     plot:
       height: 6
       width:  5

@@ -130,6 +130,7 @@ coeff.plot.gr3 <- function(data, data1, data.RGR, data.AGR, title = "",LRT, PVAL
 #   data1["x.coord"] <- limit.x.n
   data["x.coord"] <- limit.x.n
   
+  
     plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
     
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) +
@@ -155,10 +156,11 @@ coeff.plot.gr3 <- function(data, data1, data.RGR, data.AGR, title = "",LRT, PVAL
 
 
 coeff.plot.gr2 <- function(data, data.RGR, data.AGR, title = "", limit.x.min, limit.x.max, limit.x.text,
-                          limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1="#9E5F3A", color2="black") {
+                          limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1="#9E5F3A", color2="black", labels.table =c("RGR ideal", "RGR complete")) {
   
   data.RGR["x.coord"] <- limit.x.n
   data.AGR["x.coord"] <- limit.x.n
+  data["x.coord"] <- limit.x.n
   
   plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
     
@@ -176,9 +178,10 @@ coeff.plot.gr2 <- function(data, data.RGR, data.AGR, title = "", limit.x.min, li
   plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +1.96 * SE, color = factor(growth)))) +
     geom_point(aes(x = stage, y = Inte),position = dodge) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4,width = 0.2, position = dodge) +
     scale_y_continuous("Effect size",limits = c(limit.x.min, limit.x.max)) +
-    geom_text(aes(stage,x.coord, label = paste("n=", N), color = factor(growth), group = "AGR"),size = 2, data = data.AGR, parse = F, position = "identity", vjust = +vjust.value, hjust = 0) + 
-    geom_text(aes(stage, x.coord, label = paste("n=",N), color = factor(growth), group = "RGR"), size = 2, data = data.RGR, parse = F, position = "identity", vjust = -vjust.value, hjust = 0) +
-    scale_color_manual(name = "", values=c(color1, color2), breaks = c("RGR", "AGR"), labels = c("RGR", "AGR"))
+    geom_text(aes(stage, x.coord, label = paste("n =", N), color = factor(growth)),size = 2, data = data, parse = F, position = dodge, hjust = 0) +
+#     geom_text(aes(stage,x.coord, label = paste("n=", N), color = factor(growth), group = "AGR"),size = 2, data = data.AGR, parse = F, position = "identity", vjust = +vjust.value, hjust = 0) + 
+#     geom_text(aes(stage, x.coord, label = paste("n=",N), color = factor(growth), group = "RGR"), size = 2, data = data.RGR, parse = F, position = "identity", vjust = -vjust.value, hjust = 0) +
+    scale_color_manual(name = "", values=c(color1, color2), breaks = c("RGR", "AGR"), labels = labels.table)
 }
 
 # RGR = "#9E5F3A", AbsGR = "#F4395B")
