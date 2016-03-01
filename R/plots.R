@@ -85,7 +85,7 @@ coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
 #     x.coord, label = paste("n=", N), color = factor(stress), group = "ideal"),
 #     size = 2, data = data.ideal, parse = F, position = "identity", vjust = -vjust.value,
 #     hjust = 0) + 
-    scale_color_manual(name = "", values=c(color1, color2), breaks = c("ideal", "complete"), labels = c(ideal = "ideal", complete = "entire")) +
+    scale_color_manual(name = "", values=c(color1, color2), breaks = c("ideal", "complete"), labels = c(ideal = "conservative dataset", complete = "entire dataset")) +
        annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:", round(LRT,
       2)), size = 2) + annotate("text", x = limit.y.text.l2, y = limit.x.text,
     label = paste("p.value =", round(PVAL, round.value), significativite),
@@ -155,8 +155,7 @@ coeff.plot.gr3 <- function(data, data1, data.RGR, data.AGR, title = "",LRT, PVAL
 }
 
 
-coeff.plot.gr2 <- function(data, data.RGR, data.AGR, title = "", limit.x.min, limit.x.max, limit.x.text,
-                          limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1="#9E5F3A", color2="black", labels.table =c("RGR ideal", "RGR complete")) {
+coeff.plot.gr2 <- function(data, data.RGR, data.AGR, title = "", LRT, PVAL,round.value,significativite = "", limit.x.min, limit.x.max, limit.x.text, limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1="#9E5F3A", color2="black", labels.table =c("RGR from conservative dataset", "RGR from entire dataset")) {
   
   data.RGR["x.coord"] <- limit.x.n
   data.AGR["x.coord"] <- limit.x.n
@@ -181,7 +180,9 @@ coeff.plot.gr2 <- function(data, data.RGR, data.AGR, title = "", limit.x.min, li
     geom_text(aes(stage, x.coord, label = paste("n =", N), color = factor(growth)),size = 2, data = data, parse = F, position = dodge, hjust = 0) +
 #     geom_text(aes(stage,x.coord, label = paste("n=", N), color = factor(growth), group = "AGR"),size = 2, data = data.AGR, parse = F, position = "identity", vjust = +vjust.value, hjust = 0) + 
 #     geom_text(aes(stage, x.coord, label = paste("n=",N), color = factor(growth), group = "RGR"), size = 2, data = data.RGR, parse = F, position = "identity", vjust = -vjust.value, hjust = 0) +
-    scale_color_manual(name = "", values=c(color1, color2), breaks = c("RGR", "AGR"), labels = labels.table)
+    scale_color_manual(name = "", values=c(color1, color2), breaks = c("RGR", "AGR"), labels = labels.table)+
+    annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:", round(LRT, 2)), size = 2) + 
+    annotate("text", x = limit.y.text.l2, y = limit.x.text, label = paste("p.value =", round(PVAL, round.value), significativite), size = 2)
 }
 
 # RGR = "#9E5F3A", AbsGR = "#F4395B")

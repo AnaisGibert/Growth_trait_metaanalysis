@@ -176,15 +176,15 @@ targets:
   output/Fig3.pdf:
     command: figure_3.1(GIrgr,GCrgr )
     plot:
-      height: 6
-      width:  5
+      height: 5
+      width:  4
 
 
   output/Fig4.pdf:
-    command: figure_3.2(GCrgr , GCagr)
+    command: figure_3.2(GCi)
     plot:
-      height: 6
-      width:  5
+      height: 5
+      width:  4
 
 ## Figures appendix
 
