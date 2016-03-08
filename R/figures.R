@@ -110,7 +110,7 @@ figure_panels_traits_model <- function(fits, ...) {
 
     data[["by"]] <- as.factor(data[[category_variable]])
 
-    label.n.x <- limit.x.min + 0.885*(limit.x.max - limit.x.min)
+    label.n.x <- limit.x.min + 0.88*(limit.x.max - limit.x.min)
 
     dodge <- position_dodge(width = width)
 
@@ -142,21 +142,21 @@ figure_panels_traits_model <- function(fits, ...) {
   }
 
   p1 <- coeff.plot(fits[["SLA"]], title = "a) SLA",
-                limit.x.min = -1, limit.x.max = 1.5,  ...) +
+                limit.x.min = -1, limit.x.max = 1.6,  ...) +
         theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank(),
               axis.title.y = element_text(colour = "white"))
 
   p2 <- coeff.plot(fits[["WD"]], title = "b) Wood density",
-               limit.x.min = -1, limit.x.max = 1,  ...) +
+               limit.x.min = -1, limit.x.max = 1.05,  ...) +
         theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
               plot.margin  = unit(c(2.5, 0, 1.5, 1), "mm"), axis.title.x = element_blank())
 
   p3 <- coeff.plot(fits[["Hmax"]], title = "c) Hmax",
-                limit.x.min = -1, limit.x.max = 1.5, ...) +
+                limit.x.min = -1, limit.x.max = 1.6, ...) +
         theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank())
 
   p4 <- coeff.plot(fits[["Seedmass"]], title = "d) Seed mass",
-                 limit.x.min = -1.5, limit.x.max = 1.5, ...) +
+                 limit.x.min = -1.5, limit.x.max = 1.6, ...) +
         theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
               plot.margin  = unit(c(2.5, 0, -3.5, 1), "mm"))
 
