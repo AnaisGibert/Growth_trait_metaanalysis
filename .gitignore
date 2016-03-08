@@ -8,5 +8,6 @@ downloads
 *.png
 *.html
 *.docx
+ms-suppinfo.tex
 *_cache*
 *_files*
