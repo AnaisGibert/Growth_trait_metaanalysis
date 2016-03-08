@@ -628,90 +628,44 @@ table_overall <- function(y) {
 
 }
 
-default_lmer_control <- function() {
-  # Ignore warnings when we have fewer observations than levels
-  lmerControl(check.nobs.vs.nlev = "ignore",
-              check.nobs.vs.rankZ = "ignore",
-              check.nobs.vs.nRE = "ignore") 
-#            optimizer = "bobyqa", 
-#            check.conv.grad = .makeCC("ignore", tol = 0.002, relTol = NULL), 
-#            check.conv.singular = .makeCC(action = "ignore", tol = 1e-04), 
-#            check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)
-#           )
-}
 
-# Summarise results of the model
 
-fun_OneLR <- function(x) {
-
-  # Throws messages when there are less than 3 obseravtions for each stage, 
+# Fit and summarise model
+fit_lmer <- function(data, effect) {
+  default_lmer_control <- function() {
+    # Ignore warnings when we have fewer observations than levels
+    lmerControl(check.nobs.vs.nlev = "ignore",
+                check.nobs.vs.rankZ = "ignore",
+                check.nobs.vs.nRE = "ignore")
+  }
+  # Throws messages when there are less than 3 observations for each stage,
   # but we're fine with that
   suppressWarnings({
-    null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
+    null <- lmer(corr.z ~ 1 + (1 | id), data = data, weights = nb.sp, REML = FALSE,
                  control = default_lmer_control())
-    m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = FALSE,
+    m <- lmer(as.formula(paste("corr.z ~", effect, "+ (1 | id)")), data = data, weights = nb.sp, REML = FALSE,
               control = default_lmer_control())
     ## log likelihood ratio test, anova makes sure to use the ML criterion, even
     ## though the models were fit with REML
-    anova(null, m)$Chisq[2]
+    av <- anova(null, m)
+    list(LRT = av$Chisq[2], PVAL = av$Pr[2])
   })
 }
 
-fun_Onepvalue <- function(x) {
-  
-  # Throws messages when there are less than 3 obseravtions for each stage, 
-  # but we're fine with that
-  suppressWarnings({
-    null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-                 control = default_lmer_control())
-    m <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-              control = default_lmer_control())
-    ## log likelihood ratio test, anova makes sure to use the ML criterion, even
-    ## though the models were fit with REML
-    anova(null, m)$Pr[2]
-    })
-  }
-
-fun_OneLR2 <- function(x) {
-  null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = default_lmer_control())
-  m <- lmer(corr.z ~ stageRGR + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = default_lmer_control())
-  sum <- summary(m)
-  ## log likelihood ratio test, anova makes sure to use the ML criterion, even
-  ## though the models were fit with REML
-  return(anova(null, m)$Chisq[2])
+fun_OneLR <- function(x) {
+  fit_lmer(x, "stage")[["LRT"]]
 }
 
-fun_Onepvalue2 <- function(x) {
-  null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = default_lmer_control())
-  m <- lmer(corr.z ~ stageRGR + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = default_lmer_control())
-  sum <- summary(m)
-  ## log likelihood ratio test, anova makes sure to use the ML criterion, even
-  ## though the models were fit with REML
-  anova(null, m)$Pr[2]
+fun_Onepvalue <- function(x) {
+  fit_lmer(x, "stage")[["PVAL"]]
 }
 
 fun_OneLR_year <- function(x) {
-  null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = default_lmer_control())
-  m <- lmer(corr.z ~ year + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = default_lmer_control())
-  sum <- summary(m)
-  ## log likelihood ratio test, anova makes sure to use the ML criterion, even
-  ## though the models were fit with REML
-  anova(null, m)$Chisq[2]
+  fit_lmer(x, "year")[["LRT"]]
 }
 
 fun_Onepvalue_year <- function(x) {
-  null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = default_lmer_control())
-  m <- lmer(corr.z ~ year + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = default_lmer_control())
-  sum <- summary(m)
-  anova(null, m)$Pr[2]
+  fit_lmer(x, "year")[["PVAL"]]
 }
 
 

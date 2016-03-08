@@ -147,7 +147,7 @@ targets:
   ## and by trait
   RCi:
     command:
-      - EffectSizeSum(CompleteData_inter)
+      - EffectSizeSum(CompleteData_rgr)
       - list_by_trait(.)
 
   RIi:
@@ -174,14 +174,14 @@ targets:
       width:  4
 
   output/Fig3.pdf:
-    command: figure_3.1(GIrgr,GCrgr )
+    command: figure_3(GIrgr,GCrgr )
     plot:
       height: 5
       width:  4
 
 
   output/Fig4.pdf:
-    command: figure_3.2(GCi)
+    command: figure_4(GCi)
     plot:
       height: 5
       width:  4
@@ -219,12 +219,6 @@ targets:
     plot:
       height: 6
       width:  5
-
-  #output/FigA4.1.pdf:
-   # command: figure_3.3(GCi, GIi)
-   # plot:
-    #  height: 6
-    #  width:  5
 
   output/FigA5.pdf:
     command: figure_A5(RIi, RCi)

@@ -18,67 +18,6 @@ my_plot_1 <- function(title, ggobj, xlab = expression(paste("")), ylab = "Number
 
 }
 
-coeff.plot <- function(data, data.complete, data.ideal, LRT, PVAL, title = "",
-  significativite = "", round.value, limit.x.min, limit.x.max, limit.x.text,
-  limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1, color2) {
-
-  data.complete["x.coord"] <- limit.x.n
-  data.ideal["x.coord"] <- limit.x.n
-  data["x.coord"] <- limit.x.n
-
-  plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
-
-    p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(xintercept = 0,
-      color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      scale_x_discrete("Stage", limit = c("seedling", "sapling", "adult")) +
-      coord_flip() + mytheme() + theme(legend.position = "none")
-    p
-  }
-
-  dodge <- position_dodge(width = 0.6)
-
-  plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +
-    1.96 * SE, color = factor(stress)))) + geom_point(aes(x = stage, y = Inte),
-    position = dodge) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4,
-    width = 0, position = dodge) + scale_y_continuous("Effect size",
-    limits = c(limit.x.min, limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("n=",
-    N), color = factor(stress)), size = 2, data = data,
-    parse = F, position = dodge, hjust = 0) +
-    scale_color_manual(name = "", values=c(color1, color2), breaks = c("ideal", "complete"), labels = c(ideal = "conservative dataset", complete = "entire dataset")) +
-       annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:", round(LRT,
-      2)), size = 2) + annotate("text", x = limit.y.text.l2, y = limit.x.text,
-    label = paste("p.value =", round(PVAL, round.value), significativite),
-    size = 2)
-}
-
-coeff.plot.gr2 <- function(data, data.RGR, data.AGR, title = "", LRT, PVAL,round.value,significativite = "", limit.x.min, limit.x.max, limit.x.text, limit.x.n, limit.y.text.l1, limit.y.text.l2, vjust.value, color1="#9E5F3A", color2="black", labels.table =c("RGR from conservative dataset", "RGR from entire dataset")) {
-
-  data.RGR["x.coord"] <- limit.x.n
-  data.AGR["x.coord"] <- limit.x.n
-  data["x.coord"] <- limit.x.n
-
-  plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
-
-    p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) +
-      geom_vline(xintercept = 0,color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      scale_x_discrete("Stage", limit = c("seedling", "sapling", "adult")) +
-      coord_flip() + mytheme() + theme(legend.position = "none")
-    p
-  }
-
-  dodge <- position_dodge(width = 0.4)
-
-
-
-  plot1(title, ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +1.96 * SE, color = factor(growth)))) +
-    geom_point(aes(x = stage, y = Inte),position = dodge) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4,width = 0.2, position = dodge) +
-    scale_y_continuous("Effect size",limits = c(limit.x.min, limit.x.max)) +
-    geom_text(aes(stage, x.coord, label = paste("n =", N), color = factor(growth)),size = 2, data = data, parse = F, position = dodge, hjust = 0) +
-    scale_color_manual(name = "", values=c(color1, color2), breaks = c("RGR", "AGR"), labels = labels.table)+
-    annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:", round(LRT, 2)), size = 2) +
-    annotate("text", x = limit.y.text.l2, y = limit.x.text, label = paste("p.value =", round(PVAL, round.value), significativite), size = 2)
-}
-
 coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite = "",
   round.value, limit.x.min, limit.x.max, limit.x.text, limit.x.n, limit.y.text.l1,
   limit.y.text.l2, vjust.value, color1) {
