@@ -36,24 +36,24 @@
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA1.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA1}
 \caption{Relationships between a) age and diameter (m), b) age and height (m), and c) diameter and height among plants in the Biomass and Allometry Database. Lines indicate the cut-offs between stage categories used in this study: blue lines indicate limit between seedlings and saplings, red lines indicate limits between saplings and adults.}
 \label{fig:figA1}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6a.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6a}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6b.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6b}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6c.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA6c}
 \caption{Effects size on the correlation between growth and traits of plant stage (mod1), growth measurement (mod2), vegetation type (mod3), and experiment type (mod4). a) Specific leaf area (SLA), b) Wood density (WD),c) Assimilation rate of CO2 (Aarea), d) Seed mass, and e) Asymptotic maximum height (Hmax). The effect size (z + 95\%CI) is reported for each class, and models are fitted by restricted max likelihood (REML). Abbreviation: GR = growth rate and RGR = relative growth rate, measured in diameter (D), height (H), mass(M), cross section area (CSA) and volume (V), across GF: coefficient of correlation measured on tree in mixture with other growth form. AIC: Akaike information criterion corresponds to the quality of each model, and allow a comparison between models. The smaller the AIC, the better the model is. Results shown here are from ``ideal'' subset of data (for details see ``Material and Methods''). ``n'' indicates number of correlation r reported.}
 \label{fig:figA6}
 \end{figure}
@@ -62,7 +62,7 @@
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA4.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA4}
 \caption{Mean coefficient correlation r (+SD) between growth and traits measured by stage.  a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass (Seedmass) and e) Rate of CO2 assimilation (Aarea). The mean coefficients are weighted by sample size and established from 103 articles. Results shown here are from the ``ideal'' subset of data (for details see ``Material and Methods''), ``n'' indicates the number of correlations.}
 \label{fig:figA4}
 \end{figure}
@@ -71,7 +71,7 @@
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA8.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA8}
 \caption{Number of correlation extracted by traits, stage, and growth type (absolute vs relative, and measurement). a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Absolute growth rate (AGR) is on the left and relative growth rate (RGR) on the right of each plot. Results shown here are from the ``ideal'' subset of the data (for details see ``Material and Methods''). }
 \label{fig:figA8}
 \end{figure}
@@ -80,7 +80,7 @@
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA2.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA2}
 \caption{Geographical distribution of site locations from studies performed in the field used in the meta-analysis. Results shown here are from the entire dataset (for details see ``Material and Methods'').}
 \label{fig:figA2}
 \end{figure}
@@ -88,7 +88,7 @@
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA3.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA3}
 \caption{Range of correlations (r) between
 growth and traits reported in the literature. Plots show the coefficients of correlation (r)
 between plant growth and a) Specific leaf area (SLA, n =
@@ -103,7 +103,7 @@ articles. The x axis represents the article ID sorted by the average reported co
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA7.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA7}
 \caption{Funnel plots with filled in data based on the trim and fill method, showing transformed correlation coefficient z between growth and a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass and e) Assimilation rate of CO2 (Aarea). Note that in these plots the y axis is 1/number of species included in the correlation, not the replication for the correlation. The open points correspond to the estimated missing studies. The number of missing values is 4 for SLA, 0 for wood density, 0 for maximum height, 11 for seed mass and 0 for Aarea. Results shown here are from the entire dataset. Results with the "ideal" subset of data (for details see ``Material and Methods''), shown no missing values for all traits.}
 \label{fig:figA7}
 \end{figure}
@@ -111,7 +111,7 @@ articles. The x axis represents the article ID sorted by the average reported co
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA9.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA9}
 \caption{Temporal changes in coefficient of correlation between growth and traits. a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax), d) Seed mass, and e) Assimilation rate of CO2 (Aarea). The colours correspond to the stage for which the r values have been recorded: red points corresponds to adult stage, orange points to saplings, and grey points to seedlings. Results shown here are from the entire dataset.}
 \label{fig:figA9}
 \end{figure}
@@ -119,7 +119,7 @@ articles. The x axis represents the article ID sorted by the average reported co
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA5.pdf}
+\includegraphics[width=15cm,height=20cm,keepaspectratio]{output/FigA5}
 \caption{Effect size ($\pm$95\% confidence intervals, CI) of plant stage on the correlations between growth rate and five functional traits across species, with a data set averaging multiple comparisons by trait and by study. In the case of multiple comparisons within a study, effect sizes were calculated using the mean correlation coefficient by trait and by study. a) Specific leaf area (SLA), b) Wood density (WD), c) Asymptotic maximum height (Hmax) , d) Seed mass and e) Assimilation rate of CO2 (Aarea). Effect size is a standardized measure of the magnitude of the relationship between a particular stage and the correlation coefficient z (Fisher's z-transformed). Effects are significant if CIs do not overlap with zero. LRT: likelihood Ratio Test compared the fit between null model and stage model, both models are fitted by Maximum Likelihood. Black point: ideal data , grey points: all the data (for details see ``Material and Methods''). ``n'' indicates the number of independent comparisons for each effect.}
 \label{fig:figA5}
 \end{figure}
