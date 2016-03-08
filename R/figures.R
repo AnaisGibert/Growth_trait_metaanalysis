@@ -110,7 +110,7 @@ figure_panels_traits_model <- function(fits, ...) {
 
     data[["by"]] <- as.factor(data[[category_variable]])
 
-    label.n.x <- limit.x.min + 0.85*(limit.x.max - limit.x.min)
+    label.n.x <- limit.x.min + 0.885*(limit.x.max - limit.x.min)
 
     dodge <- position_dodge(width = width)
 
