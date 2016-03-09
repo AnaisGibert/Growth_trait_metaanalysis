@@ -118,12 +118,12 @@ figure_panels_traits_model <- function(fits, ...) {
     round.value <- 2
     if(!is.na(PVAL)) {
       significativite <- "ns"
-      if(PVAL <= 0.05) {
-        significativite <- "*"
-      } else if(PVAL <= 0.01) {
+      if(PVAL <= 0.01) {
         significativite <- "***"
         round.value <- 4
-      }
+      } else if(PVAL <= 0.05) {
+        significativite <- "*"
+      }  
     }
 
     p <- ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +1.96 * SE, color = by)) +
