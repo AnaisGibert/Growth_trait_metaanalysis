@@ -11,8 +11,11 @@ subset_growth <- function(data, measure) {
 
 clean_raw_data <- function(filename = "data/CompileData.csv") {
 
-  Table <- read.csv(filename, sep = ";", dec = ",")
+  Table <- read.csv(filename, sep = ";", dec = ",", stringsAsFactors=FALSE)
 
+  #### Change ref name in the table (King et al 2006a in the dataset but not used in the analyses)
+  Table$ref <- replace(Table$ref, Table$ref == "King.et.al.2006b", "King.et.al.2006")
+  
   for (f in c("id", "ref", "idcor", "authors", "stress", "RGR", "trait", "coef.type",
     "experiment.type", "veg.type", "measure.size", "trait.stage", "stage",
     "RGR.stage", "relation.sign", "stage.simi", "life.form")) {
@@ -79,8 +82,10 @@ clean_raw_data <- function(filename = "data/CompileData.csv") {
 
   i <- Table$bio.scale == "intrasp"
   Table$nb.sp[i] <- 1
+  
+  
 
-  ## Clean the data trait stage
+    ## Clean the data trait stage
   Table["stageTrait"] <- NA
   Table$stageTrait <- Table$trait.stage
   Table$stageTrait[Table$trait.stage == "adult?"] <- "adult"
