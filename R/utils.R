@@ -1,7 +1,5 @@
 
-# Imported from Hmisc to save loading that package ‘wtd.mean’, ‘wtd.var’
-# compute weighted means, and variances For full info see package
-# ?Hmisc::wtd.mean
+## for table_overall.stage, for FigA4
 wtd.mean <- function(x, weights = NULL, normwt = "ignored", na.rm = TRUE) {
   if (!length(weights))
     return(mean(x, na.rm = na.rm))
@@ -13,6 +11,7 @@ wtd.mean <- function(x, weights = NULL, normwt = "ignored", na.rm = TRUE) {
   sum(weights * x)/sum(weights)
 }
 
+## for table_overall.stage, for FigA4
 wtd.var <- function(x, weights = NULL, normwt = FALSE, na.rm = TRUE, method = c("unbiased",
   "ML")) {
   method <- match.arg(method)
@@ -36,7 +35,8 @@ wtd.var <- function(x, weights = NULL, normwt = FALSE, na.rm = TRUE, method = c(
     sum(weights^2)/sw else 1))
 }
 
-# Count records in data set Behaves similarly to plyr::count
+
+## for table_overall.stage, for FigA4
 count <- function(data, var) {
 
   ret <- as.data.frame(table(data[[var]]))
@@ -44,7 +44,7 @@ count <- function(data, var) {
   ret
 }
 
-# Renames columns of data frame imported and modified from plyr::rename
+# Used in Data processing
 rename <- function(data, replace, warn_missing = TRUE, warn_duplicated = TRUE) {
 
   from <- names(replace)
@@ -78,4 +78,25 @@ rename <- function(data, replace, warn_missing = TRUE, warn_duplicated = TRUE) {
   data
 }
 
+fun_List_N <- function(data) {
+  c(length(na.omit(data$coef[data$stageRGR == "seedling"])), length(na.omit(data$coef[data$stageRGR ==
+      "juvenile"])), length(na.omit(data$coef[data$stageRGR == "sapling"])),
+    length(na.omit(data$coef[data$stageRGR == "adult"])), length(na.omit(data$coef[data$stageRGR ==
+        "mix"])), length(na.omit(data$coef[data$RGR == "GR(Di)"])), length(na.omit(data$coef[data$RGR ==
+            "GR(Hi)"])), length(na.omit(data$coef[data$RGR == "GR(Mi)"])),
+    length(na.omit(data$coef[data$RGR == "RGR(CSAi)"])), length(na.omit(data$coef[data$RGR ==
+        "RGR(Di)"])), length(na.omit(data$coef[data$RGR == "RGR(Hi)"])),
+    length(na.omit(data$coef[data$RGR == "RGR(Mi)"])), length(na.omit(data$coef[data$RGR ==
+        "RGR(Vi)"])), length(na.omit(data$coef[data$experiment == "control"])),
+    length(na.omit(data$coef[data$experiment == "database"])), length(na.omit(data$coef[data$experiment ==
+        "field"])), length(na.omit(data$coef[data$experiment == "nature"])))
+}
+
+
+default_lmer_control <- function() {
+  # Ignore warnings when we have fewer observations than levels
+  lmerControl(check.nobs.vs.nlev = "ignore",
+    check.nobs.vs.rankZ = "ignore",
+    check.nobs.vs.nRE = "ignore")
+}
 

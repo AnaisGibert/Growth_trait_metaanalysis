@@ -5,6 +5,9 @@ mytheme <- function() {
         title = element_text(size = 9, hjust = 0),
         axis.title = element_text(size = 9, hjust = 0.5),
         axis.text = element_text(size = 8),
+    # required for ggplot2_2.0.0
+        axis.line = element_line(colour = 'black', size=0.5, linetype='solid'),
+    # required for ggplot2_2.1.0
         axis.line.x = element_line(colour = 'black', size=0.5, linetype='solid'),
         axis.line.y = element_line(colour = 'black', size=0.5, linetype='solid'),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -13,51 +16,87 @@ mytheme <- function() {
         legend.key = element_rect(colour = "white"),
         axis.text.x = element_text(margin=margin(9,5,5,5,"pt")),
         axis.text.y = element_text(margin=margin(9,5,5,5,"pt")),
-        axis.ticks = element_line (colour = "black", size = 0.5), # sets the thickness and colour of axis ticks
+        axis.ticks = element_line (colour = "black", size = 0.5), 
         axis.ticks.length = unit(-0.08 , "cm"))
   }
 
-my_plot_1 <- function(title, ggobj, xlab = expression(paste("")), ylab = "Number of correlations recorded") {
-  p <- ggobj + geom_bar(alpha = 0.95) + coord_cartesian(ylim = ylim) + coord_flip() +
-    labs(title = title) + xlab(xlab) + ylab(ylab) + theme(text = element_text(size = 9),
-    axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + 
-    theme(axis.title = element_text(size = 10, hjust = 0.5)) + scale_fill_manual(values = c(seedling = "#D5C9B1",
-    sapling = "#805A3B", adult = "#C60000"), breaks = c("seedling", "sapling",
-    "adult"), labels = c("seedling", "sapling", "adult")) +
-        scale_x_discrete(labels=c("SLA" = "SLA", "LAR" = "LAR", "WD" ="Wood density", "NARarea" = expression("NAR"[area]),"LMR" ="LMR", "Seedmass" ="Seed mass", "Aarea" = expression("A"[area]), "Hmax" =expression("H"[max]), "Nmass" = expression("N"[mass]), "Amass" = expression("A"[mass]), "Pmass" = expression("P"[mass]), "NARmass" = expression("NAR"[mass]), "Ks" ="Ks", "LA" = "Leaf area", "Narea" = expression("N"[area]), "Vessel size" = "Vessel size", "Thickness"="Thickness", "SA/LA" ="SA/LA", "Vessel density"= "Vessel density")) + mytheme()
 
-  p
-
-}
-
-
-coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite = "",
-  round.value, limit.x.min, limit.x.max, limit.x.text, limit.x.n, limit.y.text.l1,
-  limit.y.text.l2, vjust.value, color1) {
-
-  data.ideal["x.coord"] <- limit.x.n
-
-  my_size_effect_plot2 <- function(title, ggobj, xlab = "Effect size",
-    ylab = "Stage") {
-    p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(xintercept = 0,
-      color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
+## Figure 3 and 4
+figure_panels_traits_model <- function(fits, ...) {
+  
+  coeff.plot <- function(x, title = "",
+    limit.x.min = -1, limit.x.max = 1.5,
+    vjust.value = 2, width = 0.4,
+    colors = c("grey", "black"),
+    category_variable = "growth",
+    labels = c("RGR, conservative dataset", "RGR, entire dataset"),
+    breaks = c("RGR", "AGR")) {
+    
+    data <- x[["model"]]
+    LRT <- x[["LRT"]]
+    PVAL <- x[["PVAL"]]
+    
+    data[["by"]] <- as.factor(data[[category_variable]])
+    
+    label.n.x <- limit.x.min + 0.88*(limit.x.max - limit.x.min)
+    
+    dodge <- position_dodge(width = width)
+    
+    significativite <- ""
+    round.value <- 2
+    if(!is.na(PVAL)) {
+      significativite <- "ns"
+      if(PVAL <= 0.01) {
+        significativite <- "***"
+        round.value <- 4
+      } else if(PVAL <= 0.05) {
+        significativite <- "*"
+      }  
+    }
+    
+    p <- ggplot(data, aes(stage, Inte, ymin = Inte - 1.96 * SE, ymax = Inte +1.96 * SE, color = by)) +
+      labs(title = title) + xlab("Effect size") + ylab("Effect size") +
+      geom_vline(xintercept = 0,color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
       scale_x_discrete("Stage", limit = c("seedling", "sapling", "adult")) +
-      coord_flip() + mytheme() + theme(legend.position = "none")
+      coord_flip() + mytheme() + theme(legend.position = "none") +
+      geom_point(aes(x = stage, y = Inte), position = dodge) +
+      geom_errorbar(aes(x = stage, y = Inte), size = 0.4, width = 0.2, position = dodge) +
+      scale_y_continuous("Effect size",limits = c(limit.x.min, limit.x.max)) +
+      geom_text(aes(stage, label.n.x, label = paste("n =", N), color = by),size = 2, data = data, parse = FALSE, position = dodge, hjust = 0) +
+      scale_color_manual(name = "", values = colors, breaks = breaks, labels = labels) +
+      annotate("text", x = 0.6, y = limit.x.max, size = 1.75, hjust = 1,
+        label = paste0("LRT: ", round(LRT, 2),", p: ", round(PVAL, round.value)," (", significativite, ")"))
     p
   }
-
-  my_size_effect_plot2(title, ggplot(data.ideal, aes(stage, Inte, ymin = Inte -
-    1.96 * SE, ymax = Inte + 1.96 * SE, color = factor(stress)))) + geom_point(aes(x = stage,
-    y = Inte)) + geom_errorbar(aes(x = stage, y = Inte), size = 0.4, width = 0) +
-    scale_y_continuous("Effect size", limits = c(limit.x.min,
-      limit.x.max)) + geom_text(aes(stage, x.coord, label = paste("n=",
-    N), color = factor(stress), group = "ideal"), size = 2, data = data.ideal,
-    parse = F, position = "identity", vjust = 0, hjust = 0) + scale_color_manual(values = c(color1)) +
-    annotate("text", x = limit.y.text.l1, y = limit.x.text, label = paste("LRT:",
-      round(LRT, 2)), size = 2) + annotate("text", x = limit.y.text.l2, y = limit.x.text,
-    label = paste("p.value =", round(PVAL, round.value), significativite),
-    size = 2)
+  
+  p1 <- coeff.plot(fits[["SLA"]], title = "a) SLA",
+    limit.x.min = -1, limit.x.max = 1.6,  ...) +
+    theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank(),
+      axis.title.y = element_text(colour = "white"))
+  
+  p2 <- coeff.plot(fits[["WD"]], title = "b) Wood density",
+    limit.x.min = -1, limit.x.max = 1.05,  ...) +
+    theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
+      plot.margin  = unit(c(2.5, 0, 1.5, 1), "mm"), axis.title.x = element_blank())
+  
+  p3 <- coeff.plot(fits[["Hmax"]], title = expression("c) H"[max]),
+    limit.x.min = -1, limit.x.max = 1.6, ...) +
+    theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank())
+  
+  p4 <- coeff.plot(fits[["Seedmass"]], title = "d) Seed mass",
+    limit.x.min = -1.5, limit.x.max = 1.6, ...) +
+    theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
+      plot.margin  = unit(c(2.5, 0, -3.5, 1), "mm"))
+  
+  p5 <- coeff.plot(fits[["Aarea"]], title =  expression("e) A"[area]),
+    limit.x.min = -2.4, limit.x.max =3.5, ...)  +
+    theme(legend.title = element_blank(), legend.justification = c(0, 0), legend.position = c(1, 0.3),
+      legend.key = element_blank(), plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"),
+      axis.title.y = element_text(colour = "white"))
+  
+  grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.3, 1),heights = c(1, 1, 1.1))
 }
+
 
 my_plot_corr.r <- function(data1, title = "", xlab = "Case studies ranked by coefficient of correlation r") {
 
@@ -108,6 +147,8 @@ my_plot_overall <- function(data, title = "", name.xlab ="Coefficient of correla
     )
 }
 
+
+## Plot Appendix:
 coeff.plot.multiple3 <- function(data, params, labels = NA, xlab = "Effect size (z) +CI 95%",
   title = "") {
   fun_List_N <- function(data) {
@@ -194,6 +235,7 @@ coeff.plot.multiple3 <- function(data, params, labels = NA, xlab = "Effect size 
 
 coeff.plot.multiple3.1 <- function(data, params, labels = NA, xlab = "Effect size (z) +CI 95%",
   title = "") {
+  
   fun_List_N <- function(data) {
     c(length(na.omit(data$coef[data$stageRGR == "seedling"])), length(na.omit(data$coef[data$stageRGR ==
       "juvenile"])), length(na.omit(data$coef[data$stageRGR == "sapling"])),
