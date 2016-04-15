@@ -55,9 +55,11 @@ figure_2 <- function(CompleteData_inter) {
     data <- data[order(data$size.max, data$size.min), ]
     data["growthf"] <- -0.02
 
+
+    
     n <- nrow(data)
     y <- rev(seq_len(n))
-    cols <- c("#13519E", "#73005C", "#F57C34", "#E6224C", "grey")[data$stageRGR]
+    cols <- c( "#D5C9B1", "orange", "#805A3B", "#C60000", "black")[data$stageRGR]
     plot(NA, xlim = c(0, 3), ylim = c(0, n+1), yaxt = "n", xaxt = "n", xlab = "",
       ylab = "", yaxs="i")
     mtext(xlab, 1, line = 2, cex = 0.75)
@@ -78,7 +80,7 @@ figure_2 <- function(CompleteData_inter) {
 
   plotCI2(sa, c(0, 1, 5, 10), "Age (yrs)", "a)")
   legend(2.3, 42, c("seedling", "juvenile", "sapling", "adult", "mix"), lwd = 1,  title = "Original stage:",
-    col = c("#13519E", "#73005C", "#F57C34", "#E6224C", "grey"), pch = NA, bty = "n", cex = 0.75,
+    col = c("#D5C9B1", "orange", "#805A3B", "#C60000", "black"), pch = NA, bty = "n", cex = 0.75,
    x.intersp = 0.3, y.intersp = 1, seg.len = 0.5,  title.adj = 0)
   legend(2.3, 32, c("reassigned"), lwd = NA, col = "black",
     pch = c( "*"), title = "Flag:", bty = "n", cex = 0.75,
@@ -99,7 +101,7 @@ figure_panels_traits_model <- function(fits, ...) {
   coeff.plot <- function(x, title = "",
     limit.x.min = -1, limit.x.max = 1.5,
     vjust.value = 2, width = 0.4,
-    colors = c("#9E5F3A", "black"),
+    colors = c("grey", "black"),
     category_variable = "growth",
     labels = c("RGR, conservative dataset", "RGR, entire dataset"),
     breaks = c("RGR", "AGR")) {
@@ -151,7 +153,7 @@ figure_panels_traits_model <- function(fits, ...) {
         theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
               plot.margin  = unit(c(2.5, 0, 1.5, 1), "mm"), axis.title.x = element_blank())
 
-  p3 <- coeff.plot(fits[["Hmax"]], title = "c) Hmax",
+  p3 <- coeff.plot(fits[["Hmax"]], title = expression("c) H"[max]),
                 limit.x.min = -1, limit.x.max = 1.6, ...) +
         theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank())
 
@@ -160,7 +162,7 @@ figure_panels_traits_model <- function(fits, ...) {
         theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
               plot.margin  = unit(c(2.5, 0, -3.5, 1), "mm"))
 
-  p5 <- coeff.plot(fits[["Aarea"]], title = "e) Aarea",
+  p5 <- coeff.plot(fits[["Aarea"]], title =  expression("e) A"[area]),
                 limit.x.min = -2.4, limit.x.max =3.5, ...)  +
         theme(legend.title = element_blank(), legend.justification = c(0, 0), legend.position = c(1, 0.3),
           legend.key = element_blank(), plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"),
@@ -219,10 +221,10 @@ figure_A1 <- function(baad) {
 
     plot(data[[px$var]], data[[py$var]], log = "xy", xlim = px$lim, ylim = py$lim,
       xlab = px$lab, ylab = py$lab, col = "grey", pch = 16)
-    abline(v = px$sap, col = "#13519E", lty = 5)
-    abline(h = py$sap, col = "#13519E", lty = 5)
-    abline(v = px$adult, col = "#E6224C", lty = 5)
-    abline(h = py$adult, col = "#E6224C", lty = 5)
+    abline(v = px$sap, col = "#805A3B", lty = 5)
+    abline(h = py$sap, col = "#805A3B", lty = 5)
+    abline(v = px$adult, col = "#C60000", lty = 5)
+    abline(h = py$adult, col = "#C60000", lty = 5)
   }
 
   data <- baad[["data"]]
@@ -253,7 +255,7 @@ figure_A2 <- function(CoordTable) {
 
   x <- CoordTable$lat.dd
   y <- CoordTable$long.dd
-  coordinate.map <- mp + geom_point(aes(x = y, y = x), color = "red", alpha = I(7/10))
+  coordinate.map <- mp + geom_point(aes(x = y, y = x), color = "#C60000", alpha = I(7/10))
   coordinate.map
 }
 
@@ -300,13 +302,13 @@ figure_A4 <- function(GIi, GIrgr, GIagr) {
   p4 <- my_plot_overall(Seedmass, title = "d) Seed mass") 
   p5 <- my_plot_overall(Aarea, title = "e) Aarea") 
 
-  p1 <- p1 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank(),axis.title.y = element_text(colour = "white"))
+  p1 <- p1 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank(),axis.title.y = element_text(colour = "white"), legend.position= "none")
   p2 <- p2 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
-                   plot.margin  = unit(c(2.5, 0, 1.5, 1), "mm"), axis.title.x = element_blank())
-  p3 <- p3 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank())
+                   plot.margin  = unit(c(2.5, 0, 1.5, 1), "mm"), axis.title.x = element_blank(), legend.position= "none")
+  p3 <- p3 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank(), legend.position= "none")
   p4 <- p4 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
-                   plot.margin  = unit(c(2.5, 0, -3.5, 1), "mm"))
-  p5 <- p5 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.y = element_text(colour = "white"))
+                   plot.margin  = unit(c(2.5, 0, -3.5, 1), "mm"), legend.position= "none")
+  p5 <- p5 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.y = element_text(colour = "white"), legend.title = element_blank(), legend.justification = c(0, 0), legend.position = c(1.5, 0.2))
   
   # Missing data for some stages, that's fine but causes a warning message
   suppressWarnings({
@@ -413,16 +415,14 @@ figure_A8 <- function(GCi) {
     n <- max(a, a1)
 
     par(mar = c(4, 4, 2.5, 0))
-    barplot(counts1, xlim = c(0, n + 5), xlab = "", col = c("#9E5F3A", "#E5B38F",
-      "#F4395B", "#FA8C3D"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8)
+    barplot(counts1, xlim = c(0, n + 5), xlab = "", col = c("#D5C9B1", "orange", "#805A3B", "#C60000"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8)
     axis(2, at = 1:3, labels = c("seedling", "sapling", "adult"), las = 1,
       cex.axis = 1)
     mtext("AGR", side = 3, line = 0, cex = 0.8)
     mtext(title, side = 3, line = 1, at = max(n+5))
 
     par(mar = c(4, 0.5, 2.5, 3.5))
-    barplot(counts, xlim = c(0, n + 5), xlab = "", col = c("#9E5F3A", "#E5B38F",
-      "#F4395B", "#FA8C3D"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8)
+    barplot(counts, xlim = c(0, n + 5), xlab = "", col = c("#D5C9B1", "orange", "#805A3B", "#C60000"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8)
     abline(v = 0, col = "black")
     mtext("RGR", side = 3, line = 0, cex = 0.8)
   }
@@ -441,9 +441,7 @@ figure_A8 <- function(GCi) {
   plot(1, type = "n", axes = F, xlab = "", ylab = "", bty = "n", xaxt = "n",
     yaxt = "n")
   legend("topright", c("mass", "diameter", "height", "other (volume, etc.)"),
-    fill = c("#9E5F3A", "#E5B38F", "#F4395B", "#FA8C3D"), border = c("#9E5F3A",
-      "#E5B38F", "#F4395B", "#FA8C3D"), col = c("#9E5F3A", "#E5B38F", "#F4395B",
-      "#FA8C3D"), bty = "n")
+    fill = c("#D5C9B1", "orange", "#805A3B", "#C60000"), border = c("#D5C9B1", "orange", "#805A3B", "#C60000"), col = c("#D5C9B1", "orange", "#805A3B", "#C60000"), bty = "n")
 }
 
 figure_A9 <- function(GIi) {
@@ -515,3 +513,25 @@ figure_A9 <- function(GIi) {
   })
 }
 
+
+
+figure_graphical_abstract <-  function(GIi, GIrgr, GIagr) {
+  
+  table_trait <- function(trait) {
+    rbind(table_overall(GIi[[trait]]), table_overall.stage(GIi[[trait]]))
+  }
+  
+  SLA <- table_trait("SLA")
+  WD <- table_trait("WD")
+ 
+  p1 <- my_plot_overall(SLA, title = "a) SLA", size=3) 
+
+  
+  p1 <- p1 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), legend.position= "none")
+
+
+  # Missing data for some stages, that's fine but causes a warning message
+  suppressWarnings({
+    grid.arrange(p1, ncol = 1, nrow = 1)
+  })
+}

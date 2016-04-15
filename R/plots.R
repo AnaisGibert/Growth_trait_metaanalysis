@@ -5,18 +5,19 @@ mytheme <- function() {
     hjust = 0.5), axis.text = element_text(size = 8), axis.line = element_line(colour = "black"),
   panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.border = element_blank(),
   panel.background = element_blank(), legend.justification = c(1, 0), legend.position = c(1,
-    0))}
+    0), legend.key = element_rect(colour = "white"))}
 
 my_plot_1 <- function(title, ggobj, xlab = expression(paste("")), ylab = "Number of correlations recorded") {
   p <- ggobj + geom_bar(alpha = 0.95) + coord_cartesian(ylim = ylim) + coord_flip() +
     labs(title = title) + xlab(xlab) + ylab(ylab) + scale_x_discrete() + theme(text = element_text(size = 9),
     axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme() +
-    theme(axis.title = element_text(size = 10, hjust = 0.5)) + scale_fill_manual(values = c(seedling = "#13519E",
-    sapling = "#F57C34", adult = "#E6224C"), breaks = c("seedling", "sapling",
+    theme(axis.title = element_text(size = 10, hjust = 0.5)) + scale_fill_manual(values = c(seedling = "#D5C9B1",
+    sapling = "#805A3B", adult = "#C60000"), breaks = c("seedling", "sapling",
     "adult"), labels = c("seedling", "sapling", "adult"))
   p
 
 }
+
 
 coeff.plot.ideal <- function(data.ideal, LRT, PVAL, title = "", significativite = "",
   round.value, limit.x.min, limit.x.max, limit.x.text, limit.x.n, limit.y.text.l1,
@@ -53,7 +54,7 @@ my_plot_corr.r <- function(data1, title = "", xlab = "Case studies ranked by coe
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + guides(fill = guide_legend(reverse = TRUE)) +
       mytheme() + scale_y_continuous("Correlation coefficient r", limits = c(-1,
       1)) + scale_colour_manual(limits = c("seedling", "sapling", "adult"),
-      values = c(seedling = "#13519E", sapling = "#F57C34", adult = "#E6224C"),
+      values = c(seedling = "#D5C9B1", sapling = "#805A3B", adult = "#C60000"),
       breaks = c("seedling", "sapling", "adult")) + geom_hline(yintercept = 0,
       size = 0.3, linetype = "dashed") + theme(text = element_text(size = 9,
       colour = "black"), title = element_text(size = 9, hjust = 0), axis.title = element_text(size = 9,
@@ -70,7 +71,7 @@ my_plot_corr.r <- function(data1, title = "", xlab = "Case studies ranked by coe
 }
 
 
-my_plot_overall <- function(data, title = "") {
+my_plot_overall <- function(data, title = "", name.xlab ="Coefficient of correlation r (+SD) ", size=2) {
 
   plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
 
@@ -85,11 +86,13 @@ my_plot_overall <- function(data, title = "") {
   data["x.coord"] <- max(data$corr.r + data$SD)
 
   plot1(title, ggplot(data, aes(stage, corr.r, ymin = corr.r - SD, ymax = corr.r +
-    SD))) + geom_point(aes(x = stage, y = corr.r)) + geom_errorbar(aes(x = stage,
-    y = corr.r), size = 0.4, width = 0) +
+    SD, colour=stage))) + geom_point(aes(x = stage, y = corr.r), size=size) + geom_errorbar(aes(x = stage,
+    y = corr.r), width = 0) +
     geom_text(aes(stage, 0.8, label = paste("n=",freq)), size = 2, data = data, parse = F, position = "identity", vjust = 0.2, hjust = 0)+
-    scale_y_continuous("Coefficient of correlation r (+SD) ",
-    limits = c(-1, 1))
+    scale_y_continuous(name.xlab,
+    limits = c(-1, 1)) +
+    scale_colour_manual(values = c(seedling = "#D5C9B1", sapling = "#805A3B", adult = "#C60000", total ="black"), breaks = c("seedling", "sapling",
+      "adult", "total"), labels = c("seedling", "sapling", "adult", "total")) 
 }
 
 coeff.plot.multiple3 <- function(data, params, labels = NA, xlab = "Effect size (z) +CI 95%",
@@ -258,7 +261,7 @@ coeff.plot.multiple3.1 <- function(data, params, labels = NA, xlab = "Effect siz
 my_funnelplot <- function(title, ggobj, xlab = "", ylab = "") {
   p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + mytheme() + scale_color_manual(name = "Stage",
     limits = c("seedling", "sapling", "adult"), breaks = c("seedling", "sapling",
-      "adult"), values = c(seedling = "#13519E", sapling = "#F57C34", adult = "#E6224C")) +
+      "adult"), values = c(seedling = "#D5C9B1",sapling = "#805A3B", adult = "#C60000")) +
     geom_hline(yintercept = 0, color = "grey")
   p
 }

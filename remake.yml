@@ -57,6 +57,8 @@ targets:
       - output/FigA7.pdf
       - output/FigA8.pdf
       - output/FigA9.pdf
+      - output/GraphicalAbstract.pdf
+
 
 # ------- Rscript --------------------------
 # used to generate output for those who don't like remake
@@ -249,3 +251,10 @@ targets:
   output/FigA9.pdf:
     command: figure_A9(GCi)
     plot: TRUE
+
+  output/GraphicalAbstract.pdf:
+    command: figure_graphical_abstract(GIi, GIrgr, GIagr)
+    plot:
+      height: 3
+      width:  4
+    
