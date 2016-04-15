@@ -220,11 +220,14 @@ figure_A1 <- function(baad) {
   single_plot <- function(px, py, data) {
 
     plot(data[[px$var]], data[[py$var]], log = "xy", xlim = px$lim, ylim = py$lim,
-      xlab = px$lab, ylab = py$lab, col = "grey", pch = 16, tck=+0.02)
+      xlab = "", ylab = "", col = "grey", pch = 16, tck=+0.02, las=1)
     abline(v = px$sap, col = "#805A3B", lty = 5)
     abline(h = py$sap, col = "#805A3B", lty = 5)
     abline(v = px$adult, col = "#C60000", lty = 5)
     abline(h = py$adult, col = "#C60000", lty = 5)
+    mtext(px$lab, 1, line=4, cex=0.8)
+    mtext(py$lab, 2, line=4, cex=0.8)
+
   }
 
   data <- baad[["data"]]
@@ -240,7 +243,7 @@ figure_A1 <- function(baad) {
     adult = 30)
 
 
-  par(mfrow = c(1, 3))
+  par(mfrow = c(1, 3), oma=c(2,2,0,0))
   single_plot(pars[["dia"]], pars[["age"]], data)
   single_plot(pars[["ht"]], pars[["age"]], data)
   single_plot(pars[["dia"]], pars[["ht"]], data)
@@ -249,13 +252,17 @@ figure_A1 <- function(baad) {
 figure_A2 <- function(CoordTable) {
 
   mapWorld <- borders("world", colour = "#FFCC33", fill = "#FFCC33", lty = 0)  # create a layer of borders
-  mp <- ggplot() + mapWorld + theme(text = element_text(size = 9, colour = "black"),
-    title = element_text(size = 9), panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-    panel.background = element_rect(colour = "#333333", fill = "#6699FF"))
+  mp <- ggplot() + mapWorld +
+        theme(text = element_text(size = 9, colour = "black"),
+              title = element_text(size = 9),
+              panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              panel.background = element_rect(colour = "#333333", fill = "#6699FF"))
 
   x <- CoordTable$lat.dd
   y <- CoordTable$long.dd
-  coordinate.map <- mp + geom_point(aes(x = y, y = x), color = "#C60000", alpha = I(7/10))
+  coordinate.map <- mp + geom_point(aes(x = y, y = x), color = "#C60000", alpha = I(7/10)) +
+                  xlab("Longitude") + ylab("Latitude")
   coordinate.map
 }
 
@@ -369,6 +376,7 @@ figure_A6 <- function(GC, trait1, trait2, titles) {
 figure_A6.2 <- function(GC, trait1, titles) {
   par(mfcol = c(1, 2))
   par(mar = c(2, 5, 2, 0))
+
 
   coeff.plot.multiple3.1(GC[[trait1]], params = rev(c("stageRGRseedling", "stageRGRjuvenile",
     "stageRGRsapling", "stageRGRadult", "stageRGRmix", "RGRGR(Di)", "RGRGR(Hi)",
@@ -522,16 +530,10 @@ figure_graphical_abstract <-  function(GIi, GIrgr, GIagr) {
   }
   
   SLA <- table_trait("SLA")
-  WD <- table_trait("WD")
  
-  p1 <- my_plot_overall(SLA, title = "a) SLA", size=3, name.xlab ="Coefficient of correlation r (+SD) between trait and growth") 
-
-  
-  p1 <- p1 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), legend.position= "none")
-
-
-  # Missing data for some stages, that's fine but causes a warning message
-  suppressWarnings({
-    grid.arrange(p1, ncol = 1, nrow = 1)
-  })
+  p1 <- my_plot_overall(SLA, title = "Effect of trait (SLA) on growth rate changes with size",
+            size=3, name.xlab ="Correlation coefficient, r (+SD)") +
+      theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), legend.position= "none",
+        title = element_text(size = 8))
+  p1
 }

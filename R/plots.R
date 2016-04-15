@@ -1,14 +1,20 @@
 
 mytheme <- function() {
-  theme_bw() + theme(text = element_text(size = 9, colour = "black"),
-  title = element_text(size = 9, hjust = 0), axis.title = element_text(size = 9,
-    hjust = 0.5), axis.text = element_text(size = 8), axis.line = element_line(colour = "black"),
-  panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.border = element_blank(),
-  panel.background = element_blank(), legend.justification = c(1, 0), legend.position = c(1,
-    0), legend.key = element_rect(colour = "white"), axis.text.x = element_text(margin=margin(9,5,5,5,"pt")),
-    axis.text.y = element_text(margin=margin(9,5,5,5,"pt")),
-    axis.ticks = element_line (colour = "black", size = 0.5), # sets the thickness and colour of axis ticks
-    axis.ticks.length = unit(-0.08 , "cm"))
+  theme_bw() +
+  theme(text = element_text(size = 9, colour = "black"),
+        title = element_text(size = 9, hjust = 0),
+        axis.title = element_text(size = 9, hjust = 0.5),
+        axis.text = element_text(size = 8),
+        axis.line.x = element_line(colour = 'black', size=0.5, linetype='solid'),
+        axis.line.y = element_line(colour = 'black', size=0.5, linetype='solid'),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.border = element_blank(), panel.background = element_blank(),
+        legend.justification = c(1, 0), legend.position = c(1, 0),
+        legend.key = element_rect(colour = "white"),
+        axis.text.x = element_text(margin=margin(9,5,5,5,"pt")),
+        axis.text.y = element_text(margin=margin(9,5,5,5,"pt")),
+        axis.ticks = element_line (colour = "black", size = 0.5), # sets the thickness and colour of axis ticks
+        axis.ticks.length = unit(-0.08 , "cm"))
   }
 
 my_plot_1 <- function(title, ggobj, xlab = expression(paste("")), ylab = "Number of correlations recorded") {
@@ -79,11 +85,11 @@ my_plot_corr.r <- function(data1, title = "", xlab = "Case studies ranked by coe
 
 my_plot_overall <- function(data, title = "", name.xlab ="Coefficient of correlation r (+SD)", size=2) {
 
-  plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
+  plot1 <- function(title, ggobj,  xlab = "Effect size", ylab = "Stage") {
 
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(xintercept = 0,
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
-      geom_vline(xintercept = 3.5, size = 0.3, linetype = "dashed") + scale_x_discrete("Stage",
+      geom_vline(xintercept = 3.5, size = 0.3, linetype = "dashed") + scale_x_discrete(ylab,
       limit = c("seedling", "sapling", "adult", "total")) + coord_flip() +
       mytheme()
     p
@@ -91,14 +97,15 @@ my_plot_overall <- function(data, title = "", name.xlab ="Coefficient of correla
 
   data["x.coord"] <- max(data$corr.r + data$SD)
 
-  plot1(title, ggplot(data, aes(stage, corr.r, ymin = corr.r - SD, ymax = corr.r +
-    SD, colour=stage))) + geom_point(aes(x = stage, y = corr.r), size=size) + geom_errorbar(aes(x = stage,
-    y = corr.r), width = 0) +
+  plot1(title,
+    ggplot(data, aes(stage, corr.r, ymin = corr.r - SD, ymax = corr.r + SD, colour=stage))) +
+    geom_point(aes(x = stage, y = corr.r), size=size) +
+    geom_errorbar(aes(x = stage,y = corr.r), width = 0) +
     geom_text(aes(stage, 0.8, label = paste("n=",freq)), size = 2, data = data, parse = F, position = "identity", vjust = 0.2, hjust = 0)+
-    scale_y_continuous(name.xlab,
-    limits = c(-1, 1)) +
+    scale_y_continuous(name.xlab, limits = c(-1, 1)) +
     scale_colour_manual(values = c(seedling = "#D5C9B1", sapling = "#805A3B", adult = "#C60000", total ="black"), breaks = c("seedling", "sapling",
-      "adult", "total"), labels = c("seedling", "sapling", "adult", "total")) 
+      "adult", "total"), labels = c("seedling", "sapling", "adult", "total")
+    )
 }
 
 coeff.plot.multiple3 <- function(data, params, labels = NA, xlab = "Effect size (z) +CI 95%",
