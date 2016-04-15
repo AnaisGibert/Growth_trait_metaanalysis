@@ -5,15 +5,21 @@ mytheme <- function() {
     hjust = 0.5), axis.text = element_text(size = 8), axis.line = element_line(colour = "black"),
   panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.border = element_blank(),
   panel.background = element_blank(), legend.justification = c(1, 0), legend.position = c(1,
-    0), legend.key = element_rect(colour = "white"))}
+    0), legend.key = element_rect(colour = "white"), axis.text.x = element_text(margin=margin(9,5,5,5,"pt")),
+    axis.text.y = element_text(margin=margin(9,5,5,5,"pt")),
+    axis.ticks = element_line (colour = "black", size = 0.5), # sets the thickness and colour of axis ticks
+    axis.ticks.length = unit(-0.08 , "cm"))
+  }
 
 my_plot_1 <- function(title, ggobj, xlab = expression(paste("")), ylab = "Number of correlations recorded") {
   p <- ggobj + geom_bar(alpha = 0.95) + coord_cartesian(ylim = ylim) + coord_flip() +
-    labs(title = title) + xlab(xlab) + ylab(ylab) + scale_x_discrete() + theme(text = element_text(size = 9),
-    axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + mytheme() +
+    labs(title = title) + xlab(xlab) + ylab(ylab) + theme(text = element_text(size = 9),
+    axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + 
     theme(axis.title = element_text(size = 10, hjust = 0.5)) + scale_fill_manual(values = c(seedling = "#D5C9B1",
     sapling = "#805A3B", adult = "#C60000"), breaks = c("seedling", "sapling",
-    "adult"), labels = c("seedling", "sapling", "adult"))
+    "adult"), labels = c("seedling", "sapling", "adult")) +
+        scale_x_discrete(labels=c("SLA" = "SLA", "LAR" = "LAR", "WD" ="Wood density", "NARarea" = expression("NAR"[area]),"LMR" ="LMR", "Seedmass" ="Seed mass", "Aarea" = expression("A"[area]), "Hmax" =expression("H"[max]), "Nmass" = expression("N"[mass]), "Amass" = expression("A"[mass]), "Pmass" = expression("P"[mass]), "NARmass" = expression("NAR"[mass]), "Ks" ="Ks", "LA" = "Leaf area", "Narea" = expression("N"[area]), "Vessel size" = "Vessel size", "Thickness"="Thickness", "SA/LA" ="SA/LA", "Vessel density"= "Vessel density")) + mytheme()
+
   p
 
 }
@@ -71,7 +77,7 @@ my_plot_corr.r <- function(data1, title = "", xlab = "Case studies ranked by coe
 }
 
 
-my_plot_overall <- function(data, title = "", name.xlab ="Coefficient of correlation r (+SD) ", size=2) {
+my_plot_overall <- function(data, title = "", name.xlab ="Coefficient of correlation r (+SD)", size=2) {
 
   plot1 <- function(title, ggobj, xlab = "Effect size", ylab = "Stage") {
 
@@ -170,7 +176,7 @@ coeff.plot.multiple3 <- function(data, params, labels = NA, xlab = "Effect size 
       segments(dat$lower, seq_len(nrow(dat)), dat$upper, seq_len(nrow(dat)),
         lend = 1)
     })
-  axis(2, at = seq_len(nrow(dat)), labels = labels, las = 1, cex.axis = 0.7)
+  axis(2, at = seq_len(nrow(dat)), labels = labels, las = 1, cex.axis = 0.7,tck=0.02)
   box()
   text(paste("n=", rev(List_N)), x = dat$lower - 0.5, y = seq_len(nrow(dat)),
     cex = 0.5)
@@ -248,7 +254,7 @@ coeff.plot.multiple3.1 <- function(data, params, labels = NA, xlab = "Effect siz
       segments(dat$lower, seq_len(nrow(dat)), dat$upper, seq_len(nrow(dat)),
         lend = 1)
     })
-  axis(2, at = seq_len(nrow(dat)), labels = labels, las = 1, cex.axis = 0.7)
+  axis(2, at = seq_len(nrow(dat)), labels = labels, las = 1, cex.axis = 0.7,tck=0.02)
   box()
   text(paste("n=", rev(List_N)), x = dat$lower - 0.5, y = seq_len(nrow(dat)),
     cex = 0.5)

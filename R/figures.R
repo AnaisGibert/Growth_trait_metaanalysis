@@ -70,8 +70,8 @@ figure_2 <- function(CompleteData_inter) {
     j <- data$stageRGR != data$stage
     points(data$size.max[j] + 0.05, y[j], col = "black", pch = "*", cex=1.5)
 
-    axis(1, at = 0:3, labels = cuts, las = 1)
-    axis(2, at = y, labels = data$ref, las = 1, cex.axis = 0.6)
+    axis(1, at = 0:3, labels = cuts, las = 1, tck=0.02)
+    axis(2, at = y, labels = data$ref, las = 1, cex.axis = 0.6, tck=0.02)
     abline(v = 1, col = "black", lty = 1, lwd = 0.5)
     abline(v = 2, col = "black", lty = 1, lwd = 0.5)
 
@@ -220,7 +220,7 @@ figure_A1 <- function(baad) {
   single_plot <- function(px, py, data) {
 
     plot(data[[px$var]], data[[py$var]], log = "xy", xlim = px$lim, ylim = py$lim,
-      xlab = px$lab, ylab = py$lab, col = "grey", pch = 16)
+      xlab = px$lab, ylab = py$lab, col = "grey", pch = 16, tck=+0.02)
     abline(v = px$sap, col = "#805A3B", lty = 5)
     abline(h = py$sap, col = "#805A3B", lty = 5)
     abline(v = px$adult, col = "#C60000", lty = 5)
@@ -269,15 +269,15 @@ figure_A3 <- function(GC) {
 
   p1 <- my_plot_corr.r(GC[["SLA"]], title = "a) SLA") + theme(plot.margin = unit(c(0,
     0, 0, 0), "mm"), legend.position = "none")
-  p2 <- my_plot_corr.r(GC[["WD"]], title = "b)WD") + theme(axis.text.y = element_blank(),
+  p2 <- my_plot_corr.r(GC[["WD"]], title = "b) WD") + theme(axis.text.y = element_blank(),
     axis.title.y = element_blank(), plot.margin = unit(c(0, 0, 0, 0), "mm"),
     legend.position = "none")
-  p3 <- my_plot_corr.r(GC[["Hmax"]], title = "c) Hmax") + theme(plot.margin = unit(c(0,
+  p3 <- my_plot_corr.r(GC[["Hmax"]], title = expression("c) H"[max])) + theme(plot.margin = unit(c(0,
     0, 0, 0), "mm"), legend.position = "none")
   p4 <- my_plot_corr.r(GC[["Seedmass"]], title = "d) Seed mass", xlab = "Case studies ranked by coefficient of correlation r") +
     theme(axis.text.y = element_blank(), axis.title.y = element_blank(), plot.margin = unit(c(0,
       0, 0, 0), "mm"), legend.position = "none")
-  p5 <- my_plot_corr.r(GC[["Aarea"]], title = "e) Aarea", xlab = "Case studies ranked by coefficient of correlation r") +
+  p5 <- my_plot_corr.r(GC[["Aarea"]], title = expression("e) A"[area]), xlab = "Case studies ranked by coefficient of correlation r") +
     theme(legend.title = element_blank(), legend.justification = c(0, 0), legend.position = c(1.2,
       0.5), legend.key = element_blank(), plot.margin = unit(c(0, 0, 0, 0),
       "mm"))
@@ -298,9 +298,9 @@ figure_A4 <- function(GIi, GIrgr, GIagr) {
 
   p1 <- my_plot_overall(SLA, title = "a) SLA") 
   p2 <- my_plot_overall(WD, title = "b) Wood density") 
-  p3 <- my_plot_overall(Hmax, title = "c) Hmax") 
+  p3 <- my_plot_overall(Hmax, title = expression("c) H"[max])) 
   p4 <- my_plot_overall(Seedmass, title = "d) Seed mass") 
-  p5 <- my_plot_overall(Aarea, title = "e) Aarea") 
+  p5 <- my_plot_overall(Aarea, title = expression("e) A"[area])) 
 
   p1 <- p1 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), axis.title.x = element_blank(),axis.title.y = element_text(colour = "white"), legend.position= "none")
   p2 <- p2 + theme(axis.text.y = element_blank(), axis.title.y = element_blank(),
@@ -390,9 +390,9 @@ figure_A7 <- function(GIi) {
 
   p1 <- figure_trim.and.fill(GIi[["SLA"]], title = "a) SLA")
   p2 <- figure_trim.and.fill(GIi[["WD"]], title = "b) Wood density")
-  p3 <- figure_trim.and.fill(GIi[["Hmax"]], title = "c) Hmax")
-  p4 <- figure_trim.and.fill(GIi[["Seedmass"]], title = "d) Seedmass")
-  p5 <- figure_trim.and.fill(GIi[["Aarea"]], title = "e) Aarea")
+  p3 <- figure_trim.and.fill(GIi[["Hmax"]], title = expression("c) H"[max]))
+  p4 <- figure_trim.and.fill(GIi[["Seedmass"]], title = "d) Seed mass")
+  p5 <- figure_trim.and.fill(GIi[["Aarea"]], title = expression("e) A"[area]))
 }
 
 figure_A8 <- function(GCi) {
@@ -415,14 +415,14 @@ figure_A8 <- function(GCi) {
     n <- max(a, a1)
 
     par(mar = c(4, 4, 2.5, 0))
-    barplot(counts1, xlim = c(0, n + 5), xlab = "", col = c("#D5C9B1", "orange", "#805A3B", "#C60000"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8)
+    barplot(counts1, xlim = c(0, n + 5), xlab = "", col = c("#D5C9B1", "orange", "#805A3B", "#C60000"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8,tck=0.02)
     axis(2, at = 1:3, labels = c("seedling", "sapling", "adult"), las = 1,
-      cex.axis = 1)
+      cex.axis = 1,tck=0.01)
     mtext("AGR", side = 3, line = 0, cex = 0.8)
     mtext(title, side = 3, line = 1, at = max(n+5))
 
     par(mar = c(4, 0.5, 2.5, 3.5))
-    barplot(counts, xlim = c(0, n + 5), xlab = "", col = c("#D5C9B1", "orange", "#805A3B", "#C60000"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8)
+    barplot(counts, xlim = c(0, n + 5), xlab = "", col = c("#D5C9B1", "orange", "#805A3B", "#C60000"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8,tck=0.02)
     abline(v = 0, col = "black")
     mtext("RGR", side = 3, line = 0, cex = 0.8)
   }
@@ -430,11 +430,11 @@ figure_A8 <- function(GCi) {
   layout(matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), 3, 4, byrow = TRUE))
   plotgrowth(GCi[["SLA"]], "a) SLA")
   plotgrowth(GCi[["WD"]], "b) Wood density")
-  plotgrowth(GCi[["Hmax"]], "c) Hmax")
+  plotgrowth(GCi[["Hmax"]], expression("c) H"[max]))
   plotgrowth(GCi[["Seedmass"]], "d) Seed mass")
   mtext("Number of correlation extracted", side = 1, line = 2.5, at = 0,
         cex = 0.8)
-  plotgrowth(GCi[["Aarea"]], "e) Aarea")
+  plotgrowth(GCi[["Aarea"]], expression("e) A"[area]))
   mtext("Number of correlation extracted", side = 1, line = 2.5, at = 0,
         cex = 0.8)
 
@@ -478,7 +478,7 @@ figure_A9 <- function(GIi) {
     y = -1, label = paste("p.value =", round(PVAL_WD, 3), "ns"), size = 2)
 
 
-  funnel_Hmax_year <- my_funnelplot("c) Hmax", ggplot(GIi[["Hmax"]], aes(x = year,
+  funnel_Hmax_year <- my_funnelplot(expression("c) H"[max]), ggplot(GIi[["Hmax"]], aes(x = year,
     y = corr.r, colour = factor(stage), size = 2, alpha = 0.6))) + geom_point() +
     scale_y_continuous("Correlation coefficient r", limits = c(-1, 1)) + scale_x_continuous("",
     limits = c(1990, 2015)) + theme(legend.position = "none") + annotate("text",
@@ -496,7 +496,7 @@ figure_A9 <- function(GIi) {
     round(PVAL_Seedmass, 3), "**"), size = 2)
 
 
-  funnel_Aarea_year <- my_funnelplot("e) Aarea", ggplot(GIi[["Aarea"]], aes(x = year,
+  funnel_Aarea_year <- my_funnelplot(expression("e) A"[area]), ggplot(GIi[["Aarea"]], aes(x = year,
     y = corr.r, colour = factor(stage), size = 2, alpha = 0.6))) + geom_point() +
     scale_alpha(guide = "none") + scale_size(guide = "none") + scale_y_continuous("Correlation coefficient  r",
     limits = c(-1, 1)) + scale_x_continuous("Year of publication", limits = c(1990,
@@ -524,7 +524,7 @@ figure_graphical_abstract <-  function(GIi, GIrgr, GIagr) {
   SLA <- table_trait("SLA")
   WD <- table_trait("WD")
  
-  p1 <- my_plot_overall(SLA, title = "a) SLA", size=3) 
+  p1 <- my_plot_overall(SLA, title = "a) SLA", size=3, name.xlab ="Coefficient of correlation r (+SD) between trait and growth") 
 
   
   p1 <- p1 + theme(plot.margin  = unit(c(2.5, 2, 1.5, 0), "mm"), legend.position= "none")
