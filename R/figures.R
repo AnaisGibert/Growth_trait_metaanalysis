@@ -5,7 +5,7 @@ figure_1 <- function(RawData) {
     p <- ggobj + geom_bar(alpha = 0.95) + coord_cartesian(ylim = ylim) + coord_flip() +
       labs(title = title) + xlab(xlab) + ylab(ylab) + theme(text = element_text(size = 9),
         axis.text.x = element_text(size = 9, angle = 0, vjust = 1)) + 
-      theme(axis.title = element_text(size = 10, hjust = 0.5)) + scale_fill_manual(values = c(seedling = "#D5C9B1",
+      theme(axis.title = element_text(size = 10, hjust = 0.5)) + scale_fill_manual(values = c(seedling = "#d2bf99",
         sapling = "#805A3B", adult = "#C60000"), breaks = c("seedling", "sapling",
           "adult"), labels = c("seedling", "sapling", "adult")) +
       scale_x_discrete(labels=c("SLA" = "SLA", "LAR" = "LAR", "WD" ="Wood density", "NARarea" = expression("NAR"[area]),"LMR" ="LMR", "Seedmass" ="Seed mass", "Aarea" = expression("A"[area]), "Hmax" =expression("H"[max]), "Nmass" = expression("N"[mass]), "Amass" = expression("A"[mass]), "Pmass" = expression("P"[mass]), "NARmass" = expression("NAR"[mass]), "Ks" ="Ks", "LA" = "Leaf area", "Narea" = expression("N"[area]), "Vessel size" = "Vessel size", "Thickness"="Thickness", "SA/LA" ="SA/LA", "Vessel density"= "Vessel density")) + mytheme()
@@ -67,17 +67,17 @@ figure_2 <- function(CompleteData_inter) {
     data <- data[order(data$size.max, data$size.min), ]
     data["growthf"] <- -0.02
 
-
+    
     
     n <- nrow(data)
     y <- rev(seq_len(n))
-    cols <- c( "#D5C9B1", "orange", "#805A3B", "#C60000", "black")[data$stageRGR]
+    cols <- c( "#d2bf99", "orange", "#805A3B", "#C60000", "black")[data$stageRGR]
     plot(NA, xlim = c(0, 3), ylim = c(0, n+1), yaxt = "n", xaxt = "n", xlab = "",
       ylab = "", yaxs="i")
     mtext(xlab, 1, line = 2, cex = 0.75)
-    segments(data$size.min, y, data$size.max, col = cols)
+    segments(data$size.min, y, data$size.max, col = cols, lwd=1.5)
     i <- data$size.max == data$size.min
-    points(data$size.min[i], y[i], col = cols[i], pch = "-")
+    points(data$size.min[i], y[i], col = cols[i], pch = "-", cex=1.5)
 
     j <- data$stageRGR != data$stage
     points(data$size.max[j] + 0.05, y[j], col = "black", pch = "*", cex=1.5)
@@ -92,7 +92,7 @@ figure_2 <- function(CompleteData_inter) {
 
   plotCI2(sa, c(0, 1, 5, 10), "Age (yrs)", "a)")
   legend(2.3, 42, c("seedling", "juvenile", "sapling", "adult", "mix"), lwd = 1,  title = "Original stage:",
-    col = c("#D5C9B1", "orange", "#805A3B", "#C60000", "black"), pch = NA, bty = "n", cex = 0.75,
+    col = c("#d2bf99", "orange", "#805A3B", "#C60000", "black"), pch = NA, bty = "n", cex = 0.75,
    x.intersp = 0.3, y.intersp = 1, seg.len = 0.5,  title.adj = 0)
   legend(2.3, 32, c("reassigned"), lwd = NA, col = "black",
     pch = c( "*"), title = "Flag:", bty = "n", cex = 0.75,
