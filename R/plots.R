@@ -98,57 +98,58 @@ figure_panels_traits_model <- function(fits, ...) {
 }
 
 
+## Plot Appendix:
+## in Figure A3
 my_plot_corr.r <- function(data1, title = "", xlab = "Case studies ranked by coefficient of correlation r") {
-
+  
   my_funnelplot2 <- function(title, ggobj, xlab = "", ylab = "Stage") {
-
+    
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + guides(fill = guide_legend(reverse = TRUE)) +
       mytheme() + scale_y_continuous("Correlation coefficient r", limits = c(-1,
-      1)) + scale_colour_manual(limits = c("seedling", "sapling", "adult"),
-      values = c(seedling = "#D5C9B1", sapling = "#805A3B", adult = "#C60000"),
-      breaks = c("seedling", "sapling", "adult")) + geom_hline(yintercept = 0,
-      size = 0.3, linetype = "dashed") + theme(text = element_text(size = 9,
-      colour = "black"), title = element_text(size = 9, hjust = 0), axis.title = element_text(size = 9,
-      hjust = 0.5), axis.text.x = element_blank(), axis.text.y = element_text(size = 9),
-      axis.line.x = element_blank(), axis.ticks.x = element_blank(), plot.margin = unit(c(0,
-        0, 0, 0), "mm"))
+        1)) + scale_colour_manual(limits = c("seedling", "sapling", "adult"),
+          values = c(seedling = "#d2bf99", sapling = "#805A3B", adult = "#C60000"),
+          breaks = c("seedling", "sapling", "adult")) + geom_hline(yintercept = 0,
+            size = 0.3, linetype = "dashed") + theme(text = element_text(size = 9,
+              colour = "black"), title = element_text(size = 9, hjust = 0), axis.title = element_text(size = 9,
+                hjust = 0.5), axis.text.x = element_blank(), axis.text.y = element_text(size = 9),
+              axis.line.x = element_blank(), axis.ticks.x = element_blank(), plot.margin = unit(c(0,
+                0, 0, 0), "mm"))
     p
   }
-
+  
   my_funnelplot2(title, ggplot(data1, aes(x = reorder(id, corr.r), y = corr.r,
     colour = factor(stage)))) + geom_point(aes(size = wi.z), alpha = 0.7) +
     scale_size(guide = "none")
-
+  
 }
 
-
+## in Figure A4 and graphical abstract
 my_plot_overall <- function(data, title = "", name.xlab ="Coefficient of correlation r (+SD)", size=2) {
-
+  
   plot1 <- function(title, ggobj,  xlab = "Effect size", ylab = "Stage") {
-
+    
     p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + geom_vline(xintercept = 0,
       color = "white") + geom_hline(yintercept = 0, size = 0.3, linetype = "dashed") +
       geom_vline(xintercept = 3.5, size = 0.3, linetype = "dashed") + scale_x_discrete(ylab,
-      limit = c("seedling", "sapling", "adult", "total")) + coord_flip() +
+        limit = c("seedling", "sapling", "adult", "total")) + coord_flip() +
       mytheme()
     p
   }
-
+  
   data["x.coord"] <- max(data$corr.r + data$SD)
-
+  
   plot1(title,
     ggplot(data, aes(stage, corr.r, ymin = corr.r - SD, ymax = corr.r + SD, colour=stage))) +
     geom_point(aes(x = stage, y = corr.r), size=size) +
     geom_errorbar(aes(x = stage,y = corr.r), width = 0) +
     geom_text(aes(stage, 0.8, label = paste("n=",freq)), size = 2, data = data, parse = F, position = "identity", vjust = 0.2, hjust = 0)+
     scale_y_continuous(name.xlab, limits = c(-1, 1)) +
-    scale_colour_manual(values = c(seedling = "#D5C9B1", sapling = "#805A3B", adult = "#C60000", total ="black"), breaks = c("seedling", "sapling",
+    scale_colour_manual(values = c(seedling = "#d2bf99", sapling = "#805A3B", adult = "#C60000", total ="black"), breaks = c("seedling", "sapling",
       "adult", "total"), labels = c("seedling", "sapling", "adult", "total")
     )
 }
 
-
-## Plot Appendix:
+## in Figure A6
 coeff.plot.multiple3 <- function(data, params, labels = NA, xlab = "Effect size (z) +CI 95%",
   title = "") {
   fun_List_N <- function(data) {
@@ -206,7 +207,7 @@ coeff.plot.multiple3 <- function(data, params, labels = NA, xlab = "Effect size 
   List_N <- fun_List_N(data)
 
   # creation du plot
-  dat <- fun_model_multiple3(data)
+  dat <- fun_models(data)
   dat <- dat[match(params, dat$params), ]  # je mets dans dat la liste des parametres qui matche les parametres indique danq ma fonction coefplot
   if (is.null(labels))
     labels <- dat$params  #si labels=NULL dans ma fonction coefplot alors les labels sont ceux du tableau de donnee
@@ -282,7 +283,7 @@ coeff.plot.multiple3.1 <- function(data, params, labels = NA, xlab = "Effect siz
   List_N <- fun_List_N(data)
 
   # creation du plot
-  dat <- fun_model_multiple3.1(data)
+  dat <- fun_models_Hmax(data)
   dat <- dat[match(params, dat$params), ]
   # je mets dans dat la liste des parametres qui matche les parametres indique
   # danq ma fonction coefplot
@@ -312,16 +313,16 @@ coeff.plot.multiple3.1 <- function(data, params, labels = NA, xlab = "Effect siz
   mtext(title, side = 3, line = 0.5, cex = 0.9, at = 0.5)
 }
 
-
+## in Figure A9
 my_funnelplot <- function(title, ggobj, xlab = "", ylab = "") {
   p <- ggobj + labs(title = title) + xlab(xlab) + ylab(ylab) + mytheme() + scale_color_manual(name = "Stage",
     limits = c("seedling", "sapling", "adult"), breaks = c("seedling", "sapling",
-      "adult"), values = c(seedling = "#D5C9B1",sapling = "#805A3B", adult = "#C60000")) +
+      "adult"), values = c(seedling = "#d2bf99",sapling = "#805A3B", adult = "#C60000")) +
     geom_hline(yintercept = 0, color = "grey")
   p
 }
 
-
+## in Figure A7
 figure_trim.and.fill <- function(x, title) {
   res <- rma(corr.z, vr.z, data = x[!is.na(x$corr.z) & !is.na(x$vr.z), ])
   ### carry out trim-and-fill analysis

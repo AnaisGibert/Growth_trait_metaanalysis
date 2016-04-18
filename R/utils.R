@@ -100,3 +100,14 @@ default_lmer_control <- function() {
     check.nobs.vs.nRE = "ignore")
 }
 
+default_lmer_control.b <- function() {
+  # Ignore warnings when we have fewer observations than levels
+  lmerControl(check.nobs.vs.nlev = "ignore", 
+    check.nobs.vs.rankZ = "ignore",
+    check.nobs.vs.nRE = "ignore", 
+    optimizer = "bobyqa", 
+    check.conv.grad = .makeCC("ignore",
+    tol = 0.002, relTol = NULL), 
+    check.conv.singular = .makeCC(action = "ignore", tol = 1e-04), 
+    check.conv.hess = .makeCC(action = "ignore", tol = 1e-06))
+}

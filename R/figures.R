@@ -112,9 +112,9 @@ figure_3 <- function(GIrgr , GCrgr) {
 
   fit_model <- function(trait, GIrgr , GCrgr) {
     ret <- list()
-    ret[["model"]] <- fun_model1(GIrgr[[trait]],GCrgr[[trait]])$coef
-    ret[["LRT"]] <- fun_model1(GIrgr[[trait]],GCrgr[[trait]])$LRT
-    ret[["PVAL"]] <- fun_model1(GIrgr[[trait]],GCrgr[[trait]])$PVAL
+    ret[["model"]] <- fun_model_stage_RGR(GIrgr[[trait]],GCrgr[[trait]])$coef
+    ret[["LRT"]] <- fun_model_stage_RGR(GIrgr[[trait]],GCrgr[[trait]])$LRT
+    ret[["PVAL"]] <- fun_model_stage_RGR(GIrgr[[trait]],GCrgr[[trait]])$PVAL
     ret
   }
 
@@ -129,7 +129,7 @@ figure_4 <- function(GCi) {
 
   fit_model <- function(trait, GCi) {
     ret <- list()
-    fit <- fun_model_growth(GCi[[trait]])
+    fit <- fun_model_stage_GR(GCi[[trait]])
     ret[["model"]] <- fit[["CoefModel"]]
     ret[["LRT"]] <- fit[["LRT"]]
     ret[["PVAL"]] <- fit[["PVAL"]]
@@ -150,6 +150,7 @@ download_baad <- function(destination_filename) {
 }
 
 ## Figure appendix
+## Fig S1
 figure_A1 <- function(baad) {
 
   single_plot <- function(px, py, data) {
@@ -184,6 +185,7 @@ figure_A1 <- function(baad) {
   single_plot(pars[["dia"]], pars[["ht"]], data)
 }
 
+## Fig S5
 figure_A2 <- function(CoordTable) {
 
   mapWorld <- borders("world", colour = "#FFCC33", fill = "#FFCC33", lty = 0)  # create a layer of borders
@@ -201,6 +203,7 @@ figure_A2 <- function(CoordTable) {
   coordinate.map
 }
 
+## Fig S6
 figure_A3 <- function(GC) {
   GC[["SLA"]] <- GC[["SLA"]][!is.na(GC[["SLA"]][, "corr.r"]), ]
   GC[["WD"]] <- GC[["WD"]][!is.na(GC[["WD"]][, "corr.r"]), ]
@@ -226,10 +229,11 @@ figure_A3 <- function(GC) {
   grid.arrange(p1, p2, p3, p4, p5, ncol = 2, nrow = 3, widths = c(1.1, 1))
 }
 
+## Fig S3
 figure_A4 <- function(GIi, GIrgr, GIagr) {
 
   table_trait <- function(trait) {
-    rbind(table_overall(GIi[[trait]]), table_overall.stage(GIi[[trait]]))
+    rbind(table_average_corr(GIi[[trait]]), table_average_corr.stage(GIi[[trait]]))
   }
 
   SLA <- table_trait("SLA")
@@ -258,6 +262,7 @@ figure_A4 <- function(GIi, GIrgr, GIagr) {
   })
 }
 
+## Fig S9
 figure_A5 <- function(RIi, RCi) {
 
   fit_model <- function(trait, RIi , RCi) {
@@ -280,6 +285,7 @@ figure_A5 <- function(RIi, RCi) {
       category_variable = "stress")
 }
 
+## Fig S2
 figure_A6 <- function(GC, trait1, trait2, titles) {
   par(mfcol = c(1, 2))
   par(mar = c(2, 5, 2, 0))
@@ -308,6 +314,7 @@ figure_A6 <- function(GC, trait1, trait2, titles) {
     title = paste0(titles[2], ") ", trait2))
 }
 
+## Fig S2.2
 figure_A6.2 <- function(GC, trait1, titles) {
   par(mfcol = c(1, 2))
   par(mar = c(2, 5, 2, 0))
@@ -327,6 +334,7 @@ figure_A6.2 <- function(GC, trait1, titles) {
   mtext("mod1", side = 2, line = 4.2, cex = 0.8, at = 15.2)
 }
 
+## Fig S7
 figure_A7 <- function(GIi) {
   par(mfrow = c(3, 2))
   par(mar = c(5, 4, 1, 2))
@@ -338,6 +346,7 @@ figure_A7 <- function(GIi) {
   p5 <- figure_trim.and.fill(GIi[["Aarea"]], title = expression("e) A"[area]))
 }
 
+## Fig S4
 figure_A8 <- function(GCi) {
 
   plotgrowth <- function(data, title) {
@@ -358,14 +367,14 @@ figure_A8 <- function(GCi) {
     n <- max(a, a1)
 
     par(mar = c(4, 4, 2.5, 0))
-    barplot(counts1, xlim = c(0, n + 5), xlab = "", col = c("#D5C9B1", "orange", "#805A3B", "#C60000"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8,tck=0.02)
+    barplot(counts1, xlim = c(0, n + 5), xlab = "", col = c("#d2bf99", "orange", "#805A3B", "#C60000"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8,tck=0.02)
     axis(2, at = 1:3, labels = c("seedling", "sapling", "adult"), las = 1,
       cex.axis = 1,tck=0.01)
     mtext("AGR", side = 3, line = 0, cex = 0.8)
     mtext(title, side = 3, line = 1, at = max(n+5))
 
     par(mar = c(4, 0.5, 2.5, 3.5))
-    barplot(counts, xlim = c(0, n + 5), xlab = "", col = c("#D5C9B1", "orange", "#805A3B", "#C60000"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8,tck=0.02)
+    barplot(counts, xlim = c(0, n + 5), xlab = "", col = c("#d2bf99", "orange", "#805A3B", "#C60000"), horiz = TRUE, border = NA, yaxt = "n", cex.axis = 0.8,tck=0.02)
     abline(v = 0, col = "black")
     mtext("RGR", side = 3, line = 0, cex = 0.8)
   }
@@ -384,9 +393,10 @@ figure_A8 <- function(GCi) {
   plot(1, type = "n", axes = F, xlab = "", ylab = "", bty = "n", xaxt = "n",
     yaxt = "n")
   legend("topright", c("mass", "diameter", "height", "other (volume, etc.)"),
-    fill = c("#D5C9B1", "orange", "#805A3B", "#C60000"), border = c("#D5C9B1", "orange", "#805A3B", "#C60000"), col = c("#D5C9B1", "orange", "#805A3B", "#C60000"), bty = "n")
+    fill = c("#d2bf99", "orange", "#805A3B", "#C60000"), border = c("#d2bf99", "orange", "#805A3B", "#C60000"), col = c("#d2bf99", "orange", "#805A3B", "#C60000"), bty = "n")
 }
 
+## Fig S8
 figure_A9 <- function(GIi) {
 
   LRT_SLA <- fun_OneLR_year(GIi[["SLA"]])
@@ -456,12 +466,10 @@ figure_A9 <- function(GIi) {
   })
 }
 
-
-
 figure_graphical_abstract <-  function(GIi, GIrgr, GIagr) {
   
   table_trait <- function(trait) {
-    rbind(table_overall(GIi[[trait]]), table_overall.stage(GIi[[trait]]))
+    rbind(table_average_corr(GIi[[trait]]), table_average_corr.stage(GIi[[trait]]))
   }
   
   SLA <- table_trait("SLA")

@@ -1,5 +1,8 @@
-# figure_3
-fun_model1 <- function(x, y) {
+##-- used in figure_3
+## this function corresponds to a mix model and gives the effects size of 
+## the correlation between trait and growth across stages for both
+## the conservative and the entire dataset
+fun_model_stage_RGR <- function(x, y) {
   
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE,
     control = default_lmer_control())  # modele null cad sans la variable que je veux analyser
@@ -79,7 +82,7 @@ fun_model1 <- function(x, y) {
   N <- data.frame(value = c(fun2(x), fun5(x), fun3(x), fun2(y), fun5(y), fun3(y)))
   
   CoefModel["N"] <- "NA"
-  # CoefModel['N'] <- N[!(apply(N, 1, function(s) any(s == 0))),]
+
   CoefModel$N[CoefModel$stage == "seedling" & CoefModel$growth == "RGR"] <- fun2(x)
   CoefModel$N[CoefModel$stage == "seedling" & CoefModel$growth == "AGR"] <- fun2(y)
   
@@ -89,27 +92,24 @@ fun_model1 <- function(x, y) {
   CoefModel$N[CoefModel$stage == "adult" & CoefModel$growth == "RGR"] <- fun3(x)
   CoefModel$N[CoefModel$stage == "adult" & CoefModel$growth == "AGR"] <- fun3(y)
   
-  #   CoefModel$growth <- as.factor(CoefModel$growth)
-  #   CoefModel$growth <- factor(CoefModel$growth, levels = rev(levels(CoefModel$growth)))
-  
+
    list(coef= CoefModel, LRT = av$Chisq[2], PVAL = av$Pr[2])
 }
 
-# figure_4
-fun_model_growth <- function(x) {
+##-- used in figure_4
+## this function corresponds to a mix model and gives the effects size of
+## the correlation between trait and growth across stages 
+## and growth rates (RGR vs AGR)
+fun_model_stage_GR <- function(x) {
   x[["stagegrowth"]] <- NA
   x$stagegrowth <- do.call(paste, c(x[c("stage", "growth")], sep = "")) 
   
-  # models for x ('ideal' dataset) and y ('complete' datatset)
   null <- lmer(corr.z ~ stage + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore"))  # modele null cad sans la variable que je veux analyser
+    control = default_lmer_control())  
   m <- lmer(corr.z ~ stagegrowth + (1 | id), data = x, weights = nb.sp, REML = FALSE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore"))  # model avec la variable
+    control = default_lmer_control()) 
   m1 <- lmer(corr.z ~ stagegrowth  - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore"))  # model avec les intercepts qui sont a 1
+    control = default_lmer_control())  
   
   summ.m <- summary(m)
   
@@ -180,8 +180,29 @@ fun_model_growth <- function(x) {
   model.table
 }
 
-# FigA4
-table_overall.stage <- function(y) {
+## ----- Appendix:
+##-- used in FigA4 (S3 in the ms)
+#### this function average the coefficient of correlation between trait and 
+## growth across all studies
+table_average_corr <- function(y) {
+  name <- list(1:1, c("stage", "corr.r", "CI", "SD", "freq"))
+  y <- y[!is.na(y[, "corr.r"]), ]
+  MeanTab <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]),
+    dimnames = name))
+  MeanTab[, 1] <- "total"
+  MeanTab$corr.r <- wtd.mean(y$corr.r, y$nb.sp)
+  MeanTab$SD <- sqrt(wtd.var(y$corr.r, y$nb.sp))
+  MeanTab$CI <- 1.96 * (sqrt(wtd.var(y$corr.r, y$nb.sp))/sqrt(length(y)))
+  n <- count(y, "stage")
+  MeanTab$freq <- sum(n$freq)
+  MeanTab$freq <- as.character(MeanTab$freq)
+  as.data.frame(MeanTab)
+  
+}
+
+## this function average the coefficient of correlation between trait and 
+## growth by plant stages
+table_average_corr.stage <- function(y) {
   name <- list(1:3, c("stage", "corr.r", "SD", "CI"))
   MeanTab <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]),
     dimnames = name))
@@ -204,41 +225,23 @@ table_overall.stage <- function(y) {
 
 }
 
-# FigA4
-table_overall <- function(y) {
-  name <- list(1:1, c("stage", "corr.r", "CI", "SD", "freq"))
-  y <- y[!is.na(y[, "corr.r"]), ]
-  MeanTab <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]),
-    dimnames = name))
-  MeanTab[, 1] <- "total"
-  MeanTab$corr.r <- wtd.mean(y$corr.r, y$nb.sp)
-  MeanTab$SD <- sqrt(wtd.var(y$corr.r, y$nb.sp))
-  MeanTab$CI <- 1.96 * (sqrt(wtd.var(y$corr.r, y$nb.sp))/sqrt(length(y)))
-  n <- count(y, "stage")
-  MeanTab$freq <- sum(n$freq)
-  MeanTab$freq <- as.character(MeanTab$freq)
-  as.data.frame(MeanTab)
 
-}
-
-# FigA5
+##-- used in FigA5 (S9 in the ms)
+## this function corresponds to a mix model, and gives the effect size of the
+## correlation in the case of multiple comparisons within a study, 
+## effect sizes were calculated using the mean correlation coefficient
+## by trait and by study.
 fun_model <- function(x, y) {
-  # models for x ('ideal' dataset) and y ('complete' datatset)
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore"))  # modele null cad sans la variable que je veux analyser
+    control = default_lmer_control())  
   m1 <- lmer(corr.z ~ stage - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore"))  # model avec les intercepts qui sont a 1
+    control = default_lmer_control()) 
   
   null.s <- lmer(corr.z ~ 1 + (1 | id), data = y, weights = nb.sp, REML = TRUE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore"))  # idem mais pour le jeux y
+    control = default_lmer_control()) 
   m1.s <- lmer(corr.z ~ stage - 1 + (1 | id), data = y, weights = nb.sp, REML = TRUE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore"))
-  # summ.m <- summary(m)
-  
+    control = default_lmer_control())
+
   # extraction intercept of fixed parameters
   FP <- as.data.frame(fixef(m1))
   FP["stage"] <- "NA"
@@ -300,7 +303,6 @@ fun_model <- function(x, y) {
   N <- data.frame(value = c(fun2(x), fun5(x), fun3(x), fun2(y), fun5(y), fun3(y)))
   
   CoefModel["N"] <- "NA"
-  # CoefModel['N'] <- N[!(apply(N, 1, function(s) any(s == 0))),]
   CoefModel$N[CoefModel$stage == "seedling" & CoefModel$stress == "ideal"] <- fun2(x)
   CoefModel$N[CoefModel$stage == "seedling" & CoefModel$stress == "complete"] <- fun2(y)
   
@@ -313,51 +315,38 @@ fun_model <- function(x, y) {
   CoefModel
 }
 
-# FigA6
-fun_model_multiple3 <- function(x) {
+##-- used in FigA6 (S2 in the ms)
+## this function corresponds to several mix model, and gives the effect size of the
+## correlation between trait and grwoth across vegetation types, growth form, growth rate,
+## experiment types
+fun_models<- function(x) {
   # x data en opt
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-          tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))  # modele null cad sans la variable que je veux analyser
+    control = default_lmer_control.b())  # modele null cad sans la variable que je veux analyser
   m1 <- lmer(corr.z ~ stageRGR - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-          tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))  # model avec les intercepts qui sont a 1
+    control = default_lmer_control.b())  # model avec les intercepts qui sont a 1
   gr1 <- lmer(corr.z ~ RGR - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-          tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control.b())
   veg1 <- lmer(corr.z ~ growth.form - 1 + (1 | id), data = x, weights = nb.sp,
-    REML = TRUE, control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-          tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    REML = TRUE, control = default_lmer_control.b())
   exp1 <- lmer(corr.z ~ experiment - 1 + (1 | id), data = x, weights = nb.sp,
-    REML = TRUE, control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-          tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    REML = TRUE, control = default_lmer_control.b())
   
   a <- list(m1, gr1, veg1, exp1)
   
-  ## extraction des valeurs du modeles
+
   fun_FE <- function(z) {
     fixef(z)
-  }  #fixef permet de extraire les intercepts des effet fixes des modeles
+  }  
   fun_name <- function(z) {
     names(fun_FE(z))
-  }  #fixef permet de extraire les SE des modeles
+  }  
   fun_FixFE <- function(z) {
     sqrt(diag(vcov(z, useScale = FALSE)))
   }
   l <- (length(unlist(lapply(a, fun_FE))))
   
-  ## creation du tableau de donnes
-  name <- list(1:l, c("model", "params", "mean", "SE", "upper", "lower"))
+   name <- list(1:l, c("model", "params", "mean", "SE", "upper", "lower"))
   dat <- as.data.frame(matrix(nrow = length(name[[1]]), ncol = length(name[[2]]),
     dimnames = name))
   
@@ -380,29 +369,20 @@ fun_model_multiple3 <- function(x) {
   dat
 }
 
-## FigA6.2
-fun_model_multiple3.1 <- function(x) {
-  # x data en opt
+##-- used in FigA6 (S2 in the ms)
+## this function is similar to fun_models but without the vegetation types 
+## because there is not enought data available to run it for Hmax
+## experiment types
+fun_models_Hmax <- function(x) {
+
   null <- lmer(corr.z ~ 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-          tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))  # modele null cad sans la variable que je veux analyser
+    control = default_lmer_control.b())  # modele null cad sans la variable que je veux analyser
   m1 <- lmer(corr.z ~ stageRGR - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-          tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))  # model avec les intercepts qui sont a 1
+    control = default_lmer_control.b())  # model avec les intercepts qui sont a 1
   gr1 <- lmer(corr.z ~ RGR - 1 + (1 | id), data = x, weights = nb.sp, REML = TRUE,
-    control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-          tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    control = default_lmer_control.b())
   exp1 <- lmer(corr.z ~ experiment - 1 + (1 | id), data = x, weights = nb.sp,
-    REML = TRUE, control = lmerControl(check.nobs.vs.nlev = "ignore", check.nobs.vs.rankZ = "ignore",
-      check.nobs.vs.nRE = "ignore", optimizer = "bobyqa", check.conv.grad = .makeCC("ignore",
-        tol = 0.002, relTol = NULL), check.conv.singular = .makeCC(action = "ignore",
-          tol = 1e-04), check.conv.hess = .makeCC(action = "ignore", tol = 1e-06)))
+    REML = TRUE, control = default_lmer_control.b())
   
   a <- list(m1, gr1, exp1)
   
@@ -440,7 +420,7 @@ fun_model_multiple3.1 <- function(x) {
   dat
 }
 
-# Fig_A9
+# Fig_A5
 fit_lmer <- function(data, effect) {
 # Throws messages when there are less than 3 observations for each stage,
 # but we're fine with that
