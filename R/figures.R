@@ -77,10 +77,9 @@ figure_2 <- function(CompleteData_inter) {
     mtext(xlab, 1, line = 2, cex = 0.75)
     segments(data$size.min, y, data$size.max, col = cols, lwd=1.5)
     i <- data$size.max == data$size.min
-    points(data$size.min[i], y[i], col = cols[i], pch = "-", cex=1.5)
-
+    segments(data$size.min[i]-0.025, y[i], data$size.min[i]+0.025, col = cols[i], lwd=1.5)
     j <- data$stageRGR != data$stage
-    points(data$size.max[j] + 0.05, y[j], col = "black", pch = "*", cex=1.5)
+    points(data$size.max[j] + 0.075, y[j], col = "black", pch = "*", cex=1.5)
 
     axis(1, at = 0:3, labels = cuts, las = 1, tck=0.02)
     axis(2, at = y, labels = data$ref, las = 1, cex.axis = 0.6, tck=0.02)
