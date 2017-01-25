@@ -5,9 +5,9 @@ This repository contains all the code used in the manuscript:
 
 * Title: "On the link between functional traits and growth rate: meta-analysis shows effects change with plant size, as predicted"
 * Authors: Anais Gibert, Emma F. Gray, Mark Westoby,  Ian J. Wright, and Daniel S. Falster,
-* Year of publication: accepted
+* Year of publication: published
 * Journal: Journal of Ecology
-* doi:
+* doi: 10.1111/1365-2745.12594
 
 Synopsis of the study
 --------
