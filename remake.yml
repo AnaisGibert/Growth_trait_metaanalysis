@@ -1,5 +1,4 @@
 packages:
-  - callr
   - bibtex
   - metafor
   - grid
@@ -147,15 +146,21 @@ targets:
 
   ## Create restricted Dataset: coefficient of correlation are averaged by study
   ## and by trait
-  RCi:
+  RCi1:
     command:
       - EffectSizeSum(CompleteData_rgr)
-      - list_by_trait(.)
+
+  RCi:
+    command:
+      - list_by_trait(RCi1)
+
+  RIi1:
+    command:
+      - EffectSizeSum(IdealData_rgr)
 
   RIi:
     command:
-      - EffectSizeSum(IdealData_rgr)
-      - list_by_trait(.)
+      - list_by_trait(RIi1)
 
   ## Export compiled data
   output/data.csv:
